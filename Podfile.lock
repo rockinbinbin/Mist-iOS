@@ -16,6 +16,7 @@ PODS:
   - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
+  - CHTCollectionViewWaterfallLayout/Swift (0.9.4)
   - FBSDKCoreKit (4.12.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.12.0):
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - AWSLambda
   - AWSMobileAnalytics
   - AWSS3
+  - CHTCollectionViewWaterfallLayout/Swift
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -48,6 +50,7 @@ SPEC CHECKSUMS:
   AWSMobileAnalytics: 0242c2d0206dcf2231dbd0f62e15f0c61675d023
   AWSS3: 82159813c72679e1a049e9d0be40ad73ffdb2982
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  CHTCollectionViewWaterfallLayout: db74be9135826d285f45ff163fd090e57c99fc50
   FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
   FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
   FBSDKShareKit: df1491f064cffc8ebcc3fc8b71be94cc190c728e

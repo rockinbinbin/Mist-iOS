@@ -21,6 +21,9 @@ pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
 
+# Waterfall layout
+pod 'CHTCollectionViewWaterfallLayout/Swift'
+
 end
 
 target 'MistTests' do
