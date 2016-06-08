@@ -84,10 +84,30 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-Mist/AWSCognito.framework"
+  install_framework "Pods-Mist/AWSCore.framework"
+  install_framework "Pods-Mist/AWSDynamoDB.framework"
+  install_framework "Pods-Mist/AWSLambda.framework"
+  install_framework "Pods-Mist/AWSMobileAnalytics.framework"
+  install_framework "Pods-Mist/AWSS3.framework"
+  install_framework "Pods-Mist/Bolts.framework"
+  install_framework "Pods-Mist/FBSDKCoreKit.framework"
+  install_framework "Pods-Mist/FBSDKLoginKit.framework"
+  install_framework "Pods-Mist/FBSDKShareKit.framework"
   install_framework "Pods-Mist/Realm.framework"
   install_framework "Pods-Mist/RealmSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-Mist/AWSCognito.framework"
+  install_framework "Pods-Mist/AWSCore.framework"
+  install_framework "Pods-Mist/AWSDynamoDB.framework"
+  install_framework "Pods-Mist/AWSLambda.framework"
+  install_framework "Pods-Mist/AWSMobileAnalytics.framework"
+  install_framework "Pods-Mist/AWSS3.framework"
+  install_framework "Pods-Mist/Bolts.framework"
+  install_framework "Pods-Mist/FBSDKCoreKit.framework"
+  install_framework "Pods-Mist/FBSDKLoginKit.framework"
+  install_framework "Pods-Mist/FBSDKShareKit.framework"
   install_framework "Pods-Mist/Realm.framework"
   install_framework "Pods-Mist/RealmSwift.framework"
 fi

@@ -5,7 +5,21 @@ use_frameworks!
 
 target 'Mist' do
 
+# Realm
 pod 'RealmSwift'
+
+# AWS
+pod 'AWSCore'
+pod 'AWSDynamoDB'
+pod 'AWSLambda'
+pod 'AWSMobileAnalytics'
+pod 'AWSS3'
+pod 'AWSCognito'
+
+# Facebook
+pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
+pod 'FBSDKShareKit'
 
 end
 
