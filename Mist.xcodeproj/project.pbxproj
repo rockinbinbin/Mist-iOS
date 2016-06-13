@@ -7,259 +7,428 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		284A91581D0603B600BAD5CB /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A91571D0603B600BAD5CB /* Autolayout.swift */; };
-		28D496251D05FF51002FBDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D496241D05FF51002FBDE3 /* AppDelegate.swift */; };
-		28D496271D05FF51002FBDE3 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D496261D05FF51002FBDE3 /* FeedViewController.swift */; };
-		28D4962D1D05FF51002FBDE3 /* Mist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28D4962B1D05FF51002FBDE3 /* Mist.xcdatamodeld */; };
-		28D4962F1D05FF51002FBDE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28D4962E1D05FF51002FBDE3 /* Assets.xcassets */; };
-		28D496321D05FF51002FBDE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D496301D05FF51002FBDE3 /* LaunchScreen.storyboard */; };
-		28D4963D1D05FF52002FBDE3 /* MistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D4963C1D05FF52002FBDE3 /* MistTests.swift */; };
-		28D496481D05FF52002FBDE3 /* MistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D496471D05FF52002FBDE3 /* MistUITests.swift */; };
-		930760152996D0838607B4F7 /* Pods_Mist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CD918FD952BBCFEC44F973 /* Pods_Mist.framework */; };
+		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
+		E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */; };
+		E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */; };
+		E7A30F04069CD88800000000 /* AWSCognito.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A30F04069CD88800000001 /* AWSCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; };
+		E7A30F040C3E00B900000000 /* UserFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E297003936900000000 /* UserFilesViewController.swift */; };
+		E7A30F040CE1BAD300000000 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */; };
+		E7A30F040E88B56500000000 /* ColorThemeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E294FBD49E500000000 /* ColorThemeSettings.swift */; };
+		E7A30F04110D41A900000000 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29A4DFE84400000000 /* CoreMotion.framework */; };
+		E7A30F041462FD3900000000 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29D18D380200000000 /* Product.swift */; };
+		E7A30F0416AC0CC200000000 /* ProductTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F44EBD2600000000 /* ProductTable.swift */; };
+		E7A30F041E31B17600000000 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29ED7BB58200000000 /* SafariServices.framework */; };
+		E7A30F04248B9A2A00000000 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29AA7E099700000000 /* libz.tbd */; };
+		E7A30F0425158CD400000000 /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2907AEB9FA00000000 /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A30F0425158CD400000001 /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2907AEB9FA00000000 /* AWSCore.framework */; };
+		E7A30F0426CBAFF500000000 /* NoSQLSampleDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29C448F5F000000000 /* NoSQLSampleDataGenerator.swift */; };
+		E7A30F0427DFF7C100000000 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29C895294800000000 /* MediaPlayer.framework */; };
+		E7A30F042EEEC86A00000000 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2984B1C33F00000000 /* FBSDKCoreKit.framework */; };
+		E7A30F043B36BBA600000000 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29E4A7F81E00000000 /* Security.framework */; };
+		E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E297094894000000000 /* AppAnalyticsViewController.swift */; };
+		E7A30F044F52D66900000000 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */; };
+		E7A30F0459BCD27200000000 /* UserFiles.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E293A7F695500000000 /* UserFiles.storyboard */; };
+		E7A30F045DE0ADEC00000000 /* AppAnalytics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29C2A5359E00000000 /* AppAnalytics.storyboard */; };
+		E7A30F0466AC0BE400000000 /* NoSQLModelHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2934DA1C6E00000000 /* NoSQLModelHelpers.swift */; };
+		E7A30F0467B97E0100000000 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29C558691B00000000 /* FBSDKLoginKit.framework */; };
+		E7A30F046FE954E000000000 /* UserDataStorage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E294639179700000000 /* UserDataStorage.storyboard */; };
+		E7A30F04778FC87400000000 /* NoSQLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E292C65795000000000 /* NoSQLTableViewController.swift */; };
+		E7A30F047BEE0B2C00000000 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29A614261200000000 /* AssetsLibrary.framework */; };
+		E7A30F048174019800000000 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29D03F05A400000000 /* SystemConfiguration.framework */; };
+		E7A30F0484B0394C00000000 /* NoSQLDatabase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29E66E287000000000 /* NoSQLDatabase.storyboard */; };
+		E7A30F049ED35F4100000000 /* AWSMobileHubHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E299881287B00000000 /* AWSMobileHubHelper.framework */; };
+		E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2993F8E24500000000 /* UtilityFunctions.swift */; };
+		E7A30F04A19A6AD700000000 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2928E6FC9C00000000 /* CFNetwork.framework */; };
+		E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29E565EB9200000000 /* NoSQLQueryResultViewController.swift */; };
+		E7A30F04A6D84F5700000000 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E293956451E00000000 /* UIKit.framework */; };
+		E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29619023EE00000000 /* NoSQLTableFactory.swift */; };
+		E7A30F04A8FF72A500000000 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2989104E9800000000 /* AddressBook.framework */; };
+		E7A30F04B38C64E900000000 /* CloudLogicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29510496C400000000 /* CloudLogicViewController.swift */; };
+		E7A30F04B6029D4000000000 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29F03D3A8D00000000 /* libsqlite3.tbd */; };
+		E7A30F04B86D7FD600000000 /* AWSLambda.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2969A78C6A00000000 /* AWSLambda.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A30F04B86D7FD600000001 /* AWSLambda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2969A78C6A00000000 /* AWSLambda.framework */; };
+		E7A30F04BB01BF6E00000000 /* NoSQLTableListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29CFD33C3400000000 /* NoSQLTableListViewController.swift */; };
+		E7A30F04BF31BA1900000000 /* DemoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E290B65689400000000 /* DemoFeature.swift */; };
+		E7A30F04D93B809500000000 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2900565FF900000000 /* UserSettingsViewController.swift */; };
+		E7A30F04DBA20E1D00000000 /* UserDataStorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E296A3CCF6700000000 /* UserDataStorageViewController.swift */; };
+		E7A30F04DBC9AC6C00000000 /* CloudLogic.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29E3DB239A00000000 /* CloudLogic.storyboard */; };
+		E7A30F04DC281B3300000000 /* ContentDelivery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29B627592A00000000 /* ContentDelivery.storyboard */; };
+		E7A30F04DF1D168800000000 /* UserSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29A1C93AC500000000 /* UserSettings.storyboard */; };
+		E7A30F04E0B7E5D800000000 /* UserIdentity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29AA17D79A00000000 /* UserIdentity.storyboard */; };
+		E7A30F04E28B987A00000000 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29EEFBACA800000000 /* Foundation.framework */; };
+		E7A30F04E90ADD4C00000000 /* AWSDynamoDB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29559AF03800000000 /* AWSDynamoDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A30F04E90ADD4C00000001 /* AWSDynamoDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29559AF03800000000 /* AWSDynamoDB.framework */; };
+		E7A30F04EA26C65700000000 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */; };
+		E7A30F04EE0EDBF400000000 /* AWSS3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2990DAA40800000000 /* AWSS3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A30F04EE0EDBF400000001 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2990DAA40800000000 /* AWSS3.framework */; };
+		E7A30F04EF95539200000000 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29187D829A00000000 /* Images.xcassets */; };
+		E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2971D262C400000000 /* UserIdentityViewController.swift */; };
+		E7A30F04FCAB0EFE00000000 /* AWSMobileAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E296366ACB200000000 /* AWSMobileAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A30F04FCAB0EFE00000001 /* AWSMobileAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E296366ACB200000000 /* AWSMobileAnalytics.framework */; };
+		E7A30F04FD4BB7D000000000 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29BB1CFAF600000000 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		28D496391D05FF52002FBDE3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 28D496191D05FF51002FBDE3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 28D496201D05FF51002FBDE3;
-			remoteInfo = Mist;
+/* Begin PBXCopyFilesBuildPhase section */
+		FAF5FAC90000000000000000 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E7A30F04069CD88800000000 /* AWSCognito.framework in Embed Frameworks */,
+				E7A30F04EE0EDBF400000000 /* AWSS3.framework in Embed Frameworks */,
+				E7A30F04E90ADD4C00000000 /* AWSDynamoDB.framework in Embed Frameworks */,
+				E7A30F04FCAB0EFE00000000 /* AWSMobileAnalytics.framework in Embed Frameworks */,
+				E7A30F0425158CD400000000 /* AWSCore.framework in Embed Frameworks */,
+				E7A30F04B86D7FD600000000 /* AWSLambda.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		28D496441D05FF52002FBDE3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 28D496191D05FF51002FBDE3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 28D496201D05FF51002FBDE3;
-			remoteInfo = Mist;
-		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		09CD918FD952BBCFEC44F973 /* Pods_Mist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A6771D94B5974C6A9B204FF /* Pods-Mist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.debug.xcconfig"; sourceTree = "<group>"; };
-		178D0BFE05DA0E012CD27437 /* Pods-Mist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.release.xcconfig"; sourceTree = "<group>"; };
-		284A91571D0603B600BAD5CB /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
-		28D496211D05FF51002FBDE3 /* Mist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mist.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		28D496241D05FF51002FBDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		28D496261D05FF51002FBDE3 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		28D4962C1D05FF51002FBDE3 /* Mist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mist.xcdatamodel; sourceTree = "<group>"; };
-		28D4962E1D05FF51002FBDE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		28D496311D05FF51002FBDE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		28D496331D05FF51002FBDE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28D496381D05FF52002FBDE3 /* MistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		28D4963C1D05FF52002FBDE3 /* MistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistTests.swift; sourceTree = "<group>"; };
-		28D4963E1D05FF52002FBDE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28D496431D05FF52002FBDE3 /* MistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		28D496471D05FF52002FBDE3 /* MistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistUITests.swift; sourceTree = "<group>"; };
-		28D496491D05FF52002FBDE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DD70E2900565FF900000000 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserSettingsViewController.swift; path = MySampleApp/Demo/UserSettings/UserSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E290339E4CF00000000 /* Mist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Mist.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DD70E2907AEB9FA00000000 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = MySampleApp/Sdk/Aws/AWSCore.framework; sourceTree = "<group>"; };
+		1DD70E290B65689400000000 /* DemoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DemoFeature.swift; path = MySampleApp/Demo/DemoFeature.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29187D829A00000000 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MySampleApp/App/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		1DD70E2928E6FC9C00000000 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1DD70E292C65795000000000 /* NoSQLTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoSQLTableViewController.swift; path = MySampleApp/Demo/NoSQL/NoSQLTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E2934DA1C6E00000000 /* NoSQLModelHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoSQLModelHelpers.swift; path = MySampleApp/Demo/NoSQL/NoSQLModelHelpers.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E293956451E00000000 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AWSMobileClient.swift; path = MySampleApp/AmazonAws/AWSMobileClient.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E293A7F695500000000 /* UserFiles.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserFiles.storyboard; path = MySampleApp/Demo/UserFiles/UserFiles.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E294639179700000000 /* UserDataStorage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserDataStorage.storyboard; path = MySampleApp/Demo/UserDataStorage/UserDataStorage.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E294FBD49E500000000 /* ColorThemeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorThemeSettings.swift; path = MySampleApp/Demo/UserSettings/ColorThemeSettings.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29510496C400000000 /* CloudLogicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CloudLogicViewController.swift; path = MySampleApp/Demo/CloudLogic/CloudLogicViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29559AF03800000000 /* AWSDynamoDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSDynamoDB.framework; path = MySampleApp/Sdk/Aws/AWSDynamoDB.framework; sourceTree = "<group>"; };
+		1DD70E295BA6B27900000000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = MySampleApp/App/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
+		1DD70E29619023EE00000000 /* NoSQLTableFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoSQLTableFactory.swift; path = MySampleApp/Demo/NoSQL/NoSQLTableFactory.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E296366ACB200000000 /* AWSMobileAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSMobileAnalytics.framework; path = MySampleApp/Sdk/Aws/AWSMobileAnalytics.framework; sourceTree = "<group>"; };
+		1DD70E2969A78C6A00000000 /* AWSLambda.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSLambda.framework; path = MySampleApp/Sdk/Aws/AWSLambda.framework; sourceTree = "<group>"; };
+		1DD70E296A3CCF6700000000 /* UserDataStorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDataStorageViewController.swift; path = MySampleApp/Demo/UserDataStorage/UserDataStorageViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E297003936900000000 /* UserFilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserFilesViewController.swift; path = MySampleApp/Demo/UserFiles/UserFilesViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E297094894000000000 /* AppAnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppAnalyticsViewController.swift; path = MySampleApp/Demo/AppAnalytics/AppAnalyticsViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E2971D262C400000000 /* UserIdentityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserIdentityViewController.swift; path = MySampleApp/Demo/UserIdentity/UserIdentityViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E2984B1C33F00000000 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = MySampleApp/Sdk/Facebook/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		1DD70E2989104E9800000000 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		1DD70E2990DAA40800000000 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = MySampleApp/Sdk/Aws/AWSS3.framework; sourceTree = "<group>"; };
+		1DD70E2993F8E24500000000 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UtilityFunctions.swift; path = MySampleApp/App/Utility/UtilityFunctions.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E299881287B00000000 /* AWSMobileHubHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSMobileHubHelper.framework; path = MySampleApp/AmazonAws/AWSMobileHubHelper.framework; sourceTree = "<group>"; };
+		1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "MySampleApp/App/Launch Screen.storyboard"; sourceTree = SOURCE_ROOT; };
+		1DD70E29A1C93AC500000000 /* UserSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserSettings.storyboard; path = MySampleApp/Demo/UserSettings/UserSettings.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E29A4DFE84400000000 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		1DD70E29A614261200000000 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		1DD70E29AA17D79A00000000 /* UserIdentity.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserIdentity.storyboard; path = MySampleApp/Demo/UserIdentity/UserIdentity.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E29AA7E099700000000 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1DD70E29B627592A00000000 /* ContentDelivery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ContentDelivery.storyboard; path = MySampleApp/Demo/ContentDelivery/ContentDelivery.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E29BB1CFAF600000000 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1DD70E29C2A5359E00000000 /* AppAnalytics.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = AppAnalytics.storyboard; path = MySampleApp/Demo/AppAnalytics/AppAnalytics.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E29C448F5F000000000 /* NoSQLSampleDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoSQLSampleDataGenerator.swift; path = MySampleApp/Demo/NoSQL/NoSQLSampleDataGenerator.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29C558691B00000000 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = MySampleApp/Sdk/Facebook/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		1DD70E29C895294800000000 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		1DD70E29CFD33C3400000000 /* NoSQLTableListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoSQLTableListViewController.swift; path = MySampleApp/Demo/NoSQL/NoSQLTableListViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29D03F05A400000000 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1DD70E29D18D380200000000 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Product.swift; path = MySampleApp/Demo/NoSQL/Product.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MySampleApp/App/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29DA8AD0C600000000 /* AWSCognito.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCognito.framework; path = MySampleApp/Sdk/Aws/extras/AWSCognito.framework; sourceTree = "<group>"; };
+		1DD70E29E3DB239A00000000 /* CloudLogic.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = CloudLogic.storyboard; path = MySampleApp/Demo/CloudLogic/CloudLogic.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E29E4A7F81E00000000 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1DD70E29E565EB9200000000 /* NoSQLQueryResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoSQLQueryResultViewController.swift; path = MySampleApp/Demo/NoSQL/NoSQLQueryResultViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29E66E287000000000 /* NoSQLDatabase.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = NoSQLDatabase.storyboard; path = MySampleApp/Demo/NoSQL/NoSQLDatabase.storyboard; sourceTree = SOURCE_ROOT; };
+		1DD70E29ED7BB58200000000 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		1DD70E29EEFBACA800000000 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1DD70E29F03D3A8D00000000 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentDeliveryViewController.swift; path = MySampleApp/Demo/ContentDelivery/ContentDeliveryViewController.swift; sourceTree = SOURCE_ROOT; };
+		1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = MySampleApp/Sdk/Facebook/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		1DD70E29F44EBD2600000000 /* ProductTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductTable.swift; path = MySampleApp/Demo/NoSQL/ProductTable.swift; sourceTree = SOURCE_ROOT; };
+		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		28D4961E1D05FF51002FBDE3 /* Frameworks */ = {
+		4F426D880000000000000000 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				930760152996D0838607B4F7 /* Pods_Mist.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		28D496351D05FF52002FBDE3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		28D496401D05FF52002FBDE3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				E7A30F040CE1BAD300000000 /* FBSDKShareKit.framework in Frameworks */,
+				E7A30F04069CD88800000001 /* AWSCognito.framework in Frameworks */,
+				E7A30F04EE0EDBF400000001 /* AWSS3.framework in Frameworks */,
+				E7A30F04E90ADD4C00000001 /* AWSDynamoDB.framework in Frameworks */,
+				E7A30F04FCAB0EFE00000001 /* AWSMobileAnalytics.framework in Frameworks */,
+				E7A30F0425158CD400000001 /* AWSCore.framework in Frameworks */,
+				E7A30F049ED35F4100000000 /* AWSMobileHubHelper.framework in Frameworks */,
+				E7A30F0467B97E0100000000 /* FBSDKLoginKit.framework in Frameworks */,
+				E7A30F04B86D7FD600000001 /* AWSLambda.framework in Frameworks */,
+				E7A30F042EEEC86A00000000 /* FBSDKCoreKit.framework in Frameworks */,
+				E7A30F04A6D84F5700000000 /* UIKit.framework in Frameworks */,
+				E7A30F048174019800000000 /* SystemConfiguration.framework in Frameworks */,
+				E7A30F043B36BBA600000000 /* Security.framework in Frameworks */,
+				E7A30F04A19A6AD700000000 /* CFNetwork.framework in Frameworks */,
+				E7A30F04248B9A2A00000000 /* libz.tbd in Frameworks */,
+				E7A30F04B6029D4000000000 /* libsqlite3.tbd in Frameworks */,
+				E7A30F04E28B987A00000000 /* Foundation.framework in Frameworks */,
+				E7A30F0427DFF7C100000000 /* MediaPlayer.framework in Frameworks */,
+				E7A30F04A8FF72A500000000 /* AddressBook.framework in Frameworks */,
+				E7A30F047BEE0B2C00000000 /* AssetsLibrary.framework in Frameworks */,
+				E7A30F04FD4BB7D000000000 /* CoreLocation.framework in Frameworks */,
+				E7A30F04110D41A900000000 /* CoreMotion.framework in Frameworks */,
+				E7A30F041E31B17600000000 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2835FE781D08A0AC0070E650 /* Supporting Files */ = {
+		B401C97945F7FF2E00000000 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				28D496331D05FF51002FBDE3 /* Info.plist */,
+				B401C979D1D97B3E00000000 /* AppAnalytics */,
+				B401C97998B23C9600000000 /* CloudLogic */,
+				B401C9794CC6395E00000000 /* ContentDelivery */,
+				1DD70E290B65689400000000 /* DemoFeature.swift */,
+				B401C9797F6A07DE00000000 /* NoSQL */,
+				B401C979CC8923A400000000 /* UserDataStorage */,
+				B401C97966E3656800000000 /* UserFiles */,
+				B401C97966755F9600000000 /* UserIdentity */,
+				B401C9797ECA5DE400000000 /* UserSettings */,
 			);
-			name = "Supporting Files";
+			name = Demo;
+			path = mysampleapp/demo;
 			sourceTree = "<group>";
 		};
-		2835FE791D08A0B90070E650 /* Resources */ = {
+		B401C9794CC6395E00000000 /* ContentDelivery */ = {
 			isa = PBXGroup;
 			children = (
-				28D4962E1D05FF51002FBDE3 /* Assets.xcassets */,
+				1DD70E29B627592A00000000 /* ContentDelivery.storyboard */,
+				1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */,
 			);
-			name = Resources;
+			name = ContentDelivery;
+			path = mysampleapp/demo/contentdelivery;
 			sourceTree = "<group>";
 		};
-		284A91561D06038300BAD5CB /* Utilities */ = {
+		B401C97966755F9600000000 /* UserIdentity */ = {
 			isa = PBXGroup;
 			children = (
-				284A91571D0603B600BAD5CB /* Autolayout.swift */,
+				1DD70E29AA17D79A00000000 /* UserIdentity.storyboard */,
+				1DD70E2971D262C400000000 /* UserIdentityViewController.swift */,
 			);
-			name = Utilities;
+			name = UserIdentity;
+			path = mysampleapp/demo/useridentity;
 			sourceTree = "<group>";
 		};
-		28D496181D05FF51002FBDE3 = {
+		B401C97966E3656800000000 /* UserFiles */ = {
 			isa = PBXGroup;
 			children = (
-				28D496231D05FF51002FBDE3 /* Mist */,
-				28D4963B1D05FF52002FBDE3 /* MistTests */,
-				28D496461D05FF52002FBDE3 /* MistUITests */,
-				28D496221D05FF51002FBDE3 /* Products */,
-				62BABCCDDDA60F8E38DE8323 /* Pods */,
-				73A60C353327FF49499D7EB4 /* Frameworks */,
+				1DD70E293A7F695500000000 /* UserFiles.storyboard */,
+				1DD70E297003936900000000 /* UserFilesViewController.swift */,
 			);
+			name = UserFiles;
+			path = mysampleapp/demo/userfiles;
 			sourceTree = "<group>";
 		};
-		28D496221D05FF51002FBDE3 /* Products */ = {
+		B401C9797ECA5DE400000000 /* UserSettings */ = {
 			isa = PBXGroup;
 			children = (
-				28D496211D05FF51002FBDE3 /* Mist.app */,
-				28D496381D05FF52002FBDE3 /* MistTests.xctest */,
-				28D496431D05FF52002FBDE3 /* MistUITests.xctest */,
+				1DD70E294FBD49E500000000 /* ColorThemeSettings.swift */,
+				1DD70E29A1C93AC500000000 /* UserSettings.storyboard */,
+				1DD70E2900565FF900000000 /* UserSettingsViewController.swift */,
+			);
+			name = UserSettings;
+			path = mysampleapp/demo/usersettings;
+			sourceTree = "<group>";
+		};
+		B401C9797F6A07DE00000000 /* NoSQL */ = {
+			isa = PBXGroup;
+			children = (
+				1DD70E29E66E287000000000 /* NoSQLDatabase.storyboard */,
+				1DD70E2934DA1C6E00000000 /* NoSQLModelHelpers.swift */,
+				1DD70E29E565EB9200000000 /* NoSQLQueryResultViewController.swift */,
+				1DD70E29C448F5F000000000 /* NoSQLSampleDataGenerator.swift */,
+				1DD70E29619023EE00000000 /* NoSQLTableFactory.swift */,
+				1DD70E29CFD33C3400000000 /* NoSQLTableListViewController.swift */,
+				1DD70E292C65795000000000 /* NoSQLTableViewController.swift */,
+				1DD70E29D18D380200000000 /* Product.swift */,
+				1DD70E29F44EBD2600000000 /* ProductTable.swift */,
+			);
+			name = NoSQL;
+			path = mysampleapp/demo/nosql;
+			sourceTree = "<group>";
+		};
+		B401C97998B23C9600000000 /* CloudLogic */ = {
+			isa = PBXGroup;
+			children = (
+				1DD70E29E3DB239A00000000 /* CloudLogic.storyboard */,
+				1DD70E29510496C400000000 /* CloudLogicViewController.swift */,
+			);
+			name = CloudLogic;
+			path = mysampleapp/demo/cloudlogic;
+			sourceTree = "<group>";
+		};
+		B401C979C74EB3BA00000000 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */,
+				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
+				1DD70E29187D829A00000000 /* Images.xcassets */,
+				1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */,
+				B401C979E91306BE00000000 /* Supporting Files */,
+				B401C979F19AADAE00000000 /* Utility */,
+			);
+			name = App;
+			path = mysampleapp/app;
+			sourceTree = "<group>";
+		};
+		B401C979C835E7A900000000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DD70E29DA8AD0C600000000 /* AWSCognito.framework */,
+				1DD70E2907AEB9FA00000000 /* AWSCore.framework */,
+				1DD70E29559AF03800000000 /* AWSDynamoDB.framework */,
+				1DD70E2969A78C6A00000000 /* AWSLambda.framework */,
+				1DD70E296366ACB200000000 /* AWSMobileAnalytics.framework */,
+				1DD70E299881287B00000000 /* AWSMobileHubHelper.framework */,
+				1DD70E2990DAA40800000000 /* AWSS3.framework */,
+				1DD70E2989104E9800000000 /* AddressBook.framework */,
+				1DD70E29A614261200000000 /* AssetsLibrary.framework */,
+				1DD70E2928E6FC9C00000000 /* CFNetwork.framework */,
+				1DD70E29BB1CFAF600000000 /* CoreLocation.framework */,
+				1DD70E29A4DFE84400000000 /* CoreMotion.framework */,
+				1DD70E2984B1C33F00000000 /* FBSDKCoreKit.framework */,
+				1DD70E29C558691B00000000 /* FBSDKLoginKit.framework */,
+				1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */,
+				1DD70E29EEFBACA800000000 /* Foundation.framework */,
+				1DD70E29C895294800000000 /* MediaPlayer.framework */,
+				1DD70E29ED7BB58200000000 /* SafariServices.framework */,
+				1DD70E29E4A7F81E00000000 /* Security.framework */,
+				1DD70E29D03F05A400000000 /* SystemConfiguration.framework */,
+				1DD70E293956451E00000000 /* UIKit.framework */,
+				1DD70E29F03D3A8D00000000 /* libsqlite3.tbd */,
+				1DD70E29AA7E099700000000 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B401C979C84EBA3C00000000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DD70E290339E4CF00000000 /* Mist.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		28D496231D05FF51002FBDE3 /* Mist */ = {
+		B401C979CC8923A400000000 /* UserDataStorage */ = {
 			isa = PBXGroup;
 			children = (
-				28D496241D05FF51002FBDE3 /* AppDelegate.swift */,
-				28D496261D05FF51002FBDE3 /* FeedViewController.swift */,
-				284A91561D06038300BAD5CB /* Utilities */,
-				2835FE781D08A0AC0070E650 /* Supporting Files */,
-				2835FE791D08A0B90070E650 /* Resources */,
-				28D496301D05FF51002FBDE3 /* LaunchScreen.storyboard */,
-				28D4962B1D05FF51002FBDE3 /* Mist.xcdatamodeld */,
+				1DD70E294639179700000000 /* UserDataStorage.storyboard */,
+				1DD70E296A3CCF6700000000 /* UserDataStorageViewController.swift */,
 			);
-			path = Mist;
+			name = UserDataStorage;
+			path = mysampleapp/demo/userdatastorage;
 			sourceTree = "<group>";
 		};
-		28D4963B1D05FF52002FBDE3 /* MistTests */ = {
+		B401C979D1D97B3E00000000 /* AppAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				28D4963C1D05FF52002FBDE3 /* MistTests.swift */,
-				28D4963E1D05FF52002FBDE3 /* Info.plist */,
+				1DD70E29C2A5359E00000000 /* AppAnalytics.storyboard */,
+				1DD70E297094894000000000 /* AppAnalyticsViewController.swift */,
 			);
-			path = MistTests;
+			name = AppAnalytics;
+			path = mysampleapp/demo/appanalytics;
 			sourceTree = "<group>";
 		};
-		28D496461D05FF52002FBDE3 /* MistUITests */ = {
+		B401C979D70889B600000000 /* mainGroup */ = {
 			isa = PBXGroup;
 			children = (
-				28D496471D05FF52002FBDE3 /* MistUITests.swift */,
-				28D496491D05FF52002FBDE3 /* Info.plist */,
+				B401C979D899DA5A00000000 /* Mist */,
+				B401C979C835E7A900000000 /* Frameworks */,
+				B401C979C84EBA3C00000000 /* Products */,
 			);
-			path = MistUITests;
+			name = mainGroup;
 			sourceTree = "<group>";
 		};
-		62BABCCDDDA60F8E38DE8323 /* Pods */ = {
+		B401C979D899DA5A00000000 /* Mist */ = {
 			isa = PBXGroup;
 			children = (
-				0A6771D94B5974C6A9B204FF /* Pods-Mist.debug.xcconfig */,
-				178D0BFE05DA0E012CD27437 /* Pods-Mist.release.xcconfig */,
+				B401C979ED0F928A00000000 /* Amazon AWS */,
+				B401C979C74EB3BA00000000 /* App */,
+				B401C97945F7FF2E00000000 /* Demo */,
 			);
-			name = Pods;
+			name = Mist;
+			path = mysampleapp;
 			sourceTree = "<group>";
 		};
-		73A60C353327FF49499D7EB4 /* Frameworks */ = {
+		B401C979E91306BE00000000 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				09CD918FD952BBCFEC44F973 /* Pods_Mist.framework */,
+				1DD70E295BA6B27900000000 /* Info.plist */,
 			);
-			name = Frameworks;
+			name = "Supporting Files";
+			path = mysampleapp/app/supportingfiles;
+			sourceTree = "<group>";
+		};
+		B401C979ED0F928A00000000 /* Amazon AWS */ = {
+			isa = PBXGroup;
+			children = (
+				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
+			);
+			name = "Amazon AWS";
+			path = mysampleapp/amazonaws;
+			sourceTree = "<group>";
+		};
+		B401C979F19AADAE00000000 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				1DD70E2993F8E24500000000 /* UtilityFunctions.swift */,
+			);
+			name = Utility;
+			path = mysampleapp/app/utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		28D496201D05FF51002FBDE3 /* Mist */ = {
+		E66DC04E0000000000000000 /* Mist */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 28D4964C1D05FF52002FBDE3 /* Build configuration list for PBXNativeTarget "Mist" */;
+			buildConfigurationList = 218C37090000000000000001 /* Build configuration list for PBXNativeTarget "Mist" */;
 			buildPhases = (
-				C0C24999F39174DA5C9FDBE8 /* Check Pods Manifest.lock */,
-				28D4961D1D05FF51002FBDE3 /* Sources */,
-				28D4961E1D05FF51002FBDE3 /* Frameworks */,
-				28D4961F1D05FF51002FBDE3 /* Resources */,
-				A4B6FB7470A5183D0A2A8206 /* Embed Pods Frameworks */,
-				62952178A5D0C7672ACBEB88 /* Copy Pods Resources */,
+				E1F174220000000000000001 /* ShellScript */,
+				1870857F0000000000000000 /* Sources */,
+				4F426D880000000000000000 /* Frameworks */,
+				8A032D2C0000000000000000 /* Resources */,
+				FAF5FAC90000000000000000 /* Embed Frameworks */,
+				E1F174220000000000000000 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Mist;
-			productName = Mist;
-			productReference = 28D496211D05FF51002FBDE3 /* Mist.app */;
+			productName = MySampleApp;
+			productReference = 1DD70E290339E4CF00000000 /* Mist.app */;
 			productType = "com.apple.product-type.application";
-		};
-		28D496371D05FF52002FBDE3 /* MistTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 28D4964F1D05FF52002FBDE3 /* Build configuration list for PBXNativeTarget "MistTests" */;
-			buildPhases = (
-				28D496341D05FF52002FBDE3 /* Sources */,
-				28D496351D05FF52002FBDE3 /* Frameworks */,
-				28D496361D05FF52002FBDE3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				28D4963A1D05FF52002FBDE3 /* PBXTargetDependency */,
-			);
-			name = MistTests;
-			productName = MistTests;
-			productReference = 28D496381D05FF52002FBDE3 /* MistTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		28D496421D05FF52002FBDE3 /* MistUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 28D496521D05FF52002FBDE3 /* Build configuration list for PBXNativeTarget "MistUITests" */;
-			buildPhases = (
-				28D4963F1D05FF52002FBDE3 /* Sources */,
-				28D496401D05FF52002FBDE3 /* Frameworks */,
-				28D496411D05FF52002FBDE3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				28D496451D05FF52002FBDE3 /* PBXTargetDependency */,
-			);
-			name = MistUITests;
-			productName = MistUITests;
-			productReference = 28D496431D05FF52002FBDE3 /* MistUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		28D496191D05FF51002FBDE3 /* Project object */ = {
+		96C847930000000000000000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Bounce Labs, Inc";
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				TargetAttributes = {
-					28D496201D05FF51002FBDE3 = {
-						CreatedOnToolsVersion = 7.3.1;
+					E66DC04E0000000000000000 = {
 						DevelopmentTeam = KM659CVM6Q;
-					};
-					28D496371D05FF52002FBDE3 = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 28D496201D05FF51002FBDE3;
-					};
-					28D496421D05FF52002FBDE3 = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 28D496201D05FF51002FBDE3;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
-			buildConfigurationList = 28D4961C1D05FF51002FBDE3 /* Build configuration list for PBXProject "Mist" */;
+			buildConfigurationList = 218C37090000000000000000 /* Build configuration list for PBXProject "Mist" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -267,197 +436,101 @@
 				en,
 				Base,
 			);
-			mainGroup = 28D496181D05FF51002FBDE3;
-			productRefGroup = 28D496221D05FF51002FBDE3 /* Products */;
+			mainGroup = B401C979D70889B600000000 /* mainGroup */;
+			productRefGroup = B401C979C84EBA3C00000000 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				28D496201D05FF51002FBDE3 /* Mist */,
-				28D496371D05FF52002FBDE3 /* MistTests */,
-				28D496421D05FF52002FBDE3 /* MistUITests */,
+				E66DC04E0000000000000000 /* Mist */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		28D4961F1D05FF51002FBDE3 /* Resources */ = {
+		8A032D2C0000000000000000 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28D496321D05FF51002FBDE3 /* LaunchScreen.storyboard in Resources */,
-				28D4962F1D05FF51002FBDE3 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		28D496361D05FF52002FBDE3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		28D496411D05FF52002FBDE3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				E7A30F045DE0ADEC00000000 /* AppAnalytics.storyboard in Resources */,
+				E7A30F044F52D66900000000 /* Launch Screen.storyboard in Resources */,
+				E7A30F04EF95539200000000 /* Images.xcassets in Resources */,
+				E7A30F04DF1D168800000000 /* UserSettings.storyboard in Resources */,
+				E7A30F0459BCD27200000000 /* UserFiles.storyboard in Resources */,
+				E7A30F04DBC9AC6C00000000 /* CloudLogic.storyboard in Resources */,
+				E7A30F04E0B7E5D800000000 /* UserIdentity.storyboard in Resources */,
+				E7A30F0484B0394C00000000 /* NoSQLDatabase.storyboard in Resources */,
+				E7A30F04DC281B3300000000 /* ContentDelivery.storyboard in Resources */,
+				E7A30F046FE954E000000000 /* UserDataStorage.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		62952178A5D0C7672ACBEB88 /* Copy Pods Resources */ = {
+		E1F174220000000000000000 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework/strip-frameworks.sh\"";
 		};
-		A4B6FB7470A5183D0A2A8206 /* Embed Pods Frameworks */ = {
+		E1F174220000000000000001 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C0C24999F39174DA5C9FDBE8 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
+			shellScript = "FILE=${SRCROOT}/MySampleApp/Sdk/CheckXcodeVersion.sh\nif [ -e $FILE ]; then\n    $FILE\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		28D4961D1D05FF51002FBDE3 /* Sources */ = {
+		1870857F0000000000000000 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28D496271D05FF51002FBDE3 /* FeedViewController.swift in Sources */,
-				28D496251D05FF51002FBDE3 /* AppDelegate.swift in Sources */,
-				284A91581D0603B600BAD5CB /* Autolayout.swift in Sources */,
-				28D4962D1D05FF51002FBDE3 /* Mist.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		28D496341D05FF52002FBDE3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				28D4963D1D05FF52002FBDE3 /* MistTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		28D4963F1D05FF52002FBDE3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				28D496481D05FF52002FBDE3 /* MistUITests.swift in Sources */,
+				28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */,
+				E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */,
+				E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */,
+				E7A30F040C3E00B900000000 /* UserFilesViewController.swift in Sources */,
+				E7A30F04BB01BF6E00000000 /* NoSQLTableListViewController.swift in Sources */,
+				E7A30F0416AC0CC200000000 /* ProductTable.swift in Sources */,
+				E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */,
+				E7A30F04D93B809500000000 /* UserSettingsViewController.swift in Sources */,
+				E7A30F04EA26C65700000000 /* AppDelegate.swift in Sources */,
+				E7A30F04B38C64E900000000 /* CloudLogicViewController.swift in Sources */,
+				E7A30F04DBA20E1D00000000 /* UserDataStorageViewController.swift in Sources */,
+				E7A30F04BF31BA1900000000 /* DemoFeature.swift in Sources */,
+				E7A30F040E88B56500000000 /* ColorThemeSettings.swift in Sources */,
+				E7A30F0426CBAFF500000000 /* NoSQLSampleDataGenerator.swift in Sources */,
+				E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */,
+				E7A30F04778FC87400000000 /* NoSQLTableViewController.swift in Sources */,
+				E7A30F0466AC0BE400000000 /* NoSQLModelHelpers.swift in Sources */,
+				E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */,
+				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
+				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
+				E7A30F041462FD3900000000 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		28D4963A1D05FF52002FBDE3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 28D496201D05FF51002FBDE3 /* Mist */;
-			targetProxy = 28D496391D05FF52002FBDE3 /* PBXContainerItemProxy */;
-		};
-		28D496451D05FF52002FBDE3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 28D496201D05FF51002FBDE3 /* Mist */;
-			targetProxy = 28D496441D05FF52002FBDE3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		28D496301D05FF51002FBDE3 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				28D496311D05FF51002FBDE3 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		28D4964A1D05FF52002FBDE3 /* Debug */ = {
+		49524373386D956C00000000 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		28D4964B1D05FF52002FBDE3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -484,138 +557,133 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		28D4964D1D05FF52002FBDE3 /* Debug */ = {
+		49524373386D956C00000001 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A6771D94B5974C6A9B204FF /* Pods-Mist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Mist/Info.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MySampleApp/Sdk/**",
+					"$(PROJECT_DIR)/MySampleApp/Sdk/Aws",
+					"$(PROJECT_DIR)/MySampleApp/AmazonAws",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/MySampleApp/App/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bouncelabs.Mist;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amazon.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Mist;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4952437346F3E10800000000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		28D4964E1D05FF52002FBDE3 /* Release */ = {
+		4952437346F3E10800000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 178D0BFE05DA0E012CD27437 /* Pods-Mist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Mist/Info.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MySampleApp/Sdk/**",
+					"$(PROJECT_DIR)/MySampleApp/Sdk/Aws",
+					"$(PROJECT_DIR)/MySampleApp/AmazonAws",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/MySampleApp/App/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bouncelabs.Mist;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		28D496501D05FF52002FBDE3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = MistTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = BounceLabs.MistTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mist.app/Mist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amazon.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Mist;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		28D496511D05FF52002FBDE3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = MistTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = BounceLabs.MistTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mist.app/Mist";
-			};
-			name = Release;
-		};
-		28D496531D05FF52002FBDE3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = MistUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = BounceLabs.MistUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Mist;
-			};
-			name = Debug;
-		};
-		28D496541D05FF52002FBDE3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = MistUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = BounceLabs.MistUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Mist;
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		28D4961C1D05FF51002FBDE3 /* Build configuration list for PBXProject "Mist" */ = {
+		218C37090000000000000000 /* Build configuration list for PBXProject "Mist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				28D4964A1D05FF52002FBDE3 /* Debug */,
-				28D4964B1D05FF52002FBDE3 /* Release */,
+				4952437346F3E10800000000 /* Debug */,
+				49524373386D956C00000000 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		28D4964C1D05FF52002FBDE3 /* Build configuration list for PBXNativeTarget "Mist" */ = {
+		218C37090000000000000001 /* Build configuration list for PBXNativeTarget "Mist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				28D4964D1D05FF52002FBDE3 /* Debug */,
-				28D4964E1D05FF52002FBDE3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		28D4964F1D05FF52002FBDE3 /* Build configuration list for PBXNativeTarget "MistTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				28D496501D05FF52002FBDE3 /* Debug */,
-				28D496511D05FF52002FBDE3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		28D496521D05FF52002FBDE3 /* Build configuration list for PBXNativeTarget "MistUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				28D496531D05FF52002FBDE3 /* Debug */,
-				28D496541D05FF52002FBDE3 /* Release */,
+				4952437346F3E10800000001 /* Debug */,
+				49524373386D956C00000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		28D4962B1D05FF51002FBDE3 /* Mist.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				28D4962C1D05FF51002FBDE3 /* Mist.xcdatamodel */,
-			);
-			currentVersion = 28D4962C1D05FF51002FBDE3 /* Mist.xcdatamodel */;
-			path = Mist.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
-	rootObject = 28D496191D05FF51002FBDE3 /* Project object */;
+	rootObject = 96C847930000000000000000 /* Project object */;
 }
