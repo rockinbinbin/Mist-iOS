@@ -93,4 +93,30 @@ class AWSMobileClient: NSObject {
 
         return didFinishLaunching
     }
+    
+    /**
+     Loads a list of images from AWS.
+     
+     - parameter completion: called after images are loaded.
+     */
+    func loadImagesFromAWS(completion: ([AWSContent]?, NSError?) -> ()) {
+        let manager = AWSContentManager.defaultContentManager()
+        
+        let prefix: String? = "product-media/"
+        let marker: String? = nil
+        
+        manager.listAvailableContentsWithPrefix(prefix, marker: marker) {(contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
+            guard error == nil else {
+                completion(contents, error)
+                return
+            }
+            
+            guard let results = contents where results.count > 0 else {
+                completion(contents, error)
+                return
+            }
+            
+            completion(results, nil)
+        }
+    }
 }
