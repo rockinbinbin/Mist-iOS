@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileHubHelper
 
-class FeedViewController: UIViewController {
+class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
     
     // MARK: - View Lifecycle
     
@@ -36,9 +36,50 @@ class FeedViewController: UIViewController {
     // MARK: - UI Components
     
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+        let layout = CHTCollectionViewWaterfallLayout()
+        layout.minimumColumnSpacing = 3.0
+        layout.minimumInteritemSpacing = 3.0
+        layout.headerHeight = 3.0
+        
+        let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
+        collectionView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .whiteColor()
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.registerClass(FeedCell.self, forCellWithReuseIdentifier: "cell")
+        
+        self.view.addSubview(collectionView)
         return collectionView
     }()
+    
+    // MARK: - Collection View Delegate Methods
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return contents.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
+        
+        contents[indexPath.row].getRemoteFileURLWithCompletionHandler({ (url: NSURL?, error: NSError?) -> Void in
+            guard let url = url else {
+                print("Error getting URL for file. \(error)")
+                return
+            }
+            
+            let image = UIImage(data: NSData(contentsOfURL: url)!)
+            cell.setImage(image!)
+        })
+        
+        return cell
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: 100, height: 100)
+    }
     
     // MARK: - Model
     
@@ -51,6 +92,6 @@ class FeedViewController: UIViewController {
     // MARK: - Layout
     
     func setViewConstraints() {
-        // Set constraints for the view.
+        collectionView.pinToEdgesOfSuperview()
     }
 }

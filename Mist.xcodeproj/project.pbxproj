@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D21D10D2FA002CCE25 /* Autolayout.swift */; };
+		283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */; };
+		283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DA1D10E610002CCE25 /* FeedCell.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
 		E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */; };
 		E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */; };
@@ -146,6 +148,8 @@
 		1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = MySampleApp/Sdk/Facebook/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		1DD70E29F44EBD2600000000 /* ProductTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductTable.swift; path = MySampleApp/Demo/NoSQL/ProductTable.swift; sourceTree = SOURCE_ROOT; };
 		283017D21D10D2FA002CCE25 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Autolayout.swift; path = mysampleapp/app/utility/Autolayout.swift; sourceTree = SOURCE_ROOT; };
+		283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CHTCollectionViewWaterfallLayout.swift; path = MySampleApp/CHTCollectionViewWaterfallLayout.swift; sourceTree = SOURCE_ROOT; };
+		283017DA1D10E610002CCE25 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = MySampleApp/FeedCell.swift; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -273,6 +277,8 @@
 			children = (
 				1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */,
 				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
+				283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */,
+				283017DA1D10E610002CCE25 /* FeedCell.swift */,
 				1DD70E29187D829A00000000 /* Images.xcassets */,
 				1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */,
 				B401C979E91306BE00000000 /* Supporting Files */,
@@ -508,6 +514,7 @@
 				E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */,
 				E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */,
 				E7A30F040C3E00B900000000 /* UserFilesViewController.swift in Sources */,
+				283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */,
 				E7A30F04BB01BF6E00000000 /* NoSQLTableListViewController.swift in Sources */,
 				E7A30F0416AC0CC200000000 /* ProductTable.swift in Sources */,
 				E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */,
@@ -524,6 +531,7 @@
 				E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */,
 				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
 				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
+				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				E7A30F041462FD3900000000 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
