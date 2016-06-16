@@ -8,7 +8,6 @@
 
 import UIKit
 import AWSMobileHubHelper
-import SDWebImage
 
 class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
     
@@ -77,13 +76,17 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
         feedCellMetadata[indexPath.row].cell = cell
         
-        cell.setImage(NSURL(string: "https://s3.amazonaws.com/mist-contentdelivery-mobilehub-605039644/product-media/Image.jpg")!) { (completed) in
-            guard completed else {
-                return
-            }
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                collectionView.reloadData()
+        let url = "https://s3.amazonaws.com/mist-contentdelivery-mobilehub-605039644/product-media/Image.jpg"
+        
+        guard cell.image == nil else {
+            return cell
+        }
+        
+        cell.setImage(url) { (completed) in
+            if completed {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.collectionView.reloadData()
+                }
             }
         }
         
@@ -115,7 +118,7 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     private var contents: [AWSContent] = [] {
         didSet {
-            collectionView.reloadData()
+//            collectionView.reloadData()
         }
     }
     

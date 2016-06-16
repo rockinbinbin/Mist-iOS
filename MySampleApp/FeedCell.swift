@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import DLImageLoader
 
 class FeedCell: UICollectionViewCell {
     
@@ -37,13 +37,13 @@ class FeedCell: UICollectionViewCell {
         imageView.pinToEdgesOfSuperview()
     }
     
-    func setImage(image: UIImage) {
-        imageView.image = image
-    }
-    
-    func setImage(url: NSURL, completion: ((completed: Bool) -> ())?) {
-        imageView.sd_setImageWithURL(url) { (image, error, cacheType, url) in
+    func setImage(url: String, completion: ((completed: Bool) -> ())?) {
+        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
             completion?(completed: Bool(error == nil))
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.imageView.image = image
+            }
         }
     }
     

@@ -3,6 +3,8 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'Mist' do
-	pod 'SDWebImage', '~>3.8'
+
+pod 'DLImageLoader', '1.2.0-swift'
+
 end
 

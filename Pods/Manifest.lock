@@ -1,12 +1,10 @@
 PODS:
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - DLImageLoader (1.2.0-swift)
 
 DEPENDENCIES:
-  - SDWebImage (~> 3.8)
+  - DLImageLoader (= 1.2.0-swift)
 
 SPEC CHECKSUMS:
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  DLImageLoader: 0f232d40d06c50b9246b29944f00991174fdf5fa
 
 COCOAPODS: 0.39.0
