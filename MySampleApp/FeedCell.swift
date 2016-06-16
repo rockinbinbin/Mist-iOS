@@ -31,10 +31,40 @@ class FeedCell: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var blackGradientOverlay: UIView = {
+        let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0.0, 0.0, 1000, 75.0))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        gradient.frame = _blackGradientOverlay.bounds
+        gradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        
+        _blackGradientOverlay.layer.insertSublayer(gradient, atIndex: 0)
+        _blackGradientOverlay.clipsToBounds = true
+        
+        self.addSubview(_blackGradientOverlay)
+        
+        return _blackGradientOverlay
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        let _nameLabel = UILabel()
+        _nameLabel.textColor = UIColor.whiteColor()
+        self.addSubview(_nameLabel)
+        return _nameLabel
+    }()
+    
     // MARK: - Layout
     
     func setViewConstraints() {
         imageView.pinToEdgesOfSuperview()
+        
+        blackGradientOverlay.pinToBottomEdgeOfSuperview()
+        blackGradientOverlay.pinToLeftEdgeOfSuperview()
+        blackGradientOverlay.pinToRightEdgeOfSuperview()
+        blackGradientOverlay.sizeToHeight(75)
+        
+        nameLabel.pinToBottomEdgeOfSuperview(offset: 5)
+        nameLabel.pinToLeftEdgeOfSuperview(offset: 5)
     }
     
     func setImage(url: String, completion: ((completed: Bool) -> ())?) {
@@ -45,6 +75,19 @@ class FeedCell: UICollectionViewCell {
                 self.imageView.image = image
             }
         }
+    }
+    
+    func setTitleText(name: String) {
+        let attributes: NSDictionary = [
+            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
+            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSKernAttributeName:CGFloat(2.0)
+        ]
+        
+        let attributedTitle = NSAttributedString(string: name.uppercaseString, attributes: attributes as? [String : AnyObject])
+        
+        nameLabel.attributedText = attributedTitle
+        nameLabel.sizeToFit()
     }
     
     // MARK: - Interface

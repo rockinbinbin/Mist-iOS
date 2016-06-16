@@ -134,6 +134,8 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             return cell
         }
         
+        cell.setTitleText(feed[indexPath.row].name)
+        
         imageLoading[indexPath.row] = true
         
         cell.setImage(feed[indexPath.row].imageURL) { (completed) in
