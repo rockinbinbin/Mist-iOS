@@ -13,7 +13,7 @@
 // Source code generated from template: aws-my-sample-app-ios-swift v0.2
 //
 
-import Foundation
+import UIKit
 
 func prettyPrintJson(object: AnyObject?) -> String {
     var prettyResult: String = ""
@@ -44,4 +44,30 @@ func prettyPrintJson(object: AnyObject?) -> String {
         prettyResult = "\"\(objectAsString)\""
     }
     return prettyResult
+}
+
+/**
+ Downloads an image asynchronously.
+ 
+ - parameter remoteURL: The URL of the remote image.
+ - parameter completion: A block of
+ */
+func downloadImageAsync(remoteURL: String, completion: (success: Bool, image: UIImage?) -> ()) {
+    guard let url = NSURL(string: remoteURL) else {
+        completion(success: false, image: nil)
+        return
+    }
+    
+    let request = NSMutableURLRequest(URL: url)
+    
+    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {
+        (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+        
+    }
+}
+
+extension UIImage {
+//    convenience init(downloadURL: String) {
+//        
+//    }
 }

@@ -10,43 +10,37 @@
 		283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D21D10D2FA002CCE25 /* Autolayout.swift */; };
 		283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */; };
 		283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DA1D10E610002CCE25 /* FeedCell.swift */; };
+		283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DE1D12318E002CCE25 /* ProductViewController.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
+		755F813FA1E9D72815FB7694 /* Pods_Mist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61628AA92844F932D2B417FB /* Pods_Mist.framework */; };
 		E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */; };
 		E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */; };
 		E7A30F04069CD88800000000 /* AWSCognito.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E7A30F04069CD88800000001 /* AWSCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; };
+		E7A30F04069CD88800000001 /* AWSCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E7A30F040C3E00B900000000 /* UserFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E297003936900000000 /* UserFilesViewController.swift */; };
-		E7A30F040CE1BAD300000000 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */; };
+		E7A30F040CE1BAD300000000 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E7A30F040E88B56500000000 /* ColorThemeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E294FBD49E500000000 /* ColorThemeSettings.swift */; };
-		E7A30F04110D41A900000000 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29A4DFE84400000000 /* CoreMotion.framework */; };
 		E7A30F041462FD3900000000 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29D18D380200000000 /* Product.swift */; };
 		E7A30F0416AC0CC200000000 /* ProductTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F44EBD2600000000 /* ProductTable.swift */; };
-		E7A30F041E31B17600000000 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29ED7BB58200000000 /* SafariServices.framework */; };
 		E7A30F04248B9A2A00000000 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29AA7E099700000000 /* libz.tbd */; };
 		E7A30F0425158CD400000000 /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2907AEB9FA00000000 /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7A30F0425158CD400000001 /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2907AEB9FA00000000 /* AWSCore.framework */; };
 		E7A30F0426CBAFF500000000 /* NoSQLSampleDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29C448F5F000000000 /* NoSQLSampleDataGenerator.swift */; };
-		E7A30F0427DFF7C100000000 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29C895294800000000 /* MediaPlayer.framework */; };
-		E7A30F042EEEC86A00000000 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2984B1C33F00000000 /* FBSDKCoreKit.framework */; };
-		E7A30F043B36BBA600000000 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29E4A7F81E00000000 /* Security.framework */; };
+		E7A30F042EEEC86A00000000 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2984B1C33F00000000 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E297094894000000000 /* AppAnalyticsViewController.swift */; };
 		E7A30F044F52D66900000000 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */; };
 		E7A30F0459BCD27200000000 /* UserFiles.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E293A7F695500000000 /* UserFiles.storyboard */; };
 		E7A30F045DE0ADEC00000000 /* AppAnalytics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29C2A5359E00000000 /* AppAnalytics.storyboard */; };
 		E7A30F0466AC0BE400000000 /* NoSQLModelHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2934DA1C6E00000000 /* NoSQLModelHelpers.swift */; };
-		E7A30F0467B97E0100000000 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29C558691B00000000 /* FBSDKLoginKit.framework */; };
+		E7A30F0467B97E0100000000 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29C558691B00000000 /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E7A30F046FE954E000000000 /* UserDataStorage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E294639179700000000 /* UserDataStorage.storyboard */; };
 		E7A30F04778FC87400000000 /* NoSQLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E292C65795000000000 /* NoSQLTableViewController.swift */; };
-		E7A30F047BEE0B2C00000000 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29A614261200000000 /* AssetsLibrary.framework */; };
-		E7A30F048174019800000000 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29D03F05A400000000 /* SystemConfiguration.framework */; };
 		E7A30F0484B0394C00000000 /* NoSQLDatabase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29E66E287000000000 /* NoSQLDatabase.storyboard */; };
 		E7A30F049ED35F4100000000 /* AWSMobileHubHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E299881287B00000000 /* AWSMobileHubHelper.framework */; };
 		E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2993F8E24500000000 /* UtilityFunctions.swift */; };
 		E7A30F04A19A6AD700000000 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2928E6FC9C00000000 /* CFNetwork.framework */; };
 		E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29E565EB9200000000 /* NoSQLQueryResultViewController.swift */; };
-		E7A30F04A6D84F5700000000 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E293956451E00000000 /* UIKit.framework */; };
 		E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29619023EE00000000 /* NoSQLTableFactory.swift */; };
-		E7A30F04A8FF72A500000000 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2989104E9800000000 /* AddressBook.framework */; };
 		E7A30F04B38C64E900000000 /* CloudLogicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29510496C400000000 /* CloudLogicViewController.swift */; };
 		E7A30F04B6029D4000000000 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29F03D3A8D00000000 /* libsqlite3.tbd */; };
 		E7A30F04B86D7FD600000000 /* AWSLambda.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E2969A78C6A00000000 /* AWSLambda.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -59,7 +53,6 @@
 		E7A30F04DC281B3300000000 /* ContentDelivery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29B627592A00000000 /* ContentDelivery.storyboard */; };
 		E7A30F04DF1D168800000000 /* UserSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29A1C93AC500000000 /* UserSettings.storyboard */; };
 		E7A30F04E0B7E5D800000000 /* UserIdentity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD70E29AA17D79A00000000 /* UserIdentity.storyboard */; };
-		E7A30F04E28B987A00000000 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29EEFBACA800000000 /* Foundation.framework */; };
 		E7A30F04E90ADD4C00000000 /* AWSDynamoDB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29559AF03800000000 /* AWSDynamoDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7A30F04E90ADD4C00000001 /* AWSDynamoDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29559AF03800000000 /* AWSDynamoDB.framework */; };
 		E7A30F04EA26C65700000000 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */; };
@@ -69,7 +62,6 @@
 		E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2971D262C400000000 /* UserIdentityViewController.swift */; };
 		E7A30F04FCAB0EFE00000000 /* AWSMobileAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E296366ACB200000000 /* AWSMobileAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7A30F04FCAB0EFE00000001 /* AWSMobileAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E296366ACB200000000 /* AWSMobileAnalytics.framework */; };
-		E7A30F04FD4BB7D000000000 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29BB1CFAF600000000 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -150,7 +142,11 @@
 		283017D21D10D2FA002CCE25 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Autolayout.swift; path = mysampleapp/app/utility/Autolayout.swift; sourceTree = SOURCE_ROOT; };
 		283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CHTCollectionViewWaterfallLayout.swift; path = MySampleApp/CHTCollectionViewWaterfallLayout.swift; sourceTree = SOURCE_ROOT; };
 		283017DA1D10E610002CCE25 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = MySampleApp/FeedCell.swift; sourceTree = SOURCE_ROOT; };
+		283017DE1D12318E002CCE25 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
+		61628AA92844F932D2B417FB /* Pods_Mist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D27A8A95670213AF5A53D2B /* Pods-Mist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.release.xcconfig"; sourceTree = "<group>"; };
+		D80485F3EA422272776245AD /* Pods-Mist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,19 +164,10 @@
 				E7A30F0467B97E0100000000 /* FBSDKLoginKit.framework in Frameworks */,
 				E7A30F04B86D7FD600000001 /* AWSLambda.framework in Frameworks */,
 				E7A30F042EEEC86A00000000 /* FBSDKCoreKit.framework in Frameworks */,
-				E7A30F04A6D84F5700000000 /* UIKit.framework in Frameworks */,
-				E7A30F048174019800000000 /* SystemConfiguration.framework in Frameworks */,
-				E7A30F043B36BBA600000000 /* Security.framework in Frameworks */,
 				E7A30F04A19A6AD700000000 /* CFNetwork.framework in Frameworks */,
 				E7A30F04248B9A2A00000000 /* libz.tbd in Frameworks */,
 				E7A30F04B6029D4000000000 /* libsqlite3.tbd in Frameworks */,
-				E7A30F04E28B987A00000000 /* Foundation.framework in Frameworks */,
-				E7A30F0427DFF7C100000000 /* MediaPlayer.framework in Frameworks */,
-				E7A30F04A8FF72A500000000 /* AddressBook.framework in Frameworks */,
-				E7A30F047BEE0B2C00000000 /* AssetsLibrary.framework in Frameworks */,
-				E7A30F04FD4BB7D000000000 /* CoreLocation.framework in Frameworks */,
-				E7A30F04110D41A900000000 /* CoreMotion.framework in Frameworks */,
-				E7A30F041E31B17600000000 /* SafariServices.framework in Frameworks */,
+				755F813FA1E9D72815FB7694 /* Pods_Mist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +266,7 @@
 				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
 				283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */,
 				283017DA1D10E610002CCE25 /* FeedCell.swift */,
+				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
 				1DD70E29187D829A00000000 /* Images.xcassets */,
 				1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */,
 				B401C979E91306BE00000000 /* Supporting Files */,
@@ -314,6 +302,7 @@
 				1DD70E293956451E00000000 /* UIKit.framework */,
 				1DD70E29F03D3A8D00000000 /* libsqlite3.tbd */,
 				1DD70E29AA7E099700000000 /* libz.tbd */,
+				61628AA92844F932D2B417FB /* Pods_Mist.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -352,6 +341,7 @@
 				B401C979D899DA5A00000000 /* Mist */,
 				B401C979C835E7A900000000 /* Frameworks */,
 				B401C979C84EBA3C00000000 /* Products */,
+				C08C980CF52B47E4FE77F160 /* Pods */,
 			);
 			name = mainGroup;
 			sourceTree = "<group>";
@@ -395,6 +385,15 @@
 			path = mysampleapp/app/utility;
 			sourceTree = "<group>";
 		};
+		C08C980CF52B47E4FE77F160 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D80485F3EA422272776245AD /* Pods-Mist.debug.xcconfig */,
+				6D27A8A95670213AF5A53D2B /* Pods-Mist.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -402,12 +401,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 218C37090000000000000001 /* Build configuration list for PBXNativeTarget "Mist" */;
 			buildPhases = (
+				411E4133A27691C9473D10CB /* Check Pods Manifest.lock */,
 				E1F174220000000000000001 /* ShellScript */,
 				1870857F0000000000000000 /* Sources */,
 				4F426D880000000000000000 /* Frameworks */,
 				8A032D2C0000000000000000 /* Resources */,
 				FAF5FAC90000000000000000 /* Embed Frameworks */,
 				E1F174220000000000000000 /* ShellScript */,
+				9176789F081ACFFC6351684D /* Embed Pods Frameworks */,
+				1836D9E07C4489C6FEF2BEFC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -476,6 +478,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1836D9E07C4489C6FEF2BEFC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		411E4133A27691C9473D10CB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9176789F081ACFFC6351684D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E1F174220000000000000000 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -532,6 +579,7 @@
 				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
 				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
 				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
+				283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */,
 				E7A30F041462FD3900000000 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,6 +629,7 @@
 		};
 		49524373386D956C00000001 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D27A8A95670213AF5A53D2B /* Pods-Mist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -652,6 +701,7 @@
 		};
 		4952437346F3E10800000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D80485F3EA422272776245AD /* Pods-Mist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FeedCell: UICollectionViewCell {
     
@@ -19,7 +20,7 @@ class FeedCell: UICollectionViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     // MARK: - UI Components
@@ -38,5 +39,19 @@ class FeedCell: UICollectionViewCell {
     
     func setImage(image: UIImage) {
         imageView.image = image
+    }
+    
+    func setImage(url: NSURL, completion: ((completed: Bool) -> ())?) {
+        imageView.sd_setImageWithURL(url) { (image, error, cacheType, url) in
+            completion?(completed: Bool(error == nil))
+        }
+    }
+    
+    // MARK: - Interface
+    
+    var image: UIImage? {
+        get {
+            return imageView.image
+        }
     }
 }

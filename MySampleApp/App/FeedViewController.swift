@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileHubHelper
+import SDWebImage
 
 class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
     
@@ -55,30 +56,59 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return collectionView
     }()
     
+    // MARK: - Product Card
+    
+    struct FeedCellInfo {
+        var cell: FeedCell?
+        var image: UIImage? { get { return cell?.image } }
+        var size: CGSize? { get { return image?.size } }
+    }
+    
+    private var feedCellMetadata: [FeedCellInfo] = [FeedCellInfo(), FeedCellInfo(), FeedCellInfo(), FeedCellInfo(), FeedCellInfo(), FeedCellInfo()]
+    
     // MARK: - Collection View Delegate Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return contents.count
+        return 6
+//        return contents.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
+        feedCellMetadata[indexPath.row].cell = cell
         
-        contents[indexPath.row].getRemoteFileURLWithCompletionHandler({ (url: NSURL?, error: NSError?) -> Void in
-            guard let url = url else {
-                print("Error getting URL for file. \(error)")
+        cell.setImage(NSURL(string: "https://s3.amazonaws.com/mist-contentdelivery-mobilehub-605039644/product-media/Image.jpg")!) { (completed) in
+            guard completed else {
                 return
             }
             
-            let image = UIImage(data: NSData(contentsOfURL: url)!)
-            cell.setImage(image!)
-        })
+            dispatch_async(dispatch_get_main_queue()) {
+                collectionView.reloadData()
+            }
+        }
         
         return cell
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        let defaultSize = CGSize(width: 5, height: 5)
+        
+        guard feedCellMetadata.count > indexPath.row else {
+            return defaultSize
+        }
+        
+        guard let size = feedCellMetadata[indexPath.row].size else {
+            return defaultSize
+        }
+        
+        return size
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let productViewController = ProductViewController()
+    
+        // TODO [Analytics]: Record the "product selected" event
+        self.navigationController?.pushViewController(productViewController, animated: true)
     }
     
     // MARK: - Model
