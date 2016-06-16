@@ -9,11 +9,29 @@
 import UIKit
 import AWSMobileHubHelper
 
-class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
+class MMViewController: UIViewController {
+    override func viewDidLoad() {
+        navigationController?.navigationBar.backgroundColor = .whiteColor()
+        navigationController?.navigationBar.translucent = false
+    }
+    
+    var mistLogoInTitle: Bool = false {
+        didSet {
+            if mistLogoInTitle {
+                navigationItem.titleView = UIImageView(image: UIImage(named: "Products-Mist-Logo"))
+            }
+        }
+    }
+}
+
+class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        mistLogoInTitle = true
         
         view.backgroundColor = .whiteColor()
         
@@ -29,6 +47,8 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 return
             }
             
+            LoadingView.sharedInstance.hideView()
+            
             self.contents = contents!
         }
     }
@@ -38,7 +58,7 @@ class FeedViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private lazy var collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
         layout.minimumColumnSpacing = 3.0
-        layout.minimumInteritemSpacing = 3.0
+        layout.minimumInteritemSpacing = 50
         layout.headerHeight = 3.0
         
         let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)

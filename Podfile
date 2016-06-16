@@ -5,6 +5,7 @@ use_frameworks!
 target 'Mist' do
 
 pod 'DLImageLoader', '1.2.0-swift'
+pod 'FLAnimatedImage'
 
 end
 

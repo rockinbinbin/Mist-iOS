@@ -12,6 +12,7 @@
 		283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DA1D10E610002CCE25 /* FeedCell.swift */; };
 		283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DE1D12318E002CCE25 /* ProductViewController.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
+		28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD07A1D1282C500C89ABE /* LoadingView.swift */; };
 		755F813FA1E9D72815FB7694 /* Pods_Mist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61628AA92844F932D2B417FB /* Pods_Mist.framework */; };
 		E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */; };
 		E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */; };
@@ -144,6 +145,7 @@
 		283017DA1D10E610002CCE25 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = MySampleApp/FeedCell.swift; sourceTree = SOURCE_ROOT; };
 		283017DE1D12318E002CCE25 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
+		28FFD07A1D1282C500C89ABE /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
 		61628AA92844F932D2B417FB /* Pods_Mist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D27A8A95670213AF5A53D2B /* Pods-Mist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.release.xcconfig"; sourceTree = "<group>"; };
 		D80485F3EA422272776245AD /* Pods-Mist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.debug.xcconfig"; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */,
 				283017DA1D10E610002CCE25 /* FeedCell.swift */,
 				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
+				28FFD07A1D1282C500C89ABE /* LoadingView.swift */,
 				1DD70E29187D829A00000000 /* Images.xcassets */,
 				1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */,
 				B401C979E91306BE00000000 /* Supporting Files */,
@@ -567,6 +570,7 @@
 				E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */,
 				E7A30F04D93B809500000000 /* UserSettingsViewController.swift in Sources */,
 				E7A30F04EA26C65700000000 /* AppDelegate.swift in Sources */,
+				28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */,
 				E7A30F04B38C64E900000000 /* CloudLogicViewController.swift in Sources */,
 				E7A30F04DBA20E1D00000000 /* UserDataStorageViewController.swift in Sources */,
 				E7A30F04BF31BA1900000000 /* DemoFeature.swift in Sources */,

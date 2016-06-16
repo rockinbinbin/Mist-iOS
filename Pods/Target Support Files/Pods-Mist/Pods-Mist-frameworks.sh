@@ -85,7 +85,9 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Mist/DLImageLoader.framework"
+  install_framework "Pods-Mist/FLAnimatedImage.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Mist/DLImageLoader.framework"
+  install_framework "Pods-Mist/FLAnimatedImage.framework"
 fi

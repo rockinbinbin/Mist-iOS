@@ -21,8 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = UINavigationController(rootViewController: FeedViewController())
-        window?.makeKeyAndVisible()
+        window!.rootViewController = UINavigationController(rootViewController: FeedViewController())
+        window!.makeKeyAndVisible()
+        
+        LoadingView.sharedInstance.frame = UIScreen.mainScreen().bounds
+        window!.addSubview(LoadingView.sharedInstance)
         
         // Override point for customization after application launch.
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)

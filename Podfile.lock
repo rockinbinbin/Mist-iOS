@@ -1,10 +1,13 @@
 PODS:
   - DLImageLoader (1.2.0-swift)
+  - FLAnimatedImage (1.0.12)
 
 DEPENDENCIES:
   - DLImageLoader (= 1.2.0-swift)
+  - FLAnimatedImage
 
 SPEC CHECKSUMS:
   DLImageLoader: 0f232d40d06c50b9246b29944f00991174fdf5fa
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
 
 COCOAPODS: 0.39.0
