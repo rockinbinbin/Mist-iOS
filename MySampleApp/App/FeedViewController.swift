@@ -87,9 +87,10 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             for productDictionary in rawFeed {
                 self.feed.append(ProductInfo(dictionary: productDictionary)!)
                 self.feedCellMetadata.append(FeedCellInfo())
+                self.imageLoading.append(false)
             }
             
-            LoadingView.sharedInstance.hideView() {
+            dispatch_async(dispatch_get_main_queue()) {
                 self.collectionView.reloadData()
             }
         }
@@ -123,6 +124,8 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         return feed.count
     }
     
+    var imageLoading: [Bool] = []
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
         feedCellMetadata[indexPath.row].cell = cell
@@ -131,10 +134,19 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             return cell
         }
         
+        imageLoading[indexPath.row] = true
+        
         cell.setImage(feed[indexPath.row].imageURL) { (completed) in
             if completed {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.collectionView.reloadData()
+                    self.imageLoading[indexPath.row] = false
+
+                    if (self.imageLoading.indexOf(true) == nil) {
+                        LoadingView.sharedInstance.hideView() {
+                            self.collectionView.reloadData()
+                        }
+                    }
                 }
             }
         }
