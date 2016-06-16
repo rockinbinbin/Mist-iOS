@@ -28,6 +28,42 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     // MARK: - View Lifecycle
     
+    struct ProductInfo {
+        var brand: String
+        var imageURL: String
+        var name: String
+        
+        init?(dictionary: NSDictionary) {
+            guard let brand = dictionary["brand"] as? String else {
+                return nil
+            }
+            
+            guard let imageURL = dictionary["imageURL"] as? String else {
+                return nil
+            }
+            
+            guard let name = dictionary["name"] as? String else {
+                return nil
+            }
+            
+            self.brand = brand
+            self.imageURL = imageURL
+            self.name = name
+        }
+    }
+    
+    var feed: [ProductInfo] = []
+    
+    // MARK: - Product Card
+    
+    struct FeedCellInfo {
+        var cell: FeedCell?
+        var image: UIImage? { get { return cell?.image } }
+        var size: CGSize? { get { return image?.size } }
+    }
+    
+    private var feedCellMetadata: [FeedCellInfo] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,19 +73,25 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         setViewConstraints()
         
-        AWSMobileClient.sharedInstance.loadImagesFromAWS { (contents: [AWSContent]?, error: NSError?) -> Void in
+        AWSCloudLogic.defaultCloudLogic().invokeFunction("generateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
             guard error == nil else {
                 print(error)
                 return
             }
             
-            guard contents != nil else {
+            guard let rawFeed = (result as? NSDictionary)?["feed"] as? [NSDictionary] else {
+                print("shit")
                 return
             }
             
-            LoadingView.sharedInstance.hideView()
+            for productDictionary in rawFeed {
+                self.feed.append(ProductInfo(dictionary: productDictionary)!)
+                self.feedCellMetadata.append(FeedCellInfo())
+            }
             
-            self.contents = contents!
+            LoadingView.sharedInstance.hideView() {
+                self.collectionView.reloadData()
+            }
         }
     }
     
@@ -58,7 +100,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     private lazy var collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
         layout.minimumColumnSpacing = 3.0
-        layout.minimumInteritemSpacing = 50
+        layout.minimumInteritemSpacing = 3.0
         layout.headerHeight = 3.0
         
         let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
@@ -75,34 +117,21 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         return collectionView
     }()
     
-    // MARK: - Product Card
-    
-    struct FeedCellInfo {
-        var cell: FeedCell?
-        var image: UIImage? { get { return cell?.image } }
-        var size: CGSize? { get { return image?.size } }
-    }
-    
-    private var feedCellMetadata: [FeedCellInfo] = [FeedCellInfo(), FeedCellInfo(), FeedCellInfo(), FeedCellInfo(), FeedCellInfo(), FeedCellInfo()]
-    
     // MARK: - Collection View Delegate Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
-//        return contents.count
+        return feed.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
         feedCellMetadata[indexPath.row].cell = cell
         
-        let url = "https://s3.amazonaws.com/mist-contentdelivery-mobilehub-605039644/product-media/Image.jpg"
-        
         guard cell.image == nil else {
             return cell
         }
         
-        cell.setImage(url) { (completed) in
+        cell.setImage(feed[indexPath.row].imageURL) { (completed) in
             if completed {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.collectionView.reloadData()
@@ -132,14 +161,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
         // TODO [Analytics]: Record the "product selected" event
         self.navigationController?.pushViewController(productViewController, animated: true)
-    }
-    
-    // MARK: - Model
-    
-    private var contents: [AWSContent] = [] {
-        didSet {
-//            collectionView.reloadData()
-        }
     }
     
     // MARK: - Layout

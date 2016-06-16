@@ -46,17 +46,22 @@ class LoadingView: UIView {
     
     // MARK: - Visibility
     
-    func hideView() {
+    func hideView(completion: (() -> ())? = nil) {
         
-        logoSizeConstraint?.width.constant = 200
-        logoSizeConstraint?.height.constant = 200
-        
-        UIView.animateWithDuration(0.25, animations: {
-            self.logo.layer.opacity = 0.0
-            self.layer.opacity = 0.0
-            self.layoutIfNeeded()
-        }) { (Bool) in
-            LoadingView.sharedInstance.removeFromSuperview()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.logoSizeConstraint?.width.constant = 200
+            self.logoSizeConstraint?.height.constant = 200
+            
+            UIView.animateWithDuration(0.25, animations: {
+                self.logo.layer.opacity = 0.0
+                self.layer.opacity = 0.0
+                self.layoutIfNeeded()
+            }) { (Bool) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    LoadingView.sharedInstance.removeFromSuperview()
+                    completion?()
+                }
+            }
         }
     }
 }
