@@ -9,21 +9,6 @@
 import UIKit
 import AWSMobileHubHelper
 
-class MMViewController: UIViewController {
-    override func viewDidLoad() {
-        navigationController?.navigationBar.backgroundColor = .whiteColor()
-        navigationController?.navigationBar.translucent = false
-    }
-    
-    var mistLogoInTitle: Bool = false {
-        didSet {
-            if mistLogoInTitle {
-                navigationItem.titleView = UIImageView(image: UIImage(named: "Products-Mist-Logo"))
-            }
-        }
-    }
-}
-
 class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
     
     // MARK: - View Lifecycle
@@ -68,6 +53,8 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         
         mistLogoInTitle = true
+        setLeftButton("Account", target: self, selector: #selector(presentAccountViewController))
+        setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
         
         view.backgroundColor = .whiteColor()
         
@@ -94,6 +81,14 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    func presentAccountViewController() {
+        print("hia")
+    }
+    
+    func presentSearchViewController() {
+        print("hi")
     }
     
     // MARK: - UI Components
