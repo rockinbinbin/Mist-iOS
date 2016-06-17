@@ -62,12 +62,12 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         AWSCloudLogic.defaultCloudLogic().invokeFunction("generateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
             guard error == nil else {
-                print(error)
+                print("Error in invokeFunction(generateFeed): \(error)")
                 return
             }
             
             guard let rawFeed = (result as? NSDictionary)?["feed"] as? [NSDictionary] else {
-                print("shit")
+                print("Error in invokeFunction(generateFeed): received an invalid result.")
                 return
             }
             
@@ -82,6 +82,8 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
+    
+    // MARK: - Navigation
     
     func presentAccountViewController() {
         print("hia")
@@ -130,7 +132,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         }
         
         cell.setTitleText(feed[indexPath.row].name)
-        
         imageLoading[indexPath.row] = true
         
         cell.setImage(feed[indexPath.row].imageURL) { (completed) in
@@ -140,9 +141,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
                     self.imageLoading[indexPath.row] = false
 
                     if (self.imageLoading.indexOf(true) == nil) {
-                        LoadingView.sharedInstance.hideView() {
-                            self.collectionView.reloadData()
-                        }
+                        LoadingView.sharedInstance.hideView()
                     }
                 }
             }
