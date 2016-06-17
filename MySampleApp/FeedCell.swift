@@ -67,9 +67,9 @@ class FeedCell: UICollectionViewCell {
         nameLabel.pinToLeftEdgeOfSuperview(offset: 5)
     }
     
-    func setImage(url: String, completion: ((completed: Bool) -> ())?) {
+    func setImage(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {
         DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
-            completion?(completed: Bool(error == nil))
+            completion?(completed: Bool(error == nil), image: image)
             
             dispatch_async(dispatch_get_main_queue()) {
                 self.imageView.image = image

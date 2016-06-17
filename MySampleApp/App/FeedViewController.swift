@@ -48,6 +48,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     }
     
     private var feedCellMetadata: [FeedCellInfo] = []
+    private var imageSizes: [CGSize] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
                 self.feed.append(ProductInfo(dictionary: productDictionary)!)
                 self.feedCellMetadata.append(FeedCellInfo())
                 self.imageLoading.append(false)
+                self.imageSizes.append(CGSizeZero)
             }
             
             dispatch_async(dispatch_get_main_queue()) {
@@ -134,11 +136,12 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         cell.setTitleText(feed[indexPath.row].name)
         imageLoading[indexPath.row] = true
         
-        cell.setImage(feed[indexPath.row].imageURL) { (completed) in
+        cell.setImage(feed[indexPath.row].imageURL) { (completed, image) in
             if completed {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.collectionView.reloadData()
                     self.imageLoading[indexPath.row] = false
+                    self.imageSizes[indexPath.row] = (image?.size)!
 
                     if (self.imageLoading.indexOf(true) == nil) {
                         LoadingView.sharedInstance.hideView()
@@ -151,17 +154,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let defaultSize = CGSize(width: 5, height: 5)
-        
-        guard feedCellMetadata.count > indexPath.row else {
-            return defaultSize
-        }
-        
-        guard let size = feedCellMetadata[indexPath.row].size else {
-            return defaultSize
-        }
-        
-        return size
+        return imageSizes[indexPath.row]
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
