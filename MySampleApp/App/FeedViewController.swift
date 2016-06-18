@@ -11,40 +11,6 @@ import AWSMobileHubHelper
 
 class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
     
-    // MARK: - View Lifecycle
-    
-    struct ProductInfo {
-        var brand: String
-        var imageURL: String
-        var name: String
-        var id: String
-        
-        init?(dictionary: NSDictionary) {
-            guard let brand = dictionary["brand"] as? String else {
-                return nil
-            }
-            
-            guard let imageURL = dictionary["imageURL"] as? String else {
-                return nil
-            }
-            
-            guard let name = dictionary["name"] as? String else {
-                return nil
-            }
-            
-            guard let id = dictionary["id"] as? String else {
-                return nil
-            }
-            
-            self.brand = brand
-            self.imageURL = imageURL
-            self.name = name
-            self.id = id
-        }
-    }
-    
-    var feed: [ProductInfo] = []
-    
     // MARK: - Product Card
     
     struct FeedCellInfo {
@@ -67,19 +33,13 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         setViewConstraints()
         
-        AWSCloudLogic.defaultCloudLogic().invokeFunction("generateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
+        Feed.sharedInstance.loadFeed { (error: NSError?) in
             guard error == nil else {
-                print("Error in invokeFunction(generateFeed): \(error)")
+                print("Error loading feed: \(error)")
                 return
             }
             
-            guard let rawFeed = (result as? NSDictionary)?["feed"] as? [NSDictionary] else {
-                print("Error in invokeFunction(generateFeed): received an invalid result.")
-                return
-            }
-            
-            for productDictionary in rawFeed {
-                self.feed.append(ProductInfo(dictionary: productDictionary)!)
+            for _ in Feed.sharedInstance.items {
                 self.feedCellMetadata.append(FeedCellInfo())
                 self.imageLoading.append(false)
                 self.imageSizes.append(CGSizeZero)
@@ -126,7 +86,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     // MARK: - Collection View Delegate Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return feed.count
+        return Feed.sharedInstance.items.count
     }
     
     var imageLoading: [Bool] = []
@@ -135,15 +95,15 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
         feedCellMetadata[indexPath.row].cell = cell
         
-        if let productID = cell.productID where productID == feed[indexPath.row].id {
+        if let productID = cell.productID where productID == Feed.sharedInstance.items[indexPath.row].id {
             return cell
         }
         
-        cell.productID = feed[indexPath.row].id
-        cell.setTitleText(feed[indexPath.row].name)
+        cell.productID = Feed.sharedInstance.items[indexPath.row].id
+        cell.setTitleText(Feed.sharedInstance.items[indexPath.row].name)
         imageLoading[indexPath.row] = true
         
-        cell.setImage(feed[indexPath.row].imageURL) { (completed, image) in
+        cell.setImage(Feed.sharedInstance.items[indexPath.row].imageURL) { (completed, image) in
             if completed {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.imageLoading[indexPath.row] = false
