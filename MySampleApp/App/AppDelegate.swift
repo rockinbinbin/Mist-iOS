@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.rootViewController = UINavigationController(rootViewController: FeedViewController())
         window!.makeKeyAndVisible()
         
+        // Show the loading view
         LoadingView.sharedInstance.frame = UIScreen.mainScreen().bounds
         window!.addSubview(LoadingView.sharedInstance)
         
-        // Override point for customization after application launch.
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     

@@ -219,9 +219,11 @@
 		28FFD0A61D129F3E00C89ABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1DD70E29187D829A00000000 /* Images.xcassets */,
 				28FFD0A71D129F4500C89ABE /* Fonts */,
 			);
 			name = Resources;
+			path = mysampleapp/app;
 			sourceTree = "<group>";
 		};
 		28FFD0A71D129F4500C89ABE /* Fonts */ = {
@@ -253,8 +255,29 @@
 			isa = PBXGroup;
 			children = (
 				28FFD0CF1D14CED500C89ABE /* Feed.swift */,
+				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		28FFD0D11D14D98E00C89ABE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				28FFD07A1D1282C500C89ABE /* LoadingView.swift */,
+				283017DA1D10E610002CCE25 /* FeedCell.swift */,
+				283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		28FFD0D21D14D9E200C89ABE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
+				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
+				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		B401C97945F7FF2E00000000 /* Demo */ = {
@@ -342,26 +365,6 @@
 			path = mysampleapp/demo/cloudlogic;
 			sourceTree = "<group>";
 		};
-		B401C979C74EB3BA00000000 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */,
-				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
-				283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */,
-				283017DA1D10E610002CCE25 /* FeedCell.swift */,
-				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
-				28FFD07A1D1282C500C89ABE /* LoadingView.swift */,
-				1DD70E29187D829A00000000 /* Images.xcassets */,
-				1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */,
-				28FFD0A61D129F3E00C89ABE /* Resources */,
-				B401C979E91306BE00000000 /* Supporting Files */,
-				B401C979F19AADAE00000000 /* Utility */,
-				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
-			);
-			name = App;
-			path = mysampleapp/app;
-			sourceTree = "<group>";
-		};
 		B401C979C835E7A900000000 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,8 +439,11 @@
 			isa = PBXGroup;
 			children = (
 				28FFD0CE1D14CEB500C89ABE /* Model */,
-				B401C979ED0F928A00000000 /* Amazon AWS */,
-				B401C979C74EB3BA00000000 /* App */,
+				28FFD0D11D14D98E00C89ABE /* View */,
+				28FFD0D21D14D9E200C89ABE /* Controller */,
+				28FFD0A61D129F3E00C89ABE /* Resources */,
+				B401C979E91306BE00000000 /* Supporting Files */,
+				B401C979F19AADAE00000000 /* Utility */,
 				B401C97945F7FF2E00000000 /* Demo */,
 			);
 			name = Mist;
@@ -447,19 +453,12 @@
 		B401C979E91306BE00000000 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */,
+				1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */,
 				1DD70E295BA6B27900000000 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			path = mysampleapp/app/supportingfiles;
-			sourceTree = "<group>";
-		};
-		B401C979ED0F928A00000000 /* Amazon AWS */ = {
-			isa = PBXGroup;
-			children = (
-				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
-			);
-			name = "Amazon AWS";
-			path = mysampleapp/amazonaws;
+			path = mysampleapp/app/mysampleapp/app/supportingfiles;
 			sourceTree = "<group>";
 		};
 		B401C979F19AADAE00000000 /* Utility */ = {
@@ -469,7 +468,7 @@
 				1DD70E2993F8E24500000000 /* UtilityFunctions.swift */,
 			);
 			name = Utility;
-			path = mysampleapp/app/utility;
+			path = mysampleapp/app/mysampleapp/app/utility;
 			sourceTree = "<group>";
 		};
 		C08C980CF52B47E4FE77F160 /* Pods */ = {

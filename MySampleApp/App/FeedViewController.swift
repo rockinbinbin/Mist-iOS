@@ -11,28 +11,24 @@ import AWSMobileHubHelper
 
 class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
     
-    // MARK: - Product Card
-    
-    struct FeedCellInfo {
-        var cell: FeedCell?
-        var image: UIImage? { get { return cell?.image } }
-        var size: CGSize? { get { return image?.size } }
-    }
-    
-    private var feedCellMetadata: [FeedCellInfo] = []
-    private var imageSizes: [CGSize] = []
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureAppearance()
+        loadFeed()
+        setViewConstraints()
+    }
+    
+    private func configureAppearance() {
         mistLogoInTitle = true
         setLeftButton("Account", target: self, selector: #selector(presentAccountViewController))
         setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
-        
         view.backgroundColor = .whiteColor()
-        
-        setViewConstraints()
-        
+    }
+    
+    private func loadFeed() {
         Feed.sharedInstance.loadFeed { (error: NSError?) in
             guard error == nil else {
                 print("Error loading feed: \(error)")
@@ -40,7 +36,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             }
             
             for _ in Feed.sharedInstance.items {
-                self.feedCellMetadata.append(FeedCellInfo())
                 self.imageLoading.append(false)
                 self.imageSizes.append(CGSizeZero)
             }
@@ -49,16 +44,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
                 self.collectionView.reloadData()
             }
         }
-    }
-    
-    // MARK: - Navigation
-    
-    func presentAccountViewController() {
-        print("hia")
-    }
-    
-    func presentSearchViewController() {
-        print("hi")
     }
     
     // MARK: - UI Components
@@ -83,17 +68,42 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         return collectionView
     }()
     
+    // MARK: - Layout
+    
+    func setViewConstraints() {
+        collectionView.pinToEdgesOfSuperview()
+    }
+    
+    // MARK: - Model
+    
+    /**
+     An array of bools, corresponding with each indexPath.row, if the image is currently loading or not.
+     */
+    private var imageLoading: [Bool] = []
+    
+    /**
+     An array of sizes for each image. Corresponds with each indexPath.row.
+     */
+    private var imageSizes: [CGSize] = []
+    
+    // MARK: - Navigation
+    
+    func presentAccountViewController() {
+        print("hia")
+    }
+    
+    func presentSearchViewController() {
+        print("hi")
+    }
+    
     // MARK: - Collection View Delegate Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Feed.sharedInstance.items.count
     }
     
-    var imageLoading: [Bool] = []
-    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
-        feedCellMetadata[indexPath.row].cell = cell
         
         if let productID = cell.productID where productID == Feed.sharedInstance.items[indexPath.row].id {
             return cell
@@ -130,11 +140,5 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
         // TODO [Analytics]: Record the "product selected" event
         self.navigationController?.pushViewController(productViewController, animated: true)
-    }
-    
-    // MARK: - Layout
-    
-    func setViewConstraints() {
-        collectionView.pinToEdgesOfSuperview()
     }
 }
