@@ -89,7 +89,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     // MARK: - Navigation
     
     func presentAccountViewController() {
-        print("hia")
+        presentViewController(UINavigationController(rootViewController: AccountViewController()), animated: true, completion: nil)
     }
     
     func presentSearchViewController() {

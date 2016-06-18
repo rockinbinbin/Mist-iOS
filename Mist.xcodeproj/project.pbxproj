@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */; };
+		0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */; };
+		0096BF1B1D14E43600EAC2A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF101D14E43600EAC2A9 /* Constants.swift */; };
+		0096BF1C1D14E43600EAC2A9 /* CustomLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF111D14E43600EAC2A9 /* CustomLoginButton.swift */; };
+		0096BF1D1D14E43600EAC2A9 /* EditAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF121D14E43600EAC2A9 /* EditAddressViewController.swift */; };
+		0096BF1E1D14E43600EAC2A9 /* NewAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF131D14E43600EAC2A9 /* NewAddressViewController.swift */; };
+		0096BF1F1D14E43600EAC2A9 /* ProductBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF141D14E43600EAC2A9 /* ProductBarButton.swift */; };
+		0096BF201D14E43600EAC2A9 /* ShippingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF151D14E43600EAC2A9 /* ShippingTableViewCell.swift */; };
+		0096BF211D14E43600EAC2A9 /* ShippingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */; };
+		0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF171D14E43600EAC2A9 /* SignInViewController.swift */; };
+		0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */; };
 		283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D21D10D2FA002CCE25 /* Autolayout.swift */; };
 		283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */; };
 		283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DA1D10E610002CCE25 /* FeedCell.swift */; };
@@ -33,7 +44,7 @@
 		28FFD0CB1D129F5000C89ABE /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28FFD0B91D129F5000C89ABE /* Lato-ThinItalic.ttf */; };
 		28FFD0CD1D1498DA00C89ABE /* MMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */; };
 		28FFD0D01D14CED500C89ABE /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0CF1D14CED500C89ABE /* Feed.swift */; };
-		755F813FA1E9D72815FB7694 /* Pods_Mist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61628AA92844F932D2B417FB /* Pods_Mist.framework */; };
+		39FE9B2760B4EE6A2DB69430 /* Pods_Mist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BEADC889E46C6FBF2818FA5 /* Pods_Mist.framework */; };
 		E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */; };
 		E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */; };
 		E7A30F04069CD88800000000 /* AWSCognito.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -105,6 +116,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = SOURCE_ROOT; };
+		0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = SOURCE_ROOT; };
+		0096BF101D14E43600EAC2A9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
+		0096BF111D14E43600EAC2A9 /* CustomLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginButton.swift; sourceTree = SOURCE_ROOT; };
+		0096BF121D14E43600EAC2A9 /* EditAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressViewController.swift; sourceTree = SOURCE_ROOT; };
+		0096BF131D14E43600EAC2A9 /* NewAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressViewController.swift; sourceTree = SOURCE_ROOT; };
+		0096BF141D14E43600EAC2A9 /* ProductBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductBarButton.swift; sourceTree = SOURCE_ROOT; };
+		0096BF151D14E43600EAC2A9 /* ShippingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingViewController.swift; sourceTree = SOURCE_ROOT; };
+		0096BF171D14E43600EAC2A9 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = SOURCE_ROOT; };
+		0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = SOURCE_ROOT; };
 		1DD70E2900565FF900000000 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserSettingsViewController.swift; path = MySampleApp/Demo/UserSettings/UserSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		1DD70E290339E4CF00000000 /* Mist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Mist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD70E2907AEB9FA00000000 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = MySampleApp/Sdk/Aws/AWSCore.framework; sourceTree = "<group>"; };
@@ -186,9 +208,9 @@
 		28FFD0B91D129F5000C89ABE /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = SOURCE_ROOT; };
 		28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD0CF1D14CED500C89ABE /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feed.swift; path = MySampleApp/Feed.swift; sourceTree = SOURCE_ROOT; };
-		61628AA92844F932D2B417FB /* Pods_Mist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D27A8A95670213AF5A53D2B /* Pods-Mist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.release.xcconfig"; sourceTree = "<group>"; };
-		D80485F3EA422272776245AD /* Pods-Mist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.debug.xcconfig"; sourceTree = "<group>"; };
+		348ED5321A0619044BD06354 /* Pods-Mist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.debug.xcconfig"; sourceTree = "<group>"; };
+		8BEADC889E46C6FBF2818FA5 /* Pods_Mist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F676230E6E28C0EC9F83312E /* Pods-Mist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +231,7 @@
 				E7A30F04A19A6AD700000000 /* CFNetwork.framework in Frameworks */,
 				E7A30F04248B9A2A00000000 /* libz.tbd in Frameworks */,
 				E7A30F04B6029D4000000000 /* libsqlite3.tbd in Frameworks */,
-				755F813FA1E9D72815FB7694 /* Pods_Mist.framework in Frameworks */,
+				39FE9B2760B4EE6A2DB69430 /* Pods_Mist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,10 +296,30 @@
 			isa = PBXGroup;
 			children = (
 				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
+				0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */,
+				0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */,
+				0096BF101D14E43600EAC2A9 /* Constants.swift */,
+				0096BF111D14E43600EAC2A9 /* CustomLoginButton.swift */,
+				0096BF121D14E43600EAC2A9 /* EditAddressViewController.swift */,
+				0096BF131D14E43600EAC2A9 /* NewAddressViewController.swift */,
+				0096BF141D14E43600EAC2A9 /* ProductBarButton.swift */,
+				0096BF151D14E43600EAC2A9 /* ShippingTableViewCell.swift */,
+				0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */,
+				0096BF171D14E43600EAC2A9 /* SignInViewController.swift */,
+				0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */,
 				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
 				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		3047C34DE308995D196A8DC8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				348ED5321A0619044BD06354 /* Pods-Mist.debug.xcconfig */,
+				F676230E6E28C0EC9F83312E /* Pods-Mist.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		B401C97945F7FF2E00000000 /* Demo */ = {
@@ -391,7 +433,7 @@
 				1DD70E293956451E00000000 /* UIKit.framework */,
 				1DD70E29F03D3A8D00000000 /* libsqlite3.tbd */,
 				1DD70E29AA7E099700000000 /* libz.tbd */,
-				61628AA92844F932D2B417FB /* Pods_Mist.framework */,
+				8BEADC889E46C6FBF2818FA5 /* Pods_Mist.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -430,7 +472,7 @@
 				B401C979D899DA5A00000000 /* Mist */,
 				B401C979C835E7A900000000 /* Frameworks */,
 				B401C979C84EBA3C00000000 /* Products */,
-				C08C980CF52B47E4FE77F160 /* Pods */,
+				3047C34DE308995D196A8DC8 /* Pods */,
 			);
 			name = mainGroup;
 			sourceTree = "<group>";
@@ -471,15 +513,6 @@
 			path = mysampleapp/app/mysampleapp/app/utility;
 			sourceTree = "<group>";
 		};
-		C08C980CF52B47E4FE77F160 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D80485F3EA422272776245AD /* Pods-Mist.debug.xcconfig */,
-				6D27A8A95670213AF5A53D2B /* Pods-Mist.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -487,15 +520,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 218C37090000000000000001 /* Build configuration list for PBXNativeTarget "Mist" */;
 			buildPhases = (
-				411E4133A27691C9473D10CB /* Check Pods Manifest.lock */,
+				4692686930CC661381922720 /* 📦 Check Pods Manifest.lock */,
 				E1F174220000000000000001 /* ShellScript */,
 				1870857F0000000000000000 /* Sources */,
 				4F426D880000000000000000 /* Frameworks */,
 				8A032D2C0000000000000000 /* Resources */,
 				FAF5FAC90000000000000000 /* Embed Frameworks */,
 				E1F174220000000000000000 /* ShellScript */,
-				9176789F081ACFFC6351684D /* Embed Pods Frameworks */,
-				1836D9E07C4489C6FEF2BEFC /* Copy Pods Resources */,
+				3A24E8D1F34A6EA5697E19F5 /* 📦 Embed Pods Frameworks */,
+				D8CA6F2361A0B42046957AA0 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -582,29 +615,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1836D9E07C4489C6FEF2BEFC /* Copy Pods Resources */ = {
+		3A24E8D1F34A6EA5697E19F5 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		411E4133A27691C9473D10CB /* Check Pods Manifest.lock */ = {
+		4692686930CC661381922720 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,19 +645,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		9176789F081ACFFC6351684D /* Embed Pods Frameworks */ = {
+		D8CA6F2361A0B42046957AA0 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E1F174220000000000000000 /* ShellScript */ = {
@@ -661,30 +694,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */,
+				0096BF1D1D14E43600EAC2A9 /* EditAddressViewController.swift in Sources */,
 				28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */,
+				0096BF1C1D14E43600EAC2A9 /* CustomLoginButton.swift in Sources */,
+				0096BF1E1D14E43600EAC2A9 /* NewAddressViewController.swift in Sources */,
 				E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */,
 				E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */,
 				E7A30F040C3E00B900000000 /* UserFilesViewController.swift in Sources */,
 				283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */,
 				E7A30F04BB01BF6E00000000 /* NoSQLTableListViewController.swift in Sources */,
+				0096BF1F1D14E43600EAC2A9 /* ProductBarButton.swift in Sources */,
 				E7A30F0416AC0CC200000000 /* ProductTable.swift in Sources */,
 				E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */,
+				0096BF1B1D14E43600EAC2A9 /* Constants.swift in Sources */,
+				0096BF211D14E43600EAC2A9 /* ShippingViewController.swift in Sources */,
 				E7A30F04D93B809500000000 /* UserSettingsViewController.swift in Sources */,
 				E7A30F04EA26C65700000000 /* AppDelegate.swift in Sources */,
 				28FFD0D01D14CED500C89ABE /* Feed.swift in Sources */,
 				28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */,
 				28FFD0CD1D1498DA00C89ABE /* MMViewController.swift in Sources */,
+				0096BF201D14E43600EAC2A9 /* ShippingTableViewCell.swift in Sources */,
 				E7A30F04B38C64E900000000 /* CloudLogicViewController.swift in Sources */,
+				0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */,
 				E7A30F04DBA20E1D00000000 /* UserDataStorageViewController.swift in Sources */,
+				0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */,
 				E7A30F04BF31BA1900000000 /* DemoFeature.swift in Sources */,
 				E7A30F040E88B56500000000 /* ColorThemeSettings.swift in Sources */,
 				E7A30F0426CBAFF500000000 /* NoSQLSampleDataGenerator.swift in Sources */,
 				E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */,
+				0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */,
 				E7A30F04778FC87400000000 /* NoSQLTableViewController.swift in Sources */,
 				E7A30F0466AC0BE400000000 /* NoSQLModelHelpers.swift in Sources */,
 				E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */,
 				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
 				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
+				0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */,
 				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */,
 				E7A30F041462FD3900000000 /* Product.swift in Sources */,
@@ -736,7 +780,7 @@
 		};
 		49524373386D956C00000001 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D27A8A95670213AF5A53D2B /* Pods-Mist.release.xcconfig */;
+			baseConfigurationReference = F676230E6E28C0EC9F83312E /* Pods-Mist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -808,7 +852,7 @@
 		};
 		4952437346F3E10800000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D80485F3EA422272776245AD /* Pods-Mist.debug.xcconfig */;
+			baseConfigurationReference = 348ED5321A0619044BD06354 /* Pods-Mist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
