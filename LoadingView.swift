@@ -46,6 +46,8 @@ class LoadingView: UIView {
     
     // MARK: - Visibility
     
+    var hasHiddenOnce: Bool = false
+    
     func hideView(completion: (() -> ())? = nil) {
         
         dispatch_async(dispatch_get_main_queue()) {

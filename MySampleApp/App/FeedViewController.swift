@@ -17,6 +17,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         var brand: String
         var imageURL: String
         var name: String
+        var id: String
         
         init?(dictionary: NSDictionary) {
             guard let brand = dictionary["brand"] as? String else {
@@ -31,9 +32,14 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
                 return nil
             }
             
+            guard let id = dictionary["id"] as? String else {
+                return nil
+            }
+            
             self.brand = brand
             self.imageURL = imageURL
             self.name = name
+            self.id = id
         }
     }
     
@@ -129,21 +135,23 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
         feedCellMetadata[indexPath.row].cell = cell
         
-        guard cell.image == nil else {
+        if let productID = cell.productID where productID == feed[indexPath.row].id {
             return cell
         }
         
+        cell.productID = feed[indexPath.row].id
         cell.setTitleText(feed[indexPath.row].name)
         imageLoading[indexPath.row] = true
         
         cell.setImage(feed[indexPath.row].imageURL) { (completed, image) in
             if completed {
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.collectionView.reloadData()
                     self.imageLoading[indexPath.row] = false
                     self.imageSizes[indexPath.row] = (image?.size)!
 
-                    if (self.imageLoading.indexOf(true) == nil) {
+                    if (self.imageLoading.indexOf(true) == nil && !LoadingView.sharedInstance.hasHiddenOnce) {
+                        LoadingView.sharedInstance.hasHiddenOnce = true
+                        self.collectionView.reloadData()
                         LoadingView.sharedInstance.hideView()
                     }
                 }

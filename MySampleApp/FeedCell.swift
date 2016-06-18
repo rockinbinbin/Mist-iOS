@@ -23,6 +23,8 @@ class FeedCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
+    var productID: String? = nil
+    
     // MARK: - UI Components
     
     private lazy var imageView: UIImageView = {
