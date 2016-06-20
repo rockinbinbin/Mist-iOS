@@ -143,7 +143,10 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let productViewController = ProductViewController()
-    
+        
+        let product = Feed.sharedInstance.items[indexPath.row]
+        productViewController.product = product
+
         // TODO [Analytics]: Record the "product selected" event
         self.navigationController?.pushViewController(productViewController, animated: true)
     }

@@ -45,7 +45,7 @@
 		28FFD0CD1D1498DA00C89ABE /* MMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */; };
 		28FFD0D01D14CED500C89ABE /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0CF1D14CED500C89ABE /* Feed.swift */; };
 		28FFD0D41D14EDBD00C89ABE /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0D31D14EDBD00C89ABE /* Credentials.swift */; };
-		28FFD0D61D14EEC700C89ABE /* StripeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0D51D14EEC700C89ABE /* StripeManager.swift */; };
+		28FFD0D61D14EEC700C89ABE /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */; };
 		39FE9B2760B4EE6A2DB69430 /* Pods_Mist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BEADC889E46C6FBF2818FA5 /* Pods_Mist.framework */; };
 		E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */; };
 		E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */; };
@@ -188,6 +188,7 @@
 		283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CHTCollectionViewWaterfallLayout.swift; path = MySampleApp/CHTCollectionViewWaterfallLayout.swift; sourceTree = SOURCE_ROOT; };
 		283017DA1D10E610002CCE25 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = MySampleApp/FeedCell.swift; sourceTree = SOURCE_ROOT; };
 		283017DE1D12318E002CCE25 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = SOURCE_ROOT; };
+		286F55E11D18728B0012A884 /* Mist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mist.entitlements; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD07A1D1282C500C89ABE /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
 		28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = SOURCE_ROOT; };
@@ -211,7 +212,7 @@
 		28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD0CF1D14CED500C89ABE /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feed.swift; path = MySampleApp/Feed.swift; sourceTree = SOURCE_ROOT; };
 		28FFD0D31D14EDBD00C89ABE /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Credentials.swift; path = MySampleApp/Credentials.swift; sourceTree = SOURCE_ROOT; };
-		28FFD0D51D14EEC700C89ABE /* StripeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeManager.swift; sourceTree = "<group>"; };
+		28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
 		348ED5321A0619044BD06354 /* Pods-Mist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.debug.xcconfig"; sourceTree = "<group>"; };
 		8BEADC889E46C6FBF2818FA5 /* Pods_Mist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F676230E6E28C0EC9F83312E /* Pods-Mist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mist/Pods-Mist.release.xcconfig"; sourceTree = "<group>"; };
@@ -283,7 +284,7 @@
 				28FFD0CF1D14CED500C89ABE /* Feed.swift */,
 				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
 				28FFD0D31D14EDBD00C89ABE /* Credentials.swift */,
-				28FFD0D51D14EEC700C89ABE /* StripeManager.swift */,
+				28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -486,6 +487,7 @@
 		B401C979D899DA5A00000000 /* Mist */ = {
 			isa = PBXGroup;
 			children = (
+				286F55E11D18728B0012A884 /* Mist.entitlements */,
 				28FFD0CE1D14CEB500C89ABE /* Model */,
 				28FFD0D11D14D98E00C89ABE /* View */,
 				28FFD0D21D14D9E200C89ABE /* Controller */,
@@ -559,6 +561,9 @@
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
+							};
+							com.apple.OMC = {
+								enabled = 1;
 							};
 						};
 					};
@@ -706,7 +711,7 @@
 				0096BF1C1D14E43600EAC2A9 /* CustomLoginButton.swift in Sources */,
 				0096BF1E1D14E43600EAC2A9 /* NewAddressViewController.swift in Sources */,
 				E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */,
-				28FFD0D61D14EEC700C89ABE /* StripeManager.swift in Sources */,
+				28FFD0D61D14EEC700C89ABE /* PaymentManager.swift in Sources */,
 				E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */,
 				E7A30F040C3E00B900000000 /* UserFilesViewController.swift in Sources */,
 				283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */,
@@ -791,6 +796,7 @@
 			baseConfigurationReference = F676230E6E28C0EC9F83312E /* Pods-Mist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mist.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -863,6 +869,7 @@
 			baseConfigurationReference = 348ED5321A0619044BD06354 /* Pods-Mist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mist.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
