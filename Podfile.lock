@@ -1,15 +1,18 @@
 PODS:
   - DLImageLoader (1.2.0-swift)
   - FLAnimatedImage (1.0.12)
+  - Stripe (7.0.2)
 
 DEPENDENCIES:
   - DLImageLoader (= 1.2.0-swift)
   - FLAnimatedImage
+  - Stripe
 
 SPEC CHECKSUMS:
   DLImageLoader: 0f232d40d06c50b9246b29944f00991174fdf5fa
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  Stripe: d1eae5522cf993590f962ac1829a56c2096cf486
 
-PODFILE CHECKSUM: c42b18673c7b87a5bc0995a1953e6a1425ed2f68
+PODFILE CHECKSUM: 851598aedd7b94aeffed7368b8b85956db3be2f8
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

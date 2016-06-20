@@ -1,9 +1,9 @@
 EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/DLImageLoader" "$PODS_CONFIGURATION_BUILD_DIR/FLAnimatedImage"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/DLImageLoader" "$PODS_CONFIGURATION_BUILD_DIR/FLAnimatedImage" "$PODS_CONFIGURATION_BUILD_DIR/Stripe"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/DLImageLoader/DLImageLoader.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/FLAnimatedImage/FLAnimatedImage.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "DLImageLoader" -framework "FLAnimatedImage"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/DLImageLoader/DLImageLoader.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/FLAnimatedImage/FLAnimatedImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Stripe/Stripe.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "DLImageLoader" -framework "FLAnimatedImage" -framework "Stripe"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

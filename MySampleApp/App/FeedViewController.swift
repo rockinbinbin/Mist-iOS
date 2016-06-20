@@ -105,15 +105,21 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
         
-        if let productID = cell.productID where productID == Feed.sharedInstance.items[indexPath.row].id {
+        guard indexPath.row < Feed.sharedInstance.items.count else {
             return cell
         }
         
-        cell.productID = Feed.sharedInstance.items[indexPath.row].id
-        cell.setTitleText(Feed.sharedInstance.items[indexPath.row].name)
+        let product = Feed.sharedInstance.items[indexPath.row]
+        
+        if let productID = cell.productID where productID == product.id {
+            return cell
+        }
+        
+        cell.product = product
+        
         imageLoading[indexPath.row] = true
         
-        cell.setImage(Feed.sharedInstance.items[indexPath.row].imageURL) { (completed, image) in
+        cell.setImage(product.imageURL) { (completed, image) in
             if completed {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.imageLoading[indexPath.row] = false
