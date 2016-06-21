@@ -61,7 +61,7 @@ class Feed {
     // MARK: - Classes
     
     /**
-     The basic unit of data for a feed. Should map one-to-one with data returned from Lambda:generateFeed.
+     The basic unit of data for a feed. Should map one-to-one with data returned from Lambda:GenerateFeed.
      */
     struct Item {
         let brand: String
