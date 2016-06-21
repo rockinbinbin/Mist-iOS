@@ -345,7 +345,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
-            NSForegroundColorAttributeName:UIColor(white: 1.0, alpha: 0.6),
+            NSForegroundColorAttributeName:UIColor(white: 1.0, alpha: 0.7),
             NSKernAttributeName:CGFloat(2.0)
         ]
         
@@ -381,7 +381,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         }
     }
     
-    var scrollReleaseThreshold: CGFloat = -85
+    var scrollReleaseThreshold: CGFloat = -80
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
