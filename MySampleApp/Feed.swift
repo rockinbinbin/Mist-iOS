@@ -66,6 +66,7 @@ class Feed {
         let brand: String
         let imageURL: String
         let name: String
+        let price: String
         let id: String
         
         init?(dictionary: NSDictionary) {
@@ -73,13 +74,15 @@ class Feed {
                 let brand = dictionary["brand"] as? String,
                 let imageURL = dictionary["imageURL"] as? String,
                 let name = dictionary["name"] as? String,
-                let id = dictionary["id"] as? String else {
+                let id = dictionary["id"] as? String,
+                let price = dictionary["price"] as? String else {
                     return nil
             }
             
             self.brand = brand
             self.imageURL = imageURL
             self.name = name
+            self.price = price
             self.id = id
         }
     }

@@ -28,6 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LoadingView.sharedInstance.frame = UIScreen.mainScreen().bounds
         window!.addSubview(LoadingView.sharedInstance)
         
+        // Initialize Stripe
+        Stripe.setDefaultPublishableKey(Credentials.stripePublishableKey())
+        
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     

@@ -6,6 +6,7 @@ target 'Mist' do
 
 pod 'DLImageLoader', '1.2.0-swift'
 pod 'FLAnimatedImage'
+pod 'Stripe'
 
 end
 

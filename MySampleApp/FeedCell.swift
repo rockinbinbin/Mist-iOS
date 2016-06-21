@@ -23,7 +23,16 @@ class FeedCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    var productID: String? = nil
+    var product: Feed.Item? = nil {
+        didSet {
+            guard let item = product else {
+                return
+            }
+            
+            setTitleText(item.name)
+            setPrice(item.price)
+        }
+    }
     
     // MARK: - UI Components
     
@@ -55,6 +64,13 @@ class FeedCell: UICollectionViewCell {
         return _nameLabel
     }()
     
+    private lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .whiteColor()
+        self.addSubview(label)
+        return label
+    }()
+    
     // MARK: - Layout
     
     func setViewConstraints() {
@@ -67,6 +83,9 @@ class FeedCell: UICollectionViewCell {
         
         nameLabel.pinToBottomEdgeOfSuperview(offset: 5)
         nameLabel.pinToLeftEdgeOfSuperview(offset: 5)
+        
+        priceLabel.pinToBottomEdgeOfSuperview(offset: 5)
+        priceLabel.pinToRightEdgeOfSuperview(offset: 5)
     }
     
     func setImage(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {
@@ -79,7 +98,7 @@ class FeedCell: UICollectionViewCell {
         }
     }
     
-    func setTitleText(name: String) {
+    private func setTitleText(name: String) {
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
             NSForegroundColorAttributeName:UIColor.whiteColor(),
@@ -92,11 +111,29 @@ class FeedCell: UICollectionViewCell {
         nameLabel.sizeToFit()
     }
     
+    private func setPrice(price: String) {
+        let attributes: NSDictionary = [
+            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
+            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSKernAttributeName:CGFloat(2.0)
+        ]
+        
+        let attributedTitle = NSAttributedString(string: "$\(Int(Double(price)!))", attributes: attributes as? [String : AnyObject])
+        priceLabel.attributedText = attributedTitle
+        priceLabel.sizeToFit()
+    }
+    
     // MARK: - Interface
     
     var image: UIImage? {
         get {
             return imageView.image
+        }
+    }
+    
+    var productID: String? {
+        get {
+            return product?.id
         }
     }
 }
