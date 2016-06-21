@@ -191,7 +191,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 //            
 //            if let defaultAddress = user.objectForKey("defaultAddress") {
 //                // address is set
-//                self.layoutViews()
+                self.layoutViews()
 //                ParseManager1.getInstance().loadAddressesDelegate = self
 //                ParseManager1.getInstance().loadAddresses()
 //            }
