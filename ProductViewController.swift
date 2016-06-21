@@ -10,12 +10,12 @@ import UIKit
 import Stripe
 import AWSMobileHubHelper
 
-class ProductViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate {
+class ProductViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UIScrollViewDelegate {
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .blackColor()
         setViewConstraints()
     }
     
@@ -28,10 +28,40 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             }
             
             buyButton.setTitle("Buy for \(product!.price)", forState: .Normal)
+            setTitleText(product!.name)
+            setPriceText("$\(Int(Double(product!.price)!))")
+            
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    var imageHeight: CGFloat = 200
+    
+    var mainImage: UIImage? = nil {
+        didSet {
+            guard let image = mainImage else {
+                return
+            }
+            
+            mainImageView.image = image
+            imageHeight = (image.size.height / image.size.width) * self.view.frame.size.width
+            imageHeightConstraint?.constant = imageHeight
         }
     }
     
     // MARK: - UI Components
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .blackColor()
+        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)
+        scrollView.scrollEnabled = true
+        scrollView.alwaysBounceVertical = true
+        scrollView.delegate = self
+        self.view.addSubview(scrollView)
+        return scrollView
+    }()
     
     private lazy var buyButton: UIButton = {
         let button = UIButton()
@@ -40,14 +70,122 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.addTarget(self, action: #selector(ProductViewController.purchaseItem), forControlEvents: .TouchUpInside)
         
-        self.view.addSubview(button)
+        self.scrollView.addSubview(button)
         return button
     }()
     
+    private lazy var mainImageView: UIImageView = {
+        let imageView = UIImageView()
+        self.scrollView.addSubview(imageView)
+        return imageView
+    }()
+    
+    private lazy var gradientView: UIView = {
+        let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0.0, 0.0, 1000, 75.0))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        gradient.frame = _blackGradientOverlay.bounds
+        gradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        
+        _blackGradientOverlay.layer.insertSublayer(gradient, atIndex: 0)
+        _blackGradientOverlay.clipsToBounds = true
+        
+        self.scrollView.addSubview(_blackGradientOverlay)
+        
+        return _blackGradientOverlay
+    }()
+    
+    private lazy var topGradientView: UIView = {
+        let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0.0, 0.0, 1000, 75.0))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        gradient.frame = _blackGradientOverlay.bounds
+        gradient.colors = [UIColor.blackColor().CGColor, UIColor.clearColor().CGColor]
+        
+        _blackGradientOverlay.layer.insertSublayer(gradient, atIndex: 0)
+        _blackGradientOverlay.clipsToBounds = true
+        
+        self.mainImageView.addSubview(_blackGradientOverlay)
+        
+        _blackGradientOverlay.layer.opacity = 0
+        
+        return _blackGradientOverlay
+    }()
+    
+    private lazy var productTitleLabel: UILabel = {
+        let label = UILabel()
+        self.gradientView.addSubview(label)
+        return label
+    }()
+    
+    private func setTitleText(name: String) {
+        let attributes: NSDictionary = [
+            NSFontAttributeName:UIFont(name: "Lato-Regular", size: 18)!,
+            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSKernAttributeName:CGFloat(2.0)
+        ]
+        
+        let attributedTitle = NSAttributedString(string: name.uppercaseString, attributes: attributes as? [String : AnyObject])
+        
+        productTitleLabel.attributedText = attributedTitle
+        productTitleLabel.sizeToFit()
+    }
+    
+    private lazy var productPriceLabel: UILabel = {
+        let label = UILabel()
+        self.gradientView.addSubview(label)
+        return label
+    }()
+    
+    private func setPriceText(name: String) {
+        let attributes: NSDictionary = [
+            NSFontAttributeName:UIFont(name: "Lato-Light", size: 18)!,
+            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSKernAttributeName:CGFloat(2.0)
+        ]
+        
+        let attributedTitle = NSAttributedString(string: name.uppercaseString, attributes: attributes as? [String : AnyObject])
+        
+        productPriceLabel.attributedText = attributedTitle
+        productPriceLabel.sizeToFit()
+    }
+    
     // MARK: - Layout
     
+    private var imageTopConstraint: NSLayoutConstraint? = nil
+    private var imageHeightConstraint: NSLayoutConstraint? = nil
+    private var imageWidthConstraint: NSLayoutConstraint? = nil
+    
     func setViewConstraints() {
-        buyButton.centerInSuperview()
+        
+        scrollView.pinToLeftEdgeOfSuperview()
+        scrollView.pinToTopEdgeOfSuperview()
+        scrollView.sizeToWidth(self.view.frame.width)
+        scrollView.sizeToHeight(self.view.frame.height)
+        
+        mainImageView.centerHorizontallyInSuperview()
+        
+        imageTopConstraint = mainImageView.pinToTopEdgeOfSuperview()
+        imageHeightConstraint = mainImageView.sizeToHeight(imageHeight)
+        imageWidthConstraint = mainImageView.sizeToWidth(self.view.frame.size.width)
+        
+        gradientView.sizeToHeight(75)
+        gradientView.pinToLeftEdgeOfSuperview()
+        gradientView.sizeToWidth(self.view.frame.width)
+        gradientView.positionBelowItem(mainImageView, offset: -75)
+        
+        topGradientView.sizeToHeight(75)
+        topGradientView.pinToTopEdgeOfSuperview()
+        topGradientView.pinToSideEdgesOfSuperview()
+        
+        productTitleLabel.pinToLeftEdgeOfSuperview(offset: 10)
+        productTitleLabel.pinToBottomEdgeOfSuperview(offset: 10)
+        
+        productPriceLabel.pinToRightEdgeOfSuperview(offset: 10)
+        productPriceLabel.pinToBottomEdgeOfSuperview(offset: 10)
+        
+        buyButton.pinToBottomEdgeOfSuperview(offset: 20)
+        buyButton.pinToRightEdgeOfSuperview(offset: 20)
     }
     
     // MARK: - Payment
@@ -165,5 +303,38 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             "token": tokenId,
             "email": email!
         ]
+    }
+    
+    // MARK: - Appearance
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    // MARK: - Scrollview
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        guard scrollView.contentOffset.y < 0 else {
+            return
+        }
+        
+        let y = scrollView.contentOffset.y
+        
+        imageTopConstraint?.constant = y
+        let newImageHeight = imageHeight - y
+        
+        let percentDone: CGFloat = -y / 80
+        
+        topGradientView.layer.opacity = Float(percentDone > 1 ? 1 : percentDone) / 2
+        
+        imageHeightConstraint?.constant = newImageHeight
+        imageWidthConstraint?.constant = newImageHeight * (mainImage!.size.width / mainImage!.size.height)
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView.contentOffset.y <= -80 {
+            dismissViewControllerAnimated(false, completion: nil)
+        }
     }
 }

@@ -95,7 +95,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     func presentSearchViewController() {
         AnalyticsManager.sharedInstance.recordEvent(Event.Feed.SearchPressed)
-        print("hi")
     }
     
     // MARK: - Collection View Delegate Methods
@@ -146,12 +145,19 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let productViewController = ProductViewController()
         
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FeedCell
+        
         let product = Feed.sharedInstance.items[indexPath.row]
         productViewController.product = product
+        productViewController.mainImage = cell.image
 
         // Record in mobile analytics
         AnalyticsManager.sharedInstance.recordEvent(Event.Feed.ItemCellPressed)
         
-        self.navigationController?.pushViewController(productViewController, animated: true)
+        presentViewController(productViewController, animated: false, completion: nil)
     }
+}
+
+extension FeedViewController {
+    
 }
