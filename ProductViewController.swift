@@ -208,6 +208,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         buyButton.pinToBottomEdgeOfSuperview(offset: 20)
         buyButton.pinToRightEdgeOfSuperview(offset: 20)
+        
+        releaseLabel.centerHorizontallyInSuperview()
+        releaseLabel.pinToTopEdgeOfSuperview(offset: 10)
     }
     
     // MARK: - Payment
@@ -335,6 +338,51 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     // MARK: - Scrollview
     
+    private lazy var releaseLabel: UILabel = {
+        let label = UILabel()
+        
+        label.layer.opacity = 0
+        
+        let attributes: NSDictionary = [
+            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
+            NSForegroundColorAttributeName:UIColor(white: 1.0, alpha: 0.6),
+            NSKernAttributeName:CGFloat(2.0)
+        ]
+        
+        let attributedTitle = NSAttributedString(string: "Release to return to feed".uppercaseString, attributes: attributes as? [String : AnyObject])
+        
+        label.attributedText = attributedTitle
+        label.sizeToFit()
+        
+        self.view.addSubview(label)
+        
+        return label
+    }()
+    
+    var releaseLabelIsHidden = true
+    
+    private func showReleaseLabel() {
+        guard releaseLabel.layer.opacity == 0 else {
+            return
+        }
+        
+        UIView.animateWithDuration(0.25) {
+            self.releaseLabel.layer.opacity = 1
+        }
+    }
+    
+    private func hideReleaseLabel() {
+        guard releaseLabel.layer.opacity != 0 else {
+            return
+        }
+        
+        UIView.animateWithDuration(0.25) {
+            self.releaseLabel.layer.opacity = 0
+        }
+    }
+    
+    var scrollReleaseThreshold: CGFloat = -85
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
         guard scrollView.contentOffset.y < 0 else {
@@ -346,16 +394,26 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         imageTopConstraint?.constant = y
         let newImageHeight = imageHeight - y
         
-        let percentDone: CGFloat = -y / 80
+        let percentDone: CGFloat = y / scrollReleaseThreshold
         
         topGradientView.layer.opacity = Float(percentDone > 1 ? 1 : percentDone) / 2
         
         imageHeightConstraint?.constant = newImageHeight
         imageWidthConstraint?.constant = newImageHeight * (mainImage!.size.width / mainImage!.size.height)
+        
+        if scrollView.contentOffset.y <= scrollReleaseThreshold && releaseLabelIsHidden {
+            releaseLabelIsHidden = false
+            showReleaseLabel()
+        }
+        
+        else if scrollView.contentOffset.y > scrollReleaseThreshold && !releaseLabelIsHidden {
+            releaseLabelIsHidden = true
+            hideReleaseLabel()
+        }
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if scrollView.contentOffset.y <= -100 {
+        if scrollView.contentOffset.y <= scrollReleaseThreshold {
             let imageFrame = mainImageView.frame
             
             self.delegate?.transitionToCell(fromImageFrame: imageFrame) {
