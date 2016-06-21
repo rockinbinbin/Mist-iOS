@@ -89,10 +89,12 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     // MARK: - Navigation
     
     func presentAccountViewController() {
+        AnalyticsManager.sharedInstance.recordEvent(Event.Feed.AccountPressed)
         presentViewController(UINavigationController(rootViewController: AccountViewController()), animated: true, completion: nil)
     }
     
     func presentSearchViewController() {
+        AnalyticsManager.sharedInstance.recordEvent(Event.Feed.SearchPressed)
         print("hi")
     }
     
@@ -147,7 +149,9 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         let product = Feed.sharedInstance.items[indexPath.row]
         productViewController.product = product
 
-        // TODO [Analytics]: Record the "product selected" event
+        // Record in mobile analytics
+        AnalyticsManager.sharedInstance.recordEvent(Event.Feed.ItemCellPressed)
+        
         self.navigationController?.pushViewController(productViewController, animated: true)
     }
 }

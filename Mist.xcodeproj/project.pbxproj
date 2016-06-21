@@ -22,6 +22,8 @@
 		283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */; };
 		283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DA1D10E610002CCE25 /* FeedCell.swift */; };
 		283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DE1D12318E002CCE25 /* ProductViewController.swift */; };
+		2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */; };
+		2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
 		28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD07A1D1282C500C89ABE /* LoadingView.swift */; };
 		28FFD0BA1D129F5000C89ABE /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */; };
@@ -188,6 +190,8 @@
 		283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CHTCollectionViewWaterfallLayout.swift; path = MySampleApp/CHTCollectionViewWaterfallLayout.swift; sourceTree = SOURCE_ROOT; };
 		283017DA1D10E610002CCE25 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = MySampleApp/FeedCell.swift; sourceTree = SOURCE_ROOT; };
 		283017DE1D12318E002CCE25 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = SOURCE_ROOT; };
+		2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
 		286F55E11D18728B0012A884 /* Mist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mist.entitlements; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD07A1D1282C500C89ABE /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
@@ -310,6 +314,8 @@
 				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
 				28FFD0D31D14EDBD00C89ABE /* Credentials.swift */,
 				28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */,
+				2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */,
+				2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -747,6 +753,7 @@
 				0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */,
 				E7A30F04DBA20E1D00000000 /* UserDataStorageViewController.swift in Sources */,
 				0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */,
+				2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */,
 				E7A30F04BF31BA1900000000 /* DemoFeature.swift in Sources */,
 				E7A30F040E88B56500000000 /* ColorThemeSettings.swift in Sources */,
 				E7A30F0426CBAFF500000000 /* NoSQLSampleDataGenerator.swift in Sources */,
@@ -756,6 +763,7 @@
 				E7A30F0466AC0BE400000000 /* NoSQLModelHelpers.swift in Sources */,
 				E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */,
 				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
+				2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */,
 				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
 				0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */,
 				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,

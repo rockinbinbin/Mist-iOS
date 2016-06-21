@@ -473,8 +473,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Shipping address
         if (indexPath.row == 1) {
-            // shipping
+            AnalyticsManager.sharedInstance.recordEvent(Event.Account.ShippingAddressPressed)
+            
             let shipVC = ShippingViewController()
             shipVC.userAddresses = userAddresses
             self.navigationController?.pushViewController(shipVC, animated: true)
@@ -515,20 +517,24 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func signInPressed() {
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.SignInPressed)
         self.navigationController?.pushViewController(SignInViewController(), animated: true)
     }
     
     func signUpPressed() {
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.SignUpPressed)
         self.navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
     
     func logOffPressed() {
-        //PFUser.logOut()
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.LogOutPressed)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     func sendEmailButtonTapped() {
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.ContactUsPressed)
+        
         let mailComposeViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
             self.presentViewController(mailComposeViewController, animated: true, completion: nil)
