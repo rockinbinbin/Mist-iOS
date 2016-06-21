@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileHubHelper
 
-class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout {
+class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, FeedProductTransitionDelegate {
     
     // MARK: - View Lifecycle
     
@@ -155,11 +155,12 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         let product = Feed.sharedInstance.items[indexPath.row]
         productViewController.product = product
         productViewController.mainImage = cell.image
+        productViewController.delegate = self
 
         // Record in mobile analytics
         AnalyticsManager.sharedInstance.recordEvent(Event.Feed.ItemCellPressed)
         
-        transitionToCell(indexPath) {completion in
+        transitionToProduct(fromIndex: indexPath) {completion in
             self.presentViewController(productViewController, animated: false, completion: completion)
         }
     }
@@ -175,19 +176,30 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return .Fade
     }
+    
+    // MARK: - Product View
+    
+    var activeIndexPath: NSIndexPath? = nil
+    var activeCellFrame: CGRect? = nil
 }
 
 // MARK: - Transition
 
+protocol FeedProductTransitionDelegate {
+    func transitionToCell(fromImageFrame imageFrame: CGRect, dismissViewControllerHandler: () -> ())
+}
+
 extension FeedViewController {
     
-    private func transitionToCell(indexPath: NSIndexPath, presentViewHandler: (didFinishPresentingView: () -> ()) -> ()) {
+    func transitionToProduct(fromIndex indexPath: NSIndexPath, presentViewHandler: (didFinishPresentingView: () -> ()) -> ()) {
         let window = UIApplication.sharedApplication().keyWindow
         
         let newImageView = _transition_newImageView(indexPath)
         let blackView = _transition_blackView()
         window?.addSubview(blackView)
         window?.addSubview(newImageView)
+        
+        newImageView.frame = _transition_getCellGlobalFrame(indexPath)
         
         let blackGradient = _transition_blackGradient()
         blackGradient.clipsToBounds = true
@@ -199,6 +211,8 @@ extension FeedViewController {
         let finalGradientFrame = CGRectMake(0, finalFrame.size.height - 75, finalFrame.size.width, 75)
         
         statusBarHidden = true
+        activeIndexPath = indexPath
+        activeCellFrame = newImageView.frame
         
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
             newImageView.frame = finalFrame
@@ -213,18 +227,63 @@ extension FeedViewController {
         }
     }
     
+    func transitionToCell(fromImageFrame imageFrame: CGRect, dismissViewControllerHandler: () -> ()) {
+        guard let indexPath = activeIndexPath else {
+            return
+        }
+        
+        defer {
+            activeIndexPath = nil
+            activeCellFrame = nil
+        }
+        
+        let window = UIApplication.sharedApplication().keyWindow
+        let newImageView = _transition_newImageView(indexPath)
+        newImageView.frame = CGRectMake(imageFrame.minX, 0, imageFrame.width, imageFrame.height)
+        let blackView = _transition_blackView()
+        blackView.layer.opacity = 1.0
+        
+        window?.addSubview(blackView)
+        window?.addSubview(newImageView)
+        
+        let blackGradient = _transition_blackGradient()
+        blackGradient.clipsToBounds = true
+        blackGradient.frame = CGRectMake(0, newImageView.frame.size.height - 75, newImageView.frame.size.width, 75)
+        newImageView.addSubview(blackGradient)
+        
+        statusBarHidden = false
+        
+        let finalFrame = activeCellFrame!
+        let finalGradientFrame = CGRectMake(0, finalFrame.size.height - 75, finalFrame.size.width, 75)
+        
+        dismissViewControllerHandler()
+        
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
+            newImageView.frame = finalFrame
+            blackView.layer.opacity = 0.0
+            blackGradient.frame = finalGradientFrame
+            self.setNeedsStatusBarAppearanceUpdate()
+        }) { (Bool) in
+            newImageView.removeFromSuperview()
+            blackView.removeFromSuperview()
+        }
+    }
+    
     // MARK: - UI Components
     
+    private func _transition_getCellGlobalFrame(indexPath: NSIndexPath) -> CGRect {
+        let attributes = collectionView.layoutAttributesForItemAtIndexPath(indexPath)
+        let cellRect = attributes!.frame
+        
+        return collectionView.convertRect(cellRect, toView: nil)
+    }
+    
     private func _transition_newImageView(indexPath: NSIndexPath) -> UIImageView {
+        
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FeedCell
         let image = cell.image
         
-        let attributes = collectionView.layoutAttributesForItemAtIndexPath(indexPath)
-        let cellRect = attributes!.frame
-        let cellFrameInWindow = collectionView.convertRect(cellRect, toView: nil)
-        
         let newImageView = UIImageView(image: image)
-        newImageView.frame = cellFrameInWindow
 
         return newImageView
     }

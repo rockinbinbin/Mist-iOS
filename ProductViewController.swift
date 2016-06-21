@@ -19,6 +19,26 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         setViewConstraints()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        animateInComponents()
+    }
+    
+    // MARK: - Animation
+    
+    func animateInComponents() {
+        let components: [UIView] = [productTitleLabel, productPriceLabel]
+        
+        for component in components {
+            component.layer.opacity = 0
+        }
+        
+        UIView.animateWithDuration(0.25) {
+            for component in components {
+                component.layer.opacity = 1
+            }
+        }
+    }
+    
     // MARK: - Model
     
     var product: Feed.Item? = nil {
@@ -49,6 +69,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             imageHeightConstraint?.constant = imageHeight
         }
     }
+    
+    var delegate: FeedProductTransitionDelegate? = nil
     
     // MARK: - UI Components
     
@@ -333,8 +355,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if scrollView.contentOffset.y <= -80 {
-            dismissViewControllerAnimated(false, completion: nil)
+        if scrollView.contentOffset.y <= -100 {
+            let imageFrame = mainImageView.frame
+            
+            self.delegate?.transitionToCell(fromImageFrame: imageFrame) {
+                self.dismissViewControllerAnimated(false, completion: nil)
+            }
         }
     }
 }
