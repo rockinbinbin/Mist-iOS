@@ -21,6 +21,11 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         setViewConstraints()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        statusBarHidden = false
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
     private func configureAppearance() {
         mistLogoInTitle = true
         setLeftButton("Account", target: self, selector: #selector(presentAccountViewController))
@@ -154,10 +159,94 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         // Record in mobile analytics
         AnalyticsManager.sharedInstance.recordEvent(Event.Feed.ItemCellPressed)
         
-        presentViewController(productViewController, animated: false, completion: nil)
+        transitionToCell(indexPath) {completion in
+            self.presentViewController(productViewController, animated: false, completion: completion)
+        }
+    }
+    
+    // MARK: - Status Bar
+    
+    var statusBarHidden: Bool = false
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return statusBarHidden
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
     }
 }
 
+// MARK: - Transition
+
 extension FeedViewController {
     
+    private func transitionToCell(indexPath: NSIndexPath, presentViewHandler: (didFinishPresentingView: () -> ()) -> ()) {
+        let window = UIApplication.sharedApplication().keyWindow
+        
+        let newImageView = _transition_newImageView(indexPath)
+        let blackView = _transition_blackView()
+        window?.addSubview(blackView)
+        window?.addSubview(newImageView)
+        
+        let blackGradient = _transition_blackGradient()
+        blackGradient.clipsToBounds = true
+        blackGradient.frame = CGRectMake(0, newImageView.frame.size.height - 75, newImageView.frame.size.width, 75)
+        newImageView.addSubview(blackGradient)
+
+        let imageHeight = (newImageView.image!.size.height / newImageView.image!.size.width) * self.view.frame.width
+        let finalFrame = CGRectMake(0, 0, self.view.frame.size.width, imageHeight)
+        let finalGradientFrame = CGRectMake(0, finalFrame.size.height - 75, finalFrame.size.width, 75)
+        
+        statusBarHidden = true
+        
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
+            newImageView.frame = finalFrame
+            blackGradient.frame = finalGradientFrame
+            blackView.layer.opacity = 1.0
+            self.setNeedsStatusBarAppearanceUpdate()
+            }) { (Bool) in
+                presentViewHandler() {
+                    newImageView.removeFromSuperview()
+                    blackView.removeFromSuperview()
+                }
+        }
+    }
+    
+    // MARK: - UI Components
+    
+    private func _transition_newImageView(indexPath: NSIndexPath) -> UIImageView {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FeedCell
+        let image = cell.image
+        
+        let attributes = collectionView.layoutAttributesForItemAtIndexPath(indexPath)
+        let cellRect = attributes!.frame
+        let cellFrameInWindow = collectionView.convertRect(cellRect, toView: nil)
+        
+        let newImageView = UIImageView(image: image)
+        newImageView.frame = cellFrameInWindow
+
+        return newImageView
+    }
+    
+    private func _transition_blackGradient() -> UIView {
+        let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0, 0, 1000, 75))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        gradient.frame = _blackGradientOverlay.bounds
+        gradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        
+        _blackGradientOverlay.layer.insertSublayer(gradient, atIndex: 0)
+        _blackGradientOverlay.clipsToBounds = true
+        
+        return _blackGradientOverlay
+    }
+    
+    private func _transition_blackView() -> UIView {
+        let view = UIView()
+        view.backgroundColor = .blackColor()
+        view.layer.opacity = 0
+        view.frame = UIScreen.mainScreen().bounds
+        return view
+    }
 }
