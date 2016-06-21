@@ -37,7 +37,8 @@ class Feed {
      - parameter completion: Completion handler.
      */
     func loadFeed(completion: ((NSError?) -> ())?) {
-        AWSCloudLogic.defaultCloudLogic().invokeFunction("generateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
+        AWSCloudLogic.defaultCloudLogic().invokeFunction("GenerateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
+            
             defer {
                 completion?(error)
             }
@@ -46,7 +47,7 @@ class Feed {
                 return
             }
             
-            guard let rawFeed = (result as? NSDictionary)?["feed"] as? [NSDictionary] else {
+            guard let rawFeed = (result as? NSDictionary)?["items"] as? [NSDictionary] else {
                 print("ERROR: Feed loaded but was not of the correct form.")
                 return
             }
@@ -64,23 +65,30 @@ class Feed {
      */
     struct Item {
         let brand: String
-        let imageURL: String
+        let imageURLs: [String]
         let name: String
         let price: String
         let id: String
         
+        var imageURL: String {
+            get {
+                return imageURLs[0]
+            }
+        }
+        
         init?(dictionary: NSDictionary) {
+            
             guard
-                let brand = dictionary["brand"] as? String,
-                let imageURL = dictionary["imageURL"] as? String,
-                let name = dictionary["name"] as? String,
-                let id = dictionary["id"] as? String,
-                let price = dictionary["price"] as? String else {
+                let brand = dictionary["Brand"] as? String,
+                let imageURLs = dictionary["ImageURLs"] as? [String],
+                let name = dictionary["ItemName"] as? String,
+                let id = dictionary["ID"] as? String,
+                let price = dictionary["Price"] as? String else {
                     return nil
             }
             
             self.brand = brand
-            self.imageURL = imageURL
+            self.imageURLs = imageURLs
             self.name = name
             self.price = price
             self.id = id
