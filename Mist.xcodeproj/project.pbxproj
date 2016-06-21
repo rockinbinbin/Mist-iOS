@@ -243,6 +243,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2832AE4D1D18CA45008AC36A /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
+				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
+				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
+		2832AE4E1D18CA52008AC36A /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				0096BF121D14E43600EAC2A9 /* EditAddressViewController.swift */,
+				0096BF131D14E43600EAC2A9 /* NewAddressViewController.swift */,
+				0096BF151D14E43600EAC2A9 /* ShippingTableViewCell.swift */,
+				0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */,
+				0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */,
+				0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */,
+				0096BF171D14E43600EAC2A9 /* SignInViewController.swift */,
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
 		28FFD0A61D129F3E00C89ABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +305,7 @@
 		28FFD0CE1D14CEB500C89ABE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0096BF101D14E43600EAC2A9 /* Constants.swift */,
 				28FFD0CF1D14CED500C89ABE /* Feed.swift */,
 				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
 				28FFD0D31D14EDBD00C89ABE /* Credentials.swift */,
@@ -292,9 +317,12 @@
 		28FFD0D11D14D98E00C89ABE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0096BF141D14E43600EAC2A9 /* ProductBarButton.swift */,
+				0096BF111D14E43600EAC2A9 /* CustomLoginButton.swift */,
 				28FFD07A1D1282C500C89ABE /* LoadingView.swift */,
 				283017DA1D10E610002CCE25 /* FeedCell.swift */,
 				283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */,
+				0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -302,20 +330,8 @@
 		28FFD0D21D14D9E200C89ABE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
-				0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */,
-				0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */,
-				0096BF101D14E43600EAC2A9 /* Constants.swift */,
-				0096BF111D14E43600EAC2A9 /* CustomLoginButton.swift */,
-				0096BF121D14E43600EAC2A9 /* EditAddressViewController.swift */,
-				0096BF131D14E43600EAC2A9 /* NewAddressViewController.swift */,
-				0096BF141D14E43600EAC2A9 /* ProductBarButton.swift */,
-				0096BF151D14E43600EAC2A9 /* ShippingTableViewCell.swift */,
-				0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */,
-				0096BF171D14E43600EAC2A9 /* SignInViewController.swift */,
-				0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */,
-				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
-				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
+				2832AE4E1D18CA52008AC36A /* Account */,
+				2832AE4D1D18CA45008AC36A /* Feed */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -487,7 +503,6 @@
 		B401C979D899DA5A00000000 /* Mist */ = {
 			isa = PBXGroup;
 			children = (
-				286F55E11D18728B0012A884 /* Mist.entitlements */,
 				28FFD0CE1D14CEB500C89ABE /* Model */,
 				28FFD0D11D14D98E00C89ABE /* View */,
 				28FFD0D21D14D9E200C89ABE /* Controller */,
@@ -506,6 +521,7 @@
 				1DD70E299C1E0C0A00000000 /* Launch Screen.storyboard */,
 				1DD70E29D6BDE4BC00000000 /* AppDelegate.swift */,
 				1DD70E295BA6B27900000000 /* Info.plist */,
+				286F55E11D18728B0012A884 /* Mist.entitlements */,
 			);
 			name = "Supporting Files";
 			path = mysampleapp/app/mysampleapp/app/supportingfiles;
