@@ -8,7 +8,7 @@
 
 import Foundation
 
-let _stripePublishableKey = "sk_test_0Ez2nUaP3AFDtidBQMANhp2S"
+let _stripePublishableKey = "pk_test_yQLOuYjBE0aXvcbG2wHOoYDP"
 
 @objc class Credentials: NSObject {
     
