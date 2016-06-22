@@ -191,7 +191,7 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         doneButton.setAttributedTitle(attributedString, forState: UIControlState.Normal)
         
         self.view.addSubview(doneButton)
-        doneButton.addTarget(self, action: Selector("donePressed"), forControlEvents: .TouchUpInside)
+        doneButton.addTarget(self, action: #selector(EditAddressViewController.donePressed), forControlEvents: .TouchUpInside)
         return doneButton
     }()
 
@@ -254,11 +254,11 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         setNavBar()
         
         // Dismisses the keyboard if the user taps outside of the keyboard region.
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(EditAddressViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditAddressViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditAddressViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -391,7 +391,7 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let btnName = UIButton()
         btnName.setImage(UIImage(named: "blackBackArrow"), forState: .Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.addTarget(self, action: Selector("backPressed"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(EditAddressViewController.backPressed), forControlEvents: .TouchUpInside)
         
         //.... Set Right/Left Bar Button item
         let rightBarButton = UIBarButtonItem()
