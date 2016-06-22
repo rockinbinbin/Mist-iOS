@@ -147,6 +147,18 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         logOffButton.addTarget(self, action: #selector(AccountViewController.logOffPressed), forControlEvents: .TouchUpInside)
         return logOffButton
     }()
+    
+    internal lazy var learnMoreButton: UIButton = {
+        let learnMoreButton = UIButton(type: .RoundedRect)
+        learnMoreButton.layer.cornerRadius = 0
+        learnMoreButton.tintColor = UIColor.blackColor()
+        learnMoreButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 20)
+        learnMoreButton.setTitle("LEARN MORE", forState: .Normal)
+        self.scrollView.addSubview(learnMoreButton)
+        
+        learnMoreButton.addTarget(self, action: #selector(AccountViewController.learnMorePressed), forControlEvents: .TouchUpInside)
+        return learnMoreButton
+    }()
 
     
 // ViewDidLoad
@@ -300,6 +312,9 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         logOffButton.positionBelowItem(purchasesScrollView, offset: 100)
         logOffButton.centerHorizontallyInSuperview()
+        
+        learnMoreButton.positionBelowItem(logOffButton, offset: 100)
+        learnMoreButton.centerHorizontallyInSuperview()
     }
     
     internal func decorateImage(imageView: UIImageView?, gifView: FLAnimatedImageView?) {
@@ -501,7 +516,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    
     internal func closePressed() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -529,6 +543,12 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     func logOffPressed() {
         AnalyticsManager.sharedInstance.recordEvent(Event.Account.LogOutPressed)
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func learnMorePressed() {
+        // push new info guide vc 
+        self.navigationController?.pushViewController(SustainabilityGuideViewController(), animated: true)
+        
     }
     
     
