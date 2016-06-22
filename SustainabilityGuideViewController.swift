@@ -52,7 +52,7 @@ class SustainabilityGuideViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        layoutViews()
     }
     
     func layoutViews() {
