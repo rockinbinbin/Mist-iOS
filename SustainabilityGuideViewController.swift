@@ -20,10 +20,9 @@ class SustainabilityGuideViewController: UIViewController {
         headerLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "you are")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 15)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
         
         headerLabel.attributedText = attrString
-        headerLabel.font = UIFont(name: "Lato-Regular", size: 15)
         self.view.addSubview(headerLabel)
         return headerLabel
     }()
@@ -36,10 +35,9 @@ class SustainabilityGuideViewController: UIViewController {
         updatingHeaderLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: " beautiful")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 15)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
         
         updatingHeaderLabel.attributedText = attrString
-        updatingHeaderLabel.font = UIFont(name: "Lato-Regular", size: 15)
         self.view.addSubview(updatingHeaderLabel)
         return updatingHeaderLabel
     }()
@@ -70,7 +68,7 @@ class SustainabilityGuideViewController: UIViewController {
     
     func updateLabel(timer: NSTimer) {
         
-        let array = [" amazing", " wonderful", " sustainable"]
+        let array = [" creative", " mindful", " eco-conscious", "beautiful", "sensible", "aware"]
         
         let index = timer.userInfo?.integerValue
         if (index >= array.count) {
@@ -79,11 +77,11 @@ class SustainabilityGuideViewController: UIViewController {
         
         let attrString = NSMutableAttributedString(string: array[index!])
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 15)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
         
         updatingHeaderLabel.attributedText = attrString
         
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
     }
 
     override func didReceiveMemoryWarning() {
