@@ -18,7 +18,7 @@ class SustainabilityGuideViewController: UIViewController {
         headerLabel.textAlignment = .Left
         headerLabel.lineBreakMode = .ByWordWrapping
         headerLabel.numberOfLines = 0
-        let attrString = NSMutableAttributedString(string: "you are")
+        let attrString = NSMutableAttributedString(string: "here's to the ")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
         
@@ -44,7 +44,7 @@ class SustainabilityGuideViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.blackColor()
         setNavBar()
     }
     
@@ -68,7 +68,7 @@ class SustainabilityGuideViewController: UIViewController {
     
     func updateLabel(timer: NSTimer) {
         
-        let array = [" creative", " mindful", " eco-conscious", "beautiful", "sensible", "aware"]
+        let array = ["creatives", "questioners", "outside-the-box-thinkers"]
         
         let index = timer.userInfo?.integerValue
         if (index >= array.count) {
@@ -81,7 +81,7 @@ class SustainabilityGuideViewController: UIViewController {
         
         updatingHeaderLabel.attributedText = attrString
         
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
     }
 
     override func didReceiveMemoryWarning() {
