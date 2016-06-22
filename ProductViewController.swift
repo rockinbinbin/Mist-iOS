@@ -47,9 +47,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                 return
             }
             
-            buyButton.setTitle("Buy for \(product!.price)", forState: .Normal)
-            setTitleText(product!.name)
-            setPriceText("$\(Int(Double(product!.price)!))")
+            dispatch_async(dispatch_get_main_queue()) {
+                self.setPriceText("$\(Int(Double(self.product!.price)!))")
+                self.setTitleText(self.product!.name)
+                self.buyButton.price = Float(Double(self.product!.price)!)
+            }
             
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
@@ -240,13 +242,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return view
     }()
     
-    private lazy var buyButton: UIButton = {
-        let button = UIButton()
-        
-        button.setTitle("Buy item", forState: .Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.addTarget(self, action: #selector(ProductViewController.purchaseItem), forControlEvents: .TouchUpInside)
-        
+    private lazy var buyButton: BuyButton = {
+        let button = BuyButton()
+        button.addTarget(self, action: #selector(purchaseItem), forControlEvents: .TouchUpInside)
         self.bottomBar.addSubview(button)
         return button
     }()

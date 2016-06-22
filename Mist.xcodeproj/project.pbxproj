@@ -24,6 +24,7 @@
 		283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DE1D12318E002CCE25 /* ProductViewController.swift */; };
 		2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */; };
 		2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */; };
+		2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE531D1A157A008AC36A /* BuyButton.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
 		28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD07A1D1282C500C89ABE /* LoadingView.swift */; };
 		28FFD0BA1D129F5000C89ABE /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */; };
@@ -192,6 +193,8 @@
 		283017DE1D12318E002CCE25 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = SOURCE_ROOT; };
 		2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
+		2832AE531D1A157A008AC36A /* BuyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyButton.swift; sourceTree = "<group>"; };
+		2832AE551D1A164F008AC36A /* LibreBaskerville-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBaskerville-Italic.otf"; sourceTree = SOURCE_ROOT; };
 		286F55E11D18728B0012A884 /* Mist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mist.entitlements; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD07A1D1282C500C89ABE /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
@@ -284,6 +287,7 @@
 		28FFD0A71D129F4500C89ABE /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				2832AE551D1A164F008AC36A /* LibreBaskerville-Italic.otf */,
 				28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */,
 				28FFD0A91D129F5000C89ABE /* Lato-BlackItalic.ttf */,
 				28FFD0AA1D129F5000C89ABE /* Lato-Bold.ttf */,
@@ -329,6 +333,7 @@
 				283017DA1D10E610002CCE25 /* FeedCell.swift */,
 				283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */,
 				0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */,
+				2832AE531D1A157A008AC36A /* BuyButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -760,6 +765,7 @@
 				E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */,
 				0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */,
 				E7A30F04778FC87400000000 /* NoSQLTableViewController.swift in Sources */,
+				2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */,
 				E7A30F0466AC0BE400000000 /* NoSQLModelHelpers.swift in Sources */,
 				E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */,
 				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
