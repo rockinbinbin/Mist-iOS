@@ -26,7 +26,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: - Animation
     
     func animateInComponents() {
-        let components: [UIView] = [productTitleLabel, productPriceLabel, descriptionLabel, moreLabel]
+        let components: [UIView] = [productTitleLabel, productPriceLabel, descriptionLabel, moreLabel, imageViewScrollView, buyButton]
         
         for component in components {
             component.layer.opacity = 0
@@ -67,6 +67,10 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             mainImageView.image = image
             imageHeight = (image.size.height / image.size.width) * self.view.frame.size.width
             imageHeightConstraint?.constant = imageHeight
+            
+            for _ in 0...3 {
+                addImageToScrollView(image)
+            }
         }
     }
     
@@ -77,23 +81,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .blackColor()
-        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)
+        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)
         scrollView.scrollEnabled = true
         scrollView.alwaysBounceVertical = true
         scrollView.delegate = self
         self.view.addSubview(scrollView)
         return scrollView
-    }()
-    
-    private lazy var buyButton: UIButton = {
-        let button = UIButton()
-        
-        button.setTitle("Buy item", forState: .Normal)
-        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        button.addTarget(self, action: #selector(ProductViewController.purchaseItem), forControlEvents: .TouchUpInside)
-        
-        self.scrollView.addSubview(button)
-        return button
     }()
     
     private lazy var mainImageView: UIImageView = {
@@ -203,6 +196,61 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return label
     }()
     
+    let moreImagesHeight: CGFloat = 160
+    
+    private lazy var imageViewScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
+        scrollView.alwaysBounceHorizontal = true
+        scrollView.scrollEnabled = true
+        scrollView.pagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        self.view.addSubview(scrollView)
+        return scrollView
+    }()
+    
+    var moreImages: [UIImageView] = []
+    
+    private func addImageToScrollView(image: UIImage) {
+        
+        let imageView = UIImageView(image: image)
+        self.imageViewScrollView.addSubview(imageView)
+        
+        imageView.sizeToHeight(moreImagesHeight - 20)
+        imageView.centerVerticallyInSuperview()
+        
+        let imageWidth = (image.size.width / image.size.height) * (moreImagesHeight - 20)
+        imageView.sizeToWidth(imageWidth)
+        
+        if moreImages.count == 0 {
+            imageView.pinToLeftEdgeOfSuperview(offset: 10)
+        } else {
+            imageView.positionToTheRightOfItem(moreImages[moreImages.count - 1], offset: 15)
+        }
+        
+        moreImages.append(imageView)
+        
+        imageViewScrollView.contentSize = CGSizeMake(imageViewScrollView.contentSize.width + imageWidth + 20, moreImagesHeight)
+    }
+    
+    private lazy var bottomBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.2, alpha: 1.0)
+        self.view.addSubview(view)
+        return view
+    }()
+    
+    private lazy var buyButton: UIButton = {
+        let button = UIButton()
+        
+        button.setTitle("Buy item", forState: .Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.addTarget(self, action: #selector(ProductViewController.purchaseItem), forControlEvents: .TouchUpInside)
+        
+        self.bottomBar.addSubview(button)
+        return button
+    }()
+    
     // MARK: - Layout
     
     private var imageTopConstraint: NSLayoutConstraint? = nil
@@ -237,9 +285,6 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         productPriceLabel.pinToRightEdgeOfSuperview(offset: 10)
         productPriceLabel.pinToBottomEdgeOfSuperview(offset: 10)
         
-        buyButton.pinToBottomEdgeOfSuperview(offset: 20)
-        buyButton.pinToRightEdgeOfSuperview(offset: 20)
-        
         releaseLabel.centerHorizontallyInSuperview()
         releaseLabel.pinToTopEdgeOfSuperview(offset: 10)
         
@@ -248,6 +293,17 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         moreLabel.positionBelowItem(descriptionLabel, offset: 25)
         moreLabel.pinToLeftEdgeOfSuperview(offset: 10)
+        
+        imageViewScrollView.positionBelowItem(moreLabel, offset: 15)
+        imageViewScrollView.pinToSideEdgesOfSuperview()
+        imageViewScrollView.sizeToHeight(160)
+        
+        buyButton.pinToRightEdgeOfSuperview(offset: 30)
+        buyButton.centerVerticallyInSuperview()
+        
+        bottomBar.pinToBottomEdgeOfSuperview()
+        bottomBar.pinToSideEdgesOfSuperview()
+        bottomBar.sizeToHeight(60)
     }
     
     // MARK: - Payment
@@ -450,6 +506,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
         if scrollView.contentOffset.y <= scrollReleaseThreshold {
             let imageFrame = mainImageView.frame
             
