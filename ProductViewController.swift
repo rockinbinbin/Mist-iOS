@@ -87,6 +87,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         scrollView.scrollEnabled = true
         scrollView.alwaysBounceVertical = true
         scrollView.delegate = self
+        scrollView.showsVerticalScrollIndicator = false
         self.view.addSubview(scrollView)
         return scrollView
     }()
@@ -248,6 +249,38 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return button
     }()
     
+    private lazy var shareButton: UIButton = {
+        let button = UIButton()
+        button.layer.opacity = 0.6
+        button.setImage(UIImage(named: "Products-Share"), forState: .Normal)
+        self.bottomBar.addSubview(button)
+        return button
+    }()
+    
+    var liked = false
+    
+    private lazy var likeButton: UIButton = {
+        let button = UIButton()
+        button.layer.opacity = 0.6
+        button.setImage(UIImage(named: "Products-Heart"), forState: .Normal)
+        button.addTarget(self, action: #selector(heartPressed), forControlEvents: .TouchUpInside)
+        self.bottomBar.addSubview(button)
+        return button
+    }()
+    
+    func heartPressed() {
+        var newImageTitle: String
+        
+        if liked {
+            newImageTitle = "Products-Heart"
+        } else {
+            newImageTitle = "Products-Heart-Filled"
+        }
+        
+        likeButton.setImage(UIImage(named: newImageTitle), forState: .Normal)
+        liked = !liked
+    }
+    
     // MARK: - Layout
     
     private var imageTopConstraint: NSLayoutConstraint? = nil
@@ -301,6 +334,15 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         bottomBar.pinToBottomEdgeOfSuperview()
         bottomBar.pinToSideEdgesOfSuperview()
         bottomBar.sizeToHeight(60)
+        
+        shareButton.pinToLeftEdgeOfSuperview(offset: 30)
+        shareButton.sizeToHeight(25)
+        shareButton.sizeToWidth(18)
+        shareButton.centerVerticallyInSuperview(offset: -1)
+        
+        likeButton.positionToTheRightOfItem(shareButton, offset: 30)
+        likeButton.sizeToWidthAndHeight(22)
+        likeButton.centerVerticallyInSuperview()
     }
     
     // MARK: - Payment
