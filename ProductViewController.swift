@@ -235,9 +235,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         imageViewScrollView.contentSize = CGSizeMake(imageViewScrollView.contentSize.width + imageWidth + 20, moreImagesHeight)
     }
     
-    private lazy var bottomBar: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0.2, alpha: 1.0)
+    private lazy var bottomBar: UIVisualEffectView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
         self.view.addSubview(view)
         return view
     }()
