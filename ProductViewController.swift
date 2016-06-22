@@ -26,7 +26,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: - Animation
     
     func animateInComponents() {
-        let components: [UIView] = [productTitleLabel, productPriceLabel]
+        let components: [UIView] = [productTitleLabel, productPriceLabel, descriptionLabel, moreLabel]
         
         for component in components {
             component.layer.opacity = 0
@@ -172,6 +172,37 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         productPriceLabel.sizeToFit()
     }
     
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.textColor = .whiteColor()
+        label.numberOfLines = 0
+        label.lineBreakMode = .ByWordWrapping
+        
+        self.view.addSubview(label)
+        return label
+    }()
+    
+    private lazy var moreLabel: UILabel = {
+        let label = UILabel()
+        
+        let attributes: NSDictionary = [
+            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 16)!,
+            NSForegroundColorAttributeName:UIColor(white: 1.0, alpha: 0.8),
+            NSKernAttributeName:CGFloat(2.0)
+        ]
+        
+        let attributedTitle = NSAttributedString(string: "MORE OF THIS ITEM", attributes: attributes as? [String : AnyObject])
+        
+        label.attributedText = attributedTitle
+        label.sizeToFit()
+        
+        self.view.addSubview(label)
+        return label
+    }()
+    
     // MARK: - Layout
     
     private var imageTopConstraint: NSLayoutConstraint? = nil
@@ -211,6 +242,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         releaseLabel.centerHorizontallyInSuperview()
         releaseLabel.pinToTopEdgeOfSuperview(offset: 10)
+        
+        descriptionLabel.positionBelowItem(mainImageView, offset: 25)
+        descriptionLabel.pinToSideEdgesOfSuperview(offset: 10)
+        
+        moreLabel.positionBelowItem(descriptionLabel, offset: 25)
+        moreLabel.pinToLeftEdgeOfSuperview(offset: 10)
     }
     
     // MARK: - Payment
