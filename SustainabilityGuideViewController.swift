@@ -116,6 +116,18 @@ class SustainabilityGuideViewController: UIViewController {
         self.view.addSubview(body2Label)
         return body2Label
     }()
+    
+    internal lazy var nextPageButton: UIButton = {
+        let nextPageButton = UIButton(type: .RoundedRect)
+        nextPageButton.layer.cornerRadius = 0
+        nextPageButton.tintColor = UIColor.whiteColor()
+        nextPageButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
+        nextPageButton.setTitle("Skim our guide on transparency →", forState: .Normal)
+        self.view.addSubview(nextPageButton)
+        
+        nextPageButton.addTarget(self, action: #selector(SustainabilityGuideViewController.nextPagePressed), forControlEvents: .TouchUpInside)
+        return nextPageButton
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,6 +169,8 @@ class SustainabilityGuideViewController: UIViewController {
         body2Label.positionBelowItem(bodyLabel, offset: 20)
         body2Label.pinToLeftEdgeOfSuperview(offset: 20)
         body2Label.sizeToWidth(self.view.frame.size.width - 50)
+        
+        nextPageButton.pinToBottomEdgeOfSuperview(offset: 50)
         
         self.startUpdatingLabel()
     }
@@ -209,6 +223,10 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal func closePressed() {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func nextPagePressed() {
+        // push sustainability info guide
     }
 
 }
