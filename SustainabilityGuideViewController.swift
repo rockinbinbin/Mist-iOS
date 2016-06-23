@@ -121,8 +121,10 @@ class SustainabilityGuideViewController: UIViewController {
         let nextPageButton = UIButton(type: .RoundedRect)
         nextPageButton.layer.cornerRadius = 0
         nextPageButton.tintColor = UIColor.whiteColor()
+        nextPageButton.layer.borderColor = UIColor.whiteColor().CGColor
+        nextPageButton.layer.borderWidth = 1.0
         nextPageButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
-        nextPageButton.setTitle("Skim our guide on transparency →", forState: .Normal)
+        nextPageButton.setTitle("   Skim our guide on transparency →   ", forState: .Normal)
         self.view.addSubview(nextPageButton)
         
         nextPageButton.addTarget(self, action: #selector(SustainabilityGuideViewController.nextPagePressed), forControlEvents: .TouchUpInside)
@@ -171,6 +173,7 @@ class SustainabilityGuideViewController: UIViewController {
         body2Label.sizeToWidth(self.view.frame.size.width - 50)
         
         nextPageButton.pinToBottomEdgeOfSuperview(offset: 50)
+        nextPageButton.centerHorizontallyInSuperview()
         
         self.startUpdatingLabel()
     }
