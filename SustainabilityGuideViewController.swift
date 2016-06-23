@@ -180,7 +180,7 @@ class SustainabilityGuideViewController: UIViewController {
         
         updatingHeaderLabel.attributedText = attrString
         
-        NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
     }
 
     override func didReceiveMemoryWarning() {
