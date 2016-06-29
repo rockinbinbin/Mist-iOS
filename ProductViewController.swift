@@ -26,7 +26,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: - Animation
     
     func animateInComponents() {
-        let components: [UIView] = [productTitleLabel, byCompanyLabel, productPriceLabel, descriptionLabel, imageViewScrollView, buyButton]
+        let components: [UIView] = [productTitleLabel, byCompanyLabel, titleLine, productPriceLabel, descriptionLabel, imageViewScrollView, buyButton, shippingLine, packageIcon, shippingSublabel, shippingLabel, returnIcon, returnLabel, returnSubLabel]
         
         for component in components {
             component.layer.opacity = 0
@@ -356,6 +356,60 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return label
     }()
     
+    private var sizeLabel: UILabel? = nil
+    
+    private lazy var sizeButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(white: 0.18, alpha: 1)
+        
+        let icon = UIImageView(image: UIImage(named: "Product-Shirt"))
+        button.addSubview(icon)
+        icon.centerVerticallyInSuperview()
+        icon.pinToLeftEdgeOfSuperview(offset: 10)
+        icon.sizeToWidth(26)
+        icon.sizeToHeight(25)
+        
+        self.sizeLabel = UILabel()
+        self.sizeLabel!.text = "Select a size"
+        self.sizeLabel!.textColor = .whiteColor()
+        self.sizeLabel!.font = UIFont(name: "Lato-Bold", size: 14)
+        button.addSubview(self.sizeLabel!)
+        self.sizeLabel!.centerVerticallyInSuperview()
+        self.sizeLabel!.positionToTheRightOfItem(icon, offset: 20)
+        
+        let dropdown = UIImageView(image: UIImage(named: "Product-Size-Dropdown"))
+        button.addSubview(dropdown)
+        dropdown.centerVerticallyInSuperview()
+        dropdown.pinToRightEdgeOfSuperview(offset: 10)
+        dropdown.sizeToWidth(19)
+        dropdown.sizeToHeight(11)
+        
+        button.addTarget(self, action: #selector(sizeButtonPressed), forControlEvents: .TouchUpInside)
+        
+        self.scrollView.addSubview(button)
+        return button
+    }()
+    
+    internal func sizeButtonPressed() {
+        let alert = UIAlertController(title: "Choose size", message: "Please select a size", preferredStyle: .ActionSheet)
+        
+        let completion = { (size: String) in
+            dispatch_async(dispatch_get_main_queue()) {
+                self.sizeLabel?.text = size
+            }
+        }
+        
+        for size in ["Small", "Medium", "Large"] {
+            alert.addAction(UIAlertAction(title: size, style: .Default) { (UIAlertAction) in
+                completion(size)
+                })
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        presentViewController(alert, animated: true, completion: nil)
+    } 
+    
     // MARK: - Layout
     
     private var imageTopConstraint: NSLayoutConstraint? = nil
@@ -449,6 +503,13 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         returnSubLabel.positionBelowItem(returnLabel, offset: 1)
         returnSubLabel.positionToTheRightOfItem(returnIcon, offset: 20)
+        
+        // Sizing
+        
+        sizeButton.positionBelowItem(returnSubLabel, offset: 20)
+        sizeButton.pinToLeftEdgeOfSuperview()
+        sizeButton.sizeToWidth(self.view.frame.width)
+        sizeButton.sizeToHeight(58)
         
         // Bottom Bar
         
