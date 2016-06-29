@@ -216,7 +216,6 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         scrollView.backgroundColor = UIColor(white: 1.0, alpha: 0.09)
         scrollView.alwaysBounceHorizontal = true
         scrollView.scrollEnabled = true
-        scrollView.pagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.addSubview(scrollView)
         return scrollView
@@ -302,6 +301,61 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         liked = !liked
     }
     
+    private lazy var packageIcon: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "Product-Ship"))
+        self.scrollView.addSubview(imageView)
+        return imageView
+    }()
+    
+    private lazy var shippingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Ships in 2 - 4 business days"
+        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.textColor = .whiteColor()
+        self.scrollView.addSubview(label)
+        return label
+    }()
+    
+    private lazy var shippingSublabel: UILabel = {
+        let label = UILabel()
+        label.text = "Arrives July 1 - 2"
+        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.textColor = UIColor(white: 1.0, alpha: 0.42)
+        self.scrollView.addSubview(label)
+        return label
+    }()
+    
+    private lazy var shippingLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = UIColor(white: 1.0, alpha: 0.21)
+        self.scrollView.addSubview(line)
+        return line
+    }()
+    
+    private lazy var returnIcon: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "Product-Cart"))
+        self.scrollView.addSubview(imageView)
+        return imageView
+    }()
+    
+    private lazy var returnLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Return free for 14 days"
+        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.textColor = .whiteColor()
+        self.scrollView.addSubview(label)
+        return label
+    }()
+    
+    private lazy var returnSubLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Before July 11"
+        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.textColor = UIColor(white: 1.0, alpha: 0.42)
+        self.scrollView.addSubview(label)
+        return label
+    }()
+    
     // MARK: - Layout
     
     private var imageTopConstraint: NSLayoutConstraint? = nil
@@ -336,6 +390,10 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         releaseLabel.centerHorizontallyInSuperview()
         releaseLabel.pinToTopEdgeOfSuperview(offset: 10)
         
+        closeButton.sizeToWidthAndHeight(20)
+        closeButton.pinToLeftEdgeOfSuperview(offset: 15)
+        closeButtonTopConstraint = closeButton.pinToTopEdgeOfSuperview(offset: 15)
+        
         // Title
         
         titleLine.sizeToHeight(1)
@@ -363,6 +421,37 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         imageViewScrollView.sizeToWidth(self.view.frame.width)
         imageViewScrollView.sizeToHeight(160)
         
+        // Shipping and return information
+        
+        packageIcon.pinToLeftEdgeOfSuperview(offset: 10)
+        packageIcon.positionBelowItem(imageViewScrollView, offset: 30)
+        packageIcon.sizeToWidth(26)
+        packageIcon.sizeToHeight(29)
+        
+        shippingLabel.pinTopEdgeToTopEdgeOfItem(packageIcon)
+        shippingLabel.positionToTheRightOfItem(packageIcon, offset: 20)
+        
+        shippingSublabel.positionBelowItem(shippingLabel, offset: 1)
+        shippingSublabel.positionToTheRightOfItem(packageIcon, offset: 20)
+        
+        shippingLine.pinLeftEdgeToLeftEdgeOfItem(shippingLabel)
+        shippingLine.sizeToWidth(self.view.frame.width)
+        shippingLine.sizeToHeight(1)
+        shippingLine.positionBelowItem(shippingSublabel, offset: 10)
+        
+        returnIcon.pinToLeftEdgeOfSuperview(offset: 10)
+        returnIcon.positionBelowItem(shippingLine, offset: 10)
+        returnIcon.sizeToWidth(26)
+        returnIcon.sizeToHeight(28)
+        
+        returnLabel.pinTopEdgeToTopEdgeOfItem(returnIcon)
+        returnLabel.positionToTheRightOfItem(returnIcon, offset: 20)
+        
+        returnSubLabel.positionBelowItem(returnLabel, offset: 1)
+        returnSubLabel.positionToTheRightOfItem(returnIcon, offset: 20)
+        
+        // Bottom Bar
+        
         buyButton.pinToTopAndBottomEdgesOfSuperview()
         buyButton.pinToRightEdgeOfSuperview()
         buyButton.sizeToWidth(150)
@@ -379,10 +468,6 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         likeButton.positionToTheRightOfItem(shareButton, offset: 30)
         likeButton.sizeToWidthAndHeight(22)
         likeButton.centerVerticallyInSuperview()
-        
-        closeButton.sizeToWidthAndHeight(20)
-        closeButton.pinToLeftEdgeOfSuperview(offset: 15)
-        closeButtonTopConstraint = closeButton.pinToTopEdgeOfSuperview(offset: 15)
     }
     
     // MARK: - Payment
