@@ -172,7 +172,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let label = UILabel()
         
         label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.font = UIFont(name: "Lato-Regular", size: 14)
         label.textColor = .whiteColor()
         label.numberOfLines = 0
         label.lineBreakMode = .ByWordWrapping
@@ -203,7 +203,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     private lazy var imageViewScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
+        scrollView.backgroundColor = UIColor(white: 1.0, alpha: 0.10)
         scrollView.alwaysBounceHorizontal = true
         scrollView.scrollEnabled = true
         scrollView.pagingEnabled = true
@@ -268,6 +268,16 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return button
     }()
     
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        
+        button.setBackgroundImage(UIImage(named: "Product-X"), forState: .Normal)
+        button.addTarget(self, action: #selector(closeView), forControlEvents: .TouchUpInside)
+        
+        self.scrollView.addSubview(button)
+        return button
+    }()
+    
     func heartPressed() {
         var newImageTitle: String
         
@@ -286,6 +296,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     private var imageTopConstraint: NSLayoutConstraint? = nil
     private var imageHeightConstraint: NSLayoutConstraint? = nil
     private var imageWidthConstraint: NSLayoutConstraint? = nil
+    private var closeButtonTopConstraint: NSLayoutConstraint? = nil
     
     func setViewConstraints() {
         
@@ -321,7 +332,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         descriptionLabel.positionBelowItem(mainImageView, offset: 25)
         descriptionLabel.pinToSideEdgesOfSuperview(offset: 10)
         
-        moreLabel.positionBelowItem(descriptionLabel, offset: 25)
+        moreLabel.positionBelowItem(descriptionLabel, offset: 30)
         moreLabel.pinToLeftEdgeOfSuperview(offset: 10)
         
         imageViewScrollView.positionBelowItem(moreLabel, offset: 15)
@@ -343,6 +354,10 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         likeButton.positionToTheRightOfItem(shareButton, offset: 30)
         likeButton.sizeToWidthAndHeight(22)
         likeButton.centerVerticallyInSuperview()
+        
+        closeButton.sizeToWidthAndHeight(20)
+        closeButton.pinToLeftEdgeOfSuperview(offset: 15)
+        closeButtonTopConstraint = closeButton.pinToTopEdgeOfSuperview(offset: 15)
     }
     
     // MARK: - Payment
@@ -521,6 +536,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             return
         }
         
+        closeButtonTopConstraint?.constant = scrollView.contentOffset.y + 15
+        
         let y = scrollView.contentOffset.y
         
         imageTopConstraint?.constant = y
@@ -544,14 +561,18 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         }
     }
     
+    internal func closeView() {
+        let imageFrame = mainImageView.frame
+        
+        self.delegate?.transitionToCell(fromImageFrame: imageFrame) {
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
+    }
+    
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         if scrollView.contentOffset.y <= scrollReleaseThreshold {
-            let imageFrame = mainImageView.frame
-            
-            self.delegate?.transitionToCell(fromImageFrame: imageFrame) {
-                self.dismissViewControllerAnimated(false, completion: nil)
-            }
+            closeView()
         }
     }
 }

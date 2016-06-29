@@ -30,7 +30,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         mistLogoInTitle = true
         setLeftButton("Account", target: self, selector: #selector(presentAccountViewController))
         setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
-        view.backgroundColor = .whiteColor()
+        collectionView.backgroundColor = .whiteColor()
     }
     
     private func loadFeed() {
