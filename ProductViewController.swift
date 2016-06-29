@@ -218,7 +218,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         scrollView.scrollEnabled = true
         scrollView.pagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
-        self.view.addSubview(scrollView)
+        self.scrollView.addSubview(scrollView)
         return scrollView
     }()
     
@@ -359,7 +359,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         descriptionLabel.pinToSideEdgesOfSuperview(offset: 10)
         
         imageViewScrollView.positionBelowItem(descriptionLabel, offset: 25)
-        imageViewScrollView.pinToSideEdgesOfSuperview()
+        imageViewScrollView.pinToLeftEdgeOfSuperview()
+        imageViewScrollView.sizeToWidth(self.view.frame.width)
         imageViewScrollView.sizeToHeight(160)
         
         buyButton.pinToTopAndBottomEdgesOfSuperview()
