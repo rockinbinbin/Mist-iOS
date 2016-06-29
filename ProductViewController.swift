@@ -26,7 +26,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: - Animation
     
     func animateInComponents() {
-        let components: [UIView] = [productTitleLabel, productPriceLabel, descriptionLabel, moreLabel, imageViewScrollView, buyButton]
+        let components: [UIView] = [productTitleLabel, byCompanyLabel, productPriceLabel, descriptionLabel, moreLabel, imageViewScrollView, buyButton]
         
         for component in components {
             component.layer.opacity = 0
@@ -50,6 +50,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             dispatch_async(dispatch_get_main_queue()) {
                 self.setPriceText("$\(Int(Double(self.product!.price)!))")
                 self.setTitleText(self.product!.name)
+                self.setCompanyText(self.product!.brand)
                 self.buyButton.price = Float(Double(self.product!.price)!)
             }
             
@@ -132,7 +133,14 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     private lazy var productTitleLabel: UILabel = {
         let label = UILabel()
-        self.gradientView.addSubview(label)
+        self.scrollView.addSubview(label)
+        return label
+    }()
+    
+    private lazy var byCompanyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .whiteColor()
+        self.scrollView.addSubview(label)
         return label
     }()
     
@@ -149,10 +157,30 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         productTitleLabel.sizeToFit()
     }
     
+    private func setCompanyText(name: String) {
+        let string = NSMutableAttributedString(string: "by \(name)")
+        
+        string.addAttribute(NSForegroundColorAttributeName, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
+        
+        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Light", size: 13)!, range: NSMakeRange(0, "by ".length))
+        
+        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange("by ".length, name.characters.count))
+        
+        byCompanyLabel.attributedText = string
+    }
+    
     private lazy var productPriceLabel: UILabel = {
         let label = UILabel()
-        self.gradientView.addSubview(label)
+        label.textAlignment = .Right
+        self.scrollView.addSubview(label)
         return label
+    }()
+    
+    private lazy var titleLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = UIColor(white: 1.0, alpha: 0.21)
+        self.scrollView.addSubview(line)
+        return line
     }()
     
     private func setPriceText(name: String) {
@@ -300,6 +328,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     func setViewConstraints() {
         
+        // Top image view
+        
         scrollView.pinToLeftEdgeOfSuperview()
         scrollView.pinToTopEdgeOfSuperview()
         scrollView.sizeToWidth(self.view.frame.width)
@@ -320,16 +350,29 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         topGradientView.pinToTopEdgeOfSuperview()
         topGradientView.pinToSideEdgesOfSuperview()
         
-        productTitleLabel.pinToLeftEdgeOfSuperview(offset: 10)
-        productTitleLabel.pinToBottomEdgeOfSuperview(offset: 10)
-        
-        productPriceLabel.pinToRightEdgeOfSuperview(offset: 10)
-        productPriceLabel.pinToBottomEdgeOfSuperview(offset: 10)
-        
         releaseLabel.centerHorizontallyInSuperview()
         releaseLabel.pinToTopEdgeOfSuperview(offset: 10)
         
-        descriptionLabel.positionBelowItem(mainImageView, offset: 25)
+        // Title
+        
+        titleLine.sizeToHeight(1)
+        titleLine.sizeToWidth(self.view.frame.width - 20)
+        titleLine.pinToLeftEdgeOfSuperview(offset: 10)
+        titleLine.positionBelowItem(mainImageView, offset: 20)
+        
+        byCompanyLabel.pinToLeftEdgeOfSuperview(offset: 10)
+        byCompanyLabel.positionAboveItem(titleLine, offset: 12)
+        
+        productPriceLabel.pinToLeftEdgeOfSuperview()
+        productPriceLabel.sizeToWidth(self.view.frame.width - 10)
+        productPriceLabel.positionAboveItem(titleLine, offset: 12)
+        
+        productTitleLabel.pinToLeftEdgeOfSuperview(offset: 10)
+        productTitleLabel.positionAboveItem(byCompanyLabel, offset: 2)
+        
+        // Description
+        
+        descriptionLabel.positionBelowItem(titleLine, offset: 20)
         descriptionLabel.pinToSideEdgesOfSuperview(offset: 10)
         
         moreLabel.positionBelowItem(descriptionLabel, offset: 30)
