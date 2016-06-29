@@ -23,6 +23,10 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         animateInComponents()
     }
     
+    override func viewDidLayoutSubviews() {
+        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, viewBrandButton.frame.maxY + bottomBar.frame.height + 10)
+    }
+    
     // MARK: - Animation
     
     func animateInComponents() {
@@ -52,6 +56,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                 self.setTitleText(self.product!.name)
                 self.setCompanyText(self.product!.brand)
                 self.buyButton.price = Float(Double(self.product!.price)!)
+                self.viewBrandLabel?.text = "Browse more from \(self.product!.brand)"
             }
             
             self.view.setNeedsLayout()
@@ -73,6 +78,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             
             for _ in 0...3 {
                 addImageToScrollView(image)
+                addProductToScrollView(product!, productImage: image)
             }
         }
     }
@@ -84,7 +90,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .blackColor()
-        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 1.5)
+        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 2.0)
         scrollView.scrollEnabled = true
         scrollView.alwaysBounceVertical = true
         scrollView.delegate = self
@@ -167,6 +173,18 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange("by ".length, name.characters.count))
         
         byCompanyLabel.attributedText = string
+        
+        // "More by" label
+        
+        let moreString = NSMutableAttributedString(string: "More by \(name)".uppercaseString)
+        
+        moreString.addAttributes([
+            NSFontAttributeName: UIFont(name: "Lato-Bold", size: 13)!,
+            NSKernAttributeName: 2.0,
+            NSForegroundColorAttributeName: UIColor(white: 0.71, alpha: 1.0)
+            ], range: NSMakeRange(0, moreString.length))
+        
+        moreLabel.attributedText = moreString
     }
     
     private lazy var productPriceLabel: UILabel = {
@@ -412,6 +430,163 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    private lazy var moreLabel: UILabel = {
+        let moreLabel = UILabel()
+        self.scrollView.addSubview(moreLabel)
+        return moreLabel
+    }()
+    
+    private lazy var companyDescriptionLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "Western Sweater Co. is dedicated to producing sustainable sweaters. They produce world-class sweaters at a fraction of the price."
+        label.font = UIFont(name: "Lato-Regular", size: 14)
+        label.textColor = .whiteColor()
+        label.numberOfLines = 0
+        label.lineBreakMode = .ByWordWrapping
+        
+        self.scrollView.addSubview(label)
+        return label
+    }()
+    
+    private lazy var moreProductsScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceHorizontal = true
+        scrollView.scrollEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        self.scrollView.addSubview(scrollView)
+        return scrollView
+    }()
+    
+    class ProductCard: UIView {
+        
+        convenience init(product: Feed.Item, image: UIImage) {
+            self.init(frame: CGRectZero)
+            
+            imageView.image = image
+            titleLabel.text = product.name
+            priceLabel.text = "$\(Int(Double(product.price)!))"
+            
+            imageView.pinToSideEdgesOfSuperview()
+            imageView.pinToTopEdgeOfSuperview()
+            imageView.pinToBottomEdgeOfSuperview(offset: 35)
+            
+            bottomBar.pinToSideEdgesOfSuperview()
+            bottomBar.sizeToHeight(35)
+            bottomBar.pinToBottomEdgeOfSuperview()
+            
+            titleLabel.pinToLeftEdgeOfSuperview(offset: 8)
+            titleLabel.centerVerticallyInSuperview()
+            
+            priceLabel.pinToRightEdgeOfSuperview(offset: 8)
+            priceLabel.centerVerticallyInSuperview()
+        }
+        
+        private lazy var imageView: UIImageView = {
+            let imageView = UIImageView()
+            self.addSubview(imageView)
+            return imageView
+        }()
+        
+        private lazy var bottomBar: UIView = {
+            let bottomBar = UIView()
+            
+            bottomBar.backgroundColor = UIColor(white: 0.18, alpha: 1)
+            
+            self.addSubview(bottomBar)
+            return bottomBar
+        }()
+        
+        private lazy var titleLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = .whiteColor()
+            label.font = UIFont(name: "Lato-Bold", size: 12)
+            
+            self.bottomBar.addSubview(label)
+            return label
+        }()
+        
+        private lazy var priceLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = .whiteColor()
+            label.font = UIFont(name: "Lato-Regular", size: 12)
+            
+            self.bottomBar.addSubview(label)
+            return label
+        }()
+    }
+    
+    private lazy var moreProductsHeight: CGFloat = 190
+    private lazy var moreProducts: [ProductCard] = []
+    
+    private func addProductToScrollView(productData: Feed.Item?, productImage: UIImage?) {
+        
+        guard let product = productData, let image = productImage else {
+            return
+        }
+        
+        let view = ProductCard(product: product, image: image)
+        
+        moreProductsScrollView.addSubview(view)
+        
+        let width = (image.size.width / image.size.height) * (moreProductsHeight - 35)
+        
+        view.sizeToHeight(moreProductsHeight)
+        view.sizeToWidth(width)
+        
+        if moreProducts.count == 0 {
+            view.pinToLeftEdgeOfSuperview(offset: 10)
+        } else {
+            view.positionToTheRightOfItem(moreProducts[moreProducts.count - 1], offset: 10)
+        }
+        
+        view.pinToTopEdgeOfSuperview()
+        
+        moreProducts.append(view)
+        
+        let offset: CGFloat = (moreImages.count != 0) ? 20 : 0
+        
+        moreProductsScrollView.contentSize = CGSizeMake(moreProductsScrollView.contentSize.width + width + offset, moreProductsHeight)
+    }
+    
+    private lazy var viewBrandLabel: UILabel? = nil
+    
+    private lazy var viewBrandButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clearColor()
+        
+        let icon = UIImageView(image: UIImage(named: "Product-Bag"))
+        button.addSubview(icon)
+        icon.centerVerticallyInSuperview()
+        icon.pinToLeftEdgeOfSuperview(offset: 10)
+        icon.sizeToWidth(16)
+        icon.sizeToHeight(18)
+        
+        self.viewBrandLabel = UILabel()
+        self.viewBrandLabel!.text = "Browse more"
+        self.viewBrandLabel!.textColor = .whiteColor()
+        self.viewBrandLabel!.font = UIFont(name: "Lato-Bold", size: 14)
+        button.addSubview(self.viewBrandLabel!)
+        self.viewBrandLabel!.centerVerticallyInSuperview()
+        self.viewBrandLabel!.positionToTheRightOfItem(icon, offset: 20)
+        
+        let dropdown = UIImageView(image: UIImage(named: "Product-Brand-Next"))
+        button.addSubview(dropdown)
+        dropdown.centerVerticallyInSuperview()
+        dropdown.pinToRightEdgeOfSuperview(offset: 10)
+        dropdown.sizeToWidth(10)
+        dropdown.sizeToHeight(15)
+        
+        button.addTarget(self, action: #selector(viewBrand), forControlEvents: .TouchUpInside)
+        
+        self.scrollView.addSubview(button)
+        return button
+    }()
+    
+    internal func viewBrand() {
+        print("View brand!")
+    }
+    
     // MARK: - Layout
     
     private var imageTopConstraint: NSLayoutConstraint? = nil
@@ -512,6 +687,25 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         sizeButton.pinToLeftEdgeOfSuperview()
         sizeButton.sizeToWidth(self.view.frame.width)
         sizeButton.sizeToHeight(58)
+        
+        // More by brand
+        
+        moreLabel.pinToLeftEdgeOfSuperview(offset: 10)
+        moreLabel.positionBelowItem(sizeButton, offset: 25)
+        
+        companyDescriptionLabel.positionBelowItem(moreLabel, offset: 10)
+        companyDescriptionLabel.pinToLeftEdgeOfSuperview(offset: 10)
+        companyDescriptionLabel.sizeToWidth(self.view.frame.width - 10)
+        
+        moreProductsScrollView.pinToLeftEdgeOfSuperview()
+        moreProductsScrollView.sizeToHeight(moreProductsHeight)
+        moreProductsScrollView.sizeToWidth(self.view.frame.width)
+        moreProductsScrollView.positionBelowItem(companyDescriptionLabel, offset: 15)
+        
+        viewBrandButton.positionBelowItem(moreProductsScrollView, offset: 10)
+        viewBrandButton.pinToLeftEdgeOfSuperview()
+        viewBrandButton.sizeToWidth(self.view.frame.size.width)
+        viewBrandButton.sizeToHeight(58)
         
         // Bottom Bar
         
