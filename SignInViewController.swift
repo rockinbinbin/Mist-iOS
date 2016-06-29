@@ -152,7 +152,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         //self.view.addSubview(loginButton)
         
-        loginButton.addTarget(self, action: Selector("loginPressed"), forControlEvents: .TouchUpInside)
+        loginButton.addTarget(self, action: #selector(SignUpViewController.loginPressed), forControlEvents: .TouchUpInside)
         
         return loginButton
     }()
@@ -164,7 +164,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         //        let img = UIImage(named: "loginFB")
         //        loginFB.setImage(img, forState: .Normal)
         
-        loginFB.addTarget(self, action: Selector("FBLoginPressed:"), forControlEvents: .TouchUpInside)
+        loginFB.addTarget(self, action: #selector(SignInViewController.FBLoginPressed(_:)), forControlEvents: .TouchUpInside)
         self.view.addSubview(loginFB)
         
         
@@ -192,7 +192,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(letsGo)
         
-        letsGo.addTarget(self, action: Selector("letsGoPressed"), forControlEvents: .TouchUpInside)
+        letsGo.addTarget(self, action: #selector(SignInViewController.letsGoPressed), forControlEvents: .TouchUpInside)
         
         return letsGo
     }()
@@ -240,11 +240,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         
         // Dismisses the keyboard if the user taps outside of the keyboard region.
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(SignInViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignInViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignInViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
     }
     
@@ -263,7 +263,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
         
-        let doneButton = ProductBarButtonItem(title: "Back", actionTarget: self, actionSelector: Selector("closePressed"), buttonColor: Constants.Colors.DoneBlue)
+        let doneButton = ProductBarButtonItem(title: "Back", actionTarget: self, actionSelector: #selector(SignInViewController.closePressed), buttonColor: Constants.Colors.DoneBlue)
         
         self.navigationItem.leftBarButtonItem = doneButton
     }

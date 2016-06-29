@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0070FB891D1B4CD800758B2C /* SustainabilityGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */; };
 		0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */; };
 		0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */; };
 		0096BF1B1D14E43600EAC2A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF101D14E43600EAC2A9 /* Constants.swift */; };
@@ -121,6 +122,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SustainabilityGuideViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = SOURCE_ROOT; };
 		0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF101D14E43600EAC2A9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
@@ -267,6 +269,7 @@
 				0096BF131D14E43600EAC2A9 /* NewAddressViewController.swift */,
 				0096BF151D14E43600EAC2A9 /* ShippingTableViewCell.swift */,
 				0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */,
+				0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */,
 				0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */,
 				0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */,
 				0096BF171D14E43600EAC2A9 /* SignInViewController.swift */,
@@ -555,6 +558,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 218C37090000000000000001 /* Build configuration list for PBXNativeTarget "Mist" */;
 			buildPhases = (
+				D1D20D83F01897117178AFCA /* 📦 Check Pods Manifest.lock */,
 				4692686930CC661381922720 /* [CP] Check Pods Manifest.lock */,
 				E1F174220000000000000001 /* ShellScript */,
 				1870857F0000000000000000 /* Sources */,
@@ -564,6 +568,8 @@
 				E1F174220000000000000000 /* ShellScript */,
 				3A24E8D1F34A6EA5697E19F5 /* [CP] Embed Pods Frameworks */,
 				D8CA6F2361A0B42046957AA0 /* [CP] Copy Pods Resources */,
+				214BB5DE6EBAF746522280A7 /* 📦 Embed Pods Frameworks */,
+				BC88C38EFBE8C8E320143731 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -653,6 +659,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		214BB5DE6EBAF746522280A7 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3A24E8D1F34A6EA5697E19F5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -676,6 +697,36 @@
 			inputPaths = (
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BC88C38EFBE8C8E320143731 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1D20D83F01897117178AFCA /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -766,6 +817,7 @@
 				0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */,
 				E7A30F04778FC87400000000 /* NoSQLTableViewController.swift in Sources */,
 				2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */,
+				0070FB891D1B4CD800758B2C /* SustainabilityGuideViewController.swift in Sources */,
 				E7A30F0466AC0BE400000000 /* NoSQLModelHelpers.swift in Sources */,
 				E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */,
 				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
