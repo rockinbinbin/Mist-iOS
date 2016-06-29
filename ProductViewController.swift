@@ -691,7 +691,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         // More by brand
         
         moreLabel.pinToLeftEdgeOfSuperview(offset: 10)
-        moreLabel.positionBelowItem(sizeButton, offset: 25)
+        moreLabel.positionBelowItem(sizeButton, offset: 30)
         
         companyDescriptionLabel.positionBelowItem(moreLabel, offset: 10)
         companyDescriptionLabel.pinToLeftEdgeOfSuperview(offset: 10)
