@@ -240,9 +240,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             imageView.positionToTheRightOfItem(moreImages[moreImages.count - 1], offset: 15)
         }
         
+        let offset: CGFloat = (moreImages.count != 0) ? 20 : 0
+        
         moreImages.append(imageView)
         
-        imageViewScrollView.contentSize = CGSizeMake(imageViewScrollView.contentSize.width + imageWidth + 20, moreImagesHeight)
+        imageViewScrollView.contentSize = CGSizeMake(imageViewScrollView.contentSize.width + imageWidth + offset, moreImagesHeight)
     }
     
     private lazy var bottomBar: UIVisualEffectView = {
@@ -408,7 +410,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         
         presentViewController(alert, animated: true, completion: nil)
-    } 
+    }
     
     // MARK: - Layout
     
