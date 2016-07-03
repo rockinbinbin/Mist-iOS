@@ -60,6 +60,7 @@ class FeedCell: UICollectionViewCell {
     private lazy var nameLabel: UILabel = {
         let _nameLabel = UILabel()
         _nameLabel.textColor = UIColor.whiteColor()
+        _nameLabel.numberOfLines = 0
         self.addSubview(_nameLabel)
         return _nameLabel
     }()
@@ -83,6 +84,7 @@ class FeedCell: UICollectionViewCell {
         
         nameLabel.pinToBottomEdgeOfSuperview(offset: 5)
         nameLabel.pinToLeftEdgeOfSuperview(offset: 5)
+        nameLabel.sizeToWidth(self.contentView.frame.size.width - 20)
         
         priceLabel.pinToBottomEdgeOfSuperview(offset: 5)
         priceLabel.pinToRightEdgeOfSuperview(offset: 5)

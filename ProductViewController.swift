@@ -178,6 +178,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let attributedTitle = NSAttributedString(string: name.uppercaseString, attributes: attributes as? [String : AnyObject])
         
         productTitleLabel.attributedText = attributedTitle
+        productTitleLabel.numberOfLines = 0
         productTitleLabel.sizeToFit()
     }
     
@@ -661,6 +662,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         productTitleLabel.pinToLeftEdgeOfSuperview(offset: 10)
         productTitleLabel.positionAboveItem(byCompanyLabel, offset: 2)
+        productTitleLabel.sizeToWidth(self.view.frame.size.width - 80)
         
         // Description
         
