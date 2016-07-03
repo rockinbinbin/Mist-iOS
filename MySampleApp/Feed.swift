@@ -69,6 +69,7 @@ class Feed {
         let name: String
         let price: String
         let id: String
+        let description: String
         
         var imageURL: String {
             get {
@@ -83,6 +84,7 @@ class Feed {
                 let imageURLs = dictionary["ImageURLs"] as? [String],
                 let name = dictionary["ItemName"] as? String,
                 let id = dictionary["ID"] as? String,
+                let description = dictionary["Description"] as? String,
                 let price = dictionary["Price"] as? String else {
                     return nil
             }
@@ -92,6 +94,7 @@ class Feed {
             self.name = name
             self.price = price
             self.id = id
+            self.description = description
         }
     }
 }

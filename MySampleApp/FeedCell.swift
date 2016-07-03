@@ -136,4 +136,10 @@ class FeedCell: UICollectionViewCell {
             return product?.id
         }
     }
+    
+    var productDescription: String? {
+        get {
+            return product?.description
+        }
+    }
 }

@@ -121,6 +121,10 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             return cell
         }
         
+        if let productDescription = cell.productDescription where productDescription == product.description {
+            return cell
+        }
+        
         cell.product = product
         
         imageLoading[indexPath.row] = true

@@ -55,6 +55,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                 self.setPriceText("$\(Int(Double(self.product!.price)!))")
                 self.setTitleText(self.product!.name)
                 self.setCompanyText(self.product!.brand)
+                self.setDescriptionLabel(self.product!.description)
                 self.buyButton.price = Float(Double(self.product!.price)!)
                 self.viewBrandLabel?.text = "Browse more from \(self.product!.brand)"
             }
@@ -214,10 +215,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         productPriceLabel.sizeToFit()
     }
     
+    private func setDescriptionLabel(name: String) {
+        descriptionLabel.text = name
+    }
+    
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         label.font = UIFont(name: "Lato-Regular", size: 14)
         label.textColor = .whiteColor()
         label.numberOfLines = 0
