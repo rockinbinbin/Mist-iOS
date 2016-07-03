@@ -158,6 +158,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         let product = Feed.sharedInstance.items[indexPath.row]
         productViewController.product = product
+        productViewController.imageURLs = product.imageURLs
         productViewController.mainImage = cell.image
         productViewController.delegate = self
 

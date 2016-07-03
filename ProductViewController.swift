@@ -67,6 +67,30 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     var imageHeight: CGFloat = 200
     
+    var imageURLs: [String]? = nil {
+        didSet {
+            guard let array = imageURLs else {
+                return
+            }
+            
+            // convert URLs to images TODONOW
+            
+            for string in array {
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                    let url = NSURL(string: string)
+                    let data = NSData(contentsOfURL: url!)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.addImageToScrollView(UIImage(data: data!)!)
+                    });
+                }
+            }
+            
+            // more products by company:
+            //addProductToScrollView(product!, productImage: image)
+        }
+    }
+    
     var mainImage: UIImage? = nil {
         didSet {
             guard let image = mainImage else {
@@ -76,11 +100,6 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             mainImageView.image = image
             imageHeight = (image.size.height / image.size.width) * self.view.frame.size.width
             imageHeightConstraint?.constant = imageHeight
-            
-            for _ in 0...3 {
-                addImageToScrollView(image)
-                addProductToScrollView(product!, productImage: image)
-            }
         }
     }
     
