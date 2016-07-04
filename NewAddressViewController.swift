@@ -7,12 +7,10 @@
 //
 
 import UIKit
-//import Parse
 
 extension UITextField {
     
     func useUnderline(width: CGFloat, height: CGFloat) {
-        
         let border = CALayer()
         let borderWidth = CGFloat(1.0)
         border.borderColor = UIColor.blackColor().CGColor
