@@ -13,6 +13,7 @@
 
 import UIKit
 import Stripe
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.rootViewController = UINavigationController(rootViewController: FeedViewController())
         window!.makeKeyAndVisible()
         
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         // Show the loading view
         LoadingView.sharedInstance.frame = UIScreen.mainScreen().bounds
         window!.addSubview(LoadingView.sharedInstance)
@@ -35,9 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     
+    // TODO: Determine if FB intended return statement should be there instead of amazon
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         // print("application application: \(application.description), openURL: \(url.absoluteURL), sourceApplication: \(sourceApplication)")
-        return AWSMobileClient.sharedInstance.withApplication(application, withURL: url, withSourceApplication: sourceApplication, withAnnotation: annotation)
+        
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        
+        //return AWSMobileClient.sharedInstance.withApplication(application, withURL: url, withSourceApplication: sourceApplication, withAnnotation: annotation)
     }
     
     func applicationWillResignActive(application: UIApplication) {
@@ -54,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         AWSMobileClient.sharedInstance.applicationDidBecomeActive(application)
+        FBSDKAppEvents.activateApp()
     }
     
     func applicationWillTerminate(application: UIApplication) {

@@ -7,7 +7,8 @@
 //
 
 import UIKit
-//import Parse
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     private lazy var logoimageView: UIImageView = {
@@ -372,42 +373,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func FBLoginPressed(sender: CustomLoginButton!) {
-        //        if (Utility.getInstance().checkReachabilityAndDisplayErrorMessage()) {
-        //
-        //            sender.indicator.startAnimating()
-        //            UIView.animateWithDuration(0.25, animations: {
-        //                sender.titleLabel?.alpha = 0.0
-        //                sender.enabled = false
-        //            })
-        //
-        //            UIView.animateWithDuration(0.25, delay: 0.25, options: UIViewAnimationOptions.CurveEaseIn, animations: {
-        //                sender.indicator.alpha = 1.0
-        //                }, completion: nil)
-        //
-        //            // FB login
-        //            PFFacebookUtils.logInWithPermissions(["user_friends", "public_profile", "user_about_me", "email"], block: {
-        //                (user: PFUser?, error: NSError?) -> Void in
-        //
-        //                if user != nil {
-        //                    ParsePushUserAssign()
-        //
-        //                    // New user
-        //                    if user!.isNew {
-        //                        self.handleNewUser(user)
-        //                    }
-        //
-        //                        // existing user
-        //                    else {
-        //                        self.handleReturningUser(user, setupComplete: false)
-        //                    }
-        //                }
-        //                else if error != nil {
-        //                    self.handleLoginFailed(error!, sender: sender)
-        //
-        //                }
-        //            })
-        //        }
-        //
+        let login = FBSDKLoginManager()
+        login.logInWithReadPermissions(["public_profile", "email", "user_friends"], fromViewController: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
+            if ((error) != nil) {
+                // handle error
+            }
+            else if (result.isCancelled) {
+                // handle user-cancelled login
+            }
+            else {
+                // handle logged in
+                self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
+            }
+        }
     }
     
     // MARK: - Login Handlers

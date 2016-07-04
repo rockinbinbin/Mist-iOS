@@ -9,6 +9,7 @@
 import UIKit
 import MessageUI
 import FLAnimatedImage
+import FBSDKLoginKit
 
 class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
 
@@ -140,8 +141,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let logOffButton = UIButton(type: .RoundedRect)
         logOffButton.layer.cornerRadius = 0
         logOffButton.tintColor = UIColor.blackColor()
-        logOffButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
-        logOffButton.setTitle("Log Out", forState: .Normal)
+        logOffButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 20)
+        logOffButton.setTitle("LOG OFF", forState: .Normal)
         self.scrollView.addSubview(logOffButton)
         
         logOffButton.addTarget(self, action: #selector(AccountViewController.logOffPressed), forControlEvents: .TouchUpInside)
@@ -159,9 +160,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         learnMoreButton.addTarget(self, action: #selector(AccountViewController.learnMorePressed), forControlEvents: .TouchUpInside)
         return learnMoreButton
     }()
-
     
-// ViewDidLoad
+    // end of lazy vars
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,28 +197,14 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//        if let user = PFUser.currentUser() {
-//            
-//            user.fetchInBackground()
-//            
-//            if let defaultAddress = user.objectForKey("defaultAddress") {
-//                // address is set
-                self.layoutViews()
-//                ParseManager1.getInstance().loadAddressesDelegate = self
-//                ParseManager1.getInstance().loadAddresses()
-//            }
-//            else {
-//                if let nav = self.navigationController {
-//                    nav.pushViewController(NewAddressViewController(), animated: false)
-//                }
-//                else {
-//                    self.presentViewController(NewAddressViewController(), animated: false, completion: nil)
-//                }
-//            }
-//        }
-//        else {
-//            self.layoutNotLoggedInView()
-//        }
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            // logged in
+            self.layoutViews()
+        }
+        else {
+            // show login view
+            self.layoutNotLoggedInView()
+        }
     }
     
     func layoutNotLoggedInView() {
@@ -542,7 +528,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func logOffPressed() {
         AnalyticsManager.sharedInstance.recordEvent(Event.Account.LogOutPressed)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            FBSDKAccessToken.setCurrentAccessToken(nil)
+            
+            self.layoutNotLoggedInView()
+        }
     }
     
     func learnMorePressed() {
@@ -583,7 +573,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
+    
     
 
 }
