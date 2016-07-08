@@ -86,6 +86,7 @@ class FilterView: UIView {
             
             setTitle(title, forState: .Normal)
             initHelper()
+            self.pressed = Feed.Filters.sharedInstance.categories[categoryFilter]!
         }
         
         init(priceFilter: Feed.Filter.Price) {
@@ -96,6 +97,7 @@ class FilterView: UIView {
             
             setTitle(title, forState: .Normal)
             initHelper()
+            self.pressed = Feed.Filters.sharedInstance.price[priceFilter]!
         }
         
         private lazy var gradientView: UIView = {
@@ -128,22 +130,30 @@ class FilterView: UIView {
             addTarget(self, action: #selector(didPress), forControlEvents: .TouchUpInside)
         }
         
-        private var pressed: Bool = false {
+        func activateButton() {
+            let label = self.titleLabel!
+            label.removeFromSuperview()
+            gradientView.layer.opacity = 0.9
+            self.addSubview(label)
+            setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        }
+        
+        func deactivateButton() {
+            setTitleColor(grey, forState: .Normal)
+            bringSubviewToFront(titleLabel!)
+            gradientView.layer.opacity = 0.0
+        }
+        
+        var pressed: Bool = false {
             didSet {
                 guard pressed != oldValue else {
                     return
                 }
                 
                 if pressed {
-                    let label = self.titleLabel!
-                    label.removeFromSuperview()
-                    gradientView.layer.opacity = 0.9
-                    self.addSubview(label)
-                    setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                    activateButton()
                 } else {
-                    setTitleColor(grey, forState: .Normal)
-                    bringSubviewToFront(titleLabel!)
-                    gradientView.layer.opacity = 0.0
+                    deactivateButton()
                 }
             }
         }
@@ -153,17 +163,8 @@ class FilterView: UIView {
             
             if let filter = priceFilter {
                 Feed.Filters.sharedInstance.price[filter] = pressed
-                
-                for thing in Feed.Filters.sharedInstance.price.enumerate() {
-                    print(thing)
-                }
-                
             } else if let filter = categoryFilter {
                 Feed.Filters.sharedInstance.categories[filter] = pressed
-                
-                for thing in Feed.Filters.sharedInstance.categories.enumerate() {
-                    print(thing)
-                }
             }
         }
         
@@ -193,6 +194,9 @@ class FilterView: UIView {
         
         for (index, category) in Feed.Filter.Category.allValues.enumerate() {
             let button = FilterButton(categoryFilter: category)
+            if Feed.Filters.sharedInstance.categories[category]! {
+                button.activateButton()
+            }
             view.addSubview(button)
             button.pinToTopAndBottomEdgesOfSuperview()
             
@@ -216,10 +220,69 @@ class FilterView: UIView {
         return view
     }()
     
+    private lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        
+        label.attributedText = NSAttributedString(string: "PRICE", attributes: [
+            NSForegroundColorAttributeName: UIColor.blackColor(),
+            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 13)!,
+            NSKernAttributeName: 3.0
+            ])
+        
+        self.filterView.addSubview(label)
+        return label
+    }()
+    
+    private lazy var priceButtons: UIView = {
+        let view = UIView()
+        
+        view.layer.cornerRadius = 5
+        view.layer.borderColor = UIColor(white: 0.9, alpha: 1.0).CGColor
+        view.layer.borderWidth = 1.0
+        view.layer.masksToBounds = true
+        
+        var buttonWidths: [Double] = [76.0, 71.0, 80.0, 92.0, 59.0]
+        let sum = buttonWidths.reduce(0, combine: +)
+        let totalWidth = Double(UIApplication.sharedApplication().keyWindow!.frame.size.width - 40)
+        
+        for (index, value) in buttonWidths.enumerate() {
+            buttonWidths[index] = value / sum * totalWidth
+        }
+        
+        var previousButton: UIButton? = nil
+        
+        for (index, price) in Feed.Filter.Price.allValues.enumerate() {
+            let button = FilterButton(priceFilter: price)
+            if Feed.Filters.sharedInstance.price[price]! {
+                button.activateButton()
+            }
+            view.addSubview(button)
+            button.pinToTopAndBottomEdgesOfSuperview()
+            
+            if price != Feed.Filter.Price.allValues.last {
+                button.sizeToWidth(CGFloat(buttonWidths[index]))
+            } else {
+                button.pinToRightEdgeOfSuperview()
+            }
+            
+            guard let adjacentButton = previousButton else {
+                previousButton = button
+                button.pinToLeftEdgeOfSuperview()
+                continue
+            }
+            
+            button.positionToTheRightOfItem(adjacentButton, offset: -1)
+            previousButton = button
+        }
+        
+        self.filterView.addSubview(view)
+        return view
+    }()
+    
     // MARK: - Layout
     
     var bottomConstraint: NSLayoutConstraint? = nil
-    let height: CGFloat = 200
+    let height: CGFloat = 250
     
     func setViewConstraints() {
         blackOverlay.pinToEdgesOfSuperview()
@@ -237,6 +300,13 @@ class FilterView: UIView {
         categoryButtons.pinToSideEdgesOfSuperview(offset: 20)
         categoryButtons.positionBelowItem(categoryLabel, offset: 20)
         categoryButtons.sizeToHeight(50)
+        
+        priceLabel.positionBelowItem(categoryButtons, offset: 20)
+        priceLabel.pinToLeftEdgeOfSuperview(offset: 20)
+        
+        priceButtons.pinToSideEdgesOfSuperview(offset: 20)
+        priceButtons.positionBelowItem(priceLabel, offset: 20)
+        priceButtons.sizeToHeight(50)
     }
     
     // MARK: - Animation
