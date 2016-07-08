@@ -28,7 +28,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     private func configureAppearance() {
         mistLogoInTitle = true
-        setLeftButton("Account", target: self, selector: #selector(presentAccountViewController))
+        setLeftButton("Filters", target: self, selector: #selector(presentFilters))
         setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
         collectionView.backgroundColor = .whiteColor()
     }
@@ -92,6 +92,17 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     private var imageSizes: [CGSize] = []
     
     // MARK: - Navigation
+    
+    func presentFilters() {
+        let filterView = FilterView()
+        
+        guard let window = UIApplication.sharedApplication().keyWindow else {
+            return
+        }
+        
+        filterView.frame = window.frame
+        window.addSubview(filterView)
+    }
     
     func presentAccountViewController() {
         AnalyticsManager.sharedInstance.recordEvent(Event.Feed.AccountPressed)

@@ -35,14 +35,29 @@
 - (void)paymentCardTextFieldDidBeginEditingNumber:(nonnull STPPaymentCardTextField *)textField;
 
 /**
+ *  Called when editing ends in the payment card field's number field.
+ */
+- (void)paymentCardTextFieldDidEndEditingNumber:(nonnull STPPaymentCardTextField *)textField;
+
+/**
  *  Called when editing begins in the payment card field's CVC field.
  */
 - (void)paymentCardTextFieldDidBeginEditingCVC:(nonnull STPPaymentCardTextField *)textField;
 
 /**
+ *  Called when editing ends in the payment card field's CVC field.
+ */
+- (void)paymentCardTextFieldDidEndEditingCVC:(nonnull STPPaymentCardTextField *)textField;
+
+/**
  *  Called when editing begins in the payment card field's expiration field.
  */
 - (void)paymentCardTextFieldDidBeginEditingExpiration:(nonnull STPPaymentCardTextField *)textField;
+
+/**
+ *  Called when editing ends in the payment card field's expiration field.
+ */
+- (void)paymentCardTextFieldDidEndEditingExpiration:(nonnull STPPaymentCardTextField *)textField;
 
 @end
 
@@ -250,6 +265,8 @@
 @property(nonatomic, readwrite, nonnull) STPCardParams *cardParams;
 
 @property(nonatomic, readwrite, nullable) STPCardParams *card __attribute__((deprecated("This has been renamed to cardParams; use that instead.")));
+
+- (void)commonInit;
 
 @end
 

@@ -6,14 +6,14 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
   - DLImageLoader (1.2.0-swift)
-  - FBSDKCoreKit (4.12.0):
+  - FBSDKCoreKit (4.13.1):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.12.0):
+  - FBSDKLoginKit (4.13.1):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.12.0):
+  - FBSDKShareKit (4.13.1):
     - FBSDKCoreKit
   - FLAnimatedImage (1.0.12)
-  - Stripe (7.0.2)
+  - Stripe (8.0.0)
 
 DEPENDENCIES:
   - DLImageLoader (= 1.2.0-swift)
@@ -26,12 +26,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   DLImageLoader: 0f232d40d06c50b9246b29944f00991174fdf5fa
-  FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
-  FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
-  FBSDKShareKit: df1491f064cffc8ebcc3fc8b71be94cc190c728e
+  FBSDKCoreKit: 2807fe0da2ddb49a1469da6d6ff597f99912980f
+  FBSDKLoginKit: 6d350cb6a22d6956e9d078885de6ee8a0ebc51b4
+  FBSDKShareKit: c9438df7573b33780ac8c3451201c5ebb260ffca
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  Stripe: d1eae5522cf993590f962ac1829a56c2096cf486
+  Stripe: 1e20396b4dad7b9a08312bf914c233154fb8fcfd
 
 PODFILE CHECKSUM: 7bdd9308af57a4c0d3efbee3e30a16dc81ddc553
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

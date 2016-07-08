@@ -19,6 +19,8 @@
 		0096BF211D14E43600EAC2A9 /* ShippingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */; };
 		0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF171D14E43600EAC2A9 /* SignInViewController.swift */; };
 		0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */; };
+		281DFDF41D303B2400B2D36F /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF31D303B2400B2D36F /* FilterView.swift */; };
+		281DFDF61D303BD300B2D36F /* FeedFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF51D303BD300B2D36F /* FeedFilters.swift */; };
 		283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D21D10D2FA002CCE25 /* Autolayout.swift */; };
 		283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */; };
 		283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DA1D10E610002CCE25 /* FeedCell.swift */; };
@@ -189,6 +191,8 @@
 		1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentDeliveryViewController.swift; path = MySampleApp/Demo/ContentDelivery/ContentDeliveryViewController.swift; sourceTree = SOURCE_ROOT; };
 		1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = MySampleApp/Sdk/Facebook/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		1DD70E29F44EBD2600000000 /* ProductTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductTable.swift; path = MySampleApp/Demo/NoSQL/ProductTable.swift; sourceTree = SOURCE_ROOT; };
+		281DFDF31D303B2400B2D36F /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterView.swift; path = MySampleApp/FilterView.swift; sourceTree = SOURCE_ROOT; };
+		281DFDF51D303BD300B2D36F /* FeedFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFilters.swift; sourceTree = "<group>"; };
 		283017D21D10D2FA002CCE25 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Autolayout.swift; path = mysampleapp/app/utility/Autolayout.swift; sourceTree = SOURCE_ROOT; };
 		283017D81D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CHTCollectionViewWaterfallLayout.swift; path = MySampleApp/CHTCollectionViewWaterfallLayout.swift; sourceTree = SOURCE_ROOT; };
 		283017DA1D10E610002CCE25 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = MySampleApp/FeedCell.swift; sourceTree = SOURCE_ROOT; };
@@ -252,6 +256,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		281DFDF21D3039D100B2D36F /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				281DFDF31D303B2400B2D36F /* FilterView.swift */,
+			);
+			name = Filter;
+			sourceTree = "<group>";
+		};
 		2832AE4D1D18CA45008AC36A /* Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +335,7 @@
 				28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */,
 				2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */,
 				2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */,
+				281DFDF51D303BD300B2D36F /* FeedFilters.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -330,6 +343,7 @@
 		28FFD0D11D14D98E00C89ABE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				281DFDF21D3039D100B2D36F /* Filter */,
 				0096BF141D14E43600EAC2A9 /* ProductBarButton.swift */,
 				0096BF111D14E43600EAC2A9 /* CustomLoginButton.swift */,
 				28FFD07A1D1282C500C89ABE /* LoadingView.swift */,
@@ -558,7 +572,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 218C37090000000000000001 /* Build configuration list for PBXNativeTarget "Mist" */;
 			buildPhases = (
-				D1D20D83F01897117178AFCA /* 📦 Check Pods Manifest.lock */,
+				D1D20D83F01897117178AFCA /* [CP] Check Pods Manifest.lock */,
 				4692686930CC661381922720 /* [CP] Check Pods Manifest.lock */,
 				E1F174220000000000000001 /* ShellScript */,
 				1870857F0000000000000000 /* Sources */,
@@ -719,14 +733,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D1D20D83F01897117178AFCA /* 📦 Check Pods Manifest.lock */ = {
+		D1D20D83F01897117178AFCA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -788,6 +802,7 @@
 				28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */,
 				0096BF1C1D14E43600EAC2A9 /* CustomLoginButton.swift in Sources */,
 				0096BF1E1D14E43600EAC2A9 /* NewAddressViewController.swift in Sources */,
+				281DFDF41D303B2400B2D36F /* FilterView.swift in Sources */,
 				E7A30F0403FF7B1600000000 /* ContentDeliveryViewController.swift in Sources */,
 				28FFD0D61D14EEC700C89ABE /* PaymentManager.swift in Sources */,
 				E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */,
@@ -799,6 +814,7 @@
 				E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */,
 				0096BF1B1D14E43600EAC2A9 /* Constants.swift in Sources */,
 				0096BF211D14E43600EAC2A9 /* ShippingViewController.swift in Sources */,
+				281DFDF61D303BD300B2D36F /* FeedFilters.swift in Sources */,
 				E7A30F04D93B809500000000 /* UserSettingsViewController.swift in Sources */,
 				E7A30F04EA26C65700000000 /* AppDelegate.swift in Sources */,
 				28FFD0D01D14CED500C89ABE /* Feed.swift in Sources */,
