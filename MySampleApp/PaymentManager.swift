@@ -36,11 +36,6 @@ class PaymentManager {
             throw Error.CouldNotFormRequest
         }
         
-        // If the current device support Apple Pay, it is a valid outcome
-        guard Stripe.canSubmitPaymentRequest(paymentRequest) else {
-            return nil
-        }
-        
         let numberFormatter = NSNumberFormatter()
         numberFormatter.numberStyle = .DecimalStyle
         
@@ -61,6 +56,11 @@ class PaymentManager {
         ]
         
         paymentRequest.requiredShippingAddressFields = .All
+        
+        // If the current device support Apple Pay, it is a valid outcome
+        guard Stripe.canSubmitPaymentRequest(paymentRequest) else {
+            return nil
+        }
         
         return paymentRequest
     }

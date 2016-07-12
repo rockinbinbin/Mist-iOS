@@ -256,6 +256,7 @@ static NSString *const stripeAPIVersion = @"2015-10-12";
     if (paymentRequest.merchantIdentifier == nil) {
         return NO;
     }
+    
     return [[[paymentRequest.paymentSummaryItems lastObject] amount] floatValue] > 0;
 }
 
