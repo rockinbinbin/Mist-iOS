@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FilterDelegate {
+    func didUpdateFilters()
+}
+
 class FilterView: UIView {
     
     // MARK: - Layout
@@ -20,6 +24,10 @@ class FilterView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    // MARK: - Delegate
+    
+    var delegate: FilterDelegate? = nil
     
     // MARK: - UI Components
     
@@ -336,6 +344,10 @@ class FilterView: UIView {
             self.layoutIfNeeded()
             }, completion: { (Bool) -> Void in
                 self.removeFromSuperview()
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.didUpdateFilters()
+                }
         })
     }
 }

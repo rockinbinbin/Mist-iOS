@@ -47,6 +47,20 @@ extension Feed {
                 }
             }
             
+            init?(price: Double) {
+                guard price >= 0 else {
+                    return nil
+                }
+                
+                switch price {
+                case 0..<30:    self = Under30
+                case 30..<75:   self = Under75
+                case 75..<150:  self = Under150
+                case 150..<400: self = Under400
+                default:        self = Over400
+                }
+            }
+            
             static let allValues = [Under30, Under75, Under150, Under400, Over400]
         }
     }

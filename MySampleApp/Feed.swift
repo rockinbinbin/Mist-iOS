@@ -24,7 +24,7 @@ class Feed {
     
     var items: [Item] {
         get {
-            return _items
+            return _items.filter({ return $0.validWithFilters })
         }
     }
     
@@ -70,6 +70,7 @@ class Feed {
         let price: String
         let id: String
         let description: String
+        let categories: [Feed.Filter.Category] = []
         
         var imageURL: String {
             get {
@@ -95,6 +96,37 @@ class Feed {
             self.price = price
             self.id = id
             self.description = description
+        }
+        
+        /**
+         Returns true if at least one of the filters are satisfied from each type of filter.
+         */
+        var validWithFilters: Bool {
+            
+            var satisfied = (categories: false, price: false)
+            
+            let categoryFilters = Feed.Filters.sharedInstance.categories
+            let priceFilters = Feed.Filters.sharedInstance.price
+            
+            if Array(categoryFilters.values).contains(true) {
+                for category in categories {
+                    if categoryFilters[category]! {
+                        satisfied.categories = true
+                    }
+                }
+            } else {
+                satisfied.categories = true
+            }
+            
+            // If no price filters are set, price filter is satisfied.
+            if Array(priceFilters.values).contains(true) {
+                let priceFilter = Feed.Filter.Price(price: Double(price)!)!
+                satisfied.price = priceFilters[priceFilter]!
+            } else {
+                satisfied.price = true
+            }
+            
+            return satisfied.price && satisfied.categories
         }
     }
 }

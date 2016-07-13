@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileHubHelper
 
-class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, FeedProductTransitionDelegate {
+class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, FeedProductTransitionDelegate, FilterDelegate {
     
     // MARK: - View Lifecycle
     
@@ -95,6 +95,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     func presentFilters() {
         let filterView = FilterView()
+        filterView.delegate = self
         
         guard let window = UIApplication.sharedApplication().keyWindow else {
             return
@@ -102,6 +103,10 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         filterView.frame = window.frame
         window.addSubview(filterView)
+    }
+    
+    func didUpdateFilters() {
+        self.collectionView.reloadData()
     }
     
     func presentAccountViewController() {
