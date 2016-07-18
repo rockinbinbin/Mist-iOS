@@ -42,7 +42,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             
             for _ in Feed.sharedInstance.items {
                 self.imageLoading.append(false)
-                self.imageSizes.append(CGSizeZero)
             }
             
             dispatch_async(dispatch_get_main_queue()) {
@@ -85,11 +84,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
      An array of bools, corresponding with each indexPath.row, if the image is currently loading or not.
      */
     private var imageLoading: [Bool] = []
-    
-    /**
-     An array of sizes for each image. Corresponds with each indexPath.row.
-     */
-    private var imageSizes: [CGSize] = []
     
     // MARK: - Navigation
     
@@ -149,7 +143,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             if completed {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.imageLoading[indexPath.row] = false
-                    self.imageSizes[indexPath.row] = (image?.size)!
+                    Feed.sharedInstance.setSize((image?.size)!, atIndex: indexPath.row)
 
                     if (self.imageLoading.indexOf(true) == nil && !LoadingView.sharedInstance.hasHiddenOnce) {
                         LoadingView.sharedInstance.hasHiddenOnce = true
@@ -164,7 +158,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return imageSizes[indexPath.row]
+        return Feed.sharedInstance.sizeAtIndex(indexPath.row)
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

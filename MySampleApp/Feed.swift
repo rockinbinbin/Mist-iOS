@@ -24,8 +24,28 @@ class Feed {
     
     var items: [Item] {
         get {
-            return _items.filter({ return $0.validWithFilters })
+            var items: [Item] = []
+            originalIndices = []
+            
+            for (index, item) in _items.enumerate() {
+                if item.validWithFilters {
+                    originalIndices.append(index)
+                    items.append(item)
+                }
+            }
+            
+            return items
         }
+    }
+    
+    private var originalIndices: [Int] = []
+    
+    func sizeAtIndex(index: Int) -> CGSize {
+        return _items[originalIndices[index]].size ?? CGSizeMake(500, 250)
+    }
+    
+    func setSize(size: CGSize, atIndex index: Int) {
+        _items[index].size = size
     }
     
     // MARK: - Loading
@@ -71,6 +91,7 @@ class Feed {
         let id: String
         let description: String
         let categories: [Feed.Filter.Category] = []
+        var size: CGSize? = nil
         
         var imageURL: String {
             get {
