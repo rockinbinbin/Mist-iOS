@@ -21,15 +21,24 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         setViewConstraints()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.navigationBarHidden = false
         statusBarHidden = false
         setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
     
     private func configureAppearance() {
         mistLogoInTitle = true
         setLeftButton("Filters", target: self, selector: #selector(presentFilters))
         setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        navigationController?.navigationBar.tintColor = .blackColor()
+
         collectionView.backgroundColor = .whiteColor()
     }
     
@@ -110,6 +119,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     func presentSearchViewController() {
         AnalyticsManager.sharedInstance.recordEvent(Event.Feed.SearchPressed)
+        self.navigationController!.pushViewController(SearchViewController(), animated: true)
     }
     
     // MARK: - Collection View Delegate Methods

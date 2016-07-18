@@ -28,6 +28,7 @@
 		2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */; };
 		2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */; };
 		2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE531D1A157A008AC36A /* BuyButton.swift */; };
+		287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287947B01D3D6BC800701D41 /* SearchViewController.swift */; };
 		288DA87D1D3C69CA00C722FE /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DA87C1D3C69CA00C722FE /* SearchManager.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
 		28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD07A1D1282C500C89ABE /* LoadingView.swift */; };
@@ -203,6 +204,7 @@
 		2832AE531D1A157A008AC36A /* BuyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyButton.swift; sourceTree = "<group>"; };
 		2832AE551D1A164F008AC36A /* LibreBaskerville-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBaskerville-Italic.otf"; sourceTree = SOURCE_ROOT; };
 		286F55E11D18728B0012A884 /* Mist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mist.entitlements; sourceTree = SOURCE_ROOT; };
+		287947B01D3D6BC800701D41 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = MySampleApp/SearchViewController.swift; sourceTree = SOURCE_ROOT; };
 		288DA87C1D3C69CA00C722FE /* SearchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchManager.swift; path = MySampleApp/SearchManager.swift; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD07A1D1282C500C89ABE /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
@@ -291,6 +293,14 @@
 			name = Account;
 			sourceTree = "<group>";
 		};
+		287947AF1D3D6BB000701D41 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				287947B01D3D6BC800701D41 /* SearchViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		28FFD0A61D129F3E00C89ABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +373,7 @@
 			children = (
 				2832AE4E1D18CA52008AC36A /* Account */,
 				2832AE4D1D18CA45008AC36A /* Feed */,
+				287947AF1D3D6BB000701D41 /* Search */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -842,6 +853,7 @@
 				E7A30F0442CDD58800000000 /* AppAnalyticsViewController.swift in Sources */,
 				E7A30F04F523E4F000000000 /* UserIdentityViewController.swift in Sources */,
 				2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */,
+				287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */,
 				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
 				0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */,
 				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
