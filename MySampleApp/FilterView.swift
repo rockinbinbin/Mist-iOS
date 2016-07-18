@@ -86,27 +86,56 @@ class FilterView: UIView {
         var categoryFilter: Feed.Filter.Category? = nil
         var priceFilter: Feed.Filter.Price? = nil
         
+        /**
+         Used to determine if the collection view needs to be reloaded or not.
+         */
+        let initialPressedValue: Bool
+        
+        var didChangeFilter: Bool {
+            get {
+                return pressed != initialPressedValue
+            }
+        }
+        
+        // MARK: - Init
+        
         init(categoryFilter: Feed.Filter.Category) {
             title = categoryFilter.description
             self.categoryFilter = categoryFilter
+            
+            pressed = Feed.Filters.sharedInstance.categories[categoryFilter]!
+            initialPressedValue = pressed
             
             super.init(frame: CGRectZero)
             
             setTitle(title, forState: .Normal)
             initHelper()
-            self.pressed = Feed.Filters.sharedInstance.categories[categoryFilter]!
         }
         
         init(priceFilter: Feed.Filter.Price) {
             title = priceFilter.description
             self.priceFilter = priceFilter
             
+            pressed = Feed.Filters.sharedInstance.price[priceFilter]!
+            initialPressedValue = pressed
+            
             super.init(frame: CGRectZero)
             
             setTitle(title, forState: .Normal)
             initHelper()
-            self.pressed = Feed.Filters.sharedInstance.price[priceFilter]!
         }
+        
+        private func initHelper() {
+            setTitleColor(grey, forState: .Normal)
+            titleLabel!.font = UIFont(name: "Lato-Regular", size: 13)
+            layer.borderWidth = 1.0
+            layer.borderColor = UIColor(white: 0.9, alpha: 1.0).CGColor
+            layer.masksToBounds = true
+            
+            addTarget(self, action: #selector(didPress), forControlEvents: .TouchUpInside)
+        }
+        
+        // MARK: - UI Components
         
         private lazy var gradientView: UIView = {
             let view = UIView()
@@ -128,15 +157,7 @@ class FilterView: UIView {
         
         let grey = UIColor(white: 0.56, alpha: 1.0)
         
-        private func initHelper() {
-            setTitleColor(grey, forState: .Normal)
-            titleLabel!.font = UIFont(name: "Lato-Regular", size: 13)
-            layer.borderWidth = 1.0
-            layer.borderColor = UIColor(white: 0.9, alpha: 1.0).CGColor
-            layer.masksToBounds = true
-            
-            addTarget(self, action: #selector(didPress), forControlEvents: .TouchUpInside)
-        }
+        // MARK: - Button Action
         
         func activateButton() {
             let label = self.titleLabel!
@@ -178,9 +199,12 @@ class FilterView: UIView {
         
         required init?(coder aDecoder: NSCoder) {
             title = ""
+            initialPressedValue = false
             super.init(coder: aDecoder)
         }
     }
+    
+    private lazy var buttons: [FilterButton] = []
     
     private lazy var categoryButtons: UIView = {
         let view = UIView()
@@ -202,6 +226,8 @@ class FilterView: UIView {
         
         for (index, category) in Feed.Filter.Category.allValues.enumerate() {
             let button = FilterButton(categoryFilter: category)
+            self.buttons.append(button)
+            
             if Feed.Filters.sharedInstance.categories[category]! {
                 button.activateButton()
             }
@@ -261,9 +287,12 @@ class FilterView: UIView {
         
         for (index, price) in Feed.Filter.Price.allValues.enumerate() {
             let button = FilterButton(priceFilter: price)
+            self.buttons.append(button)
+            
             if Feed.Filters.sharedInstance.price[price]! {
                 button.activateButton()
             }
+            
             view.addSubview(button)
             button.pinToTopAndBottomEdgesOfSuperview()
             
@@ -331,6 +360,16 @@ class FilterView: UIView {
         }
     }
     
+    /**
+     True if the filters were changed since the view was presented.
+     Used to determine if the collection view needs to reload.
+     */
+    var filtersChanged: Bool {
+        get {
+            return buttons.map({return $0.didChangeFilter}).contains(true)
+        }
+    }
+    
     // MARK: - Navigation
     
     func dismiss() {
@@ -340,14 +379,17 @@ class FilterView: UIView {
         setNeedsLayout()
         
         UIView.animateWithDuration(0.25, animations: {
+            
             self.blackOverlay.layer.opacity = 0.0
             self.layoutIfNeeded()
+            
             }, completion: { (Bool) -> Void in
                 self.removeFromSuperview()
                 
-                dispatch_async(dispatch_get_main_queue()) {
+                if self.filtersChanged {
                     self.delegate?.didUpdateFilters()
                 }
-        })
+            }
+        )
     }
 }
