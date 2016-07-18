@@ -108,9 +108,34 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         window.addSubview(filterView)
     }
     
+    // MARK: - Filter Delegate
+    
+    private lazy var whiteOverlay: UIView = {
+        let view = UIView(frame: self.view.bounds)
+        view.backgroundColor = .whiteColor()
+        view.layer.opacity = 0
+        self.view.addSubview(view)
+        return view
+    }()
+    
     func didUpdateFilters() {
         dispatch_async(dispatch_get_main_queue()) {
-            self.collectionView.reloadData()
+            
+            self.view.userInteractionEnabled = false
+            
+            let timeInterval: NSTimeInterval = 0.25
+            
+            UIView.animateWithDuration(timeInterval, animations: {
+                self.whiteOverlay.layer.opacity = 1
+                }, completion: { (Bool) in
+                    self.collectionView.reloadData()
+            })
+            
+            UIView.animateWithDuration(timeInterval, delay: timeInterval, options: .CurveEaseInOut, animations: {
+                self.whiteOverlay.layer.opacity = 0
+                }, completion: { (Bool) in
+                    self.view.userInteractionEnabled = true
+            })
         }
     }
     

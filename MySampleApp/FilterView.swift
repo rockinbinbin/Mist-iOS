@@ -378,6 +378,10 @@ class FilterView: UIView {
         self.bottomConstraint?.constant = height
         setNeedsLayout()
         
+        if self.filtersChanged {
+            self.delegate?.didUpdateFilters()
+        }
+        
         UIView.animateWithDuration(0.25, animations: {
             
             self.blackOverlay.layer.opacity = 0.0
@@ -385,10 +389,6 @@ class FilterView: UIView {
             
             }, completion: { (Bool) -> Void in
                 self.removeFromSuperview()
-                
-                if self.filtersChanged {
-                    self.delegate?.didUpdateFilters()
-                }
             }
         )
     }
