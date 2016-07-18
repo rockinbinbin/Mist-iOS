@@ -28,6 +28,7 @@
 		2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */; };
 		2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */; };
 		2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE531D1A157A008AC36A /* BuyButton.swift */; };
+		288DA87D1D3C69CA00C722FE /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DA87C1D3C69CA00C722FE /* SearchManager.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
 		28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD07A1D1282C500C89ABE /* LoadingView.swift */; };
 		28FFD0BA1D129F5000C89ABE /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */; };
@@ -202,6 +203,7 @@
 		2832AE531D1A157A008AC36A /* BuyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyButton.swift; sourceTree = "<group>"; };
 		2832AE551D1A164F008AC36A /* LibreBaskerville-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBaskerville-Italic.otf"; sourceTree = SOURCE_ROOT; };
 		286F55E11D18728B0012A884 /* Mist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mist.entitlements; sourceTree = SOURCE_ROOT; };
+		288DA87C1D3C69CA00C722FE /* SearchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchManager.swift; path = MySampleApp/SearchManager.swift; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD07A1D1282C500C89ABE /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
 		28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = SOURCE_ROOT; };
@@ -336,6 +338,7 @@
 				2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */,
 				2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */,
 				281DFDF51D303BD300B2D36F /* FeedFilters.swift */,
+				288DA87C1D3C69CA00C722FE /* SearchManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				E7A30F04BB01BF6E00000000 /* NoSQLTableListViewController.swift in Sources */,
 				0096BF1F1D14E43600EAC2A9 /* ProductBarButton.swift in Sources */,
 				E7A30F0416AC0CC200000000 /* ProductTable.swift in Sources */,
+				288DA87D1D3C69CA00C722FE /* SearchManager.swift in Sources */,
 				E7A30F04A8FE6FF800000000 /* NoSQLTableFactory.swift in Sources */,
 				0096BF1B1D14E43600EAC2A9 /* Constants.swift in Sources */,
 				0096BF211D14E43600EAC2A9 /* ShippingViewController.swift in Sources */,

@@ -38,6 +38,12 @@ class Feed {
         }
     }
     
+    var searchItems: [Item] {
+        get {
+            return _items
+        }
+    }
+    
     private var originalIndices: [Int] = []
     
     func sizeAtIndex(index: Int) -> CGSize {
