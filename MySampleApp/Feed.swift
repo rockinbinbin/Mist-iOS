@@ -47,7 +47,9 @@ class Feed {
     private var originalIndices: [Int] = []
     
     func sizeAtIndex(index: Int) -> CGSize {
-        return _items[originalIndices[index]].size ?? CGSizeMake(500, 250)
+        print("\(index): \(originalIndices[index]), size: \(_items[originalIndices[index]].name)")
+        
+        return _items[originalIndices[index]].size ?? CGSizeMake(500, 10)
     }
     
     func setSize(size: CGSize, atIndex index: Int) {

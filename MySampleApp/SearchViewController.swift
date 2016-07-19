@@ -20,17 +20,14 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
         view.backgroundColor = .whiteColor()
         view.setNeedsUpdateConstraints()
         
-//        let backImage = UIImage(named: "Search-Back")!.imageWithRenderingMode(.AlwaysOriginal)
-//        let barButtonItem = UIBarButtonItem(image: backImage, style: .Plain, target: self, action: #selector(SearchViewController.dismiss))
-//        
-//        navigationItem.backBarButtonItem = barButtonItem
-//        navigationController!.navigationBar.backIndicatorImage = backImage
-//        navigationController!.navigationBar.backIndicatorTransitionMaskImage = backImage
-        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .blackColor()
         
         navigationController?.navigationBar.tintColor = .blackColor()
+        
+        navigationItem.titleView = searchField
+        
+        addTapGestureRecognizer()
     }
     
     // MARK: - Appearance
@@ -51,7 +48,12 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - UI Components
     
-    
+    private lazy var searchField: UITextField = {
+        let field: UITextField = UITextField(frame: CGRectMake(-40, 0, self.navigationController!.navigationBar.frame.size.width, 21))
+        field.font = UIFont(name: "Lato-Regular", size: 15)
+        field.placeholder = "Search by product, brand, and more"
+        return field
+    }()
     
     // MARK: - Layout
     
@@ -64,5 +66,14 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func dismiss() {
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func addTapGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.shouldResignFirstResponder))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func shouldResignFirstResponder() {
+        searchField.resignFirstResponder()
     }
 }
