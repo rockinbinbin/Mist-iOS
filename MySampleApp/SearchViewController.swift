@@ -112,7 +112,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             return button
         })
         
-        if self.previousSearches.filter({$0 != ""}).count == 0 {
+        let hasNoPreviousSearches = self.previousSearches.filter({$0 != ""}).count == 0
+        
+        if hasNoPreviousSearches {
             buttons[0].setTitle("None yet!", forState: .Normal)
             buttons[0].setTitleColor(UIColor(white: 0, alpha: 0.32), forState: .Normal)
             buttons[0].enabled = false

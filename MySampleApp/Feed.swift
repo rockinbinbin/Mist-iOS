@@ -28,7 +28,7 @@ class Feed {
             originalIndices = []
             
             for (index, item) in _items.enumerate() {
-                if item.validWithFilters {
+                if item.validWithFilters && item.show {
                     originalIndices.append(index)
                     items.append(item)
                 }
@@ -101,18 +101,56 @@ class Feed {
         let categories: [Feed.Filter.Category] = []
         var size: CGSize? = nil
         var imageURL: String
+        var show: Bool
         
         init?(dictionary: NSDictionary) {
             
-            guard
-                let brand = dictionary["Brand"] as? String,
-                let imageURLs = dictionary["ImageURLs"] as? [String],
-                let name = dictionary["ItemName"] as? String,
-                let id = dictionary["ID"] as? String,
-                let description = dictionary["Description"] as? String,
-                let price = dictionary["Price"] as? String,
-                let imageURL = dictionary["PrimaryImage"] as? String else {
-                    return nil
+            guard let brand = dictionary["Brand"] as? String else {
+                print("The brand was incorrect.")
+                print(dictionary)
+                return nil
+            }
+            
+            guard let imageURLs = dictionary["ImageURLs"] as? [String] else {
+                print("The imageURLs was incorrect.")
+                print(dictionary)
+                return nil
+            }
+            
+            guard let name = dictionary["ItemName"] as? String else {
+                print("The name was incorrect.")
+                print(dictionary)
+                return nil
+            }
+            
+            guard let id = dictionary["ID"] as? String else {
+                print("The id was incorrect.")
+                print(dictionary)
+                return nil
+            }
+            
+            guard let description = dictionary["Description"] as? String else {
+                print("The description was incorrect.")
+                print(dictionary)
+                return nil
+            }
+            
+            guard let price = dictionary["Price"] as? String else {
+                print("The price was incorrect.")
+                print(dictionary)
+                return nil
+            }
+            
+            guard let imageURL = dictionary["PrimaryImage"] as? String else {
+                print("The imageURL was incorrect.")
+                print(dictionary)
+                return nil
+            }
+            
+            if let show = dictionary["Show"] as? String where (show.lowercaseString == "false") || (show.lowercaseString == "no") {
+                self.show = false
+            } else {
+                self.show = true
             }
             
             self.brand = brand
