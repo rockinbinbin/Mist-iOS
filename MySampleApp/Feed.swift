@@ -100,12 +100,7 @@ class Feed {
         let description: String
         let categories: [Feed.Filter.Category] = []
         var size: CGSize? = nil
-        
-        var imageURL: String {
-            get {
-                return imageURLs[0]
-            }
-        }
+        var imageURL: String
         
         init?(dictionary: NSDictionary) {
             
@@ -115,7 +110,8 @@ class Feed {
                 let name = dictionary["ItemName"] as? String,
                 let id = dictionary["ID"] as? String,
                 let description = dictionary["Description"] as? String,
-                let price = dictionary["Price"] as? String else {
+                let price = dictionary["Price"] as? String,
+                let imageURL = dictionary["PrimaryImage"] as? String else {
                     return nil
             }
             
@@ -125,6 +121,7 @@ class Feed {
             self.price = price
             self.id = id
             self.description = description
+            self.imageURL = imageURL
         }
         
         /**
