@@ -61,6 +61,7 @@ class FeedCell: UICollectionViewCell {
         let _nameLabel = UILabel()
         _nameLabel.textColor = UIColor.whiteColor()
         _nameLabel.numberOfLines = 0
+        _nameLabel.lineBreakMode = .ByWordWrapping
         self.addSubview(_nameLabel)
         return _nameLabel
     }()
@@ -68,6 +69,7 @@ class FeedCell: UICollectionViewCell {
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.textColor = .whiteColor()
+        label.textAlignment = .Right
         self.addSubview(label)
         return label
     }()
@@ -84,10 +86,11 @@ class FeedCell: UICollectionViewCell {
         
         nameLabel.pinToBottomEdgeOfSuperview(offset: 5)
         nameLabel.pinToLeftEdgeOfSuperview(offset: 5)
-        nameLabel.sizeToWidth(self.contentView.frame.size.width - 20)
+        nameLabel.sizeToWidth(UIApplication.sharedApplication().keyWindow!.frame.size.width / 2 - 30)
         
         priceLabel.pinToBottomEdgeOfSuperview(offset: 5)
         priceLabel.pinToRightEdgeOfSuperview(offset: 5)
+        priceLabel.sizeToWidth(40)
     }
     
     func setImage(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {

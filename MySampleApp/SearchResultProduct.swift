@@ -113,6 +113,7 @@ class SearchResultProduct: UIView {
     
     private lazy var priceLabel: UILabel = {
         let label = Label(title: "$\(Int(Double(self.item!.price)!))", style: .Price)
+        label.textAlignment = .Right
         self.addSubview(label)
         return label
     }()
