@@ -26,16 +26,19 @@ class SearchManager {
     
     // MARK: - Search
     
-    func search(text: String) -> (brands: [SearchResult.Brand], products: [Feed.Item]) {
-        var result: (brands: [SearchResult.Brand], products: [Feed.Item]) = ([], [])
+    func search(text: String, completion: ((products: [Feed.Item], brands: [SearchResult.Brand]) -> ())? = nil) {
+        var products: [Feed.Item] = []
+        
+        // TODO: Implement brand search
+        let brands: [SearchResult.Brand] = []
         
         for product in Feed.sharedInstance.searchItems {
             if productPredicate(text, product: product) {
-                result.products.append(product)
+                products.append(product)
             }
         }
         
-        return result
+        completion?(products: products, brands: brands)
     }
     
     private func productPredicate(text: String, product: Feed.Item) -> Bool {

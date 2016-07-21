@@ -40,7 +40,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         return field
     }()
     
-    // MARK: - Placeholder
+    // MARK: Placeholder
     
     private lazy var placeholderView: UIView = {
         let view = UIView(frame: self.view.bounds)
@@ -53,6 +53,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         self.view.addSubview(view)
         return view
     }()
+    
+    // MARK: Suggested Searches
     
     private lazy var suggestedLabel: UILabel = {
         let label = UILabel()
@@ -80,6 +82,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             return button
         })
     }()
+    
+    // MARK: Previous Searches
     
     private lazy var previousSearchesLabel: UILabel = {
         let label = UILabel()
@@ -122,6 +126,17 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         
         return buttons
     }()
+    
+    // MARK: Search Results
+    
+    private lazy var searchResultsView: SearchResultsView = {
+        let searchResultsView = SearchResultsView()
+        searchResultsView.hidden = true
+        self.view.addSubview(searchResultsView)
+        return searchResultsView
+    }()
+    
+    // MARK: - Utility
     
     private func refreshPreviousSearches() {
         
@@ -193,6 +208,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             button.centerHorizontallyInSuperview()
         }
         
+        self.searchResultsView.pinToEdgesOfSuperview()
+        
         super.updateViewConstraints()
     }
     
@@ -232,9 +249,52 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     }
     
     private func search(query: String) {
-        UIView.animateWithDuration(0.2, animations: {
-            self.placeholderView.layer.opacity = 0
-        })
+        
+        let searchCompletion = { (products: [Feed.Item], brands: [SearchResult.Brand]) -> Void in
+            dispatch_async(dispatch_get_main_queue()) {
+                self.searchResultsView.updateSearchResults(products, brands: brands)
+                
+                /**
+                 NOTE: Since updateSearchResults is done completely locally, it will return almost
+                 immediately. This means that the delay of 0.2 will delay the function call to
+                 almost exactly after the placeholderView is hidden. If an async search function
+                 is used in the future, the delay of 0.2 could make the animation be slower
+                 than it could be.
+                 */
+                self.animateView(self.searchResultsView, action: .Show, duration: 0.2, delay: 0.2)
+            }
+        }
+        
+        SearchManager.sharedInstance.search(query, completion: searchCompletion)
+        
+        animateView(placeholderView, action: .Hide, duration: 0.2)
+        
+    }
+    
+    // MARK: - Animation
+    
+    enum AnimationAction {
+        case Show
+        case Hide
+    }
+    
+    func animateView(view: UIView, action: AnimationAction, duration: NSTimeInterval, delay: NSTimeInterval = 0) {
+        
+        let show = action == .Show
+        
+        view.layer.opacity = show ? 0 : 1
+        view.userInteractionEnabled = show ? false : true
+        view.hidden = show ? false : true
+        
+        let animations = {
+            view.layer.opacity = show ? 1 : 0
+        }
+        
+        let completion = { (animated: Bool) -> Void in
+            view.userInteractionEnabled = show ? true : false
+        }
+        
+        UIView.animateWithDuration(duration, delay: delay, options: .CurveEaseInOut, animations: animations, completion: completion)
     }
 }
 
