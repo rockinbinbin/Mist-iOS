@@ -130,6 +130,17 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     // MARK: - Layout
     
+    private var hasProductResults: Bool = false {
+        didSet {
+            productsLabel.hidden = !hasProductResults
+            brandLabelUnderScrollViewConstraint?.active = hasProductResults
+            brandLabelTopPinConstraint?.active = !hasProductResults
+        }
+    }
+    
+    var brandLabelTopPinConstraint: NSLayoutConstraint? = nil
+    var brandLabelUnderScrollViewConstraint: NSLayoutConstraint? = nil
+    
     override func updateConstraints() {
         
         scrollView.pinToEdgesOfSuperview()
@@ -145,7 +156,9 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         productsScrollView.positionBelowItem(productsLabel, offset: 30)
         
         brandsLabel.pinToLeftEdgeOfSuperview(offset: 29)
-        brandsLabel.positionBelowItem(productsScrollView, offset: 30)
+        brandLabelUnderScrollViewConstraint = brandsLabel.positionBelowItem(productsScrollView, offset: 30)
+        brandLabelTopPinConstraint = brandsLabel.pinToTopEdgeOfSuperview(offset: 31)
+        brandLabelTopPinConstraint!.active = false
         
         super.updateConstraints()
     }
@@ -154,6 +167,8 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     func updateSearchResults(products: [Feed.Item], brands: [SearchResult.Brand]) {
         clearSearchResults()
+        
+        hasProductResults = !products.isEmpty
         
         setNeedsLayout()
         
