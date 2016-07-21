@@ -41,15 +41,34 @@ class SearchManager {
         completion?(products: products, brands: brands)
     }
     
+    func uniqueElements<S : SequenceType, T : Hashable where S.Generator.Element == T>(source: S) -> [T] {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
+    
+    /**
+     Returns true iff all of the words in the query are in some field of the product.
+     */
     private func productPredicate(text: String, product: Feed.Item) -> Bool {
-        let words = text.componentsSeparatedByString(" ").map{$0.lowercaseString}
+        var words = uniqueElements(text.componentsSeparatedByString(" ").filter{$0 != ""}.map{$0.lowercaseString})
         
         let searchableFields = [product.name, product.description, product.brand, product.price]
         
         for field in searchableFields {
             for word in words {
                 if field.containsString(word) {
-                    return true
+                    words.removeAtIndex(words.indexOf(word)!)
+                    
+                    if words.count == 0 {
+                        return true
+                    }
                 }
             }
         }
@@ -57,7 +76,11 @@ class SearchManager {
         for category in product.categories {
             for word in words {
                 if category.description.containsString(word) {
-                    return true
+                    words.removeAtIndex(words.indexOf(word)!)
+                    
+                    if words.count == 0 {
+                        return true
+                    }
                 }
             }
         }
