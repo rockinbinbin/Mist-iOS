@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchResultsView: UIView, SearchResultProductDelegate {
+class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBrandViewDelegate {
     
     // MARK: - Init
     
@@ -20,6 +20,7 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
         self.addSubview(scrollView)
         return scrollView
     }()
@@ -57,10 +58,12 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
         return scrollView
     }()
     
-    private var productViews: [SearchResultProduct] = []
+    private var productViews: [SearchResultProductView] = []
+    private var brandViews: [SearchResultBrandView] = []
+    
     private var leftOffset: CGFloat = 29
     
-    private func displayProduct(productView: SearchResultProduct) {
+    private func displayProduct(productView: SearchResultProductView) {
         let size = productView.preferredSize
         
         productView.layer.opacity = 0
@@ -83,6 +86,36 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
             productView.layer.opacity = 1
             }, completion: { (Bool) -> Void in
             productView.userInteractionEnabled = true
+        })
+    }
+    
+    private lazy var previousBrandView: UIView? = nil
+    
+    private func displayBrand(brandView: SearchResultBrandView) {
+
+        brandView.layer.opacity = 0
+        brandView.userInteractionEnabled = false
+        
+        scrollView.addSubview(brandView)
+        
+        if previousBrandView == nil {
+            brandView.positionBelowItem(brandsLabel, offset: 25)
+        } else {
+            brandView.positionBelowItem(previousBrandView!, offset: 17)
+        }
+        
+        previousBrandView = brandView
+        
+        let screenWidth = UIApplication.sharedApplication().keyWindow!.frame.size.width
+        
+        brandView.pinToLeftEdgeOfSuperview()
+        brandView.sizeToWidth(screenWidth)
+        brandView.sizeToHeight(100)
+        
+        UIView.animateWithDuration(0.2, animations: {
+            brandView.layer.opacity = 1
+            }, completion: { (Bool) -> Void in
+                brandView.userInteractionEnabled = true
         })
     }
     
@@ -109,7 +142,10 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
         productsScrollView.sizeToHeight(191)
         productsScrollView.pinToLeftEdgeOfSuperview()
         productsScrollView.sizeToWidth(screenWidth)
-        productsScrollView.positionBelowItem(productsLabel, offset: 19)
+        productsScrollView.positionBelowItem(productsLabel, offset: 30)
+        
+        brandsLabel.pinToLeftEdgeOfSuperview(offset: 29)
+        brandsLabel.positionBelowItem(productsScrollView, offset: 30)
         
         super.updateConstraints()
     }
@@ -119,24 +155,44 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
     func updateSearchResults(products: [Feed.Item], brands: [SearchResult.Brand]) {
         clearSearchResults()
         
+        setNeedsLayout()
+        
         for (index, product) in products.enumerate() {
-            let searchResultProduct = SearchResultProduct(item: product)
-            productViews.append(searchResultProduct)
+            let searchResultProductView = SearchResultProductView(item: product)
+            productViews.append(searchResultProductView)
 
-            searchResultProduct.delegate = self
-            searchResultProduct.loadImage()
-            searchResultProduct.tag = index
+            searchResultProductView.delegate = self
+            searchResultProductView.loadImage()
+            searchResultProductView.tag = index
+        }
+        
+        for (index, brand) in brands.enumerate() {
+            let searchResultBrandView = SearchResultBrandView(brand: brand)
+            brandViews.append(searchResultBrandView)
+            
+            searchResultBrandView.delegate = self
+            searchResultBrandView.loadImage()
+            searchResultBrandView.tag = index
         }
     }
     
     // MARK: - Delegate Methods
     
-    func didLoadImage(tag: Int, error: NSError?) {
+    func didLoadProductImage(tag: Int, error: NSError?) {
         guard error == nil else {
             return
         }
         
         let productView = productViews.filter({$0.tag == tag}).first!
         displayProduct(productView)
+    }
+    
+    func didLoadBrandImage(tag: Int, error: NSError?) {
+        guard error == nil else {
+            return
+        }
+        
+        let brandView = brandViews.filter({$0.tag == tag}).first!
+        displayBrand(brandView)
     }
 }

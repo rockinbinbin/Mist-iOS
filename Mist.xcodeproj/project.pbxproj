@@ -19,6 +19,7 @@
 		0096BF211D14E43600EAC2A9 /* ShippingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */; };
 		0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF171D14E43600EAC2A9 /* SignInViewController.swift */; };
 		0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */; };
+		280A979F1D40965B0016F0C9 /* SearchResultBrandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280A979E1D40965B0016F0C9 /* SearchResultBrandView.swift */; };
 		281DFDF41D303B2400B2D36F /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF31D303B2400B2D36F /* FilterView.swift */; };
 		281DFDF61D303BD300B2D36F /* FeedFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF51D303BD300B2D36F /* FeedFilters.swift */; };
 		283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D21D10D2FA002CCE25 /* Autolayout.swift */; };
@@ -29,7 +30,7 @@
 		2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */; };
 		2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE531D1A157A008AC36A /* BuyButton.swift */; };
 		28400F561D3E00AB00B82E5A /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28400F551D3E00AB00B82E5A /* SearchResultsView.swift */; };
-		28400F581D3E02B700B82E5A /* SearchResultProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28400F571D3E02B700B82E5A /* SearchResultProduct.swift */; };
+		28400F581D3E02B700B82E5A /* SearchResultProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28400F571D3E02B700B82E5A /* SearchResultProductView.swift */; };
 		287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287947B01D3D6BC800701D41 /* SearchViewController.swift */; };
 		288DA87D1D3C69CA00C722FE /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DA87C1D3C69CA00C722FE /* SearchManager.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
@@ -195,6 +196,7 @@
 		1DD70E29F1F3A33400000000 /* ContentDeliveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentDeliveryViewController.swift; path = MySampleApp/Demo/ContentDelivery/ContentDeliveryViewController.swift; sourceTree = SOURCE_ROOT; };
 		1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = MySampleApp/Sdk/Facebook/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		1DD70E29F44EBD2600000000 /* ProductTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductTable.swift; path = MySampleApp/Demo/NoSQL/ProductTable.swift; sourceTree = SOURCE_ROOT; };
+		280A979E1D40965B0016F0C9 /* SearchResultBrandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultBrandView.swift; path = MySampleApp/SearchResultBrandView.swift; sourceTree = SOURCE_ROOT; };
 		281DFDF31D303B2400B2D36F /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterView.swift; path = MySampleApp/FilterView.swift; sourceTree = SOURCE_ROOT; };
 		281DFDF51D303BD300B2D36F /* FeedFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFilters.swift; sourceTree = "<group>"; };
 		283017D21D10D2FA002CCE25 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Autolayout.swift; path = mysampleapp/app/utility/Autolayout.swift; sourceTree = SOURCE_ROOT; };
@@ -206,7 +208,7 @@
 		2832AE531D1A157A008AC36A /* BuyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyButton.swift; sourceTree = "<group>"; };
 		2832AE551D1A164F008AC36A /* LibreBaskerville-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBaskerville-Italic.otf"; sourceTree = SOURCE_ROOT; };
 		28400F551D3E00AB00B82E5A /* SearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsView.swift; path = MySampleApp/SearchResultsView.swift; sourceTree = SOURCE_ROOT; };
-		28400F571D3E02B700B82E5A /* SearchResultProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultProduct.swift; path = MySampleApp/SearchResultProduct.swift; sourceTree = SOURCE_ROOT; };
+		28400F571D3E02B700B82E5A /* SearchResultProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultProductView.swift; path = MySampleApp/SearchResultProductView.swift; sourceTree = SOURCE_ROOT; };
 		286F55E11D18728B0012A884 /* Mist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mist.entitlements; sourceTree = SOURCE_ROOT; };
 		287947B01D3D6BC800701D41 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = MySampleApp/SearchViewController.swift; sourceTree = SOURCE_ROOT; };
 		288DA87C1D3C69CA00C722FE /* SearchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchManager.swift; path = MySampleApp/SearchManager.swift; sourceTree = SOURCE_ROOT; };
@@ -269,7 +271,8 @@
 			children = (
 				281DFDF31D303B2400B2D36F /* FilterView.swift */,
 				28400F551D3E00AB00B82E5A /* SearchResultsView.swift */,
-				28400F571D3E02B700B82E5A /* SearchResultProduct.swift */,
+				28400F571D3E02B700B82E5A /* SearchResultProductView.swift */,
+				280A979E1D40965B0016F0C9 /* SearchResultBrandView.swift */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
@@ -828,7 +831,7 @@
 				28FFD0D61D14EEC700C89ABE /* PaymentManager.swift in Sources */,
 				E7A30F04A5D3D92E00000000 /* NoSQLQueryResultViewController.swift in Sources */,
 				E7A30F040C3E00B900000000 /* UserFilesViewController.swift in Sources */,
-				28400F581D3E02B700B82E5A /* SearchResultProduct.swift in Sources */,
+				28400F581D3E02B700B82E5A /* SearchResultProductView.swift in Sources */,
 				283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */,
 				E7A30F04BB01BF6E00000000 /* NoSQLTableListViewController.swift in Sources */,
 				0096BF1F1D14E43600EAC2A9 /* ProductBarButton.swift in Sources */,
@@ -842,6 +845,7 @@
 				E7A30F04EA26C65700000000 /* AppDelegate.swift in Sources */,
 				28FFD0D01D14CED500C89ABE /* Feed.swift in Sources */,
 				28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */,
+				280A979F1D40965B0016F0C9 /* SearchResultBrandView.swift in Sources */,
 				28FFD0CD1D1498DA00C89ABE /* MMViewController.swift in Sources */,
 				0096BF201D14E43600EAC2A9 /* ShippingTableViewCell.swift in Sources */,
 				E7A30F04B38C64E900000000 /* CloudLogicViewController.swift in Sources */,

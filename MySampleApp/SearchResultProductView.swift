@@ -1,5 +1,5 @@
 //
-//  SearchResultProduct.swift
+//  SearchResultProductView.swift
 //  Mist
 //
 //  Created by Steven on 7/18/16.
@@ -9,14 +9,14 @@
 import UIKit
 import DLImageLoader
 
-protocol SearchResultProductDelegate {
-    func didLoadImage(tag: Int, error: NSError?)
+protocol SearchResultProductViewDelegate {
+    func didLoadProductImage(tag: Int, error: NSError?)
 }
 
 /**
  Represents a product cell in the search results view controller.
  */
-class SearchResultProduct: UIView {
+class SearchResultProductView: UIView {
     
     // MARK: - Init
     
@@ -45,7 +45,7 @@ class SearchResultProduct: UIView {
     
     // MARK: - Delegate
     
-    var delegate: SearchResultProductDelegate? = nil
+    var delegate: SearchResultProductViewDelegate? = nil
     
     /**
      Loads the image and notifies the delegate.
@@ -53,13 +53,13 @@ class SearchResultProduct: UIView {
     func loadImage() {
         DLImageLoader.sharedInstance.imageFromUrl(item!.imageURL) { (error, image) in
             guard error == nil else {
-                self.delegate?.didLoadImage(self.tag, error: error)
+                self.delegate?.didLoadProductImage(self.tag, error: error)
                 return
             }
             
             dispatch_async(dispatch_get_main_queue()) {
                 self.imageView.image = image
-                self.delegate?.didLoadImage(self.tag, error: nil)
+                self.delegate?.didLoadProductImage(self.tag, error: nil)
             }
         }
     }
@@ -73,6 +73,7 @@ class SearchResultProduct: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .ScaleAspectFill
+        imageView.layer.masksToBounds = true
         self.addSubview(imageView)
         return imageView
     }()
@@ -136,6 +137,12 @@ class SearchResultProduct: UIView {
             let imageViewHeight = size.height - 50
             
             size.width = aspectRatio * imageViewHeight
+            
+            let minimumWidth: CGFloat = 100
+            
+            if size.width < minimumWidth {
+                size.width = minimumWidth
+            }
             
             return size
         }

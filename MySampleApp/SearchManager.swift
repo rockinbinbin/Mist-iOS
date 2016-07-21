@@ -10,7 +10,9 @@ import Foundation
 
 struct SearchResult {
     struct Brand {
-        
+        var imageURL: String
+        var name: String
+        var description: String
     }
     
     struct Product {
@@ -30,7 +32,7 @@ class SearchManager {
         var products: [Feed.Item] = []
         
         // TODO: Implement brand search
-        let brands: [SearchResult.Brand] = []
+        let brands: [SearchResult.Brand] = debugBrands
         
         for product in Feed.sharedInstance.searchItems {
             if productPredicate(text, product: product) {
@@ -52,6 +54,13 @@ class SearchManager {
         }
         return buffer
     }
+    
+    let debugBrands: [SearchResult.Brand] = [
+        SearchResult.Brand(imageURL: "http://www.thealibiinteriors.com/uploads/2/0/9/4/20944724/s408668824554312519_p15_i2_w640.jpeg", name: "Reformation", description: "We make killer clothes that don't kill the environment. Shop eco-friendly dresses, tops, bottoms, jumpers, outerwear, tops, bottoms, jumpers, outerwear, outerwear, tops, bottoms, jumpers, outerwear, outerwear, tops, bottoms, jumpers, outerwear & our new wedding collection."),
+        SearchResult.Brand(imageURL: "https://cdn.shopify.com/s/files/1/0547/5393/files/elephant_header.jpg?3042279246950339242", name: "The Elephant Pants", description: "In 2014, The Elephant Pants embarked on a mission to help save elephans and feel damn good while doing it."),
+        SearchResult.Brand(imageURL: "http://www.thealibiinteriors.com/uploads/2/0/9/4/20944724/s408668824554312519_p15_i2_w640.jpeg", name: "Reformation", description: "We make killer clothes that don't kill the environment. Shop eco-friendly dresses, tops, bottoms, jumpers, outerwear, tops, bottoms, jumpers, outerwear, outerwear, tops, bottoms, jumpers, outerwear, outerwear, tops, bottoms, jumpers, outerwear & our new wedding collection."),
+        SearchResult.Brand(imageURL: "https://cdn.shopify.com/s/files/1/0547/5393/files/elephant_header.jpg?3042279246950339242", name: "The Elephant Pants", description: "In 2014, The Elephant Pants embarked on a mission to help save elephans and feel damn good while doing it.")
+    ]
     
     /**
      Returns true iff all of the words in the query are in some field of the product.
