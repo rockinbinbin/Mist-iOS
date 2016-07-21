@@ -42,17 +42,23 @@ class SearchManager {
     }
     
     private func productPredicate(text: String, product: Feed.Item) -> Bool {
+        let words = text.componentsSeparatedByString(" ").map{$0.lowercaseString}
+        
         let searchableFields = [product.name, product.description, product.brand, product.price]
         
         for field in searchableFields {
-            if field.containsString(text) {
-                return true
+            for word in words {
+                if field.containsString(word) {
+                    return true
+                }
             }
         }
         
         for category in product.categories {
-            if category.description.containsString(text) {
-                return true
+            for word in words {
+                if category.description.containsString(word) {
+                    return true
+                }
             }
         }
         
@@ -62,5 +68,31 @@ class SearchManager {
     // TODO: Implement
     private func brandPredicate(text: String) -> Bool {
         return false
+    }
+    
+    // MARK: - Search History
+    
+    var previousSearches = [String](count: 5, repeatedValue: "")
+    
+    // MARK: - Utility
+    
+    func addRecentSearch(query: String) {
+        previousSearches.shiftRightInPlace(-1)
+        previousSearches[0] = query
+    }
+}
+
+// MARK: - Array shifting
+
+extension Array {
+    func shiftRight(amount: Int = 1) -> [Element] {
+        var amount = amount
+        assert(-count...count ~= amount, "Shift amount out of bounds")
+        if amount < 0 { amount += count }  // this needs to be >= 0
+        return Array(self[amount ..< count] + self[0 ..< amount])
+    }
+    
+    mutating func shiftRightInPlace(amount: Int = 1) {
+        self = shiftRight(amount)
     }
 }

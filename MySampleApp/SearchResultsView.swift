@@ -52,6 +52,7 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
     
     private lazy var productsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.addSubview(scrollView)
         return scrollView
     }()
@@ -76,6 +77,7 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
         productView.pinToLeftEdgeOfSuperview(offset: leftOffset)
         
         leftOffset += (padding + size.width)
+        productsScrollView.contentSize = CGSizeMake(leftOffset, 191)
         
         UIView.animateWithDuration(0.2, animations: {
             productView.layer.opacity = 1
@@ -90,6 +92,7 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
         }
         
         productViews = []
+        leftOffset = 29
     }
     
     // MARK: - Layout
@@ -114,9 +117,12 @@ class SearchResultsView: UIView, SearchResultProductDelegate {
     // MARK: - Search Results
     
     func updateSearchResults(products: [Feed.Item], brands: [SearchResult.Brand]) {
+        clearSearchResults()
+        
         for (index, product) in products.enumerate() {
             let searchResultProduct = SearchResultProduct(item: product)
             productViews.append(searchResultProduct)
+
             searchResultProduct.delegate = self
             searchResultProduct.loadImage()
             searchResultProduct.tag = index

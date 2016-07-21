@@ -98,10 +98,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         return label
     }()
     
-    private lazy var previousSearches = [String](count: 5, repeatedValue: "")
-    
     private lazy var previousSearchesButtons: [UIButton] = {
-        var buttons: [UIButton] = self.previousSearches.map({
+        var buttons: [UIButton] = SearchManager.sharedInstance.previousSearches.map({
             let button = UIButton()
             button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
             button.setTitle($0, forState: .Normal)
@@ -116,7 +114,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             return button
         })
         
-        let hasNoPreviousSearches = self.previousSearches.filter({$0 != ""}).count == 0
+        let hasNoPreviousSearches = SearchManager.sharedInstance.previousSearches.filter({$0 != ""}).count == 0
         
         if hasNoPreviousSearches {
             buttons[0].setTitle("None yet!", forState: .Normal)
@@ -135,34 +133,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         self.view.addSubview(searchResultsView)
         return searchResultsView
     }()
-    
-    // MARK: - Utility
-    
-    private func refreshPreviousSearches() {
-        
-        // Must have least one non-empty search string
-        guard self.previousSearches.filter({$0 != ""}).count != 0 else {
-            return
-        }
-        
-        for (index, search) in previousSearches.enumerate() {
-            let button = previousSearchesButtons[index]
-            
-            guard search != "" else {
-                continue
-            }
-            
-            button.setTitle(search, forState: .Normal)
-            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            button.enabled = true
-        }
-    }
-    
-    private func addRecentSearch(query: String) {
-        previousSearches.shiftRightInPlace(-1)
-        previousSearches[0] = query
-        refreshPreviousSearches()
-    }
     
     func suggestionPressed(sender: UIButton) {
         let query = sender.currentTitle!
@@ -244,7 +214,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             return
         }
         
-        addRecentSearch(query)
+        SearchManager.sharedInstance.addRecentSearch(query)
+        refreshPreviousSearches()
         search(query)
     }
     
@@ -271,6 +242,26 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         
     }
     
+    private func refreshPreviousSearches() {
+        
+        // Must have least one non-empty search string
+        guard SearchManager.sharedInstance.previousSearches.filter({$0 != ""}).count != 0 else {
+            return
+        }
+        
+        for (index, search) in SearchManager.sharedInstance.previousSearches.enumerate() {
+            let button = previousSearchesButtons[index]
+            
+            guard search != "" else {
+                continue
+            }
+            
+            button.setTitle(search, forState: .Normal)
+            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            button.enabled = true
+        }
+    }
+    
     // MARK: - Animation
     
     enum AnimationAction {
@@ -295,21 +286,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         }
         
         UIView.animateWithDuration(duration, delay: delay, options: .CurveEaseInOut, animations: animations, completion: completion)
-    }
-}
-
-// MARK: - Array shifting
-
-extension Array {
-    func shiftRight(amount: Int = 1) -> [Element] {
-        var amount = amount
-        assert(-count...count ~= amount, "Shift amount out of bounds")
-        if amount < 0 { amount += count }  // this needs to be >= 0
-        return Array(self[amount ..< count] + self[0 ..< amount])
-    }
-    
-    mutating func shiftRightInPlace(amount: Int = 1) {
-        self = shiftRight(amount)
     }
 }
 
