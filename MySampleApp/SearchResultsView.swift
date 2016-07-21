@@ -126,6 +126,13 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         
         productViews = []
         leftOffset = 29
+        
+        for brand in brandViews {
+            brand.removeFromSuperview()
+        }
+        
+        brandViews = []
+        previousBrandView = nil
     }
     
     // MARK: - Layout
@@ -133,8 +140,36 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     private var hasProductResults: Bool = false {
         didSet {
             productsLabel.hidden = !hasProductResults
-            brandLabelUnderScrollViewConstraint?.active = hasProductResults
-            brandLabelTopPinConstraint?.active = !hasProductResults
+            
+            if hasBrandResults {
+                brandLabelTopPinConstraint?.active = !hasProductResults
+                brandLabelUnderScrollViewConstraint?.active = hasProductResults
+            } else {
+                brandLabelUnderScrollViewConstraint?.active = hasProductResults
+                brandLabelTopPinConstraint?.active = !hasProductResults
+            }
+        }
+    }
+    
+    private var hasBrandResults: Bool = false {
+        didSet {
+            brandsLabel.hidden = !hasBrandResults
+        }
+    }
+    
+    var scrollViewHeight: CGFloat {
+        get {
+            var height: CGFloat = 0
+            
+            if hasProductResults {
+                height += 270
+            }
+            
+            if hasBrandResults {
+                height += 80 + (CGFloat(brandViews.count) * 117)
+            }
+            
+            return height
         }
     }
     
@@ -166,11 +201,11 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     // MARK: - Search Results
     
     func updateSearchResults(products: [Feed.Item], brands: [SearchResult.Brand]) {
+        scrollView.setContentOffset(CGPointZero, animated: false)
         clearSearchResults()
         
         hasProductResults = !products.isEmpty
-        
-        setNeedsLayout()
+        hasBrandResults = !brands.isEmpty
         
         for (index, product) in products.enumerate() {
             let searchResultProductView = SearchResultProductView(item: product)
@@ -189,6 +224,8 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
             searchResultBrandView.loadImage()
             searchResultBrandView.tag = index
         }
+        
+        scrollView.contentSize.height = scrollViewHeight
     }
     
     // MARK: - Delegate Methods
