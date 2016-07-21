@@ -58,6 +58,43 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         return scrollView
     }()
     
+    private lazy var noResultsTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Lato-Bold", size: 18)
+        label.textColor = UIColor(white: 0.47, alpha: 1.0)
+        label.text = "No results!"
+        self.addSubview(label)
+        return label
+    }()
+    
+    private lazy var noResultsDescriptionButton: UIButton = {
+        let button = UIButton()
+        
+        let title = "Have a product suggestion? Email us."
+        let greySection = "Have a product suggestion? "
+        
+        let grey = UIColor(white: 0.64, alpha: 1.0)
+        let greyRange = NSMakeRange(0, greySection.characters.count)
+        
+        let blue = Constants.Colors.DoneBlue
+        let blueRange = NSMakeRange(greySection.characters.count, title.characters.count - greySection.characters.count)
+        
+        var attributedTitle = NSMutableAttributedString(string: title, attributes: [
+            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 15)!
+            ])
+        
+        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: grey, range: greyRange)
+        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: Constants.Colors.DoneBlue, range: blueRange)
+        
+        button.setAttributedTitle(attributedTitle, forState: .Normal)
+        
+        button.addTarget(self, action: #selector(SearchResultsView.showEmailSuggestionTemplate), forControlEvents: .TouchUpInside)
+        
+        self.addSubview(button)
+        
+        return button
+    }()
+    
     private var productViews: [SearchResultProductView] = []
     private var brandViews: [SearchResultBrandView] = []
     
@@ -177,7 +214,6 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     var brandLabelUnderScrollViewConstraint: NSLayoutConstraint? = nil
     
     override func updateConstraints() {
-        
         scrollView.pinToEdgesOfSuperview()
         
         productsLabel.pinToTopEdgeOfSuperview(offset: 31)
@@ -195,6 +231,12 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         brandLabelTopPinConstraint = brandsLabel.pinToTopEdgeOfSuperview(offset: 31)
         brandLabelTopPinConstraint!.active = false
         
+        noResultsTitle.centerHorizontallyInSuperview()
+        noResultsTitle.centerVerticallyInSuperview(offset: -30)
+        
+        noResultsDescriptionButton.centerHorizontallyInSuperview()
+        noResultsDescriptionButton.positionBelowItem(noResultsTitle, offset: 5)
+        
         super.updateConstraints()
     }
     
@@ -206,6 +248,12 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         
         hasProductResults = !products.isEmpty
         hasBrandResults = !brands.isEmpty
+        
+        let noResults = products.isEmpty && brands.isEmpty
+        
+        noResultsTitle.hidden = !noResults
+        noResultsDescriptionButton.hidden = !noResults
+        noResultsDescriptionButton.userInteractionEnabled = noResults
         
         for (index, product) in products.enumerate() {
             let searchResultProductView = SearchResultProductView(item: product)
@@ -226,6 +274,12 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         }
         
         scrollView.contentSize.height = scrollViewHeight
+    }
+    
+    // MARK: - Contact
+    
+    func showEmailSuggestionTemplate() {
+        print("Show email suggestion template")
     }
     
     // MARK: - Delegate Methods
