@@ -811,7 +811,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                     completion(.Failure)
                     return
                 }
-                
+                self.dismissViewControllerAnimated(false, completion: nil)
+                self.presentViewController(PurchaseConfirmedViewController(), animated: true, completion: nil)
                 completion(.Success)
             }
         }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0070FB891D1B4CD800758B2C /* SustainabilityGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */; };
+		009011151D4807BB00933BE2 /* PurchaseConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */; };
 		0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */; };
 		0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */; };
 		0096BF1B1D14E43600EAC2A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF101D14E43600EAC2A9 /* Constants.swift */; };
@@ -130,6 +131,7 @@
 
 /* Begin PBXFileReference section */
 		0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SustainabilityGuideViewController.swift; sourceTree = SOURCE_ROOT; };
+		009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseConfirmedViewController.swift; path = MySampleApp/PurchaseConfirmedViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = SOURCE_ROOT; };
 		0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF101D14E43600EAC2A9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
@@ -282,6 +284,7 @@
 			children = (
 				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
 				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
+				009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */,
 				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
 			);
 			name = Feed;
@@ -847,6 +850,7 @@
 				28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */,
 				280A979F1D40965B0016F0C9 /* SearchResultBrandView.swift in Sources */,
 				28FFD0CD1D1498DA00C89ABE /* MMViewController.swift in Sources */,
+				009011151D4807BB00933BE2 /* PurchaseConfirmedViewController.swift in Sources */,
 				0096BF201D14E43600EAC2A9 /* ShippingTableViewCell.swift in Sources */,
 				E7A30F04B38C64E900000000 /* CloudLogicViewController.swift in Sources */,
 				0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */,
