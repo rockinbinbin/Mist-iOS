@@ -76,7 +76,7 @@ class PurchaseConfirmedViewController: UIViewController {
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
         
-        imageView.layer.cornerRadius = 10
+        imageView.layer.cornerRadius = 5
         return imageView
     }()
     
