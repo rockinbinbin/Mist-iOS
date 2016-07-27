@@ -165,7 +165,7 @@ class PurchaseConfirmedViewController: UIViewController {
         mainImageView.centerHorizontallyInSuperview()
         mainImageView.positionBelowItem(titleLabel, offset: 50)
         mainImageView.sizeToWidth(250)
-        mainImageView.sizeToHeight(200)
+        mainImageView.sizeToHeight(250)
         self.decorateImage(mainImageView)
         
         self.view.addSubview(checkView)
@@ -215,7 +215,7 @@ class PurchaseConfirmedViewController: UIViewController {
             bottomView.pinToBottomEdgeOfSuperview()
             bottomView.pinToLeftEdgeOfSuperview()
             bottomView.pinToRightEdgeOfSuperview()
-            bottomView.sizeToHeight(30)
+            bottomView.sizeToHeight(40)
             
             bottomView.addSubview(decorateLabel)
             decorateLabel.pinToLeftEdgeOfSuperview(offset: 10)
