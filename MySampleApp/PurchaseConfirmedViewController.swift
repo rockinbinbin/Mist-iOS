@@ -75,7 +75,8 @@ class PurchaseConfirmedViewController: UIViewController {
         imageView.backgroundColor = UIColor.clearColor()
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 0.5
+        
+        imageView.layer.cornerRadius = 10
         return imageView
     }()
     
@@ -148,8 +149,8 @@ class PurchaseConfirmedViewController: UIViewController {
         mainImageView.sizeToHeight(200)
         
         self.view.addSubview(checkView)
-        checkView.positionToTheRightOfItem(mainImageView, offset: -20)
-        checkView.positionAboveItem(mainImageView, offset: -20)
+        checkView.positionToTheRightOfItem(mainImageView, offset: -38)
+        checkView.positionAboveItem(mainImageView, offset: -38)
     }
 
     func returnToFeedPressed() {
