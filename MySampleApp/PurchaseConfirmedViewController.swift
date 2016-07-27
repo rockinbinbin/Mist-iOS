@@ -101,7 +101,7 @@ class PurchaseConfirmedViewController: UIViewController {
     
     private lazy var shareImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Products-Share")
+        imageView.image = UIImage(named: "Product-Share-Small")
         return imageView
     }()
     
@@ -170,6 +170,18 @@ class PurchaseConfirmedViewController: UIViewController {
         self.view.addSubview(checkView)
         checkView.positionToTheRightOfItem(mainImageView, offset: -38)
         checkView.positionAboveItem(mainImageView, offset: -38)
+        
+        self.view.addSubview(shipImageView)
+        shipImageView.positionBelowItem(mainImageView, offset: 30)
+        shipImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
+        
+        self.view.addSubview(cartImageView)
+        cartImageView.positionBelowItem(shipImageView, offset: 15)
+        cartImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
+        
+        self.view.addSubview(shareImageView)
+        shareImageView.positionBelowItem(cartImageView, offset: 15)
+        shareImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
     }
 
     func returnToFeedPressed() {
