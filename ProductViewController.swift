@@ -812,7 +812,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                     return
                 }
                 self.dismissViewControllerAnimated(false, completion: nil)
-                self.presentViewController(PurchaseConfirmedViewController(), animated: true, completion: nil)
+                
+                let purchaseVC = PurchaseConfirmedViewController()
+                purchaseVC.product = self.product
+                purchaseVC.mainImage = self.mainImage
+                
+                self.presentViewController(purchaseVC, animated: false, completion: nil)
                 completion(.Success)
             }
         }
