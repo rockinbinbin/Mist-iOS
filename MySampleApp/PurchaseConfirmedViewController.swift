@@ -143,11 +143,13 @@ class PurchaseConfirmedViewController: UIViewController {
         mainImageView.positionBelowItem(titleLabel, offset: 50)
         mainImageView.sizeToWidth(200)
         mainImageView.sizeToHeight(200)
+        mainImageView.backgroundColor = UIColor.clearColor()
         mainImageView.contentMode = .ScaleAspectFill
+        mainImageView.clipsToBounds = true
         
         mainImageView.addSubview(checkView)
-        checkView.pinToTopEdgeOfSuperview()
-        checkView.pinToRightEdgeOfSuperview()
+        checkView.pinToTopEdgeOfSuperview(offset: -50)
+        checkView.pinToRightEdgeOfSuperview(offset: -50)
     }
 
     func returnToFeedPressed() {
