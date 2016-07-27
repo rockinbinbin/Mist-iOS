@@ -14,5 +14,6 @@ struct Constants {
         static let DarkBlue = UIColor(red:0.09, green:0.26, blue:0.34, alpha:1.0)
         static let BuyBlue = UIColor(red:0, green:122/255.0, blue:1, alpha:1)
         static let PrettyBlue = UIColor(red:0.00, green:0.48, blue:1.00, alpha:1.0)
+        static let DarkGray = UIColor(red:0.18, green:0.18, blue:0.18, alpha:1.0)
     }
 }

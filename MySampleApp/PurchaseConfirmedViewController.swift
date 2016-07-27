@@ -166,6 +166,7 @@ class PurchaseConfirmedViewController: UIViewController {
         mainImageView.positionBelowItem(titleLabel, offset: 50)
         mainImageView.sizeToWidth(250)
         mainImageView.sizeToHeight(200)
+        self.decorateImage(mainImageView)
         
         self.view.addSubview(checkView)
         checkView.positionToTheRightOfItem(mainImageView, offset: -38)
@@ -183,6 +184,48 @@ class PurchaseConfirmedViewController: UIViewController {
         shareImageView.positionBelowItem(cartImageView, offset: 15)
         shareImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
     }
+    
+    internal func decorateImage(imageView: UIImageView?) {
+        
+        let decorateLabel: UILabel = {
+            let decorateLabel = UILabel()
+            decorateLabel.textColor = UIColor.whiteColor()
+            decorateLabel.textAlignment = .Center
+            decorateLabel.lineBreakMode = .ByWordWrapping
+            decorateLabel.numberOfLines = 0
+            let attrString = NSMutableAttributedString(string: (self.product?.name)!)
+            attrString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 10)!, range: NSMakeRange(0, attrString.length))
+            
+            decorateLabel.attributedText = attrString
+            decorateLabel.font = UIFont(name: "Lato-Regular", size: 15)
+            self.view.addSubview(decorateLabel)
+            return decorateLabel
+        }()
+        
+        let bottomView: UIView = {
+            let bottomView = UIView()
+            bottomView.backgroundColor = Constants.Colors.DarkGray
+            bottomView.layer.cornerRadius = 3
+            return bottomView
+        }()
+        
+        if (imageView?.image != nil) {
+            imageView?.addSubview(bottomView)
+            bottomView.pinToBottomEdgeOfSuperview()
+            bottomView.pinToLeftEdgeOfSuperview()
+            bottomView.pinToRightEdgeOfSuperview()
+            bottomView.sizeToHeight(30)
+            
+            bottomView.addSubview(decorateLabel)
+            decorateLabel.pinToLeftEdgeOfSuperview(offset: 10)
+            decorateLabel.centerVerticallyInSuperview()
+            
+            imageView?.layer.borderWidth = 0.5
+            imageView?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        }
+    }
+
 
     func returnToFeedPressed() {
         self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
