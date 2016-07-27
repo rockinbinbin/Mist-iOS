@@ -145,8 +145,8 @@ class PurchaseConfirmedViewController: UIViewController {
         self.view.addSubview(mainImageView)
         mainImageView.centerHorizontallyInSuperview()
         mainImageView.positionBelowItem(titleLabel, offset: 50)
-        mainImageView.sizeToWidth(200)
-        mainImageView.sizeToHeight(200)
+        mainImageView.sizeToWidth(250)
+        mainImageView.sizeToHeight(250)
         
         self.view.addSubview(checkView)
         checkView.positionToTheRightOfItem(mainImageView, offset: -38)
