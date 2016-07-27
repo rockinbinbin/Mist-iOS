@@ -76,6 +76,12 @@ class PurchaseConfirmedViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var checkView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "purchaseCheck")
+        return imageView
+    }()
+    
     var mainImage: UIImage? = nil {
         didSet {
             guard let image = mainImage else {
@@ -138,6 +144,10 @@ class PurchaseConfirmedViewController: UIViewController {
         mainImageView.sizeToWidth(200)
         mainImageView.sizeToHeight(200)
         mainImageView.contentMode = .ScaleAspectFill
+        
+        mainImageView.addSubview(checkView)
+        checkView.pinToTopEdgeOfSuperview()
+        checkView.pinToRightEdgeOfSuperview()
     }
 
     func returnToFeedPressed() {
