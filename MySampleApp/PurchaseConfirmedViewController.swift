@@ -64,9 +64,15 @@ class PurchaseConfirmedViewController: UIViewController {
     var imageHeight: CGFloat = 200
     private var imageHeightConstraint: NSLayoutConstraint? = nil
     
-    private lazy var mainImageView: UIImageView = {
+    private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         self.view.addSubview(imageView)
+        return imageView
+    }()
+    
+    private lazy var mainImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 0.5
         return imageView
     }()
     
@@ -77,19 +83,65 @@ class PurchaseConfirmedViewController: UIViewController {
             }
             
             mainImageView.image = image
+            backgroundImageView.image = image
             imageHeight = (image.size.height / image.size.width) * self.view.frame.size.width
             imageHeightConstraint?.constant = imageHeight
         }
     }
+    
+    internal lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        titleLabel.text = "Purchase Confirmed!"
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 24)
+        self.view.addSubview(titleLabel)
+        return titleLabel
+    }()
+    
+    internal lazy var returnButton: UIButton = {
+        let returnButton = UIButton(type: .RoundedRect)
+        returnButton.tintColor = UIColor.whiteColor()
+        returnButton.backgroundColor = Constants.Colors.PrettyBlue
+        
+        let attrString = NSMutableAttributedString(string: "RETURN TO FEED")
+        attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(0, attrString.length))
+        
+        returnButton.setAttributedTitle(attrString, forState: .Normal)
+        self.view.addSubview(returnButton)
+        
+//        returnButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.returntofeedPressed), forControlEvents: .TouchUpInside)
+        return returnButton
+    }()
 
     func setViewConstraints() {
-        mainImageView.centerHorizontallyInSuperview()
-        mainImageView.sizeToWidth(self.view.frame.size.width)
-        mainImageView.sizeToHeight(self.view.frame.size.height)
-        mainImageView.contentMode = .ScaleAspectFill
-        mainImageView.makeBlurImage(mainImageView)
+        backgroundImageView.centerHorizontallyInSuperview()
+        backgroundImageView.sizeToWidth(self.view.frame.size.width)
+        backgroundImageView.sizeToHeight(self.view.frame.size.height)
+        backgroundImageView.contentMode = .ScaleAspectFill
+        backgroundImageView.makeBlurImage(backgroundImageView)
         
+        titleLabel.centerHorizontallyInSuperview()
+        titleLabel.pinToTopEdgeOfSuperview(offset: 50)
+        
+        returnButton.centerHorizontallyInSuperview()
+        returnButton.pinToBottomEdgeOfSuperview()
+        returnButton.sizeToHeight(100)
+        returnButton.sizeToWidth(self.view.frame.size.width)
+        
+        self.view.addSubview(mainImageView)
+        mainImageView.centerHorizontallyInSuperview()
+        mainImageView.positionBelowItem(titleLabel, offset: 50)
+        mainImageView.sizeToWidth(200)
+        mainImageView.sizeToHeight(200)
+        mainImageView.contentMode = .ScaleAspectFill
     }
 
+    func returnToFeedPressed() {
+        
+    }
 
 }
