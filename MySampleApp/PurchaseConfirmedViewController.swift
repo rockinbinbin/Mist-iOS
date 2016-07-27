@@ -28,6 +28,7 @@ class PurchaseConfirmedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
+        self.prefersStatusBarHidden()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -86,6 +87,24 @@ class PurchaseConfirmedViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var shipImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Product-Ship")
+        return imageView
+    }()
+    
+    private lazy var cartImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Product-Cart")
+        return imageView
+    }()
+    
+    private lazy var shareImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Products-Share")
+        return imageView
+    }()
+    
     var mainImage: UIImage? = nil {
         didSet {
             guard let image = mainImage else {
@@ -117,13 +136,13 @@ class PurchaseConfirmedViewController: UIViewController {
         returnButton.backgroundColor = Constants.Colors.PrettyBlue
         
         let attrString = NSMutableAttributedString(string: "RETURN TO FEED")
-        attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 14)!, range: NSMakeRange(0, attrString.length))
         
         returnButton.setAttributedTitle(attrString, forState: .Normal)
         self.view.addSubview(returnButton)
         
-//        returnButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.returntofeedPressed), forControlEvents: .TouchUpInside)
+        returnButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.returnToFeedPressed), forControlEvents: .TouchUpInside)
         return returnButton
     }()
 
@@ -139,14 +158,14 @@ class PurchaseConfirmedViewController: UIViewController {
         
         returnButton.centerHorizontallyInSuperview()
         returnButton.pinToBottomEdgeOfSuperview()
-        returnButton.sizeToHeight(100)
+        returnButton.sizeToHeight(62)
         returnButton.sizeToWidth(self.view.frame.size.width)
         
         self.view.addSubview(mainImageView)
         mainImageView.centerHorizontallyInSuperview()
         mainImageView.positionBelowItem(titleLabel, offset: 50)
         mainImageView.sizeToWidth(250)
-        mainImageView.sizeToHeight(250)
+        mainImageView.sizeToHeight(200)
         
         self.view.addSubview(checkView)
         checkView.positionToTheRightOfItem(mainImageView, offset: -38)
@@ -154,7 +173,7 @@ class PurchaseConfirmedViewController: UIViewController {
     }
 
     func returnToFeedPressed() {
-        
+        self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
