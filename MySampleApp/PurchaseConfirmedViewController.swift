@@ -194,7 +194,7 @@ class PurchaseConfirmedViewController: UIViewController {
             decorateLabel.lineBreakMode = .ByWordWrapping
             decorateLabel.numberOfLines = 0
             let attrString = NSMutableAttributedString(string: (self.product?.name)!)
-            attrString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
             attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 10)!, range: NSMakeRange(0, attrString.length))
             
             decorateLabel.attributedText = attrString
@@ -220,9 +220,6 @@ class PurchaseConfirmedViewController: UIViewController {
             bottomView.addSubview(decorateLabel)
             decorateLabel.pinToLeftEdgeOfSuperview(offset: 10)
             decorateLabel.centerVerticallyInSuperview()
-            
-            imageView?.layer.borderWidth = 0.5
-            imageView?.layer.borderColor = UIColor.lightGrayColor().CGColor
         }
     }
 
