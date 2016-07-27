@@ -72,6 +72,9 @@ class PurchaseConfirmedViewController: UIViewController {
     
     private lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clearColor()
+        imageView.contentMode = .ScaleAspectFill
+        imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 0.5
         return imageView
     }()
@@ -143,13 +146,10 @@ class PurchaseConfirmedViewController: UIViewController {
         mainImageView.positionBelowItem(titleLabel, offset: 50)
         mainImageView.sizeToWidth(200)
         mainImageView.sizeToHeight(200)
-        mainImageView.backgroundColor = UIColor.clearColor()
-        mainImageView.contentMode = .ScaleAspectFill
-        mainImageView.clipsToBounds = true
         
-        mainImageView.addSubview(checkView)
-        checkView.pinToTopEdgeOfSuperview(offset: -50)
-        checkView.pinToRightEdgeOfSuperview(offset: -50)
+        self.view.addSubview(checkView)
+        checkView.positionToTheRightOfItem(mainImageView, offset: -20)
+        checkView.positionAboveItem(mainImageView, offset: -20)
     }
 
     func returnToFeedPressed() {
