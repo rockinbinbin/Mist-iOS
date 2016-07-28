@@ -28,11 +28,11 @@ class PurchaseConfirmedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
-        self.prefersStatusBarHidden()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.prefersStatusBarHidden() // not working. TODO: fix it
         setViewConstraints()
     }
 
@@ -124,8 +124,74 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.textAlignment = .Center
         titleLabel.lineBreakMode = .ByWordWrapping
         titleLabel.numberOfLines = 0
-        titleLabel.text = "Purchase Confirmed!"
+        titleLabel.text = "Forever grateful."
         titleLabel.font = UIFont(name: "Lato-Regular", size: 24)
+        self.view.addSubview(titleLabel)
+        return titleLabel
+    }()
+    
+    internal lazy var subtitleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        titleLabel.text = "Look out for a package made with love ❤️"
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 14)
+        self.view.addSubview(titleLabel)
+        return titleLabel
+    }()
+    
+    internal lazy var shipLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        titleLabel.text = "Ships in 2 - 4 business days"
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 10)
+        self.view.addSubview(titleLabel)
+        return titleLabel
+    }()
+    
+    internal lazy var returnLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        titleLabel.text = "Return free for 14 days"
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 10)
+        self.view.addSubview(titleLabel)
+        return titleLabel
+    }()
+    
+    internal lazy var shareLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        titleLabel.text = "Show & Tell! 🙈"
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 14)
+        self.view.addSubview(titleLabel)
+        return titleLabel
+    }()
+    
+    internal lazy var shareButton: UIButton = {
+        let shareButton = UIButton(type: .Custom)
+        shareButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.shareProduct), forControlEvents: .TouchUpInside)
+        return shareButton
+    }()
+    
+    internal lazy var subShareLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        titleLabel.text = "...for a chance to win Mist’s surprise box! ✨💫"
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 12)
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -156,6 +222,9 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.centerHorizontallyInSuperview()
         titleLabel.pinToTopEdgeOfSuperview(offset: 50)
         
+        subtitleLabel.centerHorizontallyInSuperview()
+        subtitleLabel.positionBelowItem(titleLabel, offset: 10)
+        
         returnButton.centerHorizontallyInSuperview()
         returnButton.pinToBottomEdgeOfSuperview()
         returnButton.sizeToHeight(62)
@@ -163,9 +232,9 @@ class PurchaseConfirmedViewController: UIViewController {
         
         self.view.addSubview(mainImageView)
         mainImageView.centerHorizontallyInSuperview()
-        mainImageView.positionBelowItem(titleLabel, offset: 50)
+        mainImageView.positionBelowItem(subtitleLabel, offset: 35)
         mainImageView.sizeToWidth(250)
-        mainImageView.sizeToHeight(250)
+        mainImageView.sizeToHeight(200)
         self.decorateImage(mainImageView)
         
         self.view.addSubview(checkView)
@@ -173,16 +242,44 @@ class PurchaseConfirmedViewController: UIViewController {
         checkView.positionAboveItem(mainImageView, offset: -38)
         
         self.view.addSubview(shipImageView)
-        shipImageView.positionBelowItem(mainImageView, offset: 30)
+        shipImageView.positionBelowItem(mainImageView, offset: 20)
         shipImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
+        
+        shipLabel.pinTopEdgeToTopEdgeOfItem(shipImageView)
+        shipLabel.positionToTheRightOfItem(shipImageView, offset: 20)
         
         self.view.addSubview(cartImageView)
         cartImageView.positionBelowItem(shipImageView, offset: 15)
         cartImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
         
-        self.view.addSubview(shareImageView)
-        shareImageView.positionBelowItem(cartImageView, offset: 15)
-        shareImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
+        returnLabel.pinTopEdgeToTopEdgeOfItem(cartImageView)
+        returnLabel.positionToTheRightOfItem(cartImageView, offset: 20)
+        
+        self.view.addSubview(shareButton)
+        
+        let shareView = UIView()
+        
+        shareButton.sizeToWidth(130)
+        shareButton.sizeToHeight(50)
+        shareButton.addSubview(shareView)
+        
+        shareButton.centerHorizontallyInSuperview()
+        shareButton.positionAboveItem(returnButton, offset: 40)
+        shareView.centerInSuperview()
+        shareView.sizeToWidth(130)
+        shareView.sizeToHeight(50)
+        shareView.userInteractionEnabled = false
+        
+        shareView.addSubview(shareImageView)
+        shareImageView.pinToLeftEdgeOfSuperview()
+        shareImageView.centerVerticallyInSuperview()
+        shareView.addSubview(shareLabel)
+        shareLabel.positionToTheRightOfItem(shareImageView, offset: 10)
+        shareLabel.centerVerticallyInSuperview()
+        shareView.sizeToFit()
+        
+        subShareLabel.centerHorizontallyInSuperview()
+        subShareLabel.positionBelowItem(shareView, offset: 5)
     }
     
     internal func decorateImage(imageView: UIImageView?) {
@@ -198,7 +295,7 @@ class PurchaseConfirmedViewController: UIViewController {
             attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 10)!, range: NSMakeRange(0, attrString.length))
             
             decorateLabel.attributedText = attrString
-            decorateLabel.font = UIFont(name: "Lato-Regular", size: 15)
+            decorateLabel.font = UIFont(name: "Lato-Regular", size: 10)
             self.view.addSubview(decorateLabel)
             return decorateLabel
         }()
@@ -215,7 +312,7 @@ class PurchaseConfirmedViewController: UIViewController {
             bottomView.pinToBottomEdgeOfSuperview()
             bottomView.pinToLeftEdgeOfSuperview()
             bottomView.pinToRightEdgeOfSuperview()
-            bottomView.sizeToHeight(40)
+            bottomView.sizeToHeight(30)
             
             bottomView.addSubview(decorateLabel)
             decorateLabel.pinToLeftEdgeOfSuperview(offset: 10)
@@ -223,9 +320,19 @@ class PurchaseConfirmedViewController: UIViewController {
         }
     }
 
-
     func returnToFeedPressed() {
         self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func shareProduct() {
+        let name = (product?.name)!
+        let companyName = (product?.brand)!
+        let shareString = "\(name) by \(companyName) – curated by @MistMarked. Link: xxx"
+        
+        let activityViewController = UIActivityViewController(activityItems: [shareString as NSString, mainImage!], applicationActivities: nil)
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+        
     }
 
 }
