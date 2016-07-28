@@ -9,8 +9,9 @@
 import UIKit
 import Stripe
 import AWSMobileHubHelper
+import MessageUI
 
-class ProductViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UIScrollViewDelegate, STPAddCardViewControllerDelegate {
+class ProductViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UIScrollViewDelegate, STPAddCardViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
     // MARK: - View Lifecycle
     
@@ -810,12 +811,21 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                     completion(error)
                     // error with purchase.. should just stop and not bring dismiss card view controller or bring up purchase confirmed
                     
-                    let purchaseErrorAlert = UIAlertView(title: "Authorization Failed 🤔", message: "The credit card information you entered is incorrect. Send us an email if the issue persists!", delegate: self, cancelButtonTitle: "Try Again")
-                    purchaseErrorAlert.addButtonWithTitle("Email us ✉️")
-                
-                    purchaseErrorAlert.show()
-                    addCardViewController.setLoading(false)
+                    let alertController = UIAlertController(title: "Authorization Failed 🤔", message: "The credit card information you entered is incorrect. Send us an email if the issue persists!", preferredStyle: .Alert)
+                    let okAction = UIAlertAction(title: "Email us ✉️", style: UIAlertActionStyle.Default) {
+                        UIAlertAction in
+                        self.sendEmailButtonTapped()
+                    }
+                    let cancelAction = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Cancel) {
+                        UIAlertAction in
+                        NSLog("Cancel Pressed")
+                    }
+
+                    alertController.addAction(okAction)
+                    alertController.addAction(cancelAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
                     
+                    addCardViewController.setLoading(false)
                     return
                 }
                 self.dismissViewControllerAnimated(true, completion: nil)
@@ -828,18 +838,6 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                 completion(nil)
             }
         }
-
-        
-//        self.submitTokenToBackend(token, completion: { (error: NSError?) in
-//            if let error = error {
-//                completion(error)
-//            } else {
-//                self.dismissViewControllerAnimated(true, completion: {
-//                    self.showReceiptPage()
-//                    completion(nil)
-//                })
-//            }
-//        })
     }
     
     
@@ -1032,5 +1030,35 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         if scrollView.contentOffset.y <= scrollReleaseThreshold {
             closeView()
         }
+    }
+    
+    func sendEmailButtonTapped() {
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients(["robinmehta94@gmail.com"]) // TODO: change this to Mist's team email.
+        mailComposerVC.setSubject("Payment Failure")
+        mailComposerVC.setMessageBody("Please help me complete my purchase! My name is [name] and I am trying to purchase [product].", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
