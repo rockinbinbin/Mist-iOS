@@ -105,6 +105,18 @@ class PurchaseConfirmedViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var shortDividerView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "line")
+        return imageView
+    }()
+    
+    private lazy var longDividerView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "longLine")
+        return imageView
+    }()
+    
     var mainImage: UIImage? = nil {
         didSet {
             guard let image = mainImage else {
@@ -233,8 +245,8 @@ class PurchaseConfirmedViewController: UIViewController {
         self.view.addSubview(mainImageView)
         mainImageView.centerHorizontallyInSuperview()
         mainImageView.positionBelowItem(subtitleLabel, offset: 35)
-        mainImageView.sizeToWidth(250)
-        mainImageView.sizeToHeight(200)
+        mainImageView.sizeToWidth(self.view.frame.size.width - 100)
+        mainImageView.sizeToHeight(self.view.frame.size.width - 150)
         self.decorateImage(mainImageView)
         
         self.view.addSubview(checkView)
@@ -245,15 +257,23 @@ class PurchaseConfirmedViewController: UIViewController {
         shipImageView.positionBelowItem(mainImageView, offset: 20)
         shipImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
         
-        shipLabel.pinTopEdgeToTopEdgeOfItem(shipImageView)
+        shipLabel.centerVerticallyToItem(shipImageView)
         shipLabel.positionToTheRightOfItem(shipImageView, offset: 20)
+        
+        self.view.addSubview(shortDividerView)
+        shortDividerView.positionBelowItem(shipImageView)
+        shortDividerView.pinLeftEdgeToLeftEdgeOfItem(shipLabel)
         
         self.view.addSubview(cartImageView)
         cartImageView.positionBelowItem(shipImageView, offset: 15)
         cartImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
         
-        returnLabel.pinTopEdgeToTopEdgeOfItem(cartImageView)
+        returnLabel.centerVerticallyToItem(cartImageView)
         returnLabel.positionToTheRightOfItem(cartImageView, offset: 20)
+        
+        self.view.addSubview(longDividerView)
+        longDividerView.positionBelowItem(cartImageView, offset: 10)
+        longDividerView.pinLeftEdgeToLeftEdgeOfItem(cartImageView)
         
         self.view.addSubview(shareButton)
         
