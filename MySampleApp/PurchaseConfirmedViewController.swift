@@ -327,6 +327,8 @@ class PurchaseConfirmedViewController: UIViewController {
     func shareProduct() {
         let name = (product?.name)!
         let companyName = (product?.brand)!
+        
+        // TODO: fix "xxx" to app store's link!
         let shareString = "\(name) by \(companyName) – curated by @MistMarked. Link: xxx"
         
         let activityViewController = UIActivityViewController(activityItems: [shareString as NSString, mainImage!], applicationActivities: nil)
