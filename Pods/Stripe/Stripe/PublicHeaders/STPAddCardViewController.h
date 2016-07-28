@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithConfiguration:(STPPaymentConfiguration *)configuration
                                 theme:(STPTheme *)theme;
 
+- (void)setLoading:(BOOL)loading;
+
 /**
  *  The view controller's delegate. This must be set before showing the view controller in order for it to work properly. @see STPAddCardViewControllerDelegate
  */

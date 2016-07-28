@@ -810,6 +810,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                     completion(error)
                     // error with purchase.. should just stop and not bring dismiss card view controller or bring up purchase confirmed
                     
+                    let purchaseErrorAlert = UIAlertView(title: "Authorization Failed 🤔", message: "The credit card information you entered is incorrect. Send us an email if the issue persists!", delegate: self, cancelButtonTitle: "Try Again")
+                    purchaseErrorAlert.addButtonWithTitle("Email us ✉️")
+                
+                    purchaseErrorAlert.show()
+                    addCardViewController.setLoading(false)
+                    
                     return
                 }
                 self.dismissViewControllerAnimated(true, completion: nil)
