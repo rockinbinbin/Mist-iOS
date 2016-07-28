@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, weak)id<STPAddCardViewControllerDelegate>delegate;
 
+@property(nonatomic) NSString *emailString;
+
 /**
  *  You can set this property to pre-fill any information you've already collected from your user. @see STPUserInformation.h
  */

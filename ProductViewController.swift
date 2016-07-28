@@ -10,7 +10,7 @@ import UIKit
 import Stripe
 import AWSMobileHubHelper
 
-class ProductViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UIScrollViewDelegate {
+class ProductViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UIScrollViewDelegate, STPAddCardViewControllerDelegate {
     
     // MARK: - View Lifecycle
     
@@ -766,7 +766,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             guard request != nil else {
                 print("Device does not support apple pay")
                 
-                // TODO: Show credit card entry form here
+                buyButtonTapped()
                 return
             }
             
@@ -779,6 +779,63 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             return
         }
     }
+    
+    func buyButtonTapped() {
+        let addCardViewController = STPAddCardViewController()
+        addCardViewController.delegate = self
+        // STPAddCardViewController must be shown inside a UINavigationController.
+        let navigationController = UINavigationController(rootViewController: addCardViewController)
+        self.presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
+    // MARK: STPAddCardViewControllerDelegate
+    
+    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+ 
+        
+        let functionName = "purchaseItem"
+        let parameters = [
+            "price": "\(Int(Double((product?.price)!)! * 100))",
+            "token": token.tokenId,
+            "email": addCardViewController.emailString
+        ]
+        
+        AWSCloudLogic.defaultCloudLogic().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in
+            dispatch_async(dispatch_get_main_queue()) {
+                guard error == nil else {
+                    completion(error)
+                    // error with purchase.. should just stop and not bring dismiss card view controller or bring up purchase confirmed
+                    
+                    return
+                }
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
+                let purchaseVC = PurchaseConfirmedViewController()
+                purchaseVC.product = self.product
+                purchaseVC.mainImage = self.mainImage
+                
+                self.presentViewController(purchaseVC, animated: false, completion: nil) // this animation sucks. TODO: create a better animation in.
+                completion(nil)
+            }
+        }
+
+        
+//        self.submitTokenToBackend(token, completion: { (error: NSError?) in
+//            if let error = error {
+//                completion(error)
+//            } else {
+//                self.dismissViewControllerAnimated(true, completion: {
+//                    self.showReceiptPage()
+//                    completion(nil)
+//                })
+//            }
+//        })
+    }
+    
     
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
         currentPayment = payment

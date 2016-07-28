@@ -298,6 +298,7 @@ static NSInteger STPPaymentCardRememberMeSection = 3;
 
 - (void)nextPressed:(__unused id)sender {
     self.loading = YES;
+    self.emailString = _emailCell.contents;
     STPCardParams *cardParams = self.paymentCell.paymentField.cardParams;
     cardParams.address = self.addressViewModel.address;
     if (self.checkoutAccountCard) {
