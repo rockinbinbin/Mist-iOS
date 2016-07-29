@@ -13,7 +13,7 @@ extension UITextField {
     func useUnderline(width: CGFloat, height: CGFloat) {
         let border = CALayer()
         let borderWidth = CGFloat(1.0)
-        border.borderColor = UIColor.blackColor().CGColor
+        border.borderColor = UIColor.whiteColor().CGColor
         border.frame = CGRectMake(0, height - borderWidth, width, height)
         border.borderWidth = borderWidth
         self.layer.addSublayer(border)
@@ -25,11 +25,23 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
 
     var keyboardUp = false
     
+    internal lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        titleLabel.text = "Add Shipping Address"
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 24)
+        self.view.addSubview(titleLabel)
+        return titleLabel
+    }()
+    
     internal lazy var nameTextField: UITextField = {
         let nameTextField = UITextField()
         nameTextField.translatesAutoresizingMaskIntoConstraints = false;
         nameTextField.delegate = self
-        nameTextField.textColor = UIColor.blackColor()
+        nameTextField.textColor = UIColor.whiteColor()
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.grayColor(),
@@ -53,7 +65,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let streetTextField = UITextField()
         streetTextField.translatesAutoresizingMaskIntoConstraints = false;
         streetTextField.delegate = self
-        streetTextField.textColor = UIColor.blackColor()
+        streetTextField.textColor = UIColor.whiteColor()
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.grayColor(),
@@ -76,7 +88,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let cityTextField = UITextField()
         cityTextField.translatesAutoresizingMaskIntoConstraints = false;
         cityTextField.delegate = self
-        cityTextField.textColor = UIColor.blackColor()
+        cityTextField.textColor = UIColor.whiteColor()
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.grayColor(),
@@ -100,7 +112,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let unitTextField = UITextField()
         unitTextField.translatesAutoresizingMaskIntoConstraints = false;
         unitTextField.delegate = self
-        unitTextField.textColor = UIColor.blackColor()
+        unitTextField.textColor = UIColor.whiteColor()
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.grayColor(),
@@ -124,7 +136,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let stateTextField = UITextField()
         stateTextField.translatesAutoresizingMaskIntoConstraints = false;
         stateTextField.delegate = self
-        stateTextField.textColor = UIColor.blackColor()
+        stateTextField.textColor = UIColor.whiteColor()
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.grayColor(),
@@ -149,7 +161,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let zipTextField = UITextField()
         zipTextField.translatesAutoresizingMaskIntoConstraints = false;
         zipTextField.delegate = self
-        zipTextField.textColor = UIColor.blackColor()
+        zipTextField.textColor = UIColor.whiteColor()
         zipTextField.autocorrectionType = .No
         
         let attributes = [
@@ -174,7 +186,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let phoneTextField = UITextField()
         phoneTextField.translatesAutoresizingMaskIntoConstraints = false;
         phoneTextField.delegate = self
-        phoneTextField.textColor = UIColor.blackColor()
+        phoneTextField.textColor = UIColor.whiteColor()
         phoneTextField.autocorrectionType = .No
         
         let attributes = [
@@ -194,6 +206,16 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         return phoneTextField
     }()
+    
+    var mainImage: UIImage? = nil {
+        didSet {
+            guard let image = mainImage else {
+                return
+            }
+            
+            backgroundImageView.image = image
+        }
+    }
     
     internal lazy var doneButton: UIButton = {
         let doneButton = UIButton(type: .RoundedRect)
@@ -215,13 +237,35 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.clearColor()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setupLayout()
+    }
+    
+    private lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        self.view.addSubview(imageView)
+        return imageView
+    }()
+    
+    func setupLayout() {
+        backgroundImageView.centerHorizontallyInSuperview()
+        backgroundImageView.sizeToWidth(self.view.frame.size.width)
+        backgroundImageView.sizeToHeight(self.view.frame.size.height)
+        backgroundImageView.contentMode = .ScaleAspectFill
+        backgroundImageView.makeBlurImage(backgroundImageView)
         
         let widthWithPadding = self.view.frame.size.width - 50
         let heightRatio = self.view.frame.size.height * 0.05
         
+        titleLabel.pinToTopEdgeOfSuperview(offset: 50)
+        titleLabel.pinToLeftEdgeOfSuperview(offset: 20)
+        
         nameTextField.pinToLeftEdgeOfSuperview(offset: 20)
-        nameTextField.pinToTopEdgeOfSuperview(offset: self.view.frame.size.height * 0.2)
+        nameTextField.positionBelowItem(titleLabel, offset: 30)
         nameTextField.sizeToWidth(widthWithPadding)
         nameTextField.sizeToHeight(heightRatio)
         

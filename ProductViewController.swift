@@ -766,9 +766,19 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             
             guard request != nil else {
                 print("Device does not support apple pay")
-                
                 buyButtonTapped()
                 return
+            }
+            
+            if #available(iOS 9, *) {}
+            else {
+                // BIG TODO:
+                // 1) check if user's shipping info is set
+                // 2) if not, bring up shipping view controller
+                
+                let shippingVC = NewAddressViewController()
+                shippingVC.mainImage = mainImage
+                self.presentViewController(shippingVC, animated: true, completion: nil)
             }
             
             let paymentViewController = PKPaymentAuthorizationViewController(paymentRequest: request!)
@@ -782,6 +792,15 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     }
     
     func buyButtonTapped() {
+        
+        // BIG TODO:
+        // 1) check if user's shipping info is set
+        // 2) if not, bring up shipping view controller
+        
+        let shippingVC = NewAddressViewController()
+        shippingVC.mainImage = mainImage
+        self.presentViewController(shippingVC, animated: true, completion: nil)
+        
         let addCardViewController = STPAddCardViewController()
         addCardViewController.delegate = self
         // STPAddCardViewController must be shown inside a UINavigationController.
@@ -878,7 +897,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     private var currentPayment: PKPayment? = nil
     
     /**
-     Email address from the current PKPaymentRequest.
+     Email address from the current PKPaymentRequest
      */
     private var email: String? {
         get {
@@ -886,15 +905,17 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                 guard let shippingEmail = currentPayment?.shippingContact?.emailAddress else {
                     return nil
                 }
-                
                 return shippingEmail
             } else {
-                
                 // TODO: Collect email through some other method
                 return "test@mistshopping.com"
             }
         }
     }
+    
+    // create new view controller to enter shipping info, then save them as individual strings and pass back through a delegate
+    
+    // TODO: make
     
     /**
      Generates the parameters to be used in the Stripe request.
