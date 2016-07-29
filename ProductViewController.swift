@@ -810,21 +810,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                 guard error == nil else {
                     completion(error)
                     // error with purchase.. should just stop and not bring dismiss card view controller or bring up purchase confirmed
-                    
-                    let alertController = UIAlertController(title: "Authorization Failed 🤔", message: "The credit card information you entered is incorrect. Send us an email if the issue persists!", preferredStyle: .Alert)
-                    let okAction = UIAlertAction(title: "Email us ✉️", style: UIAlertActionStyle.Default) {
-                        UIAlertAction in
-                        self.sendEmailButtonTapped()
-                    }
-                    let cancelAction = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Cancel) {
-                        UIAlertAction in
-                        NSLog("Cancel Pressed")
-                    }
-
-                    alertController.addAction(okAction)
-                    alertController.addAction(cancelAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    
+                    self.showAlert()
                     addCardViewController.setLoading(false)
                     return
                 }
@@ -1035,7 +1021,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     func sendEmailButtonTapped() {
         let mailComposeViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
-            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            self.dismissViewControllerAnimated(true, completion: { 
+                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            })
         } else {
             self.showSendMailErrorAlert()
         }
@@ -1047,7 +1035,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         mailComposerVC.setToRecipients(["robinmehta94@gmail.com"]) // TODO: change this to Mist's team email.
         mailComposerVC.setSubject("Payment Failure")
-        mailComposerVC.setMessageBody("Please help me complete my purchase! My name is [name] and I am trying to purchase [product].", isHTML: false)
+        mailComposerVC.setMessageBody("Please help me complete my purchase!\n\nI am trying to purchase \((product?.name)!) by \((product?.brand)!).", isHTML: false)
         
         return mailComposerVC
     }
@@ -1060,5 +1048,32 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: MFMailComposeViewControllerDelegate Method
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // Purchase Failed Alert
+    func showAlert(){
+        let createAccountErrorAlert: UIAlertView = UIAlertView()
+        
+        createAccountErrorAlert.delegate = self
+        
+        createAccountErrorAlert.title = "Authorization Failed 🤔"
+        createAccountErrorAlert.message = "The credit card information you entered is incorrect. Send us an email if the issue persists!"
+        createAccountErrorAlert.addButtonWithTitle("Email us ✉️")
+        createAccountErrorAlert.addButtonWithTitle("Try Again!")
+        
+        createAccountErrorAlert.show()
+    }
+    
+    func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
+        
+        switch buttonIndex{
+        case 0:
+            sendEmailButtonTapped()
+            break;
+        case 1:
+            break;
+        default:
+            break;
+        }
     }
 }

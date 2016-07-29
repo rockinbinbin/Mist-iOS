@@ -72,35 +72,38 @@ FAUXPAS_IGNORED_IN_FILE(APIAvailability);
 - (void)stp_showAlertWithTitle:(nullable NSString *)title
                        message:(nullable NSString *)message
                         tuples:(nullable NSArray<STPAlertTuple *> *)tuples {
-    if ([UIAlertController class]) {
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
-                                                                            message:message
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-        for (STPAlertTuple *tuple in tuples) {
-            [controller addAction:[UIAlertAction actionWithTitle:tuple.title style:[self stp_actionStyleFromStripeStyle:tuple.style] handler:^(__unused UIAlertAction *alertAction) {
-                if (tuple.action) {
-                    tuple.action();
-                }
-            }]];
-        }
-        [self presentViewController:controller animated:YES completion:nil];
-    } else {
-        STPAlertViewBlockDelegate *blockDelegate = [STPAlertViewBlockDelegate new];
-        blockDelegate.tuples = tuples;
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                             message:message
-                                                            delegate:blockDelegate
-                                                   cancelButtonTitle:nil
-                                                   otherButtonTitles:nil];
-        for (STPAlertTuple *tuple in tuples) {
-            NSInteger index = [alertView addButtonWithTitle:tuple.title];
-            if (tuple.style == STPAlertStyleCancel) {
-                alertView.cancelButtonIndex = index;
-            }
-        }
-        alertView.stp_blockDelegate = blockDelegate;
-        [alertView show];
-    }
+    
+    // TODO: figure out if this is useful at all. It was only creating non - user-friendly alerts about AWS and lambda.
+    
+//    if ([UIAlertController class]) {
+//        UIAlertController *controller = [UIAlertController alertControllerWithTitle:title
+//                                                                            message:message
+//                                                                     preferredStyle:UIAlertControllerStyleAlert];
+//        for (STPAlertTuple *tuple in tuples) {
+//            [controller addAction:[UIAlertAction actionWithTitle:tuple.title style:[self stp_actionStyleFromStripeStyle:tuple.style] handler:^(__unused UIAlertAction *alertAction) {
+//                if (tuple.action) {
+//                    tuple.action();
+//                }
+//            }]];
+//        }
+//        [self presentViewController:controller animated:YES completion:nil];
+//    } else {
+//        STPAlertViewBlockDelegate *blockDelegate = [STPAlertViewBlockDelegate new];
+//        blockDelegate.tuples = tuples;
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+//                                                             message:message
+//                                                            delegate:blockDelegate
+//                                                   cancelButtonTitle:nil
+//                                                   otherButtonTitles:nil];
+//        for (STPAlertTuple *tuple in tuples) {
+//            NSInteger index = [alertView addButtonWithTitle:tuple.title];
+//            if (tuple.style == STPAlertStyleCancel) {
+//                alertView.cancelButtonIndex = index;
+//            }
+//        }
+//        alertView.stp_blockDelegate = blockDelegate;
+//        [alertView show];
+//    }
 }
 
 #pragma clang diagnostic pop
