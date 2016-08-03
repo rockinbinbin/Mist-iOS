@@ -81,7 +81,9 @@ class Feed {
             }
             
             for productDictionary in rawFeed {
-                self._items.append(Item(dictionary: productDictionary)!)
+                if let dict = Item(dictionary: productDictionary) {
+                    self._items.append(dict)
+                }
             }
         }
     }
@@ -135,11 +137,13 @@ class Feed {
                 return nil
             }
             
-            guard let price = dictionary["Price"] as? String else {
+            guard let priceNumber = dictionary["Price"] as? Double else {
                 print("The price was incorrect.")
                 print(dictionary)
                 return nil
             }
+            
+            let price = String(priceNumber)
             
             guard let imageURL = dictionary["PrimaryImage"] as? String else {
                 print("The imageURL was incorrect.")

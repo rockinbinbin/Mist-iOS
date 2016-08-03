@@ -20,6 +20,7 @@
 		0096BF211D14E43600EAC2A9 /* ShippingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */; };
 		0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF171D14E43600EAC2A9 /* SignInViewController.swift */; };
 		0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */; };
+		00B0A3371D51C36E00A0787C /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B0A3361D51C36E00A0787C /* UIImage+animatedGIF.m */; };
 		280A979F1D40965B0016F0C9 /* SearchResultBrandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280A979E1D40965B0016F0C9 /* SearchResultBrandView.swift */; };
 		281DFDF41D303B2400B2D36F /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF31D303B2400B2D36F /* FilterView.swift */; };
 		281DFDF61D303BD300B2D36F /* FeedFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF51D303BD300B2D36F /* FeedFilters.swift */; };
@@ -143,6 +144,9 @@
 		0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF171D14E43600EAC2A9 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = SOURCE_ROOT; };
+		00B0A3341D51C36D00A0787C /* Mist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mist-Bridging-Header.h"; sourceTree = "<group>"; };
+		00B0A3351D51C36E00A0787C /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = SOURCE_ROOT; };
+		00B0A3361D51C36E00A0787C /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = SOURCE_ROOT; };
 		1DD70E2900565FF900000000 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserSettingsViewController.swift; path = MySampleApp/Demo/UserSettings/UserSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		1DD70E290339E4CF00000000 /* Mist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Mist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD70E2907AEB9FA00000000 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = MySampleApp/Sdk/Aws/AWSCore.framework; sourceTree = "<group>"; };
@@ -282,10 +286,13 @@
 		2832AE4D1D18CA45008AC36A /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				00B0A3351D51C36E00A0787C /* UIImage+animatedGIF.h */,
+				00B0A3361D51C36E00A0787C /* UIImage+animatedGIF.m */,
 				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
 				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
 				009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */,
 				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
+				00B0A3341D51C36D00A0787C /* Mist-Bridging-Header.h */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -871,6 +878,7 @@
 				2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */,
 				287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */,
 				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
+				00B0A3371D51C36E00A0787C /* UIImage+animatedGIF.m in Sources */,
 				0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */,
 				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */,
@@ -944,6 +952,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amazon.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Mist;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "mysampleapp/Mist-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1018,6 +1027,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amazon.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Mist;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "mysampleapp/Mist-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

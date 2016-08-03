@@ -8,6 +8,7 @@
 
 import UIKit
 import DLImageLoader
+import FLAnimatedImage
 
 class FeedCell: UICollectionViewCell {
     
@@ -41,6 +42,8 @@ class FeedCell: UICollectionViewCell {
         self.addSubview(imageView)
         return imageView
     }()
+    
+    public var gif: FLAnimatedImageView? = nil
     
     private lazy var blackGradientOverlay: UIView = {
         let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0.0, 0.0, 1000, 75.0))
@@ -77,7 +80,12 @@ class FeedCell: UICollectionViewCell {
     // MARK: - Layout
     
     func setViewConstraints() {
-        imageView.pinToEdgesOfSuperview()
+//        if let gif = gif {
+//            gif.pinToEdgesOfSuperview()
+//        }
+//        else {
+            imageView.pinToEdgesOfSuperview()
+//        }
         
         blackGradientOverlay.pinToBottomEdgeOfSuperview()
         blackGradientOverlay.pinToLeftEdgeOfSuperview()
@@ -96,12 +104,23 @@ class FeedCell: UICollectionViewCell {
     func setImage(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {
         DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
             completion?(completed: Bool(error == nil), image: image)
-            
+
             dispatch_async(dispatch_get_main_queue()) {
-                self.imageView.image = image
+//                self.imageView.image = image
+                self.imageView.image = UIImage.animatedImageWithAnimatedGIFURL(NSURL(string: url)!)
             }
         }
     }
+    
+//    func setGif(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {
+//        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
+//            completion?(completed: Bool(error == nil), image: image)
+//            
+//            dispatch_async(dispatch_get_main_queue()) {
+//                self.imageView.image = image
+//            }
+//        }
+//    }
     
     private func setTitleText(name: String) {
         let attributes: NSDictionary = [
