@@ -158,8 +158,8 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! FeedCell
         
-        cell.layer.shouldRasterize = true
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+//        cell.layer.shouldRasterize = true
+//        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         
         guard indexPath.row < Feed.sharedInstance.items.count else {
             return cell

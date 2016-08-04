@@ -106,8 +106,8 @@ class FeedCell: UICollectionViewCell {
             completion?(completed: Bool(error == nil), image: image)
 
             dispatch_async(dispatch_get_main_queue()) {
-//                self.imageView.image = image
-                self.imageView.image = UIImage.animatedImageWithAnimatedGIFURL(NSURL(string: url)!)
+                self.imageView.image = image
+//                self.imageView.image = UIImage.animatedImageWithAnimatedGIFURL(NSURL(string: url)!)
             }
         }
     }
