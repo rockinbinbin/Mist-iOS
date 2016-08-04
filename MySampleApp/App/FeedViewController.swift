@@ -16,8 +16,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "RepeatingGradient")!)
-        
         configureAppearance()
         loadFeed()
         setViewConstraints()
@@ -41,7 +39,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .blackColor()
 
-        collectionView.backgroundColor = .whiteColor()
+        self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "RepeatingGradient")!)
     }
     
     private func loadFeed() {
