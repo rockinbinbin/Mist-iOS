@@ -752,6 +752,37 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     // MARK: - Payment
     
+    func createCreditCardOptionsAlertController() -> UIAlertController {
+        let alert = UIAlertController(title: "Preferred purchase method", message: "Please choose a shipping address.", preferredStyle: .ActionSheet)
+        
+        if PurchaseManager.sharedInstance.deviceSupportsApplePay {
+            alert.addAction(UIAlertAction(title: "Apple Pay", style: .Default) { (action: UIAlertAction) in
+                print("Apple Pay")
+                })
+        }
+        
+        alert.addAction(UIAlertAction(title: "+ Add new card", style: .Default) { (action: UIAlertAction) in
+            self.presentCreditCardEntryForm()
+            })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        return alert
+    }
+    
+    private var shouldShowShippingAlertController: Bool {
+        get {
+            
+        }
+    }
+    
+    func presentCreditCardEntryForm() {
+        let ccViewController = AddCreditCardViewController(backgroundImage: mainImageView.image!)
+        let ccNavigationController = UINavigationController(rootViewController: ccViewController)
+        
+        presentViewController(ccNavigationController, animated: true, completion: nil)
+    }
+    
     func purchaseItem() {
         
         AnalyticsManager.sharedInstance.recordEvent(Event.Product.BuyPressed)
@@ -761,34 +792,41 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             return
         }
         
-        do {
-            let request: PKPaymentRequest? = try PaymentManager.sharedInstance.generatePaymentRequest(product!)
-            
-            guard request != nil else {
-                print("Device does not support apple pay")
-                buyButtonTapped()
-                return
-            }
-            
-            if #available(iOS 9, *) {}
-            else {
-                // BIG TODO:
-                // 1) check if user's shipping info is set
-                // 2) if not, bring up shipping view controller
-                
-                let shippingVC = NewAddressViewController()
-                shippingVC.mainImage = mainImage
-                self.presentViewController(shippingVC, animated: true, completion: nil)
-            }
-            
-            let paymentViewController = PKPaymentAuthorizationViewController(paymentRequest: request!)
-            paymentViewController.delegate = self
-            presentViewController(paymentViewController, animated: true, completion: nil)
-            
-        } catch {
-            print("PaymentManager error: \(error)")
-            return
-        }
+        // TODO: REMOVE THIS
+        let shippingVC = PaymentInformationViewController.createWithNavigationController(mainImage!)
+        
+        self.presentViewController(shippingVC, animated: true, completion: nil)
+
+        
+//        do {
+//            let request: PKPaymentRequest? = try PaymentManager.sharedInstance.generatePaymentRequest(product!)
+//            
+//            guard request != nil else {
+//                print("Device does not support apple pay")
+//                buyButtonTapped()
+//                return
+//            }
+//            
+//            guard #available(iOS 9, *) else {
+//                // BIG TODO:
+//                // 1) check if user's shipping info is set
+//                // 2) if not, bring up shipping view controller
+//                
+//                let shippingVC = NewAddressViewController()
+//                shippingVC.mainImage = mainImage
+//                self.presentViewController(shippingVC, animated: true, completion: nil)
+//                
+//                return
+//            }
+//            
+//            let paymentViewController = PKPaymentAuthorizationViewController(paymentRequest: request!)
+//            paymentViewController.delegate = self
+//            presentViewController(paymentViewController, animated: true, completion: nil)
+//            
+//        } catch {
+//            print("PaymentManager error: \(error)")
+//            return
+//        }
     }
     
     func buyButtonTapped() {
@@ -821,7 +859,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let parameters = [
             "price": "\(Int(Double((product?.price)!)! * 100))",
             "token": token.tokenId,
-            "email": addCardViewController.emailString
+//            "email": addCardViewController.emailString
+            "email": "test@gmail.com"
         ]
         
         AWSCloudLogic.defaultCloudLogic().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in

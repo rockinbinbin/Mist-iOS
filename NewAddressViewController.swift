@@ -23,6 +23,11 @@ extension UITextField {
 
 class NewAddressViewController: UIViewController, UITextFieldDelegate {
 
+    convenience init(image: UIImage) {
+        self.init()
+        mainImage = image
+    }
+    
     var keyboardUp = false
     
     internal lazy var titleLabel: UILabel = {

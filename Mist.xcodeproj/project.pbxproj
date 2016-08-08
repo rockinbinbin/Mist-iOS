@@ -22,6 +22,9 @@
 		0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */; };
 		00B0A3371D51C36E00A0787C /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B0A3361D51C36E00A0787C /* UIImage+animatedGIF.m */; };
 		280A979F1D40965B0016F0C9 /* SearchResultBrandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280A979E1D40965B0016F0C9 /* SearchResultBrandView.swift */; };
+		280BED991D52B54100112436 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280BED981D52B54100112436 /* PurchaseManager.swift */; };
+		280BED9B1D53AABA00112436 /* AddCreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280BED9A1D53AABA00112436 /* AddCreditCardViewController.swift */; };
+		280BEDA01D53CBF800112436 /* PaymentInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280BED9F1D53CBF800112436 /* PaymentInformationViewController.swift */; };
 		281DFDF41D303B2400B2D36F /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF31D303B2400B2D36F /* FilterView.swift */; };
 		281DFDF61D303BD300B2D36F /* FeedFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DFDF51D303BD300B2D36F /* FeedFilters.swift */; };
 		283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D21D10D2FA002CCE25 /* Autolayout.swift */; };
@@ -35,6 +38,8 @@
 		28400F581D3E02B700B82E5A /* SearchResultProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28400F571D3E02B700B82E5A /* SearchResultProductView.swift */; };
 		287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287947B01D3D6BC800701D41 /* SearchViewController.swift */; };
 		288DA87D1D3C69CA00C722FE /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288DA87C1D3C69CA00C722FE /* SearchManager.swift */; };
+		28C356731D59402E00C63EA6 /* MailingAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C356721D59402E00C63EA6 /* MailingAddress.swift */; };
+		28C356751D5942DC00C63EA6 /* USState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C356741D5942DC00C63EA6 /* USState.swift */; };
 		28EED9151D0F5F480036EC9A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EED9141D0F5F480036EC9A /* FeedViewController.swift */; };
 		28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD07A1D1282C500C89ABE /* LoadingView.swift */; };
 		28FFD0BA1D129F5000C89ABE /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */; };
@@ -203,6 +208,9 @@
 		1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = MySampleApp/Sdk/Facebook/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		1DD70E29F44EBD2600000000 /* ProductTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductTable.swift; path = MySampleApp/Demo/NoSQL/ProductTable.swift; sourceTree = SOURCE_ROOT; };
 		280A979E1D40965B0016F0C9 /* SearchResultBrandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultBrandView.swift; path = MySampleApp/SearchResultBrandView.swift; sourceTree = SOURCE_ROOT; };
+		280BED981D52B54100112436 /* PurchaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		280BED9A1D53AABA00112436 /* AddCreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCreditCardViewController.swift; sourceTree = "<group>"; };
+		280BED9F1D53CBF800112436 /* PaymentInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentInformationViewController.swift; path = MySampleApp/PaymentInformationViewController.swift; sourceTree = SOURCE_ROOT; };
 		281DFDF31D303B2400B2D36F /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterView.swift; path = MySampleApp/FilterView.swift; sourceTree = SOURCE_ROOT; };
 		281DFDF51D303BD300B2D36F /* FeedFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFilters.swift; sourceTree = "<group>"; };
 		283017D21D10D2FA002CCE25 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Autolayout.swift; path = mysampleapp/app/utility/Autolayout.swift; sourceTree = SOURCE_ROOT; };
@@ -218,6 +226,8 @@
 		286F55E11D18728B0012A884 /* Mist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mist.entitlements; sourceTree = SOURCE_ROOT; };
 		287947B01D3D6BC800701D41 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = MySampleApp/SearchViewController.swift; sourceTree = SOURCE_ROOT; };
 		288DA87C1D3C69CA00C722FE /* SearchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchManager.swift; path = MySampleApp/SearchManager.swift; sourceTree = SOURCE_ROOT; };
+		28C356721D59402E00C63EA6 /* MailingAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailingAddress.swift; sourceTree = "<group>"; };
+		28C356741D5942DC00C63EA6 /* USState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = USState.swift; path = MySampleApp/USState.swift; sourceTree = SOURCE_ROOT; };
 		28EED9141D0F5F480036EC9A /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = MySampleApp/App/FeedViewController.swift; sourceTree = SOURCE_ROOT; };
 		28FFD07A1D1282C500C89ABE /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
 		28FFD0A81D129F5000C89ABE /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = SOURCE_ROOT; };
@@ -272,6 +282,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		280BED9E1D53CBD400112436 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				280BED9F1D53CBF800112436 /* PaymentInformationViewController.swift */,
+			);
+			name = Product;
+			sourceTree = "<group>";
+		};
 		281DFDF21D3039D100B2D36F /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +326,7 @@
 				0096BF161D14E43600EAC2A9 /* ShippingViewController.swift */,
 				0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */,
 				0096BF171D14E43600EAC2A9 /* SignInViewController.swift */,
+				280BED9A1D53AABA00112436 /* AddCreditCardViewController.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -368,6 +387,9 @@
 				2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */,
 				281DFDF51D303BD300B2D36F /* FeedFilters.swift */,
 				288DA87C1D3C69CA00C722FE /* SearchManager.swift */,
+				28C356721D59402E00C63EA6 /* MailingAddress.swift */,
+				280BED981D52B54100112436 /* PurchaseManager.swift */,
+				28C356741D5942DC00C63EA6 /* USState.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -390,6 +412,7 @@
 		28FFD0D21D14D9E200C89ABE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				280BED9E1D53CBD400112436 /* Product */,
 				2832AE4E1D18CA52008AC36A /* Account */,
 				2832AE4D1D18CA45008AC36A /* Feed */,
 				287947AF1D3D6BB000701D41 /* Search */,
@@ -856,6 +879,7 @@
 				28FFD0D01D14CED500C89ABE /* Feed.swift in Sources */,
 				28FFD07B1D1282C500C89ABE /* LoadingView.swift in Sources */,
 				280A979F1D40965B0016F0C9 /* SearchResultBrandView.swift in Sources */,
+				28C356751D5942DC00C63EA6 /* USState.swift in Sources */,
 				28FFD0CD1D1498DA00C89ABE /* MMViewController.swift in Sources */,
 				009011151D4807BB00933BE2 /* PurchaseConfirmedViewController.swift in Sources */,
 				0096BF201D14E43600EAC2A9 /* ShippingTableViewCell.swift in Sources */,
@@ -863,11 +887,13 @@
 				0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */,
 				E7A30F04DBA20E1D00000000 /* UserDataStorageViewController.swift in Sources */,
 				0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */,
+				280BEDA01D53CBF800112436 /* PaymentInformationViewController.swift in Sources */,
 				2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */,
 				E7A30F04BF31BA1900000000 /* DemoFeature.swift in Sources */,
 				E7A30F040E88B56500000000 /* ColorThemeSettings.swift in Sources */,
 				E7A30F0426CBAFF500000000 /* NoSQLSampleDataGenerator.swift in Sources */,
 				E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */,
+				280BED991D52B54100112436 /* PurchaseManager.swift in Sources */,
 				0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */,
 				E7A30F04778FC87400000000 /* NoSQLTableViewController.swift in Sources */,
 				2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */,
@@ -879,6 +905,8 @@
 				287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */,
 				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
 				00B0A3371D51C36E00A0787C /* UIImage+animatedGIF.m in Sources */,
+				28C356731D59402E00C63EA6 /* MailingAddress.swift in Sources */,
+				280BED9B1D53AABA00112436 /* AddCreditCardViewController.swift in Sources */,
 				0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */,
 				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */,
