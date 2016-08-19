@@ -48,7 +48,7 @@ class ContentDeliveryViewController: UITableViewController {
             if let contents = contents where contents.count > 0 {
                 strongSelf.contents = contents
                 
-                print(contents)
+                //print(contents)
                 
 //                if let nextMarker = nextMarker where !nextMarker.isEmpty{
 //                    strongSelf.didLoadAllContents = false

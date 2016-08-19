@@ -771,9 +771,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     }
     
     private var shouldShowShippingAlertController: Bool {
-        get {
-            
-        }
+        return true
     }
     
     func presentCreditCardEntryForm() {

@@ -40,7 +40,7 @@ class ColorThemeSettings {
         
         userSettings.synchronize().continueWithExceptionCheckingBlock({(result: AnyObject?, error: NSError?) -> Void in
             if let error = error {
-                 print("loadSettings error: \(error.localizedDescription)")
+                 //print("loadSettings error: \(error.localizedDescription)")
                 completionBlock(nil, error)
                 return
             }

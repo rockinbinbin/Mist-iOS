@@ -28,13 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        // Show the loading view
         LoadingView.sharedInstance.frame = UIScreen.mainScreen().bounds
         window!.addSubview(LoadingView.sharedInstance)
-        
-        // Initialize Stripe
+
         Stripe.setDefaultPublishableKey(Credentials.stripePublishableKey())
         
+        VendorClass.sharedInstance.loadVendorFromProductName("EST WST", completion: nil)
+        //let vendors = VendorList.sharedInstance.items
+        //vendor = VendorList.sharedInstance.loadVendorFromID("54749135-e0da-4c94-af98-c41aedb5391a", completion: nil)
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     

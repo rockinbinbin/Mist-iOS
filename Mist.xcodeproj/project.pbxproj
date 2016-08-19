@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005823261D5BDD2E00504CC6 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005823251D5BDD2D00504CC6 /* Vendor.swift */; };
 		0070FB891D1B4CD800758B2C /* SustainabilityGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */; };
 		009011151D4807BB00933BE2 /* PurchaseConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */; };
 		0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */; };
@@ -136,6 +137,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		005823251D5BDD2D00504CC6 /* Vendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vendor.swift; path = MySampleApp/Vendor.swift; sourceTree = SOURCE_ROOT; };
 		0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SustainabilityGuideViewController.swift; sourceTree = SOURCE_ROOT; };
 		009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseConfirmedViewController.swift; path = MySampleApp/PurchaseConfirmedViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = SOURCE_ROOT; };
@@ -380,6 +382,7 @@
 			children = (
 				0096BF101D14E43600EAC2A9 /* Constants.swift */,
 				28FFD0CF1D14CED500C89ABE /* Feed.swift */,
+				005823251D5BDD2D00504CC6 /* Vendor.swift */,
 				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
 				28FFD0D31D14EDBD00C89ABE /* Credentials.swift */,
 				28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */,
@@ -909,6 +912,7 @@
 				280BED9B1D53AABA00112436 /* AddCreditCardViewController.swift in Sources */,
 				0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */,
 				283017D91D10E44A002CCE25 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
+				005823261D5BDD2E00504CC6 /* Vendor.swift in Sources */,
 				283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */,
 				E7A30F041462FD3900000000 /* Product.swift in Sources */,
 			);

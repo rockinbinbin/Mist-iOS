@@ -76,7 +76,7 @@ class CloudLogicViewController: UIViewController {
             resultTextView.text = "Function name is empty."
             return
         }
-        print("Function Name: \(functionName)")
+       // print("Function Name: \(functionName)")
         let jsonInput = requestTextView.text.makeJsonable()
         let jsonData = jsonInput.dataUsingEncoding(NSUTF8StringEncoding)!
         var parameters: [String: AnyObject]
@@ -88,7 +88,7 @@ class CloudLogicViewController: UIViewController {
             print("json error: \(error.localizedDescription)")
             return
         }
-        print("Json Input: \(jsonInput)")
+        //print("Json Input: \(jsonInput)")
         
         activityIndicator.startAnimating()
 
@@ -96,9 +96,9 @@ class CloudLogicViewController: UIViewController {
             withParameters: parameters, completionBlock: {(result: AnyObject?, error: NSError?) -> Void in
                 if let result = result {
                     dispatch_async(dispatch_get_main_queue(), {
-                        print("CloudLogicViewController: Result: \(result)")
+                        //print("CloudLogicViewController: Result: \(result)")
                         self.activityIndicator.stopAnimating()
-                        self.resultTextView.text = prettyPrintJson(result)
+                        //self.resultTextView.text = prettyPrintJson(result)
                     })
                 }
                 var errorMessage: String
