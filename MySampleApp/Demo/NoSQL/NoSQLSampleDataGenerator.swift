@@ -33,24 +33,24 @@ class NoSQLSampleDataGenerator {
     // MARK:- Partition Methods
     
     class func randomPartitionSampleNumber() -> NSNumber {
-        return NSNumber(unsignedInt: NoSQLSampleDataGeneratorSampleDataNumberMinimum + arc4random_uniform(UInt32(NoSQLSampleDataGeneratorSampleDataPartition)) + 1)
+        return NSNumber(value: NoSQLSampleDataGeneratorSampleDataNumberMinimum + arc4random_uniform(UInt32(NoSQLSampleDataGeneratorSampleDataPartition)) + 1 as UInt32)
     }
     
-    class func randomPartitionSampleStringWithAttributeName(attributeName: String) -> String {
+    class func randomPartitionSampleStringWithAttributeName(_ attributeName: String) -> String {
         return "\(NoSQLSampleDataGeneratorSampleDataStringPrefix)-\(attributeName)-\(arc4random_uniform(UInt32(NoSQLSampleDataGeneratorSampleDataPartition)) + 1)"
     }
     
-    class func randomPartitionSampleBinary() -> NSData {
-        return "\(NoSQLSampleDataGeneratorSampleDataStringPrefix)-\(randomPartitionSampleNumber())".dataUsingEncoding(NSUTF8StringEncoding)!
+    class func randomPartitionSampleBinary() -> Data {
+        return "\(NoSQLSampleDataGeneratorSampleDataStringPrefix)-\(randomPartitionSampleNumber())".data(using: String.Encoding.utf8)!
     }
     
     // MARK: - General Methods
     
     class func randomSampleNumber() -> NSNumber {
-        return NSNumber(unsignedInt: NoSQLSampleDataGeneratorSampleDataNumberMinimum + randomNumber())
+        return NSNumber(value: NoSQLSampleDataGeneratorSampleDataNumberMinimum + randomNumber() as UInt32)
     }
     
-    class func randomSampleStringWithAttributeName(attributeName: String) -> String {
+    class func randomSampleStringWithAttributeName(_ attributeName: String) -> String {
         return "\(NoSQLSampleDataGeneratorSampleDataStringPrefix)-\(attributeName)-\(randomNumber().formattedIntegerString())"
     }
     
@@ -59,8 +59,8 @@ class NoSQLSampleDataGenerator {
         return self.randomNumber() % 2 == 0
     }
     
-    class func randomSampleBinary() -> NSData {
-        return "\(NoSQLSampleDataGeneratorSampleDataStringPrefix)-\(randomSampleNumber())".dataUsingEncoding(NSUTF8StringEncoding)!
+    class func randomSampleBinary() -> Data {
+        return "\(NoSQLSampleDataGeneratorSampleDataStringPrefix)-\(randomSampleNumber())".data(using: String.Encoding.utf8)!
     }
     
     class func randomSampleStringSet() -> Set<String> {
@@ -80,10 +80,10 @@ class NoSQLSampleDataGenerator {
         return numberSet
     }
     
-    class func randomSampleBinarySet() -> Set<NSData> {
-        var set: Set<NSData> = Set()
+    class func randomSampleBinarySet() -> Set<Data> {
+        var set: Set<Data> = Set()
         for randomString in randomSampleStringArray() {
-            set.insert(randomString.dataUsingEncoding(NSUTF8StringEncoding)!)
+            set.insert(randomString.data(using: String.Encoding.utf8)!)
         }
         return set
     }
@@ -112,11 +112,11 @@ class NoSQLSampleDataGenerator {
 }
 
 extension UInt32 {
-    private func formattedIntegerString() -> String {
+    fileprivate func formattedIntegerString() -> String {
         return String(format: "%06d", self)
     }
     
-    private func formattedLongString() -> String {
+    fileprivate func formattedLongString() -> String {
         return String(format: "%06llu", self)
     }
 }

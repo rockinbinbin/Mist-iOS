@@ -28,14 +28,14 @@ class ColorThemeSettings {
     var theme: Theme
     static let sharedInstance: ColorThemeSettings = ColorThemeSettings()
 
-    private init() {
+    fileprivate init() {
         theme = Theme()
     }
     
     // MARK: - User Settings Functions
     
-    func loadSettings(completionBlock: (ColorThemeSettings?, NSError?) -> Void) {
-        let syncClient: AWSCognito = AWSCognito.defaultCognito()
+    func loadSettings(_ completionBlock: @escaping (ColorThemeSettings?, NSError?) -> Void) {
+        let syncClient: AWSCognito = AWSCognito.default()
         let userSettings: AWSCognitoDataset = syncClient.openOrCreateDataset("user_settings")
         
         userSettings.synchronize().continueWithExceptionCheckingBlock({(result: AnyObject?, error: NSError?) -> Void in
@@ -44,13 +44,13 @@ class ColorThemeSettings {
                 completionBlock(nil, error)
                 return
             }
-            let titleTextColorString: String? = userSettings.stringForKey(ColorThemeSettingsTitleTextColorKey)
-            let titleBarColorString: String? = userSettings.stringForKey(ColorThemeSettingsTitleBarColorKey)
-            let backgroundColorString: String? = userSettings.stringForKey(ColorThemeSettingsBackgroundColorKey)
+            let titleTextColorString: String? = userSettings.string(forKey: ColorThemeSettingsTitleTextColorKey)
+            let titleBarColorString: String? = userSettings.string(forKey: ColorThemeSettingsTitleBarColorKey)
+            let backgroundColorString: String? = userSettings.string(forKey: ColorThemeSettingsBackgroundColorKey)
             
             if let titleTextColorString = titleTextColorString,
-                titleBarColorString = titleBarColorString,
-                backgroundColorString = backgroundColorString {
+                let titleBarColorString = titleBarColorString,
+                let backgroundColorString = backgroundColorString {
                     self.theme = Theme(titleTextColor: titleTextColorString.toInt32(),
                         withTitleBarColor: titleBarColorString.toInt32(),
                         withBackgroundColor: backgroundColorString.toInt32())
@@ -61,8 +61,8 @@ class ColorThemeSettings {
         })
     }
     
-    func saveSettings(completionBlock: ((ColorThemeSettings?, NSError?) -> Void)?) {
-        let syncClient: AWSCognito = AWSCognito.defaultCognito()
+    func saveSettings(_ completionBlock: ((ColorThemeSettings?, NSError?) -> Void)?) {
+        let syncClient: AWSCognito = AWSCognito.default()
         let userSettings: AWSCognitoDataset = syncClient.openOrCreateDataset("user_settings")
         userSettings.setString("\(theme.titleTextColor)", forKey: ColorThemeSettingsTitleTextColorKey)
         userSettings.setString("\(theme.titleBarColor)", forKey: ColorThemeSettingsTitleBarColorKey)
@@ -78,16 +78,16 @@ class ColorThemeSettings {
     }
     
     func wipe() {
-        AWSCognito.defaultCognito().wipe()
+        AWSCognito.default().wipe()
     }
 }
 
 
 class Theme: NSObject {
     
-    private(set) var titleTextColor: Int32
-    private(set) var titleBarColor: Int32
-    private(set) var backgroundColor: Int32
+    fileprivate(set) var titleTextColor: Int32
+    fileprivate(set) var titleBarColor: Int32
+    fileprivate(set) var backgroundColor: Int32
     
     override init() {
         titleTextColor = ColorThemeSettingsDefaultTitleTextColor
@@ -125,15 +125,15 @@ extension String {
 }
 
 extension AWSTask {
-    public func continueWithExceptionCheckingBlock(completionBlock:(result: AnyObject?, error: NSError?) -> Void) {
-        self.continueWithBlock({(task: AWSTask) -> AnyObject? in
+    public func continueWithExceptionCheckingBlock(_ completionBlock:@escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+        self.continue({(task: AWSTask) -> AnyObject? in
             if let exception = task.exception {
                 print("Fatal exception: \(exception)")
                 kill(getpid(), SIGKILL);
             }
             let result: AnyObject? = task.result
-            let error: NSError? = task.error
-            completionBlock(result: result, error: error)
+            let error: NSError? = task.error as! NSError
+            completionBlock(result, error)
             return nil
         })
         

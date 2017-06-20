@@ -12,9 +12,9 @@ class AccountSettingsCell: UITableViewCell {
     
     internal lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.blackColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.black
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.font = UIFont(name: "Lato-Regular", size: 15)
         self.contentView.addSubview(titleLabel)
@@ -23,9 +23,9 @@ class AccountSettingsCell: UITableViewCell {
     
     internal lazy var detail: UILabel = {
         let detail = UILabel()
-        detail.textColor = UIColor.grayColor()
-        detail.textAlignment = .Center
-        detail.lineBreakMode = .ByWordWrapping
+        detail.textColor = UIColor.gray
+        detail.textAlignment = .center
+        detail.lineBreakMode = .byWordWrapping
         detail.numberOfLines = 0
         detail.font = UIFont(name: "Lato-Regular", size: 15)
         self.contentView.addSubview(detail)
@@ -39,7 +39,7 @@ class AccountSettingsCell: UITableViewCell {
         layoutViews()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     

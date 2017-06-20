@@ -15,12 +15,12 @@ class CustomLoginButton: UIButton {
     
 //    let loginFB = UIButton(type: .Custom)
     let img = UIImage(named: "loginFB")
-    let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     init() {
-        super.init(frame: CGRectMake(0, 0, 0, 0))
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
-        self.setImage(img, forState: .Normal)
+        self.setImage(img, for: UIControlState())
         indicator.alpha = 0.0
         self.addSubview(indicator)
         indicator.centerInSuperview()
@@ -30,13 +30,13 @@ class CustomLoginButton: UIButton {
         super.init(coder: aDecoder)
     }
 
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
-            if (highlighted) {
+            if (isHighlighted) {
                 self.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
             }
             else {
-                self.backgroundColor = UIColor.clearColor()
+                self.backgroundColor = UIColor.clear
             }
         }
     }

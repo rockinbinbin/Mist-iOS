@@ -29,27 +29,27 @@ class UserFilesViewController: UITableViewController {
     
     var prefix: String!
     
-    private var manager: AWSUserFileManager!
-    private var contents: [AWSContent]?
-    private var dateFormatter: NSDateFormatter!
-    private var marker: String?
-    private var didLoadAllContents: Bool!
+    fileprivate var manager: AWSUserFileManager!
+    fileprivate var contents: [AWSContent]?
+    fileprivate var dateFormatter: DateFormatter!
+    fileprivate var marker: String?
+    fileprivate var didLoadAllContents: Bool!
     
     // MARK:- View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
-        manager = AWSUserFileManager.defaultUserFileManager()
+        manager = AWSUserFileManager.default()
         
         // Sets up the UIs.
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(UserFilesViewController.showContentManagerActionOptions(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(UserFilesViewController.showContentManagerActionOptions(_:)))
         
         // Sets up the date formatter.
-        dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .ShortStyle
-        dateFormatter.timeStyle = .ShortStyle
-        dateFormatter.locale = NSLocale.currentLocale()
+        dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale.current
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -66,16 +66,16 @@ class UserFilesViewController: UITableViewController {
         
     }
     
-    private func updateUserInterface() {
-        dispatch_async(dispatch_get_main_queue()) {
+    fileprivate func updateUserInterface() {
+        DispatchQueue.main.async {
             if let prefix = self.prefix {
                 if (prefix.hasPrefix(UserFilesPublicDirectoryName)) {
-                    self.pathLabel.text = "\(prefix.substringFromIndex(UserFilesPublicDirectoryName.endIndex))"
+                    self.pathLabel.text = "\(prefix.substring(from: UserFilesPublicDirectoryName.endIndex))"
                 }
                 if (prefix.hasPrefix(UserFilesPrivateDirectoryName)) {
-                    let userId = AWSIdentityManager.defaultIdentityManager().identityId!
-                    let subStringRange: Range<String.Index> = prefix.startIndex.advancedBy(UserFilesPrivateDirectoryName.characters.count + userId.characters.count + 1)..<prefix.endIndex.advancedBy(-1)
-                    self.pathLabel.text = "\(prefix.substringWithRange(subStringRange))"
+                    let userId = AWSIdentityManager.default().identityId!
+                    let subStringRange: Range<String.Index> = prefix.characters.index(prefix.startIndex, offsetBy: UserFilesPrivateDirectoryName.characters.count + userId.characters.count + 1)..<prefix.characters.index(prefix.endIndex, offsetBy: -1)
+                    self.pathLabel.text = "\(prefix.substring(with: subStringRange))"
                 }
             } else {
                 self.pathLabel.text = "/"
@@ -86,30 +86,30 @@ class UserFilesViewController: UITableViewController {
     
     // MARK:- Content Manager user action methods
     
-    @IBAction func changeDirectory(sender: UISegmentedControl) {
+    @IBAction func changeDirectory(_ sender: UISegmentedControl) {
         switch(sender.selectedSegmentIndex) {
         case 0: //Public Directory
-            manager = AWSUserFileManager.defaultUserFileManager()
+            manager = AWSUserFileManager.default()
             prefix = "\(UserFilesPublicDirectoryName)/"
             break
         case 1: //Private Directory
-            if (AWSIdentityManager.defaultIdentityManager().loggedIn) {
-                manager = AWSUserFileManager.defaultUserFileManager()
-                let userId = AWSIdentityManager.defaultIdentityManager().identityId!
+            if (AWSIdentityManager.default().isLoggedIn) {
+                manager = AWSUserFileManager.default()
+                let userId = AWSIdentityManager.default().identityId!
                 prefix = "\(UserFilesPrivateDirectoryName)/\(userId)/"
             } else {
                 sender.selectedSegmentIndex = 0
-                    let alertController = UIAlertController(title: "Info", message: "Private user file storage is only available to users who are signed-in. Would you like to sign in?", preferredStyle: .Alert)
-                    let signInAction = UIAlertAction(title: "Sign In", style: .Default, handler: {[weak self](action: UIAlertAction) -> Void in
+                    let alertController = UIAlertController(title: "Info", message: "Private user file storage is only available to users who are signed-in. Would you like to sign in?", preferredStyle: .alert)
+                    let signInAction = UIAlertAction(title: "Sign In", style: .default, handler: {[weak self](action: UIAlertAction) -> Void in
                         guard let strongSelf = self else { return }
                         let loginStoryboard: UIStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
-                        let loginController: UIViewController = loginStoryboard.instantiateViewControllerWithIdentifier("SignIn")
+                        let loginController: UIViewController = loginStoryboard.instantiateViewController(withIdentifier: "SignIn")
                         strongSelf.navigationController?.pushViewController(loginController, animated: true)
                         })
                     alertController.addAction(signInAction)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     alertController.addAction(cancelAction)
-                    presentViewController(alertController, animated: true, completion: nil)
+                    present(alertController, animated: true, completion: nil)
             }
             break
         default:
@@ -119,57 +119,57 @@ class UserFilesViewController: UITableViewController {
         loadMoreContents()
     }
     
-    func showContentManagerActionOptions(sender: AnyObject) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    func showContentManagerActionOptions(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let uploadObjectAction = UIAlertAction(title: "Upload", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let uploadObjectAction = UIAlertAction(title: "Upload", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.showImagePicker()
             })
         alertController.addAction(uploadObjectAction)
         
-        let createFolderAction = UIAlertAction(title: "New Folder", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let createFolderAction = UIAlertAction(title: "New Folder", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.askForDirectoryName()
             })
         alertController.addAction(createFolderAction)
-        let refreshAction = UIAlertAction(title: "Refresh", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let refreshAction = UIAlertAction(title: "Refresh", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.refreshContents()
             })
         alertController.addAction(refreshAction)
-        let downloadObjectsAction = UIAlertAction(title: "Download Recent", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let downloadObjectsAction = UIAlertAction(title: "Download Recent", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.downloadObjectsToFillCache()
             })
         alertController.addAction(downloadObjectsAction)
-        let changeLimitAction = UIAlertAction(title: "Set Cache Size", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let changeLimitAction = UIAlertAction(title: "Set Cache Size", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.showDiskLimitOptions()
             })
         alertController.addAction(changeLimitAction)
-        let removeAllObjectsAction = UIAlertAction(title: "Clear Cache", style: .Destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let removeAllObjectsAction = UIAlertAction(title: "Clear Cache", style: .destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.manager.clearCache()
             self.updateUserInterface()
             })
         alertController.addAction(removeAllObjectsAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func refreshContents() {
+    fileprivate func refreshContents() {
         marker = nil
         loadMoreContents()
     }
     
-    private func loadMoreContents() {
-        manager.listAvailableContentsWithPrefix(prefix, marker: marker, completionHandler: {[weak self](contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
+    fileprivate func loadMoreContents() {
+        manager.listAvailableContents(withPrefix: prefix, marker: marker, completionHandler: {[weak self](contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
             guard let strongSelf = self else { return }
             if let error = error {
                 strongSelf.showSimpleAlertWithTitle("Error", message: "Failed to load the list of contents.", cancelButtonTitle: "OK")
                 print("Failed to load the list of contents. \(error)")
             }
-            if let contents = contents where contents.count > 0 {
+            if let contents = contents, contents.count > 0 {
                 strongSelf.contents = contents
-                if let nextMarker = nextMarker where !nextMarker.isEmpty {
+                if let nextMarker = nextMarker, !nextMarker.isEmpty {
                     strongSelf.didLoadAllContents = false
                 } else {
                     strongSelf.didLoadAllContents = true
@@ -177,47 +177,47 @@ class UserFilesViewController: UITableViewController {
                 strongSelf.marker = nextMarker
             }
             strongSelf.updateUserInterface()
-            })
+            } as! ([AWSContent]?, String?, Error?) -> Void)
     }
     
-    private func showDiskLimitOptions() {
-        let alertController = UIAlertController(title: "Disk Cache Size", message: nil, preferredStyle: .ActionSheet)
+    fileprivate func showDiskLimitOptions() {
+        let alertController = UIAlertController(title: "Disk Cache Size", message: nil, preferredStyle: .actionSheet)
         for number: Int in [1, 5, 20, 50, 100] {
-            let byteLimitOptionAction = UIAlertAction(title: "\(number) MB", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+            let byteLimitOptionAction = UIAlertAction(title: "\(number) MB", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                 self.manager.maxCacheSize = UInt(number) * 1024 * 1024
                 self.updateUserInterface()
                 })
             alertController.addAction(byteLimitOptionAction)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func downloadObjectsToFillCache() {
-        manager.listRecentContentsWithPrefix(prefix, completionHandler: {[weak self](result: AnyObject?, error: NSError?) -> Void in
+    fileprivate func downloadObjectsToFillCache() {
+        manager.listRecentContents(withPrefix: prefix, completionHandler: {[weak self](result: AnyObject?, error: NSError?) -> Void in
             guard let strongSelf = self else { return }
             if let resultArray: [AWSContent] = result as? [AWSContent] {
                 for content: AWSContent in resultArray {
-                    if !content.cached && !content.directory {
+                    if !content.isCached && !content.isDirectory {
                         strongSelf.downloadContent(content, pinOnCompletion: false)
                     }
                 }
             }
-            })
+            } as! (Any?, Error?) -> Void)
     }
     
     // MARK:- Content user action methods
     
-    private func showActionOptionsForContent(rect: CGRect, content: AWSContent) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    fileprivate func showActionOptionsForContent(_ rect: CGRect, content: AWSContent) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if alertController.popoverPresentationController != nil {
             alertController.popoverPresentationController?.sourceView = self.view
-            alertController.popoverPresentationController?.sourceRect = CGRectMake(rect.midX, rect.midY, 1.0, 1.0)
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: rect.midX, y: rect.midY, width: 1.0, height: 1.0)
         }
-        if content.cached {
-            let openAction = UIAlertAction(title: "Open", style: .Default, handler: {(action: UIAlertAction) -> Void in
-                dispatch_async(dispatch_get_main_queue()) {
+        if content.isCached {
+            let openAction = UIAlertAction(title: "Open", style: .default, handler: {(action: UIAlertAction) -> Void in
+                DispatchQueue.main.async {
                     self.openContent(content)
                 }
             })
@@ -225,7 +225,7 @@ class UserFilesViewController: UITableViewController {
         }
         
         // Allow opening of remote files natively or in browser based on their type.
-        let openRemoteAction = UIAlertAction(title: "Open Remote", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let openRemoteAction = UIAlertAction(title: "Open Remote", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.openRemoteContent(content)
             
             })
@@ -237,77 +237,77 @@ class UserFilesViewController: UITableViewController {
             // 4 KB is for local metadata.
             var title = "Download"
             
-            if content.knownRemoteLastModifiedDate.compare(content.downloadedDate) == .OrderedDescending {
+            if content.knownRemoteLastModifiedDate.compare(content.downloadedDate) == .orderedDescending {
                 title = "Download Latest Version"
             }
-            let downloadAction = UIAlertAction(title: title, style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+            let downloadAction = UIAlertAction(title: title, style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                 self.downloadContent(content, pinOnCompletion: false)
                 })
             alertController.addAction(downloadAction)
         }
-        let downloadAndPinAction = UIAlertAction(title: "Download & Pin", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let downloadAndPinAction = UIAlertAction(title: "Download & Pin", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.downloadContent(content, pinOnCompletion: true)
             })
         alertController.addAction(downloadAndPinAction)
-        if content.cached {
-            if content.pinned {
-                let unpinAction = UIAlertAction(title: "Unpin", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        if content.isCached {
+            if content.isPinned {
+                let unpinAction = UIAlertAction(title: "Unpin", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                     content.unPin()
                     self.updateUserInterface()
                     })
                 alertController.addAction(unpinAction)
             } else {
-                let pinAction = UIAlertAction(title: "Pin", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+                let pinAction = UIAlertAction(title: "Pin", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                     content.pin()
                     self.updateUserInterface()
                     })
                 alertController.addAction(pinAction)
             }
-            let removeAction = UIAlertAction(title: "Delete Local Copy", style: .Destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
+            let removeAction = UIAlertAction(title: "Delete Local Copy", style: .destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
                 content.removeLocal()
                 self.updateUserInterface()
                 })
             alertController.addAction(removeAction)
         }
         
-        let removeFromRemoteAction = UIAlertAction(title: "Delete Remote File", style: .Destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let removeFromRemoteAction = UIAlertAction(title: "Delete Remote File", style: .destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.confirmForRemovingContent(content)
             })
         
         alertController.addAction(removeFromRemoteAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func downloadContent(content: AWSContent, pinOnCompletion: Bool) {
-        content.downloadWithDownloadType(.IfNewerExists, pinOnCompletion: pinOnCompletion, progressBlock: {[weak self](content: AWSContent?, progress: NSProgress?) -> Void in
+    fileprivate func downloadContent(_ content: AWSContent, pinOnCompletion: Bool) {
+        content.download(with: .ifNewerExists, pinOnCompletion: pinOnCompletion, progressBlock: {[weak self](content: AWSContent?, progress: Progress?) -> Void in
             guard let strongSelf = self else { return }
-            if strongSelf.contents!.contains( {$0 == content} ) {
-                let row = strongSelf.contents!.indexOf({$0  == content!})!
-                let indexPath = NSIndexPath(forRow: row, inSection: 1)
-                strongSelf.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            if strongSelf.contents!.contains( where: {$0 == content} ) {
+                let row = strongSelf.contents!.index(where: {$0  == content!})!
+                let indexPath = IndexPath(row: row, section: 1)
+                strongSelf.tableView.reloadRows(at: [indexPath], with: .none)
             }
-            }, completionHandler: {[weak self](content: AWSContent?, data: NSData?, error: NSError?) -> Void in
+            }, completionHandler: {[weak self](content: AWSContent?, data: Data?, error: NSError?) -> Void in
                 guard let strongSelf = self else { return }
                 if let error = error {
                     print("Failed to download a content from a server. \(error)")
                     strongSelf.showSimpleAlertWithTitle("Error", message: "Failed to download a content from a server.", cancelButtonTitle: "OK")
                 }
                 strongSelf.updateUserInterface()
-            })
+            } as! (AWSContent?, Data?, Error?) -> Void)
     }
     
-    private func openContent(content: AWSContent) {
+    fileprivate func openContent(_ content: AWSContent) {
         if content.isAudioVideo() { // Video and sound files
-            let directories: [AnyObject] = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
+            let directories: [AnyObject] = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true) as [AnyObject]
             let cacheDirectoryPath = directories.first as! String
             
-            let movieURL: NSURL = NSURL(fileURLWithPath: "\(cacheDirectoryPath)/\(content.key.getLastPathComponent())")
+            let movieURL: URL = URL(fileURLWithPath: "\(cacheDirectoryPath)/\(content.key.getLastPathComponent())")
             
-            content.cachedData.writeToURL(movieURL, atomically: true)
+            try? content.cachedData.write(to: movieURL, options: [.atomic])
             
             let controller: MPMoviePlayerViewController = MPMoviePlayerViewController(contentURL: movieURL)
             controller.moviePlayer.prepareToPlay()
@@ -316,7 +316,7 @@ class UserFilesViewController: UITableViewController {
         } else if content.isImage() { // Image files
             // Image files
             let storyboard = UIStoryboard(name: "UserFiles", bundle: nil)
-            let imageViewController = storyboard.instantiateViewControllerWithIdentifier("UserFilesImageViewController") as! UserFilesImageViewController
+            let imageViewController = storyboard.instantiateViewController(withIdentifier: "UserFilesImageViewController") as! UserFilesImageViewController
             imageViewController.image = UIImage(data: content.cachedData)
             imageViewController.title = content.key
             navigationController?.pushViewController(imageViewController, animated: true)
@@ -325,8 +325,8 @@ class UserFilesViewController: UITableViewController {
         }
     }
     
-    private func openRemoteContent(content: AWSContent) {
-        content.getRemoteFileURLWithCompletionHandler({[weak self](url: NSURL?, error: NSError?) -> Void in
+    fileprivate func openRemoteContent(_ content: AWSContent) {
+        content.getRemoteFileURL(completionHandler: {[weak self](url: URL?, error: NSError?) -> Void in
             guard let strongSelf = self else { return }
             guard let url = url else {
                 print("Error getting URL for file. \(error)")
@@ -340,56 +340,56 @@ class UserFilesViewController: UITableViewController {
             } else { // Open other file types like PDF in web browser.
                 //UIApplication.sharedApplication().openURL(url)
                 let storyboard: UIStoryboard = UIStoryboard(name: "UserFiles", bundle: nil)
-                let webViewController: UserFilesWebViewController = storyboard.instantiateViewControllerWithIdentifier("UserFilesWebViewController") as! UserFilesWebViewController
+                let webViewController: UserFilesWebViewController = storyboard.instantiateViewController(withIdentifier: "UserFilesWebViewController") as! UserFilesWebViewController
                 webViewController.url = url
                 webViewController.title = content.key
                 strongSelf.navigationController?.pushViewController(webViewController, animated: true)
             }
-            })
+            } as! (URL?, Error?) -> Void)
     }
     
-    private func confirmForRemovingContent(content: AWSContent) {
-        let alertController = UIAlertController(title: "Confirm", message: "Do you want to delete the content from the server? This cannot be undone.", preferredStyle: .Alert)
-        let okayAction = UIAlertAction(title: "Yes", style: .Default, handler: {[weak self](action: UIAlertAction) -> Void in
+    fileprivate func confirmForRemovingContent(_ content: AWSContent) {
+        let alertController = UIAlertController(title: "Confirm", message: "Do you want to delete the content from the server? This cannot be undone.", preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "Yes", style: .default, handler: {[weak self](action: UIAlertAction) -> Void in
             guard let strongSelf = self else { return }
             strongSelf.removeContent(content)
             })
         alertController.addAction(okayAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func removeContent(content: AWSContent) {
-        content.removeRemoteContentWithCompletionHandler({[weak self](content: AWSContent?, error: NSError?) -> Void in
+    fileprivate func removeContent(_ content: AWSContent) {
+        content.removeRemoteContent(completionHandler: {[weak self](content: AWSContent?, error: NSError?) -> Void in
             guard let strongSelf = self else { return }
             if let error = error {
                 print("Failed to delete an object from the remote server. \(error)")
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     strongSelf.showSimpleAlertWithTitle("Error", message: "Failed to delete an object from the remote server.", cancelButtonTitle: "OK")
                 }
             } else {
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     strongSelf.showSimpleAlertWithTitle("Object Deleted", message: "The object has been deleted successfully.", cancelButtonTitle: "OK")
                 }
                 strongSelf.refreshContents()
             }
-            })
+            } as! (AWSContent?, Error?) -> Void)
     }
     
     // MARK:- Content uploads
     
-    private func showImagePicker() {
+    fileprivate func showImagePicker() {
         let imagePickerController: UIImagePickerController = UIImagePickerController()
         imagePickerController.mediaTypes =  [kUTTypeImage as String, kUTTypeMovie as String]
         imagePickerController.delegate = self
-        presentViewController(imagePickerController, animated: true, completion: nil)
+        present(imagePickerController, animated: true, completion: nil)
     }
     
-    private func askForFilename(data: NSData) {
-        let alertController = UIAlertController(title: "File Name", message: "Please specify the file name.", preferredStyle: .Alert)
-        alertController.addTextFieldWithConfigurationHandler(nil)
-        let doneAction = UIAlertAction(title: "Done", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+    fileprivate func askForFilename(_ data: Data) {
+        let alertController = UIAlertController(title: "File Name", message: "Please specify the file name.", preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: nil)
+        let doneAction = UIAlertAction(title: "Done", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             let specifiedKey = alertController.textFields!.first!.text!
             if specifiedKey.characters.count == 0 {
                 self.showSimpleAlertWithTitle("Error", message: "The file name cannot be empty.", cancelButtonTitle: "OK")
@@ -400,15 +400,15 @@ class UserFilesViewController: UITableViewController {
             }
             })
         alertController.addAction(doneAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func askForDirectoryName() {
-        let alertController: UIAlertController = UIAlertController(title: "Directory Name", message: "Please specify the directory name.", preferredStyle: .Alert)
-        alertController.addTextFieldWithConfigurationHandler(nil)
-        let doneAction: UIAlertAction = UIAlertAction(title: "Done", style: .Default, handler: {[weak self](action: UIAlertAction) -> Void in
+    fileprivate func askForDirectoryName() {
+        let alertController: UIAlertController = UIAlertController(title: "Directory Name", message: "Please specify the directory name.", preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: nil)
+        let doneAction: UIAlertAction = UIAlertAction(title: "Done", style: .default, handler: {[weak self](action: UIAlertAction) -> Void in
             guard let strongSelf = self else { return }
             let specifiedKey = alertController.textFields!.first!.text!
             if specifiedKey.characters.count == 0 {
@@ -420,24 +420,24 @@ class UserFilesViewController: UITableViewController {
             }
             })
         alertController.addAction(doneAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func uploadLocalContent(localContent: AWSLocalContent) {
-        localContent.uploadWithPinOnCompletion(false, progressBlock: {[weak self](content: AWSLocalContent?, progress: NSProgress?) -> Void in
+    fileprivate func uploadLocalContent(_ localContent: AWSLocalContent) {
+        localContent.uploadWithPin(onCompletion: false, progressBlock: {[weak self](content: AWSLocalContent?, progress: Progress?) -> Void in
             guard let strongSelf = self else { return }
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 // Update the upload UI if it is a new upload and the table is not yet updated
-                if(strongSelf.tableView.numberOfRowsInSection(0) == 0 || strongSelf.tableView.numberOfRowsInSection(0) < strongSelf.manager.uploadingContents.count) {
+                if(strongSelf.tableView.numberOfRows(inSection: 0) == 0 || strongSelf.tableView.numberOfRows(inSection: 0) < strongSelf.manager.uploadingContents.count) {
                     strongSelf.updateUploadUI()
                 } else {
                     for uploadContent in strongSelf.manager.uploadingContents {
                         if uploadContent.key == content?.key {
-                            let index = strongSelf.manager.uploadingContents.indexOf(uploadContent)!
-                            let indexPath = NSIndexPath(forRow: index, inSection: 0)
-                            strongSelf.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                            let index = strongSelf.manager.uploadingContents.index(of: uploadContent)!
+                            let indexPath = IndexPath(row: index, section: 0)
+                            strongSelf.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                     }
                 }
@@ -455,29 +455,29 @@ class UserFilesViewController: UITableViewController {
         updateUploadUI()
     }
     
-    private func uploadWithData(data: NSData, forKey key: String) {
-        let localContent = manager.localContentWithData(data, key: key)
+    fileprivate func uploadWithData(_ data: Data, forKey key: String) {
+        let localContent = manager.localContent(with: data, key: key)
         uploadLocalContent(localContent)
     }
     
-    private func createFolderForKey(key: String) {
-        let localContent = manager.localContentWithData(nil, key: key)
+    fileprivate func createFolderForKey(_ key: String) {
+        let localContent = manager.localContent(with: nil, key: key)
         uploadLocalContent(localContent)
     }
     
-    private func updateUploadUI() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+    fileprivate func updateUploadUI() {
+        DispatchQueue.main.async {
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
         }
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return manager.uploadingContents.count
         }
@@ -487,16 +487,16 @@ class UserFilesViewController: UITableViewController {
         return 0
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("UserFilesUploadCell", forIndexPath: indexPath) as! UserFilesUploadCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UserFilesUploadCell", for: indexPath) as! UserFilesUploadCell
             let localContent: AWSLocalContent = manager.uploadingContents[indexPath.row]
             cell.prefix = prefix
             cell.localContent = localContent
             return cell
         }
         
-        let cell: UserFilesCell = tableView.dequeueReusableCellWithIdentifier("UserFilesCell", forIndexPath: indexPath) as! UserFilesCell
+        let cell: UserFilesCell = tableView.dequeueReusableCell(withIdentifier: "UserFilesCell", for: indexPath) as! UserFilesCell
         
         let content: AWSContent = contents![indexPath.row]
         cell.prefix = prefix
@@ -504,8 +504,8 @@ class UserFilesViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if let contents = self.contents where indexPath.row == contents.count - 1  {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let contents = self.contents, indexPath.row == contents.count - 1  {
             if (!didLoadAllContents) {
                 loadMoreContents()
             }
@@ -514,18 +514,18 @@ class UserFilesViewController: UITableViewController {
     
     // MARK: - Table view delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         // Process only if it is a listed file. Ignore actions for files that are uploading.
         if(indexPath.section != 0) {
             let content = contents![indexPath.row]
-            if content.directory {
+            if content.isDirectory {
                 let storyboard: UIStoryboard = UIStoryboard(name: "UserFiles", bundle: nil)
-                let viewController: UserFilesViewController = storyboard.instantiateViewControllerWithIdentifier("UserFiles") as! UserFilesViewController
+                let viewController: UserFilesViewController = storyboard.instantiateViewController(withIdentifier: "UserFiles") as! UserFilesViewController
                 viewController.prefix = content.key
                 navigationController?.pushViewController(viewController, animated: true)
             } else {
-                let rowRect = tableView.rectForRowAtIndexPath(indexPath);
+                let rowRect = tableView.rectForRow(at: indexPath);
                 showActionOptionsForContent(rowRect, content: content)
             }
         }
@@ -536,19 +536,19 @@ class UserFilesViewController: UITableViewController {
 
 extension UserFilesViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        dismiss(animated: true, completion: nil)
         
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         // Handle image uploads
-        if mediaType.isEqualToString(kUTTypeImage as String) {
+        if mediaType.isEqual(to: kUTTypeImage as String) {
             let image: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
             askForFilename(UIImagePNGRepresentation(image)!)
         }
         // Handle Video Uploads
-        if mediaType.isEqualToString(kUTTypeMovie as String) {
-            let videoURL: NSURL = info[UIImagePickerControllerMediaURL] as! NSURL
-            askForFilename(NSData(contentsOfURL: videoURL)!)
+        if mediaType.isEqual(to: kUTTypeMovie as String) {
+            let videoURL: URL = info[UIImagePickerControllerMediaURL] as! URL
+            askForFilename(try! Data(contentsOf: videoURL))
         }
     }
 }
@@ -568,37 +568,37 @@ class UserFilesCell: UITableViewCell {
             var displayFilename: String = self.content.key
             if let prefix = self.prefix {
                 if displayFilename.characters.count > prefix.characters.count {
-                    displayFilename = displayFilename.substringFromIndex(prefix.endIndex)
+                    displayFilename = displayFilename.substring(from: prefix.endIndex)
                 }
             }
             fileNameLabel.text = displayFilename
-            downloadedImageView.hidden = !content.cached
-            keepImageView.hidden = !content.pinned
+            downloadedImageView.isHidden = !content.isCached
+            keepImageView.isHidden = !content.isPinned
             var contentByteCount: UInt = content.fileSize
             if contentByteCount == 0 {
                 contentByteCount = content.knownRemoteByteCount
             }
             
-            if content.directory {
+            if content.isDirectory {
                 detailLabel.text = "This is a folder"
-                accessoryType = .DisclosureIndicator
+                accessoryType = .disclosureIndicator
             } else {
                 detailLabel.text = contentByteCount.aws_stringFromByteCount()
-                accessoryType = .None
+                accessoryType = .none
             }
             
-            if content.knownRemoteLastModifiedDate.compare(content.downloadedDate) == .OrderedDescending {
+            if content.knownRemoteLastModifiedDate.compare(content.downloadedDate) == .orderedDescending {
                 detailLabel.text = "\(detailLabel.text!) - New Version Available"
-                detailLabel.textColor = UIColor.blueColor()
+                detailLabel.textColor = UIColor.blue
             } else {
-                detailLabel.textColor = UIColor.blackColor()
+                detailLabel.textColor = UIColor.black
             }
             
-            if content.status == .Running {
+            if content.status == .running {
                 progressView.progress = Float(content.progress.fractionCompleted)
-                progressView.hidden = false
+                progressView.isHidden = false
             } else {
-                progressView.hidden = true
+                progressView.isHidden = true
             }
         }
     }
@@ -609,7 +609,7 @@ class UserFilesImageViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     var image: UIImage!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         imageView.image = image
     }
@@ -618,17 +618,17 @@ class UserFilesImageViewController: UIViewController {
 class UserFilesWebViewController: UIViewController, UIWebViewDelegate {
     
     @IBOutlet weak var webView: UIWebView!
-    var url: NSURL!
+    var url: URL!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         webView.delegate = self
-        webView.dataDetectorTypes = .None
+        webView.dataDetectorTypes = UIDataDetectorTypes()
         webView.scalesPageToFit = true
-        webView.loadRequest(NSURLRequest(URL: url))
+        webView.loadRequest(URLRequest(url: url))
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         print("The URL content failed to load \(error)")
         webView.loadHTMLString("<html><body><h1>Cannot Open the content of the URL.</h1></body></html>", baseURL: nil)
     }
@@ -644,7 +644,7 @@ class UserFilesUploadCell: UITableViewCell {
     var localContent: AWSLocalContent! {
         didSet {
             var displayFilename: String = localContent.key
-            displayFilename = displayFilename.stringByReplacingOccurrencesOfString(AWSIdentityManager.defaultIdentityManager().identityId!, withString: "<private>")
+            displayFilename = displayFilename.replacingOccurrences(of: AWSIdentityManager.default().identityId!, with: "<private>")
             fileNameLabel.text = displayFilename
             progressView.progress = Float(localContent.progress.fractionCompleted)
         }
@@ -654,17 +654,17 @@ class UserFilesUploadCell: UITableViewCell {
 // MARK: - Utility
 
 extension UserFilesViewController {
-    private func showSimpleAlertWithTitle(title: String, message: String, cancelButtonTitle cancelTitle: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: cancelTitle, style: .Cancel, handler: nil)
+    fileprivate func showSimpleAlertWithTitle(_ title: String, message: String, cancelButtonTitle cancelTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
 extension AWSContent {
-    private func isAudioVideo() -> Bool {
-        let lowerCaseKey = self.key.lowercaseString
+    fileprivate func isAudioVideo() -> Bool {
+        let lowerCaseKey = self.key.lowercased()
         return lowerCaseKey.hasSuffix(".mov")
             || lowerCaseKey.hasSuffix(".mp4")
             || lowerCaseKey.hasSuffix(".mpv")
@@ -674,8 +674,8 @@ extension AWSContent {
             || lowerCaseKey.hasSuffix(".mp3")
     }
     
-    private func isImage() -> Bool {
-        let lowerCaseKey = self.key.lowercaseString
+    fileprivate func isImage() -> Bool {
+        let lowerCaseKey = self.key.lowercased()
         return lowerCaseKey.hasSuffix(".jpg")
             || lowerCaseKey.hasSuffix(".png")
             || lowerCaseKey.hasSuffix(".jpeg")
@@ -683,7 +683,7 @@ extension AWSContent {
 }
 
 extension UInt {
-    private func aws_stringFromByteCount() -> String {
+    fileprivate func aws_stringFromByteCount() -> String {
         if self < 1024 {
             return "\(self) B"
         }
@@ -698,8 +698,8 @@ extension UInt {
 }
 
 extension String {
-    private func getLastPathComponent() -> String {
-        let nsstringValue: NSString = self
+    fileprivate func getLastPathComponent() -> String {
+        let nsstringValue: NSString = self as NSString
         return nsstringValue.lastPathComponent
     }
 }

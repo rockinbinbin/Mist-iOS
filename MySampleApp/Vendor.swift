@@ -10,12 +10,12 @@ import Foundation
 import AWSMobileHubHelper
 import AWSDynamoDB
 
-public class VendorObj: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
-    public static func hashKeyAttribute() -> String {
+open class VendorObj: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
+    open static func hashKeyAttribute() -> String {
         return "ID"
     }
     
-    public static func dynamoDBTableName() -> String {
+    open static func dynamoDBTableName() -> String {
         return "vendor"
     }
     
@@ -26,25 +26,25 @@ public class VendorObj: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
 }
 
 public protocol loadedVendorDelegate {
-    func passVendor(vendor: VendorObj)
+    func passVendor(_ vendor: VendorObj)
 }
 
 /**
  The manager for loading vendor info.
  */
-public class VendorClass {
+open class VendorClass {
 
     var loadVendorDelegate : loadedVendorDelegate? = nil
     
     static let sharedInstance = VendorClass()
     var vendors: [Vendor] = []
     
-    let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.default()
     
     var items: [Vendor] {
         get {
             var vendors: [Vendor] = []
-            for (index, vendor) in vendors.enumerate() {
+            for (index, vendor) in vendors.enumerated() {
                 vendors.append(vendor)
             }
             //print(vendors)
@@ -58,11 +58,11 @@ public class VendorClass {
         }
     }
     
-    func loadVendorFromID(id: String, completion: ((NSError?) -> ())?) {
+    func loadVendorFromID(_ id: String, completion: ((NSError?) -> ())?) {
         
         let vendor = VendorObj()
         
-        dynamoDBObjectMapper.load(VendorObj.self, hashKey: id, rangeKey: nil).continueWithBlock { (task: AWSTask) -> AnyObject? in
+        dynamoDBObjectMapper.load(VendorObj.self, hashKey: id, rangeKey: nil).continue { (task: AWSTask) -> AnyObject? in
             
             guard let result = task.result else {
                 print(task.exception)
@@ -70,10 +70,10 @@ public class VendorClass {
                 return nil
             }
             
-            vendor.brand = result.valueForKey("Brand") as! String
-            vendor.id = result.valueForKey("ID") as! String
-            vendor.products = result.valueForKey("products") as! NSMutableSet
-            vendor.shortDescription = result.valueForKey("ShortDescrioption") as! String
+            vendor.brand = result.value(forKey: "Brand") as! String
+            vendor.id = result.value(forKey: "ID") as! String
+            vendor.products = result.value(forKey: "products") as! NSMutableSet
+            vendor.shortDescription = result.value(forKey: "ShortDescrioption") as! String
             
             guard let delegate = self.loadVendorDelegate else {
                 return VendorObj()
@@ -83,7 +83,7 @@ public class VendorClass {
         }
     }
     
-    func loadVendorFromProductName(name: String, completion: ((NSError?) -> ())?) {
+    func loadVendorFromProductName(_ name: String, completion: ((NSError?) -> ())?) {
         
         let vendor = VendorObj()
         let scanExpression = AWSDynamoDBScanExpression()
@@ -91,9 +91,9 @@ public class VendorClass {
         scanExpression.limit = 5
         let condition = AWSDynamoDBCondition()
         let attribute = AWSDynamoDBAttributeValue()
-        attribute.N = name
-        condition.attributeValueList = [attribute]
-        condition.comparisonOperator = AWSDynamoDBComparisonOperator.EQ
+        attribute?.n = name
+        condition?.attributeValueList = [attribute!]
+        condition?.comparisonOperator = AWSDynamoDBComparisonOperator.EQ
         
         dynamoDBObjectMapper.scan(VendorObj.self, expression: scanExpression) { (result: AWSDynamoDBPaginatedOutput?, error: NSError?) in
             
@@ -102,10 +102,10 @@ public class VendorClass {
                 return
             }
             print (result)
-            vendor.brand = result.valueForKey("Brand") as! String
-            vendor.id = result.valueForKey("ID") as! String
-            vendor.products = result.valueForKey("products") as! NSMutableSet
-            vendor.shortDescription = result.valueForKey("ShortDescrioption") as! String
+            vendor.brand = result.value(forKey: "Brand") as! String
+            vendor.id = result.value(forKey: "ID") as! String
+            vendor.products = result.value(forKey: "products") as! NSMutableSet
+            vendor.shortDescription = result.value(forKey: "ShortDescrioption") as! String
             
             // Class must have this method implemented
             guard let delegate = self.loadVendorDelegate else {

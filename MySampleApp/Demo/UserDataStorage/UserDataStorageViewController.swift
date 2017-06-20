@@ -21,26 +21,26 @@ class UserDataStorageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         featureTextView.contentInset = UIEdgeInsetsMake(-4, -4, -4, -4)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         featureTextView.flashScrollIndicators()
     }
     
     // MARK: - IBActions
     
-    @IBAction func demoUserFileStorage(sender: UIButton){
+    @IBAction func demoUserFileStorage(_ sender: UIButton){
         let storyboard = UIStoryboard(name: "UserFiles", bundle: nil)
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("UserFiles")
+        let viewController = storyboard.instantiateViewController(withIdentifier: "UserFiles")
         navigationController!.pushViewController(viewController, animated: true)
     }
     
-    @IBAction func demoUserSettings(sender: UIButton){
+    @IBAction func demoUserSettings(_ sender: UIButton){
         let storyboard = UIStoryboard(name: "UserSettings", bundle: nil)
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("UserSettings")
+        let viewController = storyboard.instantiateViewController(withIdentifier: "UserSettings")
         navigationController!.pushViewController(viewController, animated: true)
     }
 }

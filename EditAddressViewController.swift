@@ -20,19 +20,19 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let nameTextField = UITextField()
         nameTextField.translatesAutoresizingMaskIntoConstraints = false;
         nameTextField.delegate = self
-        nameTextField.textColor = UIColor.blackColor()
+        nameTextField.textColor = UIColor.black
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Address Name", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         nameTextField.attributedPlaceholder = attrString
-        nameTextField.layer.borderColor = UIColor.blackColor().CGColor
-        nameTextField.textAlignment = .Left
-        nameTextField.returnKeyType = .Next
+        nameTextField.layer.borderColor = UIColor.black.cgColor
+        nameTextField.textAlignment = .left
+        nameTextField.returnKeyType = .next
         
         self.view.addSubview(nameTextField)
         
@@ -43,19 +43,19 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let streetTextField = UITextField()
         streetTextField.translatesAutoresizingMaskIntoConstraints = false;
         streetTextField.delegate = self
-        streetTextField.textColor = UIColor.blackColor()
+        streetTextField.textColor = UIColor.black
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Street Address", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         streetTextField.attributedPlaceholder = attrString
-        streetTextField.layer.borderColor = UIColor.blackColor().CGColor
-        streetTextField.textAlignment = .Left
-        streetTextField.returnKeyType = .Next
+        streetTextField.layer.borderColor = UIColor.black.cgColor
+        streetTextField.textAlignment = .left
+        streetTextField.returnKeyType = .next
         
         self.view.addSubview(streetTextField)
         
@@ -66,20 +66,20 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let unitTextField = UITextField()
         unitTextField.translatesAutoresizingMaskIntoConstraints = false;
         unitTextField.delegate = self
-        unitTextField.textColor = UIColor.blackColor()
+        unitTextField.textColor = UIColor.black
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Unit", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         unitTextField.attributedPlaceholder = attrString
-        unitTextField.layer.borderColor = UIColor.blackColor().CGColor
-        unitTextField.textAlignment = .Left
-        unitTextField.returnKeyType = .Next
-        unitTextField.autocorrectionType = .No
+        unitTextField.layer.borderColor = UIColor.black.cgColor
+        unitTextField.textAlignment = .left
+        unitTextField.returnKeyType = .next
+        unitTextField.autocorrectionType = .no
         
         self.view.addSubview(unitTextField)
         
@@ -90,19 +90,19 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let cityTextField = UITextField()
         cityTextField.translatesAutoresizingMaskIntoConstraints = false;
         cityTextField.delegate = self
-        cityTextField.textColor = UIColor.blackColor()
+        cityTextField.textColor = UIColor.black
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "City", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         cityTextField.attributedPlaceholder = attrString
-        cityTextField.layer.borderColor = UIColor.blackColor().CGColor
-        cityTextField.textAlignment = .Left
-        cityTextField.returnKeyType = .Next
+        cityTextField.layer.borderColor = UIColor.black.cgColor
+        cityTextField.textAlignment = .left
+        cityTextField.returnKeyType = .next
         
         self.view.addSubview(cityTextField)
         
@@ -113,19 +113,19 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let stateTextField = UITextField()
         stateTextField.translatesAutoresizingMaskIntoConstraints = false;
         stateTextField.delegate = self
-        stateTextField.textColor = UIColor.blackColor()
+        stateTextField.textColor = UIColor.black
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "State", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         stateTextField.attributedPlaceholder = attrString
-        stateTextField.layer.borderColor = UIColor.blackColor().CGColor
-        stateTextField.textAlignment = .Left
-        stateTextField.returnKeyType = .Next
+        stateTextField.layer.borderColor = UIColor.black.cgColor
+        stateTextField.textAlignment = .left
+        stateTextField.returnKeyType = .next
         
         self.view.addSubview(stateTextField)
         
@@ -136,19 +136,19 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let zipTextField = UITextField()
         zipTextField.translatesAutoresizingMaskIntoConstraints = false;
         zipTextField.delegate = self
-        zipTextField.textColor = UIColor.blackColor()
+        zipTextField.textColor = UIColor.black
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Zip", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         zipTextField.attributedPlaceholder = attrString
-        zipTextField.layer.borderColor = UIColor.blackColor().CGColor
-        zipTextField.textAlignment = .Left
-        zipTextField.returnKeyType = .Next
+        zipTextField.layer.borderColor = UIColor.black.cgColor
+        zipTextField.textAlignment = .left
+        zipTextField.returnKeyType = .next
         
         self.view.addSubview(zipTextField)
         
@@ -159,19 +159,19 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let phoneTextField = UITextField()
         phoneTextField.translatesAutoresizingMaskIntoConstraints = false;
         phoneTextField.delegate = self
-        phoneTextField.textColor = UIColor.blackColor()
+        phoneTextField.textColor = UIColor.black
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Phone Number", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         phoneTextField.attributedPlaceholder = attrString
-        phoneTextField.layer.borderColor = UIColor.blackColor().CGColor
-        phoneTextField.textAlignment = .Left
-        phoneTextField.returnKeyType = .Next
+        phoneTextField.layer.borderColor = UIColor.black.cgColor
+        phoneTextField.textAlignment = .left
+        phoneTextField.returnKeyType = .next
         
         self.view.addSubview(phoneTextField)
         
@@ -179,26 +179,26 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
     }()
     
     internal lazy var doneButton: UIButton = {
-        let doneButton = UIButton(type: .RoundedRect)
+        let doneButton = UIButton(type: .roundedRect)
         doneButton.layer.cornerRadius = 0
-        doneButton.backgroundColor = UIColor.blackColor()
-        doneButton.tintColor = UIColor.whiteColor()
+        doneButton.backgroundColor = UIColor.black
+        doneButton.tintColor = UIColor.white
         doneButton.titleLabel!.font = UIFont(name: "Lato-Light", size: 14.0)
-        doneButton.titleLabel!.textColor = UIColor.whiteColor()
+        doneButton.titleLabel!.textColor = UIColor.white
         
         let attributedString = NSMutableAttributedString(string: "DONE")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "DONE".characters.count))
-        doneButton.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        doneButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(doneButton)
-        doneButton.addTarget(self, action: #selector(EditAddressViewController.donePressed), forControlEvents: .TouchUpInside)
+        doneButton.addTarget(self, action: #selector(EditAddressViewController.donePressed), for: .touchUpInside)
         return doneButton
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         let widthWithPadding = self.view.frame.size.width - 50
         let heightRatio = self.view.frame.size.height * 0.05
@@ -257,11 +257,11 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(EditAddressViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditAddressViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditAddressViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditAddressViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditAddressViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // fetch all addresses
@@ -290,9 +290,9 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         if keyboardUp {
-            if (nameTextField.isFirstResponder() || streetTextField.isFirstResponder()) {
+            if (nameTextField.isFirstResponder || streetTextField.isFirstResponder) {
                 return
             }
             if let info = notification.userInfo {
@@ -300,10 +300,10 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
                 UIView.beginAnimations("keyboardGoinUP", context: nil)
                 UIView.setAnimationBeginsFromCurrentState(true)
                 UIView.setAnimationDuration(0.3)
-                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
+                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
                 
-                if (cityTextField.isFirstResponder() || phoneTextField.isFirstResponder()) {
-                    self.view.frame = CGRectOffset(self.view.frame, 0, -self.view.frame.size.height * 0.15)
+                if (cityTextField.isFirstResponder || phoneTextField.isFirstResponder) {
+                    self.view.frame = self.view.frame.offsetBy(dx: 0, dy: -self.view.frame.size.height * 0.15)
                 }
             }
             return
@@ -314,13 +314,13 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
                 UIView.beginAnimations("keyboardGoinUP", context: nil)
                 UIView.setAnimationBeginsFromCurrentState(true)
                 UIView.setAnimationDuration(0.3)
-                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
+                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
                 
-                if (stateTextField.isFirstResponder() || zipTextField.isFirstResponder()) {
-                    self.view.frame = CGRectOffset(self.view.frame, 0, -self.view.frame.size.height * 0.15)
+                if (stateTextField.isFirstResponder || zipTextField.isFirstResponder) {
+                    self.view.frame = self.view.frame.offsetBy(dx: 0, dy: -self.view.frame.size.height * 0.15)
                 }
-                else if (phoneTextField.isFirstResponder()) {
-                    self.view.frame = CGRectOffset(self.view.frame, 0, -self.view.frame.size.height * 0.3)
+                else if (phoneTextField.isFirstResponder) {
+                    self.view.frame = self.view.frame.offsetBy(dx: 0, dy: -self.view.frame.size.height * 0.3)
                 }
                 keyboardUp = true
             } else {
@@ -329,7 +329,7 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardWillHide(_ notification: Notification) {
         if !keyboardUp {
             return
         }
@@ -338,8 +338,8 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
             UIView.beginAnimations("keyboardGoinDOWN", context: nil)
             UIView.setAnimationBeginsFromCurrentState(true)
             UIView.setAnimationDuration(0.3)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
-            self.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
             UIView.commitAnimations()
             
             keyboardUp = false
@@ -348,7 +348,7 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == nameTextField) {
             streetTextField.becomeFirstResponder()
         }
@@ -378,7 +378,7 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         let titleLabel = UILabel()
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Regular", size: 16)!,
-            NSForegroundColorAttributeName:UIColor.blackColor(),
+            NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
         
@@ -389,9 +389,9 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.titleView = titleLabel
         
         let btnName = UIButton()
-        btnName.setImage(UIImage(named: "blackBackArrow"), forState: .Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.addTarget(self, action: #selector(EditAddressViewController.backPressed), forControlEvents: .TouchUpInside)
+        btnName.setImage(UIImage(named: "blackBackArrow"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnName.addTarget(self, action: #selector(EditAddressViewController.backPressed), for: .touchUpInside)
         
         //.... Set Right/Left Bar Button item
         let rightBarButton = UIBarButtonItem()
@@ -405,19 +405,19 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
     }
     
     func backPressed() {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func createAddressString() -> NSString {
         let address = NSMutableString(string: streetTextField.text!)
-        address.appendString(" ")
-        address.appendString(unitTextField.text!)
-        address.appendString(", ")
-        address.appendString(cityTextField.text!)
-        address.appendString(" ")
-        address.appendString(stateTextField.text!)
-        address.appendString(", ")
-        address.appendString(zipTextField.text!)
+        address.append(" ")
+        address.append(unitTextField.text!)
+        address.append(", ")
+        address.append(cityTextField.text!)
+        address.append(" ")
+        address.append(stateTextField.text!)
+        address.append(", ")
+        address.append(zipTextField.text!)
         return address
     }
     
@@ -441,7 +441,7 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
 //            
 //            currentAddress?.saveInBackground()
             
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }

@@ -11,39 +11,39 @@ import Foundation
 extension Feed {
     struct Filter {
         enum Category: CustomStringConvertible {
-            case Mens
-            case Womens
-            case Kids
-            case Lifestyle
-            case Beauty
+            case mens
+            case womens
+            case kids
+            case lifestyle
+            case beauty
             
             var description: String {
                 switch self {
-                case Mens: return "Men's"
-                case Womens: return "Women's"
-                case Kids: return "Kids"
-                case Lifestyle: return "Lifestyle"
-                case Beauty: return "Beauty"
+                case .mens: return "Men's"
+                case .womens: return "Women's"
+                case .kids: return "Kids"
+                case .lifestyle: return "Lifestyle"
+                case .beauty: return "Beauty"
                 }
             }
             
-            static let allValues = [Mens, Womens, Kids, Lifestyle, Beauty]
+            static let allValues = [mens, womens, kids, lifestyle, beauty]
         }
         
         enum Price: CustomStringConvertible {
-            case Under30
-            case Under75
-            case Under150
-            case Under400
-            case Over400
+            case under30
+            case under75
+            case under150
+            case under400
+            case over400
             
             var description: String {
                 switch self {
-                case Under30: return "Under $30"
-                case Under75: return "$30 - $75"
-                case Under150: return "$75 - $150"
-                case Under400: return "$150 - $400"
-                case Over400: return "$400+"
+                case .under30: return "Under $30"
+                case .under75: return "$30 - $75"
+                case .under150: return "$75 - $150"
+                case .under400: return "$150 - $400"
+                case .over400: return "$400+"
                 }
             }
             
@@ -53,15 +53,15 @@ extension Feed {
                 }
                 
                 switch price {
-                case 0..<30:    self = Under30
-                case 30..<75:   self = Under75
-                case 75..<150:  self = Under150
-                case 150..<400: self = Under400
-                default:        self = Over400
+                case 0..<30:    self = .under30
+                case 30..<75:   self = .under75
+                case 75..<150:  self = .under150
+                case 150..<400: self = .under400
+                default:        self = .over400
                 }
             }
             
-            static let allValues = [Under30, Under75, Under150, Under400, Over400]
+            static let allValues = [under30, under75, under150, under400, over400]
         }
     }
     

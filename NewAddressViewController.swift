@@ -10,11 +10,11 @@ import UIKit
 
 extension UITextField {
     
-    func useUnderline(width: CGFloat, height: CGFloat) {
+    func useUnderline(_ width: CGFloat, height: CGFloat) {
         let border = CALayer()
         let borderWidth = CGFloat(1.0)
-        border.borderColor = UIColor.whiteColor().CGColor
-        border.frame = CGRectMake(0, height - borderWidth, width, height)
+        border.borderColor = UIColor.white.cgColor
+        border.frame = CGRect(x: 0, y: height - borderWidth, width: width, height: height)
         border.borderWidth = borderWidth
         self.layer.addSublayer(border)
         self.layer.masksToBounds = true
@@ -32,9 +32,9 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     
     internal lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Add Shipping Address"
         titleLabel.font = UIFont(name: "Lato-Regular", size: 24)
@@ -46,20 +46,20 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let nameTextField = UITextField()
         nameTextField.translatesAutoresizingMaskIntoConstraints = false;
         nameTextField.delegate = self
-        nameTextField.textColor = UIColor.whiteColor()
+        nameTextField.textColor = UIColor.white
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Address Name", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         nameTextField.attributedPlaceholder = attrString
-        nameTextField.layer.borderColor = UIColor.blackColor().CGColor
-        nameTextField.textAlignment = .Left
-        nameTextField.returnKeyType = .Next
-        nameTextField.autocorrectionType = .No
+        nameTextField.layer.borderColor = UIColor.black.cgColor
+        nameTextField.textAlignment = .left
+        nameTextField.returnKeyType = .next
+        nameTextField.autocorrectionType = .no
         
         self.view.addSubview(nameTextField)
         
@@ -70,20 +70,20 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let streetTextField = UITextField()
         streetTextField.translatesAutoresizingMaskIntoConstraints = false;
         streetTextField.delegate = self
-        streetTextField.textColor = UIColor.whiteColor()
+        streetTextField.textColor = UIColor.white
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Street Address", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         streetTextField.attributedPlaceholder = attrString
-        streetTextField.layer.borderColor = UIColor.blackColor().CGColor
-        streetTextField.textAlignment = .Left
-        streetTextField.returnKeyType = .Next
-        streetTextField.autocorrectionType = .No
+        streetTextField.layer.borderColor = UIColor.black.cgColor
+        streetTextField.textAlignment = .left
+        streetTextField.returnKeyType = .next
+        streetTextField.autocorrectionType = .no
         
         self.view.addSubview(streetTextField)
         return streetTextField
@@ -93,20 +93,20 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let cityTextField = UITextField()
         cityTextField.translatesAutoresizingMaskIntoConstraints = false;
         cityTextField.delegate = self
-        cityTextField.textColor = UIColor.whiteColor()
+        cityTextField.textColor = UIColor.white
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "City", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         cityTextField.attributedPlaceholder = attrString
-        cityTextField.layer.borderColor = UIColor.blackColor().CGColor
-        cityTextField.textAlignment = .Left
-        cityTextField.returnKeyType = .Next
-        cityTextField.autocorrectionType = .No
+        cityTextField.layer.borderColor = UIColor.black.cgColor
+        cityTextField.textAlignment = .left
+        cityTextField.returnKeyType = .next
+        cityTextField.autocorrectionType = .no
         
         self.view.addSubview(cityTextField)
         
@@ -117,20 +117,20 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let unitTextField = UITextField()
         unitTextField.translatesAutoresizingMaskIntoConstraints = false;
         unitTextField.delegate = self
-        unitTextField.textColor = UIColor.whiteColor()
+        unitTextField.textColor = UIColor.white
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Apt/Unit", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         unitTextField.attributedPlaceholder = attrString
-        unitTextField.layer.borderColor = UIColor.blackColor().CGColor
-        unitTextField.textAlignment = .Left
-        unitTextField.returnKeyType = .Next
-        unitTextField.autocorrectionType = .No
+        unitTextField.layer.borderColor = UIColor.black.cgColor
+        unitTextField.textAlignment = .left
+        unitTextField.returnKeyType = .next
+        unitTextField.autocorrectionType = .no
         
         self.view.addSubview(unitTextField)
         
@@ -141,20 +141,20 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let stateTextField = UITextField()
         stateTextField.translatesAutoresizingMaskIntoConstraints = false;
         stateTextField.delegate = self
-        stateTextField.textColor = UIColor.whiteColor()
+        stateTextField.textColor = UIColor.white
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "State", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         stateTextField.attributedPlaceholder = attrString
-        stateTextField.layer.borderColor = UIColor.blackColor().CGColor
-        stateTextField.textAlignment = .Left
-        stateTextField.returnKeyType = .Next
-        stateTextField.autocorrectionType = .No
+        stateTextField.layer.borderColor = UIColor.black.cgColor
+        stateTextField.textAlignment = .left
+        stateTextField.returnKeyType = .next
+        stateTextField.autocorrectionType = .no
         
         
         self.view.addSubview(stateTextField)
@@ -166,21 +166,21 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let zipTextField = UITextField()
         zipTextField.translatesAutoresizingMaskIntoConstraints = false;
         zipTextField.delegate = self
-        zipTextField.textColor = UIColor.whiteColor()
-        zipTextField.autocorrectionType = .No
+        zipTextField.textColor = UIColor.white
+        zipTextField.autocorrectionType = .no
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Zip", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         zipTextField.attributedPlaceholder = attrString
-        zipTextField.layer.borderColor = UIColor.blackColor().CGColor
-        zipTextField.textAlignment = .Left
-        zipTextField.returnKeyType = .Next
-        zipTextField.keyboardType = .NumberPad
+        zipTextField.layer.borderColor = UIColor.black.cgColor
+        zipTextField.textAlignment = .left
+        zipTextField.returnKeyType = .next
+        zipTextField.keyboardType = .numberPad
         
         self.view.addSubview(zipTextField)
         
@@ -191,21 +191,21 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let phoneTextField = UITextField()
         phoneTextField.translatesAutoresizingMaskIntoConstraints = false;
         phoneTextField.delegate = self
-        phoneTextField.textColor = UIColor.whiteColor()
-        phoneTextField.autocorrectionType = .No
+        phoneTextField.textColor = UIColor.white
+        phoneTextField.autocorrectionType = .no
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: UIColor.gray,
             NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
         ]
         
         let attrString = NSMutableAttributedString(string: "Phone Number (optional)", attributes:attributes)
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         phoneTextField.attributedPlaceholder = attrString
-        phoneTextField.layer.borderColor = UIColor.blackColor().CGColor
-        phoneTextField.textAlignment = .Left
-        phoneTextField.returnKeyType = .Next
-        phoneTextField.keyboardType = .PhonePad
+        phoneTextField.layer.borderColor = UIColor.black.cgColor
+        phoneTextField.textAlignment = .left
+        phoneTextField.returnKeyType = .next
+        phoneTextField.keyboardType = .phonePad
         
         self.view.addSubview(phoneTextField)
         
@@ -223,34 +223,34 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     }
     
     internal lazy var doneButton: UIButton = {
-        let doneButton = UIButton(type: .RoundedRect)
+        let doneButton = UIButton(type: .roundedRect)
         doneButton.layer.cornerRadius = 0
-        doneButton.backgroundColor = UIColor.blackColor()
-        doneButton.tintColor = UIColor.whiteColor()
+        doneButton.backgroundColor = UIColor.black
+        doneButton.tintColor = UIColor.white
         doneButton.titleLabel!.font = UIFont(name: "Lato-Light", size: 14.0)
-        doneButton.titleLabel!.textColor = UIColor.whiteColor()
+        doneButton.titleLabel!.textColor = UIColor.white
         
         let attributedString = NSMutableAttributedString(string: "DONE")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "DONE".characters.count))
-        doneButton.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        doneButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(doneButton)
-        doneButton.addTarget(self, action: #selector(NewAddressViewController.donePressed), forControlEvents: .TouchUpInside)
+        doneButton.addTarget(self, action: #selector(NewAddressViewController.donePressed), for: .touchUpInside)
         return doneButton
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.clear
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupLayout()
     }
     
-    private lazy var backgroundImageView: UIImageView = {
+    fileprivate lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         self.view.addSubview(imageView)
         return imageView
@@ -260,7 +260,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         backgroundImageView.centerHorizontallyInSuperview()
         backgroundImageView.sizeToWidth(self.view.frame.size.width)
         backgroundImageView.sizeToHeight(self.view.frame.size.height)
-        backgroundImageView.contentMode = .ScaleAspectFill
+        backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.makeBlurImage(backgroundImageView)
         
         let widthWithPadding = self.view.frame.size.width - 50
@@ -323,17 +323,17 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(NewAddressViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewAddressViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewAddressViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewAddressViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewAddressViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         if keyboardUp {
-            if (nameTextField.isFirstResponder() || streetTextField.isFirstResponder()) {
+            if (nameTextField.isFirstResponder || streetTextField.isFirstResponder) {
                 return
             }
             if let info = notification.userInfo {
@@ -341,10 +341,10 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                 UIView.beginAnimations("keyboardGoinUP", context: nil)
                 UIView.setAnimationBeginsFromCurrentState(true)
                 UIView.setAnimationDuration(0.3)
-                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
+                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
                 
-                if (cityTextField.isFirstResponder() || phoneTextField.isFirstResponder()) {
-                    self.view.frame = CGRectOffset(self.view.frame, 0, -self.view.frame.size.height * 0.15)
+                if (cityTextField.isFirstResponder || phoneTextField.isFirstResponder) {
+                    self.view.frame = self.view.frame.offsetBy(dx: 0, dy: -self.view.frame.size.height * 0.15)
                 }
             }
             return
@@ -355,13 +355,13 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
                 UIView.beginAnimations("keyboardGoinUP", context: nil)
                 UIView.setAnimationBeginsFromCurrentState(true)
                 UIView.setAnimationDuration(0.3)
-                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
+                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
                 
-                if (stateTextField.isFirstResponder() || zipTextField.isFirstResponder()) {
-                    self.view.frame = CGRectOffset(self.view.frame, 0, -self.view.frame.size.height * 0.15)
+                if (stateTextField.isFirstResponder || zipTextField.isFirstResponder) {
+                    self.view.frame = self.view.frame.offsetBy(dx: 0, dy: -self.view.frame.size.height * 0.15)
                 }
-                else if (phoneTextField.isFirstResponder( )) {
-                    self.view.frame = CGRectOffset(self.view.frame, 0, -self.view.frame.size.height * 0.3)
+                else if (phoneTextField.isFirstResponder) {
+                    self.view.frame = self.view.frame.offsetBy(dx: 0, dy: -self.view.frame.size.height * 0.3)
                 }
                 keyboardUp = true
             } else {
@@ -370,7 +370,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardWillHide(_ notification: Notification) {
         if !keyboardUp {
             return
         }
@@ -379,8 +379,8 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
             UIView.beginAnimations("keyboardGoinDOWN", context: nil)
             UIView.setAnimationBeginsFromCurrentState(true)
             UIView.setAnimationDuration(0.3)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
-            self.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
             UIView.commitAnimations()
             
             keyboardUp = false
@@ -389,7 +389,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == nameTextField) {
             streetTextField.becomeFirstResponder()
         }
@@ -419,7 +419,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         let titleLabel = UILabel()
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Regular", size: 16)!,
-            NSForegroundColorAttributeName:UIColor.blackColor(),
+            NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
         
@@ -453,23 +453,23 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     
     func createAddressString() -> NSString {
         let address = NSMutableString(string: streetTextField.text!)
-        address.appendString(" ")
-        address.appendString(unitTextField.text!)
-        address.appendString(", ")
-        address.appendString(cityTextField.text!)
-        address.appendString(" ")
-        address.appendString(stateTextField.text!)
-        address.appendString(", ")
-        address.appendString(zipTextField.text!)
+        address.append(" ")
+        address.append(unitTextField.text!)
+        address.append(", ")
+        address.append(cityTextField.text!)
+        address.append(" ")
+        address.append(stateTextField.text!)
+        address.append(", ")
+        address.append(zipTextField.text!)
         return address
     }
     
     func backPressed() {
         if let nav = self.navigationController {
-            nav.popViewControllerAnimated(true)
+            nav.popViewController(animated: true)
         }
         else {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -497,7 +497,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func didAddAddressWithError(error: NSError!) {
+    func didAddAddressWithError(_ error: NSError!) {
         print("SUCCESS")
     }
 

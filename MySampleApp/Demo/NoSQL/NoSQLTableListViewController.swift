@@ -16,25 +16,25 @@ import UIKit
 
 class NoSQLTableListViewController: UITableViewController {
     
-    private var tables: [Table]?
+    fileprivate var tables: [Table]?
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         tables = NoSQLTableFactory.supportedTables
 
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         guard let tables = tables else {return 0}
         return tables.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NoSQLTableListCell", forIndexPath: indexPath) as! NoSQLTableListCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoSQLTableListCell", for: indexPath) as! NoSQLTableListCell
         let table = tables![indexPath.section]
         cell.tableNameLabel.text = table.tableDisplayName
         cell.partitionKeyLabel.text = "\(table.tableAttributeName!(table.partitionKeyName)) (\(table.partitionKeyType))"
@@ -46,14 +46,14 @@ class NoSQLTableListViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let showQueryResultSeque = "NoSQLShowTableDetailsSegue"
-        performSegueWithIdentifier(showQueryResultSeque, sender: tables![indexPath.section])
+        performSegue(withIdentifier: showQueryResultSeque, sender: tables![indexPath.section])
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationViewController = segue.destinationViewController as? NoSQLTableViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationViewController = segue.destination as? NoSQLTableViewController {
             destinationViewController.table = sender as? Table
         }
     }

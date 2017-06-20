@@ -14,6 +14,30 @@
 import Foundation
 import UIKit
 import AWSDynamoDB
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class NoSQLQueryResultViewController: UITableViewController {
     
@@ -37,7 +61,7 @@ class NoSQLQueryResultViewController: UITableViewController {
         title = queryType
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if results?.count > 0 {
             return results!.count
         } else {
@@ -45,7 +69,7 @@ class NoSQLQueryResultViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if results?.count > 0 {
             return (table?.orderedAttributeKeys.count)!
         } else {
@@ -53,7 +77,7 @@ class NoSQLQueryResultViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if results?.count > 0 {
             return "\(section+1)"
         } else {
@@ -61,21 +85,21 @@ class NoSQLQueryResultViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if results?.count > 0 {
             showEditOptionsForIndexPath(indexPath)
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if results?.count == 0 {
-            let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("NoSQLQueryNoResultCell", forIndexPath: indexPath)
+            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "NoSQLQueryNoResultCell", for: indexPath)
             return cell
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier("NoSQLQueryResultCell", forIndexPath: indexPath) as! NoSQLQueryResultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoSQLQueryResultCell", for: indexPath) as! NoSQLQueryResultCell
         let model = results?[indexPath.section]
-        let modelDictionary: [NSObject : AnyObject] = model!.dictionaryValue
+        let modelDictionary: [AnyHashable: Any] = model!.dictionaryValue
         let attributeKey = table?.tableAttributeName!(table!.orderedAttributeKeys[indexPath.row])
         cell.attributeNameLabel.text = attributeKey!
         cell.attributeValueLabel.text = "\(modelDictionary[(table?.orderedAttributeKeys[indexPath.row])!]!)"
@@ -90,16 +114,16 @@ class NoSQLQueryResultViewController: UITableViewController {
     
     func loadMoreResults() {
         loading = true
-        paginatedOutput?.loadNextPageWithCompletionHandler({(error: NSError?) -> Void in
+        paginatedOutput?.loadNextPage(completionHandler: {(error: NSError?) -> Void in
             if error != nil {
                 print("Failed to load more results: \(error)")
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.showAlertWithTitle("Error", message: "Failed to load more more results: \(error?.localizedDescription)")
                 })
             }
             else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.results!.appendContentsOf(self.paginatedOutput!.items)
+                DispatchQueue.main.async(execute: {
+                    self.results!.append(contentsOf: self.paginatedOutput!.items)
                     self.tableView.reloadData()
                     self.loading = false
                 })
@@ -107,38 +131,38 @@ class NoSQLQueryResultViewController: UITableViewController {
         })
     }
     
-    func showEditOptionsForIndexPath(indexPath: NSIndexPath) {
-        let alartController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        let updateAction: UIAlertAction = UIAlertAction(title: "Update", style: .Default, handler: {(action: UIAlertAction) -> Void in
+    func showEditOptionsForIndexPath(_ indexPath: IndexPath) {
+        let alartController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let updateAction: UIAlertAction = UIAlertAction(title: "Update", style: .default, handler: {(action: UIAlertAction) -> Void in
             self.showUpdateConfirmationForIndexPath(indexPath)
         })
-        let deleteAction: UIAlertAction = UIAlertAction(title: "Delete", style: .Destructive, handler: {(action: UIAlertAction) -> Void in
+        let deleteAction: UIAlertAction = UIAlertAction(title: "Delete", style: .destructive, handler: {(action: UIAlertAction) -> Void in
             self.showDeleteConfirmationForIndexPath(indexPath)
         })
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alartController.addAction(updateAction)
         alartController.addAction(deleteAction)
         alartController.addAction(cancelAction)
-        self.presentViewController(alartController, animated: true, completion: nil)
+        self.present(alartController, animated: true, completion: nil)
     }
     
-    func showUpdateConfirmationForIndexPath(indexPath: NSIndexPath) {
-        let alartController: UIAlertController = UIAlertController(title: nil, message: "Do you want to update your item?", preferredStyle: .ActionSheet)
-        let proceedAction: UIAlertAction = UIAlertAction(title: "Update", style: .Default, handler: {(action: UIAlertAction) -> Void in
+    func showUpdateConfirmationForIndexPath(_ indexPath: IndexPath) {
+        let alartController: UIAlertController = UIAlertController(title: nil, message: "Do you want to update your item?", preferredStyle: .actionSheet)
+        let proceedAction: UIAlertAction = UIAlertAction(title: "Update", style: .default, handler: {(action: UIAlertAction) -> Void in
             self.updateItemForIndexPath(indexPath)
         })
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alartController.addAction(proceedAction)
         alartController.addAction(cancelAction)
-        self.presentViewController(alartController, animated: true, completion: { _ in })
+        self.present(alartController, animated: true, completion: { _ in })
     }
     
-    func updateItemForIndexPath(indexPath: NSIndexPath) {
+    func updateItemForIndexPath(_ indexPath: IndexPath) {
         let item: AWSDynamoDBObjectModel = self.results![indexPath.section]
         
         let updateItemCompletionBlock: ([AWSDynamoDBObjectModel]) -> Void = { (items: [AWSDynamoDBObjectModel]) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+            DispatchQueue.main.async(execute: {
+                self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
                 self.results = items
                 self.tableView.reloadData()
             })
@@ -147,7 +171,7 @@ class NoSQLQueryResultViewController: UITableViewController {
         table?.updateItem?(item, completionHandler: {(error: NSError?) -> Void in
             if let error = error { // Handle error if any
                 var errorMessage = "Error Occurred: \(error.localizedDescription)"
-                if (error.domain == AWSServiceErrorDomain && error.code == AWSServiceErrorType.AccessDeniedException.rawValue) {
+                if (error.domain == AWSServiceErrorDomain && error.code == AWSServiceErrorType.accessDeniedException.rawValue) {
                     errorMessage = "Access denied. You are not allowed to update this item."
                 }
                 self.showAlertWithTitle("Error", message: errorMessage)
@@ -157,45 +181,45 @@ class NoSQLQueryResultViewController: UITableViewController {
             if (self.paginatedOutput == nil) {
                 updateItemCompletionBlock([item])
             } else { // Handle Query / Scan (Paginated operations)
-                self.paginatedOutput!.reloadWithCompletionHandler({(error: NSError?) -> Void in
+                self.paginatedOutput!.reload(completionHandler: {(error: NSError?) -> Void in
                     updateItemCompletionBlock(self.paginatedOutput!.items)
                 })
             }
         })
     }
     
-    func showDeleteConfirmationForIndexPath(indexPath: NSIndexPath) {
-        let alartController: UIAlertController = UIAlertController(title: nil, message: "Do you want to delete your item?", preferredStyle: .ActionSheet)
-        let proceedAction: UIAlertAction = UIAlertAction(title: "Proceed", style: .Destructive, handler: {(action: UIAlertAction) -> Void in
+    func showDeleteConfirmationForIndexPath(_ indexPath: IndexPath) {
+        let alartController: UIAlertController = UIAlertController(title: nil, message: "Do you want to delete your item?", preferredStyle: .actionSheet)
+        let proceedAction: UIAlertAction = UIAlertAction(title: "Proceed", style: .destructive, handler: {(action: UIAlertAction) -> Void in
             self.removeItemForIndexPath(indexPath)
         })
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alartController.addAction(proceedAction)
         alartController.addAction(cancelAction)
-        self.presentViewController(alartController, animated: true, completion: nil)
+        self.present(alartController, animated: true, completion: nil)
     }
     
-    func removeItemForIndexPath(indexPath: NSIndexPath) {
+    func removeItemForIndexPath(_ indexPath: IndexPath) {
         table?.removeItem?(self.results![indexPath.section], completionHandler: {(error: NSError?) -> Void in
             if let error = error { // Handle error if any
                 var errorMessage = "Error Occurred: \(error.localizedDescription)"
-                if (error.domain == AWSServiceErrorDomain && error.code == AWSServiceErrorType.AccessDeniedException.rawValue) {
+                if (error.domain == AWSServiceErrorDomain && error.code == AWSServiceErrorType.accessDeniedException.rawValue) {
                     errorMessage = "Access denied. You are not allowed to delete this item."
                 }
                 self.showAlertWithTitle("Error", message: errorMessage)
                 return
             }
             if (self.paginatedOutput == nil) {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+                DispatchQueue.main.async(execute: {
+                    self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
                     self.results = []
                     self.tableView.reloadData()
                 })
             }
             else {
-                self.paginatedOutput!.reloadWithCompletionHandler({(error: NSError?) -> Void in
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+                self.paginatedOutput!.reload(completionHandler: {(error: NSError?) -> Void in
+                    DispatchQueue.main.async(execute: {
+                        self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
                         self.results = self.paginatedOutput!.items
                         self.tableView.reloadData()
                     })
@@ -206,11 +230,11 @@ class NoSQLQueryResultViewController: UITableViewController {
     
     // MARK: - Utility Methods
     
-    func showAlertWithTitle(title: String, message: String) {
-        let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    func showAlertWithTitle(_ title: String, message: String) {
+        let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }

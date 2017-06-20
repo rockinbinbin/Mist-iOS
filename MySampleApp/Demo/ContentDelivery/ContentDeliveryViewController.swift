@@ -17,35 +17,35 @@ import AWSMobileHubHelper
 
 class ContentDeliveryViewController: UITableViewController {
     
-    private var prefix: String!
-    private var marker: String?
-    private var contents: [AWSContent]?
-    private var didLoadAllContents: Bool!
+    fileprivate var prefix: String!
+    fileprivate var marker: String?
+    fileprivate var contents: [AWSContent]?
+    fileprivate var didLoadAllContents: Bool!
     
-    private var manager: AWSContentManager!
-    private let dateFormatter: NSDateFormatter = NSDateFormatter()
+    fileprivate var manager: AWSContentManager!
+    fileprivate let dateFormatter: DateFormatter = DateFormatter()
     
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager = AWSContentManager.defaultContentManager()
+        manager = AWSContentManager.default()
         
         loadMoreContents()
     }
     
     // MARK: - Content Manager user action methods
     
-    private func loadMoreContents() {
+    fileprivate func loadMoreContents() {
         
-        manager.listAvailableContentsWithPrefix(nil, marker: nil, completionHandler: {[weak self](contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
+        manager.listAvailableContents(withPrefix: nil, marker: nil, completionHandler: {[weak self](contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
             guard let strongSelf = self else { return }
             if let error = error {
                 strongSelf.showSimpleAlertWithTitle("Error", message: "Failed to load the list of contents.", cancelButtonTitle: "OK")
                 print("Failed to load the list of contents. \(error)")
             }
-            if let contents = contents where contents.count > 0 {
+            if let contents = contents, contents.count > 0 {
                 strongSelf.contents = contents
                 
                 //print(contents)
@@ -57,48 +57,48 @@ class ContentDeliveryViewController: UITableViewController {
 //                }
 //                strongSelf.marker = nextMarker
             }
-            })
+            } as! ([AWSContent]?, String?, Error?) -> Void)
     }
     
-    private func showDiskLimitOptions() {
-        let alertController = UIAlertController(title: "Disk Cache Size", message: nil, preferredStyle: .ActionSheet)
+    fileprivate func showDiskLimitOptions() {
+        let alertController = UIAlertController(title: "Disk Cache Size", message: nil, preferredStyle: .actionSheet)
         for number: Int in [1, 5, 20, 50, 100] {
-            let byteLimitOptionAction = UIAlertAction(title: "\(number) MB", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+            let byteLimitOptionAction = UIAlertAction(title: "\(number) MB", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                 self.manager.maxCacheSize = UInt(number) * 1024 * 1024
                 })
             alertController.addAction(byteLimitOptionAction)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func downloadObjectsToFillCache() {
-        manager.listRecentContentsWithPrefix(prefix, completionHandler: {[weak self](result: AnyObject?, error: NSError?) -> Void in
+    fileprivate func downloadObjectsToFillCache() {
+        manager.listRecentContents(withPrefix: prefix, completionHandler: {[weak self](result: AnyObject?, error: NSError?) -> Void in
             guard let strongSelf = self else { return }
             if let downloadResult: [AWSContent] = result as? [AWSContent] {
                 for content: AWSContent in downloadResult {
-                    if !content.cached && !content.directory {
+                    if !content.isCached && !content.isDirectory {
                         strongSelf.downloadContent(content, pinOnCompletion: false)
                     }
                 }
             }
-            })
+            } as! (Any?, Error?) -> Void)
     }
     
     // MARK: - Content user action methods
     
-    private func showActionOptionsForContent(rect: CGRect, content: AWSContent) {
+    fileprivate func showActionOptionsForContent(_ rect: CGRect, content: AWSContent) {
         
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if alertController.popoverPresentationController != nil {
             alertController.popoverPresentationController?.sourceView = self.view
-            alertController.popoverPresentationController?.sourceRect = CGRectMake(rect.midX, rect.midY, 1.0, 1.0)
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: rect.midX, y: rect.midY, width: 1.0, height: 1.0)
         }
 
-        if content.cached {
-            let openAction = UIAlertAction(title: "Open", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
-                dispatch_async(dispatch_get_main_queue()) {
+        if content.isCached {
+            let openAction = UIAlertAction(title: "Open", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
+                DispatchQueue.main.async {
                     self.openContent(content)
                 }
                 })
@@ -106,7 +106,7 @@ class ContentDeliveryViewController: UITableViewController {
         }
         
         // Allow opening of remote files natively or in browser based on their type.
-        let openRemoteAction = UIAlertAction(title: "Open Remote", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let openRemoteAction = UIAlertAction(title: "Open Remote", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.openRemoteContent(content)
             })
         alertController.addAction(openRemoteAction)
@@ -117,90 +117,90 @@ class ContentDeliveryViewController: UITableViewController {
         if content.knownRemoteByteCount + 4 * 1024 < manager.maxCacheSize {
             // 4 KB is for local metadata.
             var title: String = "Download"
-            if content.knownRemoteLastModifiedDate.compare(content.downloadedDate) == .OrderedDescending {
+            if content.knownRemoteLastModifiedDate.compare(content.downloadedDate) == .orderedDescending {
                 title = "Download Latest Version"
             }
             
-            let downloadAction = UIAlertAction(title: title, style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+            let downloadAction = UIAlertAction(title: title, style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                 self.downloadContent(content, pinOnCompletion: false)
                 })
             alertController.addAction(downloadAction)
         }
         
-        let downloadAndPinAction = UIAlertAction(title: "Download & Pin", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        let downloadAndPinAction = UIAlertAction(title: "Download & Pin", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
             self.downloadContent(content, pinOnCompletion: true)
             })
         alertController.addAction(downloadAndPinAction)
         
-        if content.cached {
-            if content.pinned {
-                let unpinAction = UIAlertAction(title: "Unpin", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+        if content.isCached {
+            if content.isPinned {
+                let unpinAction = UIAlertAction(title: "Unpin", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                     content.unPin()
                     })
                 alertController.addAction(unpinAction)
             } else {
-                let pinAction = UIAlertAction(title: "Pin", style: .Default, handler: {[unowned self](action: UIAlertAction) -> Void in
+                let pinAction = UIAlertAction(title: "Pin", style: .default, handler: {[unowned self](action: UIAlertAction) -> Void in
                     content.pin()
                     })
                 alertController.addAction(pinAction)
             }
-            let removeAction = UIAlertAction(title: "Delete Local Copy", style: .Destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
+            let removeAction = UIAlertAction(title: "Delete Local Copy", style: .destructive, handler: {[unowned self](action: UIAlertAction) -> Void in
                 content.removeLocal()
                 })
             alertController.addAction(removeAction)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    private func downloadContent(content: AWSContent, pinOnCompletion: Bool) {
-        content.downloadWithDownloadType( .IfNewerExists, pinOnCompletion: pinOnCompletion, progressBlock: {[weak self](content: AWSContent?, progress: NSProgress?) -> Void in
+    fileprivate func downloadContent(_ content: AWSContent, pinOnCompletion: Bool) {
+        content.download( with: .ifNewerExists, pinOnCompletion: pinOnCompletion, progressBlock: {[weak self](content: AWSContent?, progress: Progress?) -> Void in
             guard let strongSelf = self else { return }
-            if strongSelf.contents!.contains( {$0 == content}) {
-                let row = strongSelf.contents!.indexOf({$0 == content})!
-                let indexPath = NSIndexPath(forRow: row, inSection: 0)
-                strongSelf.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            if strongSelf.contents!.contains( where: {$0 == content}) {
+                let row = strongSelf.contents!.index(where: {$0 == content})!
+                let indexPath = IndexPath(row: row, section: 0)
+                strongSelf.tableView.reloadRows(at: [indexPath], with: .none)
             }
-            }, completionHandler: {[weak self](content: AWSContent?, data: NSData?, error: NSError?) -> Void in
+            }, completionHandler: {[weak self](content: AWSContent?, data: Data?, error: NSError?) -> Void in
                 guard let strongSelf = self else { return }
                 if let downloadError: NSError = error {
                     print("Failed to download a content from a server.\(downloadError)")
                     strongSelf.showSimpleAlertWithTitle("Error", message: "Failed to download a content from a server.", cancelButtonTitle: "OK")
                 }
-            })
+            } as! (AWSContent?, Data?, Error?) -> Void)
     }
     
-    private func openContent(content: AWSContent) {
+    fileprivate func openContent(_ content: AWSContent) {
         
     }
     
-    private func openRemoteContent(content: AWSContent) {
-        content.getRemoteFileURLWithCompletionHandler({ (url: NSURL?, error: NSError?) -> Void in
+    fileprivate func openRemoteContent(_ content: AWSContent) {
+        content.getRemoteFileURL(completionHandler: { (url: URL?, error: NSError?) -> Void in
             guard let url = url else {
                 print("Error getting URL for file. \(error)")
                 return
             }
             print(url)
-        })
+        } as! (URL?, Error?) -> Void)
     }
 }
 
 // MARK: - Utility
 
 extension ContentDeliveryViewController {
-    private func showSimpleAlertWithTitle(title: String, message: String, cancelButtonTitle cancelTitle: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: cancelTitle, style: .Cancel, handler: nil)
+    fileprivate func showSimpleAlertWithTitle(_ title: String, message: String, cancelButtonTitle cancelTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
 extension AWSContent {
-    private func isAudioVideo() -> Bool {
-        let lowerCaseKey = self.key.lowercaseString
+    fileprivate func isAudioVideo() -> Bool {
+        let lowerCaseKey = self.key.lowercased()
         return lowerCaseKey.hasSuffix(".mov")
             || lowerCaseKey.hasSuffix(".mp4")
             || lowerCaseKey.hasSuffix(".mpv")
@@ -210,8 +210,8 @@ extension AWSContent {
             || lowerCaseKey.hasSuffix(".mp3")
     }
     
-    private func isImage() -> Bool {
-        let lowerCaseKey = self.key.lowercaseString
+    fileprivate func isImage() -> Bool {
+        let lowerCaseKey = self.key.lowercased()
         return lowerCaseKey.hasSuffix(".jpg")
             || lowerCaseKey.hasSuffix(".png")
             || lowerCaseKey.hasSuffix(".jpeg")
@@ -219,7 +219,7 @@ extension AWSContent {
 }
 
 extension UInt {
-    private func aws_stringFromByteCount() -> String {
+    fileprivate func aws_stringFromByteCount() -> String {
         if self < 1024 {
             return "\(self) B"
         }
@@ -234,8 +234,8 @@ extension UInt {
 }
 
 extension String {
-    private func getLastPathComponent() -> String {
-        let nsstringValue: NSString = self
+    fileprivate func getLastPathComponent() -> String {
+        let nsstringValue: NSString = self as NSString
         return nsstringValue.lastPathComponent
     }
 }

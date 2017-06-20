@@ -33,7 +33,7 @@ class PurchaseManager {
         }
     }
     
-    func recordPurchase(purchase: String) {
+    func recordPurchase(_ purchase: String) {
         print(purchase)
     }
 }

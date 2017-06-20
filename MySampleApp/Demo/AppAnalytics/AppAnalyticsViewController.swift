@@ -18,56 +18,56 @@ class AppAnalyticsViewController: UIViewController {
     
     // MARK:- IBActions
     
-    @IBAction func clickedCustomEvent(sender: AnyObject) {
+    @IBAction func clickedCustomEvent(_ sender: AnyObject) {
         let eventClient = AWSMobileClient.sharedInstance.mobileAnalytics.eventClient
-        let event = eventClient.createEventWithEventType("DemoCustomEvent")
-        event.addAttribute("DemoAttributeValue1", forKey: "DemoAttribute1")
-        event.addAttribute("DemoAttributeValue2", forKey: "DemoAttribute2")
-        event.addMetric(Int((arc4random() % 65535)), forKey: "DemoMetric")
-        eventClient.recordEvent(event)
+        let event = eventClient?.createEvent(withEventType: "DemoCustomEvent")
+        event?.addAttribute("DemoAttributeValue1", forKey: "DemoAttribute1")
+        event?.addAttribute("DemoAttributeValue2", forKey: "DemoAttribute2")
+        event?.addMetric(Int((arc4random() % 65535)) as NSNumber, forKey: "DemoMetric")
+        eventClient?.record(event)
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-            eventClient.submitEvents()
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: {
+            eventClient?.submitEvents()
         })
         
         let alertView = UIAlertController(title: NSLocalizedString("Event Submitted",
             comment: "Title bar for alert dialog about an event."),
-            message: event.prettyPrint(),
-            preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Button on alert dialog."), style: .Default, handler: nil)
+            message: event?.prettyPrint(),
+            preferredStyle: UIAlertControllerStyle.alert)
+        let alertAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Button on alert dialog."), style: .default, handler: nil)
         alertView.addAction(alertAction)
-        presentViewController(alertView, animated: true, completion: nil)
+        present(alertView, animated: true, completion: nil)
     }
     
-    @IBAction func clickedMonetizationEvent(sender: AnyObject) {
+    @IBAction func clickedMonetizationEvent(_ sender: AnyObject) {
         
         let eventClient = AWSMobileClient.sharedInstance.mobileAnalytics.eventClient
         let eventBuilder = AWSMobileAnalyticsAppleMonetizationEventBuilder(eventClient: eventClient)
-        eventBuilder.withProductId("DEMO_PRODUCT_ID")
-        eventBuilder.withItemPrice(1.00, andPriceLocale: NSLocale(localeIdentifier: "en_US"))
-        eventBuilder.withQuantity(1)
-        eventBuilder.withTransactionId("DEMO_TRANSACTION_ID")
-        let event = eventBuilder.build()
-        eventClient.recordEvent(event)
+        eventBuilder?.withProductId("DEMO_PRODUCT_ID")
+        eventBuilder?.withItemPrice(1.00, andPriceLocale: Locale(identifier: "en_US"))
+        eventBuilder?.withQuantity(1)
+        eventBuilder?.withTransactionId("DEMO_TRANSACTION_ID")
+        let event = eventBuilder?.build()
+        eventClient?.record(event)
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-            eventClient.submitEvents()
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: {
+            eventClient?.submitEvents()
         })
         
         let alertView = UIAlertController(title: NSLocalizedString("Event Submitted",
             comment: "Title bar for alert dialog about an event."),
-            message: event.prettyPrint(),
-            preferredStyle: UIAlertControllerStyle.Alert)
-        let alertAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Button on alert dialog."), style: .Default, handler: nil)
+            message: event?.prettyPrint(),
+            preferredStyle: UIAlertControllerStyle.alert)
+        let alertAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Button on alert dialog."), style: .default, handler: nil)
         alertView.addAction(alertAction)
-        presentViewController(alertView, animated: true, completion: nil)
+        present(alertView, animated: true, completion: nil)
     }
 }
 
 // MARK:- Utility Methods
 
 extension AWSMobileAnalyticsEvent {
-    private func prettyPrint() -> String {
+    fileprivate func prettyPrint() -> String {
         return "EVENT TYPE : \(self.eventType)\nATTRIBUTES : \(self.allAttributes())\nMETRICS : \(self.allMetrics())"
     }
 }

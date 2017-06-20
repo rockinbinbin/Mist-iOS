@@ -19,28 +19,28 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - UI Components
     
-    private lazy var scrollView: UIScrollView = {
+    fileprivate lazy var scrollView: UIScrollView = {
         let scrollView: UIScrollView = UIScrollView(frame: self.view.frame)
         scrollView.bounces = false
         return scrollView
     }()
     
-    private lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.scrollEnabled = false
-        tableView.hidden = false
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.isScrollEnabled = false
+        tableView.isHidden = false
+        tableView.backgroundColor = UIColor.white
         self.scrollView.addSubview(tableView)
         return tableView
     }()
     
     internal lazy var purchaseHistoryLabel: UILabel = {
         let purchaseHistoryLabel = UILabel()
-        purchaseHistoryLabel.textColor = UIColor.grayColor()
-        purchaseHistoryLabel.textAlignment = .Center
-        purchaseHistoryLabel.lineBreakMode = .ByWordWrapping
+        purchaseHistoryLabel.textColor = UIColor.gray
+        purchaseHistoryLabel.textAlignment = .center
+        purchaseHistoryLabel.lineBreakMode = .byWordWrapping
         purchaseHistoryLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "PURCHASE HISTORY")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
@@ -52,9 +52,9 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         return purchaseHistoryLabel
     }()
     
-    private lazy var purchasesScrollView: UIScrollView = {
-        let purchasesScrollView: UIScrollView = UIScrollView(frame: CGRectMake(0, 0, self.view.frame.size.width, 100))
-        purchasesScrollView.pagingEnabled = true
+    fileprivate lazy var purchasesScrollView: UIScrollView = {
+        let purchasesScrollView: UIScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 100))
+        purchasesScrollView.isPagingEnabled = true
         purchasesScrollView.alwaysBounceVertical = false
         purchasesScrollView.showsHorizontalScrollIndicator = false
         
@@ -62,48 +62,48 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         return purchasesScrollView
     }()
     
-    private lazy var headerView: UIView = {
+    fileprivate lazy var headerView: UIView = {
         let headerView = UIView()
         self.scrollView.addSubview(headerView)
         return headerView
     }()
     
     internal lazy var signInButton: UIButton = {
-        let signInButton = UIButton(type: .RoundedRect)
-        signInButton.tintColor = UIColor.whiteColor()
+        let signInButton = UIButton(type: .roundedRect)
+        signInButton.tintColor = UIColor.white
         
         let attrString = NSMutableAttributedString(string: "SIGN IN")
         attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(0, attrString.length))
         
-        signInButton.setAttributedTitle(attrString, forState: .Normal)
+        signInButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(signInButton)
         
-        signInButton.addTarget(self, action: #selector(AccountViewController.signInPressed), forControlEvents: .TouchUpInside)
+        signInButton.addTarget(self, action: #selector(AccountViewController.signInPressed), for: .touchUpInside)
         return signInButton
     }()
     
     internal lazy var signUpButton: UIButton = {
-        let signUpButton = UIButton(type: .RoundedRect)
-        signUpButton.tintColor = UIColor.whiteColor()
+        let signUpButton = UIButton(type: .roundedRect)
+        signUpButton.tintColor = UIColor.white
         
         let attrString = NSMutableAttributedString(string: "SIGN UP")
         attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(0, attrString.length))
         
-        signUpButton.setAttributedTitle(attrString, forState: .Normal)
+        signUpButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(signUpButton)
         
-        signUpButton.addTarget(self, action: #selector(AccountViewController.signUpPressed), forControlEvents: .TouchUpInside)
+        signUpButton.addTarget(self, action: #selector(AccountViewController.signUpPressed), for: .touchUpInside)
         return signUpButton
     }()
     
-    private lazy var favoritesView: UIView = {
+    fileprivate lazy var favoritesView: UIView = {
         let favoritesView = UIView()
         
         let favoritesLabel = UILabel()
         favoritesLabel.font = UIFont(name: "Lato-Light", size: 22.0)
-        favoritesLabel.textColor = UIColor.blackColor()
+        favoritesLabel.textColor = UIColor.black
         let attributedString = NSMutableAttributedString(string: "FAVORITES")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "FAVORITES".characters.count))
         favoritesLabel.attributedText = attributedString
@@ -116,21 +116,21 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         return favoritesView
     }()
     
-    private lazy var newView: UIView = {
+    fileprivate lazy var newView: UIView = {
         let newview = UIView()
         let gradientLayer = CAGradientLayer()
         
-        let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).CGColor as CGColorRef
-        let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).CGColor as CGColorRef
-        let color3 = UIColor(red:0.95, green:0.57, blue:0.46, alpha:1.0).CGColor as CGColorRef
-        let color4 = UIColor(red:1.0, green:0.66, blue:0.47, alpha:1.0).CGColor as CGColorRef
-        let color5 = UIColor(red:1.0, green:0.81, blue:0.53, alpha:1.0).CGColor as CGColorRef
+        let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).cgColor as CGColor
+        let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).cgColor as CGColor
+        let color3 = UIColor(red:0.95, green:0.57, blue:0.46, alpha:1.0).cgColor as CGColor
+        let color4 = UIColor(red:1.0, green:0.66, blue:0.47, alpha:1.0).cgColor as CGColor
+        let color5 = UIColor(red:1.0, green:0.81, blue:0.53, alpha:1.0).cgColor as CGColor
         gradientLayer.colors = [color1, color2, color3, color4, color5]
         gradientLayer.locations = [0.0, 0.5, 0.65, 0.75, 1.0]
         gradientLayer.type = kCAGradientLayerAxial
-        gradientLayer.startPoint = CGPointMake(0, 0)
-        gradientLayer.endPoint = CGPointMake(1.0, 1)
-        gradientLayer.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         newview.layer.addSublayer(gradientLayer)
         
         self.view.addSubview(newview)
@@ -138,26 +138,26 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }()
     
     internal lazy var logOffButton: UIButton = {
-        let logOffButton = UIButton(type: .RoundedRect)
+        let logOffButton = UIButton(type: .roundedRect)
         logOffButton.layer.cornerRadius = 0
-        logOffButton.tintColor = UIColor.blackColor()
+        logOffButton.tintColor = UIColor.black
         logOffButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 20)
-        logOffButton.setTitle("LOG OFF", forState: .Normal)
+        logOffButton.setTitle("LOG OFF", for: UIControlState())
         self.scrollView.addSubview(logOffButton)
         
-        logOffButton.addTarget(self, action: #selector(AccountViewController.logOffPressed), forControlEvents: .TouchUpInside)
+        logOffButton.addTarget(self, action: #selector(AccountViewController.logOffPressed), for: .touchUpInside)
         return logOffButton
     }()
     
     internal lazy var learnMoreButton: UIButton = {
-        let learnMoreButton = UIButton(type: .RoundedRect)
+        let learnMoreButton = UIButton(type: .roundedRect)
         learnMoreButton.layer.cornerRadius = 0
-        learnMoreButton.tintColor = UIColor.blackColor()
+        learnMoreButton.tintColor = UIColor.black
         learnMoreButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 20)
-        learnMoreButton.setTitle("LEARN MORE", forState: .Normal)
+        learnMoreButton.setTitle("LEARN MORE", for: UIControlState())
         self.scrollView.addSubview(learnMoreButton)
         
-        learnMoreButton.addTarget(self, action: #selector(AccountViewController.learnMorePressed), forControlEvents: .TouchUpInside)
+        learnMoreButton.addTarget(self, action: #selector(AccountViewController.learnMorePressed), for: .touchUpInside)
         return learnMoreButton
     }()
     
@@ -165,7 +165,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.view.addSubview(scrollView)
         setNavBar()
     }
@@ -179,7 +179,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 16)!,
-            NSForegroundColorAttributeName:UIColor.blackColor(),
+            NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
         
@@ -194,10 +194,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationItem.leftBarButtonItem = doneButton
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
+        if (FBSDKAccessToken.current() != nil) {
             // logged in
             self.layoutViews()
         }
@@ -219,13 +219,13 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         signUpButton.centerVerticallyInSuperview(offset: 20)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        scrollView.contentSize = CGSizeMake(self.view.frame.width, 1000)
+        scrollView.contentSize = CGSize(width: self.view.frame.width, height: 1000)
     }
     
     override func viewDidLayoutSubviews() {
-        scrollView.contentSize = CGSizeMake(self.view.frame.width, 1000)
+        scrollView.contentSize = CGSize(width: self.view.frame.width, height: 1000)
     }
     
     // MARK: - Layout
@@ -240,19 +240,19 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         headerView.sizeToHeight(headerViewHeight)
         headerView.sizeToWidth(self.view.frame.width)
         
-        headerView.backgroundColor = UIColor.greenColor()
-        let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).CGColor as CGColorRef
-        let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).CGColor as CGColorRef
-        let color3 = UIColor(red:0.95, green:0.57, blue:0.46, alpha:1.0).CGColor as CGColorRef
-        let color4 = UIColor(red:1.0, green:0.66, blue:0.47, alpha:1.0).CGColor as CGColorRef
-        let color5 = UIColor(red:1.0, green:0.81, blue:0.53, alpha:1.0).CGColor as CGColorRef
+        headerView.backgroundColor = UIColor.green
+        let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).cgColor as CGColor
+        let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).cgColor as CGColor
+        let color3 = UIColor(red:0.95, green:0.57, blue:0.46, alpha:1.0).cgColor as CGColor
+        let color4 = UIColor(red:1.0, green:0.66, blue:0.47, alpha:1.0).cgColor as CGColor
+        let color5 = UIColor(red:1.0, green:0.81, blue:0.53, alpha:1.0).cgColor as CGColor
         gradientLayer.colors = [color1, color2, color3, color4, color5]
         gradientLayer.locations = [0.0, 0.5, 0.65, 0.75, 1.0]
         gradientLayer.type = kCAGradientLayerAxial
-        gradientLayer.startPoint = CGPointMake(0, 0)
-        gradientLayer.endPoint = CGPointMake(1.0, 1)
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1)
         headerView.layer.addSublayer(gradientLayer)
-        gradientLayer.frame = CGRectMake(0, 0, self.view.frame.width, headerViewHeight)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: headerViewHeight)
         
         let contactImg = UIImageView()
         contactImg.image = UIImage(named: "contactImage")
@@ -263,7 +263,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let accountLabel = UILabel()
         accountLabel.font = UIFont(name: "Lato-Bold", size: 16.0)
-        accountLabel.textColor = UIColor.whiteColor()
+        accountLabel.textColor = UIColor.white
 //        let emailStr = PFUser.currentUser()?.objectForKey("email") as! String
         let emailStr = "robinmehta94@gmail.com"
         let attributedString = NSMutableAttributedString(string: emailStr)
@@ -303,13 +303,13 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         learnMoreButton.centerHorizontallyInSuperview()
     }
     
-    internal func decorateImage(imageView: UIImageView?, gifView: FLAnimatedImageView?) {
+    internal func decorateImage(_ imageView: UIImageView?, gifView: FLAnimatedImageView?) {
         
         let decorateLabel: UILabel = {
             let decorateLabel = UILabel()
-            decorateLabel.textColor = UIColor.whiteColor()
-            decorateLabel.textAlignment = .Center
-            decorateLabel.lineBreakMode = .ByWordWrapping
+            decorateLabel.textColor = UIColor.white
+            decorateLabel.textAlignment = .center
+            decorateLabel.lineBreakMode = .byWordWrapping
             decorateLabel.numberOfLines = 0
             let attrString = NSMutableAttributedString(string: "Alpaca Sweater")
             attrString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString.length))
@@ -323,7 +323,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let bottomView: UIView = {
             let bottomView = UIView()
-            bottomView.backgroundColor = UIColor.blackColor()
+            bottomView.backgroundColor = UIColor.black
             bottomView.layer.cornerRadius = 3
             return bottomView
         }()
@@ -340,18 +340,18 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             decorateLabel.centerVerticallyInSuperview()
             
             imageView?.layer.borderWidth = 0.5
-            imageView?.layer.borderColor = UIColor.lightGrayColor().CGColor
+            imageView?.layer.borderColor = UIColor.lightGray.cgColor
         }
     }
     
-    internal func setImages(images: NSArray) {
+    internal func setImages(_ images: NSArray) {
         var productImageView : UIImageView
         var productGifView : FLAnimatedImageView
         
         let numImages = CGFloat(images.count)
         
         // + 20 is for padding on left side
-        purchasesScrollView.contentSize = CGSizeMake(210 * numImages + 20, 200)
+        purchasesScrollView.contentSize = CGSize(width: 210 * numImages + 20, height: 200)
         
         var count = 0
         
@@ -361,8 +361,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                 productImageView = UIImageView(image: img)
                 let floatCount = CGFloat(count)
                 // + 20 is for padding on left side
-                productImageView.frame = CGRectMake(floatCount * 210 + 20, 0, 200, 200)
-                productImageView.contentMode = .ScaleAspectFit
+                productImageView.frame = CGRect(x: floatCount * 210 + 20, y: 0, width: 200, height: 200)
+                productImageView.contentMode = .scaleAspectFit
                 productImageView.layer.cornerRadius = 3
                 purchasesScrollView.addSubview(productImageView)
                 decorateImage(productImageView, gifView: nil)
@@ -374,8 +374,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                     productGifView.animatedImage = gif
                     let floatCount = CGFloat(count)
                     // + 20 is for padding on left side
-                    productGifView.frame = CGRectMake(floatCount * 210 + 20, 0, 200, 200)
-                    productGifView.contentMode = .ScaleAspectFit
+                    productGifView.frame = CGRect(x: floatCount * 210 + 20, y: 0, width: 200, height: 200)
+                    productGifView.contentMode = .scaleAspectFit
                     productGifView.layer.cornerRadius = 3
                     purchasesScrollView.addSubview(productGifView)
                     decorateImage(nil, gifView: productGifView)
@@ -385,39 +385,39 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func didLoadAddresses(objects: [AnyObject]!) {
+    func didLoadAddresses(_ objects: [AnyObject]!) {
         if let objects = objects {
-            userAddresses = objects
+            userAddresses = objects as NSArray
         }
     }
     
     // MARK: - Tableview Datasource
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellId = "productCell"
-        var cell: AccountSettingsCell? = tableView.dequeueReusableCellWithIdentifier(cellId) as? AccountSettingsCell
+        var cell: AccountSettingsCell? = tableView.dequeueReusableCell(withIdentifier: cellId) as? AccountSettingsCell
         
         //cell?.layoutSubviews()
         
         if cell == nil {
             cell = AccountSettingsCell()
-            cell?.selectionStyle = .None
+            cell?.selectionStyle = .none
         }
         
         if (indexPath.row == 0) {
@@ -473,10 +473,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell!
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Shipping address
         if (indexPath.row == 1) {
-            AnalyticsManager.sharedInstance.recordEvent(Event.Account.ShippingAddressPressed)
+            AnalyticsManager.sharedInstance.recordEvent(Event.Account.shippingAddressPressed)
             
             let shipVC = ShippingViewController()
             shipVC.userAddresses = userAddresses
@@ -487,49 +487,49 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func tableView(_tableView: UITableView,
-                   willDisplayCell cell: UITableViewCell,
-                                   forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ _tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                                   forRowAt indexPath: IndexPath) {
         
-        if cell.respondsToSelector(Selector("setSeparatorInset:")) {
-            cell.separatorInset = UIEdgeInsetsZero
+        if cell.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
+            cell.separatorInset = UIEdgeInsets.zero
         }
-        if cell.respondsToSelector(Selector("setLayoutMargins:")) {
-            cell.layoutMargins = UIEdgeInsetsZero
+        if cell.responds(to: #selector(setter: UIView.layoutMargins)) {
+            cell.layoutMargins = UIEdgeInsets.zero
         }
-        if cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:")) {
+        if cell.responds(to: #selector(setter: UIView.preservesSuperviewLayoutMargins)) {
             cell.preservesSuperviewLayoutMargins = false
         }
     }
     
     internal func closePressed() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Status bar hiding
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .Slide
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+        return .slide
     }
     
     func signInPressed() {
-        AnalyticsManager.sharedInstance.recordEvent(Event.Account.SignInPressed)
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.signInPressed)
         self.navigationController?.pushViewController(SignInViewController(), animated: true)
     }
     
     func signUpPressed() {
-        AnalyticsManager.sharedInstance.recordEvent(Event.Account.SignUpPressed)
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.signUpPressed)
         self.navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
     
     func logOffPressed() {
-        AnalyticsManager.sharedInstance.recordEvent(Event.Account.LogOutPressed)
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            FBSDKAccessToken.setCurrentAccessToken(nil)
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.logOutPressed)
+        if (FBSDKAccessToken.current() != nil) {
+            FBSDKAccessToken.setCurrent(nil)
             
             self.layoutNotLoggedInView()
         }
@@ -543,11 +543,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func sendEmailButtonTapped() {
-        AnalyticsManager.sharedInstance.recordEvent(Event.Account.ContactUsPressed)
+        AnalyticsManager.sharedInstance.recordEvent(Event.Account.contactUsPressed)
         
         let mailComposeViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
-            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            self.present(mailComposeViewController, animated: true, completion: nil)
         } else {
             self.showSendMailErrorAlert()
         }
@@ -570,8 +570,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // MARK: MFMailComposeViewControllerDelegate Method
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     

@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class ProductBarButtonItem: UIBarButtonItem {
+open class ProductBarButtonItem: UIBarButtonItem {
     
     /**
      * Initializes the bar button item.
@@ -12,10 +12,10 @@ public class ProductBarButtonItem: UIBarButtonItem {
      * - Parameter actionTarget: Target of the button
      * - Parameter actionSelector: Selector of the button
      */
-    init(title: String, actionTarget: AnyObject?, actionSelector: Selector?, buttonColor: UIColor? = UIColor.blackColor()) {
+    init(title: String, actionTarget: AnyObject?, actionSelector: Selector?, buttonColor: UIColor? = UIColor.black) {
         super.init()
         
-        let buttonString = title.uppercaseString
+        let buttonString = title.uppercased()
         let attributedBarButtonBackStr = NSMutableAttributedString(string: buttonString as String)
         
         attributedBarButtonBackStr.addAttribute(NSFontAttributeName,
@@ -31,9 +31,9 @@ public class ProductBarButtonItem: UIBarButtonItem {
                                                 range: NSRange(location:0, length: title.characters.count))
         
         let button = UIButton()
-        button.setAttributedTitle(attributedBarButtonBackStr, forState: .Normal)
+        button.setAttributedTitle(attributedBarButtonBackStr, for: UIControlState())
         button.sizeToFit()
-        button.addTarget(actionTarget, action: actionSelector ?? nil, forControlEvents: .TouchUpInside)
+        button.addTarget(actionTarget, action: (actionSelector ?? nil)!, for: .touchUpInside)
         
         self.customView = button
     }

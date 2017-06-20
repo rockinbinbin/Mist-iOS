@@ -13,8 +13,8 @@ import UIKit
  */
 class MMViewController: UIViewController {
     override func viewDidLoad() {
-        navigationController?.navigationBar.backgroundColor = .whiteColor()
-        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.isTranslucent = false
     }
     
     var mistLogoInTitle: Bool = false {
@@ -27,11 +27,11 @@ class MMViewController: UIViewController {
     
     // MARK: - Navigation Bar Buttons
     
-    func setLeftButton(title: String, target: AnyObject?, selector: Selector?) {
+    func setLeftButton(_ title: String, target: AnyObject?, selector: Selector?) {
         navigationItem.leftBarButtonItem = ProductBarButtonItem(title: title, actionTarget: target, actionSelector: selector)
     }
     
-    func setRightButton(title: String, target: AnyObject?, selector: Selector?) {
+    func setRightButton(_ title: String, target: AnyObject?, selector: Selector?) {
         navigationItem.rightBarButtonItem = ProductBarButtonItem(title: title, actionTarget: target, actionSelector: selector)
     }
     
@@ -47,10 +47,10 @@ class MMViewController: UIViewController {
          - Parameter actionTarget: Target of the button
          - Parameter actionSelector: Selector of the button
          */
-        init(title: String, actionTarget: AnyObject?, actionSelector: Selector?, buttonColor: UIColor? = UIColor.blackColor()) {
+        init(title: String, actionTarget: AnyObject?, actionSelector: Selector?, buttonColor: UIColor? = UIColor.black) {
             super.init()
             
-            let buttonString = title.uppercaseString
+            let buttonString = title.uppercased()
             let attributedBarButtonBackStr = NSMutableAttributedString(string: buttonString as String)
             
             attributedBarButtonBackStr.addAttribute(NSFontAttributeName,
@@ -66,9 +66,9 @@ class MMViewController: UIViewController {
                                                     range: NSRange(location:0, length: title.characters.count))
             
             let button = UIButton()
-            button.setAttributedTitle(attributedBarButtonBackStr, forState: .Normal)
+            button.setAttributedTitle(attributedBarButtonBackStr, for: UIControlState())
             button.sizeToFit()
-            button.addTarget(actionTarget, action: actionSelector ?? nil, forControlEvents: .TouchUpInside)
+            button.addTarget(actionTarget, action: (actionSelector ?? nil)!, for: .touchUpInside)
             
             self.customView = button
         }

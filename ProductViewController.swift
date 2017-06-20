@@ -16,16 +16,16 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
-        view.backgroundColor = .blackColor()
+        view.backgroundColor = .black
         setViewConstraints()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         animateInComponents()
     }
     
     override func viewDidLayoutSubviews() {
-        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, viewBrandButton.frame.maxY + bottomBar.frame.height + 10)
+        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: viewBrandButton.frame.maxY + bottomBar.frame.height + 10)
     }
     
     // MARK: - Animation
@@ -37,11 +37,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             component.layer.opacity = 0
         }
         
-        UIView.animateWithDuration(0.25) {
+        UIView.animate(withDuration: 0.25, animations: {
             for component in components {
                 component.layer.opacity = 1
             }
-        }
+        }) 
     }
     
     // MARK: - Model
@@ -52,7 +52,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                 return
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.setPriceText("$\(Int(Double(self.product!.price)!))")
                 self.setTitleText(self.product!.name)
                 self.setCompanyText(self.product!.brand)
@@ -76,10 +76,10 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             
             for string in array {
                 
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                    let url = NSURL(string: string)
-                    let data = NSData(contentsOfURL: url!)
-                    dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+                    let url = URL(string: string)
+                    let data = try? Data(contentsOf: url!)
+                    DispatchQueue.main.async(execute: {
                         self.addImageToScrollView(UIImage(data: data!)!)
                     });
                 }
@@ -106,11 +106,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     // MARK: - UI Components
     
-    private lazy var scrollView: UIScrollView = {
+    fileprivate lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .blackColor()
-        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 2.0)
-        scrollView.scrollEnabled = true
+        scrollView.backgroundColor = .black
+        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height * 2.0)
+        scrollView.isScrollEnabled = true
         scrollView.alwaysBounceVertical = true
         scrollView.delegate = self
         scrollView.showsVerticalScrollIndicator = false
@@ -118,20 +118,20 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return scrollView
     }()
     
-    private lazy var mainImageView: UIImageView = {
+    fileprivate lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         self.scrollView.addSubview(imageView)
         return imageView
     }()
     
-    private lazy var gradientView: UIView = {
-        let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0.0, 0.0, 1000, 75.0))
+    fileprivate lazy var gradientView: UIView = {
+        let _blackGradientOverlay: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
         let gradient: CAGradientLayer = CAGradientLayer()
         
         gradient.frame = _blackGradientOverlay.bounds
-        gradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         
-        _blackGradientOverlay.layer.insertSublayer(gradient, atIndex: 0)
+        _blackGradientOverlay.layer.insertSublayer(gradient, at: 0)
         _blackGradientOverlay.clipsToBounds = true
         
         self.scrollView.addSubview(_blackGradientOverlay)
@@ -139,14 +139,14 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return _blackGradientOverlay
     }()
     
-    private lazy var topGradientView: UIView = {
-        let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0.0, 0.0, 1000, 75.0))
+    fileprivate lazy var topGradientView: UIView = {
+        let _blackGradientOverlay: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
         let gradient: CAGradientLayer = CAGradientLayer()
         
         gradient.frame = _blackGradientOverlay.bounds
-        gradient.colors = [UIColor.blackColor().CGColor, UIColor.clearColor().CGColor]
+        gradient.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
         
-        _blackGradientOverlay.layer.insertSublayer(gradient, atIndex: 0)
+        _blackGradientOverlay.layer.insertSublayer(gradient, at: 0)
         _blackGradientOverlay.clipsToBounds = true
         
         self.mainImageView.addSubview(_blackGradientOverlay)
@@ -156,34 +156,34 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return _blackGradientOverlay
     }()
     
-    private lazy var productTitleLabel: UILabel = {
+    fileprivate lazy var productTitleLabel: UILabel = {
         let label = UILabel()
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private lazy var byCompanyLabel: UILabel = {
+    fileprivate lazy var byCompanyLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .whiteColor()
+        label.textColor = .white
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private func setTitleText(name: String) {
+    fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Regular", size: 18)!,
-            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: name.uppercaseString, attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [String : AnyObject])
         
         productTitleLabel.attributedText = attributedTitle
         productTitleLabel.numberOfLines = 0
         productTitleLabel.sizeToFit()
     }
     
-    private func setCompanyText(name: String) {
+    fileprivate func setCompanyText(_ name: String) {
         let string = NSMutableAttributedString(string: "by \(name)")
         
         string.addAttribute(NSForegroundColorAttributeName, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
@@ -196,7 +196,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         // "More by" label
         
-        let moreString = NSMutableAttributedString(string: "More by \(name)".uppercaseString)
+        let moreString = NSMutableAttributedString(string: "More by \(name)".uppercased())
         
         moreString.addAttributes([
             NSFontAttributeName: UIFont(name: "Lato-Bold", size: 13)!,
@@ -207,43 +207,43 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         moreLabel.attributedText = moreString
     }
     
-    private lazy var productPriceLabel: UILabel = {
+    fileprivate lazy var productPriceLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .Right
+        label.textAlignment = .right
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private lazy var titleLine: UIView = {
+    fileprivate lazy var titleLine: UIView = {
         let line = UIView()
         line.backgroundColor = UIColor(white: 1.0, alpha: 0.21)
         self.scrollView.addSubview(line)
         return line
     }()
     
-    private func setPriceText(name: String) {
+    fileprivate func setPriceText(_ name: String) {
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Light", size: 18)!,
-            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: name.uppercaseString, attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [String : AnyObject])
         
         productPriceLabel.attributedText = attributedTitle
         productPriceLabel.sizeToFit()
     }
     
-    private func setDescriptionLabel(name: String) {
+    fileprivate func setDescriptionLabel(_ name: String) {
         descriptionLabel.text = name
     }
     
-    private lazy var descriptionLabel: UILabel = {
+    fileprivate lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Lato-Regular", size: 14)
-        label.textColor = .whiteColor()
+        label.textColor = .white
         label.numberOfLines = 0
-        label.lineBreakMode = .ByWordWrapping
+        label.lineBreakMode = .byWordWrapping
         
         self.view.addSubview(label)
         return label
@@ -251,11 +251,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     let moreImagesHeight: CGFloat = 160
     
-    private lazy var imageViewScrollView: UIScrollView = {
+    fileprivate lazy var imageViewScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor(white: 1.0, alpha: 0.09)
         scrollView.alwaysBounceHorizontal = true
-        scrollView.scrollEnabled = true
+        scrollView.isScrollEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.addSubview(scrollView)
         return scrollView
@@ -263,7 +263,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     var moreImages: [UIImageView] = []
     
-    private func addImageToScrollView(image: UIImage) {
+    fileprivate func addImageToScrollView(_ image: UIImage) {
         
         let imageView = UIImageView(image: image)
         self.imageViewScrollView.addSubview(imageView)
@@ -284,47 +284,47 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         moreImages.append(imageView)
         
-        imageViewScrollView.contentSize = CGSizeMake(imageViewScrollView.contentSize.width + imageWidth + offset, moreImagesHeight)
+        imageViewScrollView.contentSize = CGSize(width: imageViewScrollView.contentSize.width + imageWidth + offset, height: moreImagesHeight)
     }
     
-    private lazy var bottomBar: UIVisualEffectView = {
-        let view = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+    fileprivate lazy var bottomBar: UIVisualEffectView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         self.view.addSubview(view)
         return view
     }()
     
-    private lazy var buyButton: BuyButton = {
+    fileprivate lazy var buyButton: BuyButton = {
         let button = BuyButton()
         button.backgroundColor = Constants.Colors.BuyBlue
-        button.addTarget(self, action: #selector(purchaseItem), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(purchaseItem), for: .touchUpInside)
         self.bottomBar.addSubview(button)
         return button
     }()
     
-    private lazy var shareButton: UIButton = {
+    fileprivate lazy var shareButton: UIButton = {
         let button = UIButton()
         button.layer.opacity = 0.6
-        button.setImage(UIImage(named: "Products-Share"), forState: .Normal)
+        button.setImage(UIImage(named: "Products-Share"), for: UIControlState())
         self.bottomBar.addSubview(button)
         return button
     }()
     
     var liked = false
     
-    private lazy var likeButton: UIButton = {
+    fileprivate lazy var likeButton: UIButton = {
         let button = UIButton()
         button.layer.opacity = 0.6
-        button.setImage(UIImage(named: "Products-Heart"), forState: .Normal)
-        button.addTarget(self, action: #selector(heartPressed), forControlEvents: .TouchUpInside)
+        button.setImage(UIImage(named: "Products-Heart"), for: UIControlState())
+        button.addTarget(self, action: #selector(heartPressed), for: .touchUpInside)
         self.bottomBar.addSubview(button)
         return button
     }()
     
-    private lazy var closeButton: UIButton = {
+    fileprivate lazy var closeButton: UIButton = {
         let button = UIButton()
         
-        button.setBackgroundImage(UIImage(named: "Product-X"), forState: .Normal)
-        button.addTarget(self, action: #selector(closeView), forControlEvents: .TouchUpInside)
+        button.setBackgroundImage(UIImage(named: "Product-X"), for: UIControlState())
+        button.addTarget(self, action: #selector(closeView), for: .touchUpInside)
         
         self.scrollView.addSubview(button)
         return button
@@ -339,26 +339,26 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             newImageTitle = "Products-Heart-Filled"
         }
         
-        likeButton.setImage(UIImage(named: newImageTitle), forState: .Normal)
+        likeButton.setImage(UIImage(named: newImageTitle), for: UIControlState())
         liked = !liked
     }
     
-    private lazy var packageIcon: UIImageView = {
+    fileprivate lazy var packageIcon: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Product-Ship"))
         self.scrollView.addSubview(imageView)
         return imageView
     }()
     
-    private lazy var shippingLabel: UILabel = {
+    fileprivate lazy var shippingLabel: UILabel = {
         let label = UILabel()
         label.text = "Ships in 2 - 4 business days"
         label.font = UIFont(name: "Lato-Regular", size: 13)
-        label.textColor = .whiteColor()
+        label.textColor = .white
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private lazy var shippingSublabel: UILabel = {
+    fileprivate lazy var shippingSublabel: UILabel = {
         let label = UILabel()
         label.text = "Arrives July 1 - 2"
         label.font = UIFont(name: "Lato-Regular", size: 13)
@@ -367,29 +367,29 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return label
     }()
     
-    private lazy var shippingLine: UIView = {
+    fileprivate lazy var shippingLine: UIView = {
         let line = UIView()
         line.backgroundColor = UIColor(white: 1.0, alpha: 0.21)
         self.scrollView.addSubview(line)
         return line
     }()
     
-    private lazy var returnIcon: UIImageView = {
+    fileprivate lazy var returnIcon: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Product-Cart"))
         self.scrollView.addSubview(imageView)
         return imageView
     }()
     
-    private lazy var returnLabel: UILabel = {
+    fileprivate lazy var returnLabel: UILabel = {
         let label = UILabel()
         label.text = "Return free for 14 days"
         label.font = UIFont(name: "Lato-Regular", size: 13)
-        label.textColor = .whiteColor()
+        label.textColor = .white
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private lazy var returnSubLabel: UILabel = {
+    fileprivate lazy var returnSubLabel: UILabel = {
         let label = UILabel()
         label.text = "Before July 11"
         label.font = UIFont(name: "Lato-Regular", size: 13)
@@ -398,9 +398,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return label
     }()
     
-    private var sizeLabel: UILabel? = nil
+    fileprivate var sizeLabel: UILabel? = nil
     
-    private lazy var sizeButton: UIButton = {
+    fileprivate lazy var sizeButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(white: 0.18, alpha: 1)
         
@@ -413,7 +413,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         self.sizeLabel = UILabel()
         self.sizeLabel!.text = "Select a size"
-        self.sizeLabel!.textColor = .whiteColor()
+        self.sizeLabel!.textColor = .white
         self.sizeLabel!.font = UIFont(name: "Lato-Bold", size: 14)
         button.addSubview(self.sizeLabel!)
         self.sizeLabel!.centerVerticallyInSuperview()
@@ -426,55 +426,55 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         dropdown.sizeToWidth(19)
         dropdown.sizeToHeight(11)
         
-        button.addTarget(self, action: #selector(sizeButtonPressed), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(sizeButtonPressed), for: .touchUpInside)
         
         self.scrollView.addSubview(button)
         return button
     }()
     
     internal func sizeButtonPressed() {
-        let alert = UIAlertController(title: "Choose size", message: "Please select a size", preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: "Choose size", message: "Please select a size", preferredStyle: .actionSheet)
         
         let completion = { (size: String) in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.sizeLabel?.text = size
             }
         }
         
         for size in ["Small", "Medium", "Large"] {
-            alert.addAction(UIAlertAction(title: size, style: .Default) { (UIAlertAction) in
+            alert.addAction(UIAlertAction(title: size, style: .default) { (UIAlertAction) in
                 completion(size)
                 })
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
-    private lazy var moreLabel: UILabel = {
+    fileprivate lazy var moreLabel: UILabel = {
         let moreLabel = UILabel()
         self.scrollView.addSubview(moreLabel)
         return moreLabel
     }()
     
-    private lazy var companyDescriptionLabel: UILabel = {
+    fileprivate lazy var companyDescriptionLabel: UILabel = {
         let label = UILabel()
         
         label.text = "Western Sweater Co. is dedicated to producing sustainable sweaters. They produce world-class sweaters at a fraction of the price."
         label.font = UIFont(name: "Lato-Regular", size: 14)
-        label.textColor = .whiteColor()
+        label.textColor = .white
         label.numberOfLines = 0
-        label.lineBreakMode = .ByWordWrapping
+        label.lineBreakMode = .byWordWrapping
         
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private lazy var moreProductsScrollView: UIScrollView = {
+    fileprivate lazy var moreProductsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceHorizontal = true
-        scrollView.scrollEnabled = true
+        scrollView.isScrollEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.addSubview(scrollView)
         return scrollView
@@ -483,7 +483,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     class ProductCard: UIView {
         
         convenience init(product: Feed.Item, image: UIImage) {
-            self.init(frame: CGRectZero)
+            self.init(frame: CGRect.zero)
             
             imageView.image = image
             titleLabel.text = product.name
@@ -504,13 +504,13 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             priceLabel.centerVerticallyInSuperview()
         }
         
-        private lazy var imageView: UIImageView = {
+        fileprivate lazy var imageView: UIImageView = {
             let imageView = UIImageView()
             self.addSubview(imageView)
             return imageView
         }()
         
-        private lazy var bottomBar: UIView = {
+        fileprivate lazy var bottomBar: UIView = {
             let bottomBar = UIView()
             
             bottomBar.backgroundColor = UIColor(white: 0.18, alpha: 1)
@@ -519,18 +519,18 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             return bottomBar
         }()
         
-        private lazy var titleLabel: UILabel = {
+        fileprivate lazy var titleLabel: UILabel = {
             let label = UILabel()
-            label.textColor = .whiteColor()
+            label.textColor = .white
             label.font = UIFont(name: "Lato-Bold", size: 12)
             
             self.bottomBar.addSubview(label)
             return label
         }()
         
-        private lazy var priceLabel: UILabel = {
+        fileprivate lazy var priceLabel: UILabel = {
             let label = UILabel()
-            label.textColor = .whiteColor()
+            label.textColor = .white
             label.font = UIFont(name: "Lato-Regular", size: 12)
             
             self.bottomBar.addSubview(label)
@@ -538,10 +538,10 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         }()
     }
     
-    private lazy var moreProductsHeight: CGFloat = 190
-    private lazy var moreProducts: [ProductCard] = []
+    fileprivate lazy var moreProductsHeight: CGFloat = 190
+    fileprivate lazy var moreProducts: [ProductCard] = []
     
-    private func addProductToScrollView(productData: Feed.Item?, productImage: UIImage?) {
+    fileprivate func addProductToScrollView(_ productData: Feed.Item?, productImage: UIImage?) {
         
         guard let product = productData, let image = productImage else {
             return
@@ -568,14 +568,14 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         let offset: CGFloat = (moreImages.count != 0) ? 20 : 0
         
-        moreProductsScrollView.contentSize = CGSizeMake(moreProductsScrollView.contentSize.width + width + offset, moreProductsHeight)
+        moreProductsScrollView.contentSize = CGSize(width: moreProductsScrollView.contentSize.width + width + offset, height: moreProductsHeight)
     }
     
-    private lazy var viewBrandLabel: UILabel? = nil
+    fileprivate lazy var viewBrandLabel: UILabel? = nil
     
-    private lazy var viewBrandButton: UIButton = {
+    fileprivate lazy var viewBrandButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.clearColor()
+        button.backgroundColor = UIColor.clear
         
         let icon = UIImageView(image: UIImage(named: "Product-Bag"))
         button.addSubview(icon)
@@ -586,7 +586,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         self.viewBrandLabel = UILabel()
         self.viewBrandLabel!.text = "Browse more"
-        self.viewBrandLabel!.textColor = .whiteColor()
+        self.viewBrandLabel!.textColor = .white
         self.viewBrandLabel!.font = UIFont(name: "Lato-Bold", size: 14)
         button.addSubview(self.viewBrandLabel!)
         self.viewBrandLabel!.centerVerticallyInSuperview()
@@ -599,7 +599,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         dropdown.sizeToWidth(10)
         dropdown.sizeToHeight(15)
         
-        button.addTarget(self, action: #selector(viewBrand), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(viewBrand), for: .touchUpInside)
         
         self.scrollView.addSubview(button)
         return button
@@ -611,10 +611,10 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     // MARK: - Layout
     
-    private var imageTopConstraint: NSLayoutConstraint? = nil
-    private var imageHeightConstraint: NSLayoutConstraint? = nil
-    private var imageWidthConstraint: NSLayoutConstraint? = nil
-    private var closeButtonTopConstraint: NSLayoutConstraint? = nil
+    fileprivate var imageTopConstraint: NSLayoutConstraint? = nil
+    fileprivate var imageHeightConstraint: NSLayoutConstraint? = nil
+    fileprivate var imageWidthConstraint: NSLayoutConstraint? = nil
+    fileprivate var closeButtonTopConstraint: NSLayoutConstraint? = nil
     
     func setViewConstraints() {
         
@@ -753,24 +753,24 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: - Payment
     
     func createCreditCardOptionsAlertController() -> UIAlertController {
-        let alert = UIAlertController(title: "Preferred purchase method", message: "Please choose a shipping address.", preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: "Preferred purchase method", message: "Please choose a shipping address.", preferredStyle: .actionSheet)
         
         if PurchaseManager.sharedInstance.deviceSupportsApplePay {
-            alert.addAction(UIAlertAction(title: "Apple Pay", style: .Default) { (action: UIAlertAction) in
+            alert.addAction(UIAlertAction(title: "Apple Pay", style: .default) { (action: UIAlertAction) in
                 print("Apple Pay")
                 })
         }
         
-        alert.addAction(UIAlertAction(title: "+ Add new card", style: .Default) { (action: UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "+ Add new card", style: .default) { (action: UIAlertAction) in
             self.presentCreditCardEntryForm()
             })
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         return alert
     }
     
-    private var shouldShowShippingAlertController: Bool {
+    fileprivate var shouldShowShippingAlertController: Bool {
         return true
     }
     
@@ -778,12 +778,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let ccViewController = AddCreditCardViewController(backgroundImage: mainImageView.image!)
         let ccNavigationController = UINavigationController(rootViewController: ccViewController)
         
-        presentViewController(ccNavigationController, animated: true, completion: nil)
+        present(ccNavigationController, animated: true, completion: nil)
     }
     
     func purchaseItem() {
         
-        AnalyticsManager.sharedInstance.recordEvent(Event.Product.BuyPressed)
+        AnalyticsManager.sharedInstance.recordEvent(Event.Product.buyPressed)
         
         guard product != nil else {
             print("Error <ProductViewController>: product was nil")
@@ -793,7 +793,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         // TODO: REMOVE THIS
         let shippingVC = PaymentInformationViewController.createWithNavigationController(mainImage!)
         
-        self.presentViewController(shippingVC, animated: true, completion: nil)
+        self.present(shippingVC, animated: true, completion: nil)
 
         
 //        do {
@@ -835,22 +835,22 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         let shippingVC = NewAddressViewController()
         shippingVC.mainImage = mainImage
-        self.presentViewController(shippingVC, animated: true, completion: nil)
+        self.present(shippingVC, animated: true, completion: nil)
         
         let addCardViewController = STPAddCardViewController()
         addCardViewController.delegate = self
         // STPAddCardViewController must be shown inside a UINavigationController.
         let navigationController = UINavigationController(rootViewController: addCardViewController)
-        self.presentViewController(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: STPAddCardViewControllerDelegate
     
-    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
  
         
         let functionName = "purchaseItem"
@@ -861,8 +861,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             "email": "test@gmail.com"
         ]
         
-        AWSCloudLogic.defaultCloudLogic().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in
-            dispatch_async(dispatch_get_main_queue()) {
+        AWSCloudLogic.default().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in
+            DispatchQueue.main.async {
                 guard error == nil else {
                     completion(error)
                     // error with purchase.. should just stop and not bring dismiss card view controller or bring up purchase confirmed
@@ -870,33 +870,33 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                     addCardViewController.setLoading(false)
                     return
                 }
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
                 
                 let purchaseVC = PurchaseConfirmedViewController()
                 purchaseVC.product = self.product
                 purchaseVC.mainImage = self.mainImage
                 
-                self.presentViewController(purchaseVC, animated: false, completion: nil) // this animation sucks. TODO: create a better animation in.
+                self.present(purchaseVC, animated: false, completion: nil) // this animation sucks. TODO: create a better animation in.
                 completion(nil)
             }
         }
     }
     
     
-    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
         currentPayment = payment
         handlePaymentAuthorizationWithPayment(payment, completion: completion)
     }
     
-    func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         currentPayment = nil
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func handlePaymentAuthorizationWithPayment(payment: PKPayment, completion: PKPaymentAuthorizationStatus -> ()) {
-        STPAPIClient.sharedClient().createTokenWithPayment(payment) { (token, error) -> Void in
+    func handlePaymentAuthorizationWithPayment(_ payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> ()) {
+        STPAPIClient.shared().createToken(with: payment) { (token, error) -> Void in
             guard error == nil else {
-                completion(.Failure)
+                completion(.failure)
                 return
             }
             
@@ -904,24 +904,24 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         }
     }
     
-    internal func createBackendChargeWithToken(token: STPToken, completion: (PKPaymentAuthorizationStatus) -> Void) {
+    internal func createBackendChargeWithToken(_ token: STPToken, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
         let functionName = "purchaseItem"
         let parameters = getPurchaseParameters(token.tokenId)!
         
-        AWSCloudLogic.defaultCloudLogic().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in
-            dispatch_async(dispatch_get_main_queue()) {
+        AWSCloudLogic.default().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in
+            DispatchQueue.main.async {
                 guard error == nil else {
-                    completion(.Failure)
+                    completion(.failure)
                     return
                 }
-                self.dismissViewControllerAnimated(false, completion: nil)
+                self.dismiss(animated: false, completion: nil)
                 
                 let purchaseVC = PurchaseConfirmedViewController()
                 purchaseVC.product = self.product
                 purchaseVC.mainImage = self.mainImage
                 
-                self.presentViewController(purchaseVC, animated: false, completion: nil)
-                completion(.Success)
+                self.present(purchaseVC, animated: false, completion: nil)
+                completion(.success)
             }
         }
     }
@@ -931,12 +931,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     /**
      The current payment in progress. Used to send contact information to Stripe.
      */
-    private var currentPayment: PKPayment? = nil
+    fileprivate var currentPayment: PKPayment? = nil
     
     /**
      Email address from the current PKPaymentRequest
      */
-    private var email: String? {
+    fileprivate var email: String? {
         get {
             if #available(iOS 9, *) {
                 guard let shippingEmail = currentPayment?.shippingContact?.emailAddress else {
@@ -957,7 +957,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     /**
      Generates the parameters to be used in the Stripe request.
      */
-    func getPurchaseParameters(tokenId: String) -> [String : String]? {
+    func getPurchaseParameters(_ tokenId: String) -> [String : String]? {
         guard let item = product else {
             return nil
         }
@@ -979,13 +979,13 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     // MARK: - Appearance
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     // MARK: - Scrollview
     
-    private lazy var releaseLabel: UILabel = {
+    fileprivate lazy var releaseLabel: UILabel = {
         let label = UILabel()
         
         label.layer.opacity = 0
@@ -996,7 +996,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             NSKernAttributeName:CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: "Release to return to feed".uppercaseString, attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: "Release to return to feed".uppercased(), attributes: attributes as? [String : AnyObject])
         
         label.attributedText = attributedTitle
         label.sizeToFit()
@@ -1008,29 +1008,29 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     var releaseLabelIsHidden = true
     
-    private func showReleaseLabel() {
+    fileprivate func showReleaseLabel() {
         guard releaseLabel.layer.opacity == 0 else {
             return
         }
         
-        UIView.animateWithDuration(0.25) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.releaseLabel.layer.opacity = 1
-        }
+        }) 
     }
     
-    private func hideReleaseLabel() {
+    fileprivate func hideReleaseLabel() {
         guard releaseLabel.layer.opacity != 0 else {
             return
         }
         
-        UIView.animateWithDuration(0.25) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.releaseLabel.layer.opacity = 0
-        }
+        }) 
     }
     
     var scrollReleaseThreshold: CGFloat = -80
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         guard scrollView.contentOffset.y < 0 else {
             return
@@ -1065,11 +1065,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let imageFrame = mainImageView.frame
         
         self.delegate?.transitionToCell(fromImageFrame: imageFrame) {
-            self.dismissViewControllerAnimated(false, completion: nil)
+            self.dismiss(animated: false, completion: nil)
         }
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         if scrollView.contentOffset.y <= scrollReleaseThreshold {
             closeView()
@@ -1079,8 +1079,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     func sendEmailButtonTapped() {
         let mailComposeViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
-            self.dismissViewControllerAnimated(true, completion: { 
-                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            self.dismiss(animated: true, completion: { 
+                self.present(mailComposeViewController, animated: true, completion: nil)
             })
         } else {
             self.showSendMailErrorAlert()
@@ -1104,8 +1104,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     }
     
     // MARK: MFMailComposeViewControllerDelegate Method
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     // Purchase Failed Alert
@@ -1116,13 +1116,13 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         createAccountErrorAlert.title = "Authorization Failed 🤔"
         createAccountErrorAlert.message = "The credit card information you entered is incorrect. Send us an email if the issue persists!"
-        createAccountErrorAlert.addButtonWithTitle("Email us ✉️")
-        createAccountErrorAlert.addButtonWithTitle("Try Again!")
+        createAccountErrorAlert.addButton(withTitle: "Email us ✉️")
+        createAccountErrorAlert.addButton(withTitle: "Try Again!")
         
         createAccountErrorAlert.show()
     }
     
-    func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
+    func alertView(_ View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
         
         switch buttonIndex{
         case 0:

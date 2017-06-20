@@ -25,40 +25,40 @@ class AnalyticsManager {
      - parameter attributes: key-value pairs of strings to strings.
      - parameter metrics: key-value pairs of strings to numbers.
      */
-    func recordEvent(event: AnalyticsEvent, attributes: [String : String] = [:], metrics: [String : NSNumber] = [:]) {
+    func recordEvent(_ event: AnalyticsEvent, attributes: [String : String] = [:], metrics: [String : NSNumber] = [:]) {
         
         let eventClient = AWSMobileClient.sharedInstance.mobileAnalytics.eventClient
-        let event = eventClient.createEventWithEventType(event.identifier)
+        let event = eventClient?.createEvent(withEventType: event.identifier)
         
         for key in attributes.keys {
-            event.addAttribute(attributes[key], forKey: key)
+            event?.addAttribute(attributes[key], forKey: key)
         }
         
         for key in metrics.keys {
-            event.addAttribute(String(metrics[key]), forKey: key)
+            event?.addAttribute(String(describing: metrics[key]), forKey: key)
         }
         
-        eventClient.recordEvent(event)
+        eventClient?.record(event)
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-            eventClient.submitEvents()
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: {
+            eventClient?.submitEvents()
         })
     }
     
-    func recordPurchase(product: Feed.Item, transactionId: String, quantity: Int = 1) {
+    func recordPurchase(_ product: Feed.Item, transactionId: String, quantity: Int = 1) {
         let eventClient = AWSMobileClient.sharedInstance.mobileAnalytics.eventClient
         let eventBuilder = AWSMobileAnalyticsAppleMonetizationEventBuilder(eventClient: eventClient)
         
-        eventBuilder.withProductId(product.id)
-        eventBuilder.withItemPrice(Double(product.price)!, andPriceLocale: NSLocale(localeIdentifier: "en_US"))
-        eventBuilder.withQuantity(quantity)
-        eventBuilder.withTransactionId(transactionId)
+        eventBuilder?.withProductId(product.id)
+        eventBuilder?.withItemPrice(Double(product.price)!, andPriceLocale: Locale(identifier: "en_US"))
+        eventBuilder?.withQuantity(quantity)
+        eventBuilder?.withTransactionId(transactionId)
         
-        let event = eventBuilder.build()
-        eventClient.recordEvent(event)
+        let event = eventBuilder?.build()
+        eventClient?.record(event)
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-            eventClient.submitEvents()
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: {
+            eventClient?.submitEvents()
         })
     }
 }

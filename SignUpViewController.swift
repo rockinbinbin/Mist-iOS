@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
-    private lazy var logoimageView: UIImageView = {
+    fileprivate lazy var logoimageView: UIImageView = {
         let logoimageView = UIImageView(image: UIImage(named: "MLogo"))
         self.view.addSubview(logoimageView)
         return logoimageView
@@ -19,7 +19,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     var keyboardUp = false
     
-    private lazy var signUpLabel: UILabel = {
+    fileprivate lazy var signUpLabel: UILabel = {
         let signUpLabel = UILabel()
         signUpLabel.textColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
         
@@ -35,7 +35,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         signUpLabel.attributedText = attrString
         
-        signUpLabel.textAlignment = .Center
+        signUpLabel.textAlignment = .center
         
         self.view.addSubview(signUpLabel)
         return signUpLabel
@@ -59,13 +59,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         emailTextField.attributedPlaceholder = attrString
         
         emailTextField.layer.cornerRadius = 0
-        emailTextField.backgroundColor = UIColor.whiteColor()
+        emailTextField.backgroundColor = UIColor.white
         emailTextField.layer.borderWidth = 1
-        emailTextField.layer.borderColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0).CGColor
-        emailTextField.textAlignment = .Center;
-        emailTextField.returnKeyType = .Next
-        emailTextField.keyboardType = UIKeyboardType.EmailAddress
-        emailTextField.autocorrectionType = .No
+        emailTextField.layer.borderColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0).cgColor
+        emailTextField.textAlignment = .center;
+        emailTextField.returnKeyType = .next
+        emailTextField.keyboardType = UIKeyboardType.emailAddress
+        emailTextField.autocorrectionType = .no
         
         self.view.addSubview(emailTextField)
         
@@ -77,7 +77,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
         passwordTextField.delegate = self
         passwordTextField.textColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
-        passwordTextField.secureTextEntry = true
+        passwordTextField.isSecureTextEntry = true
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
@@ -91,21 +91,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.attributedPlaceholder = attrString
         
         passwordTextField.layer.cornerRadius = 0
-        passwordTextField.backgroundColor = UIColor.whiteColor()
+        passwordTextField.backgroundColor = UIColor.white
         passwordTextField.layer.borderWidth = 1
-        passwordTextField.layer.borderColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0).CGColor
-        passwordTextField.textAlignment = .Center;
-        passwordTextField.returnKeyType = .Done
-        passwordTextField.autocorrectionType = .No
+        passwordTextField.layer.borderColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0).cgColor
+        passwordTextField.textAlignment = .center;
+        passwordTextField.returnKeyType = .done
+        passwordTextField.autocorrectionType = .no
         
         self.view.addSubview(passwordTextField)
         
         return passwordTextField
     }()
     
-    private lazy var alreadyHaveAccountLabel: UILabel = {
+    fileprivate lazy var alreadyHaveAccountLabel: UILabel = {
         let alreadyHaveAccountLabel = UILabel()
-        alreadyHaveAccountLabel.textColor = UIColor.blackColor()
+        alreadyHaveAccountLabel.textColor = UIColor.black
         
         let attrString = NSMutableAttributedString(string: "ALREADY HAVE AN ACCOUNT?")
         
@@ -115,29 +115,29 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         alreadyHaveAccountLabel.attributedText = attrString
         
-        alreadyHaveAccountLabel.textAlignment = .Center
+        alreadyHaveAccountLabel.textAlignment = .center
         
         //self.view.addSubview(alreadyHaveAccountLabel)
         return alreadyHaveAccountLabel
     }()
     
     internal lazy var loginButton: UIButton = {
-        let loginButton = UIButton(type: .RoundedRect)
+        let loginButton = UIButton(type: .roundedRect)
         loginButton.layer.cornerRadius = 0
-        loginButton.backgroundColor = UIColor.whiteColor()
+        loginButton.backgroundColor = UIColor.white
         loginButton.layer.borderWidth = 0
-        loginButton.layer.borderColor = UIColor.whiteColor().CGColor
+        loginButton.layer.borderColor = UIColor.white.cgColor
         loginButton.tintColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
         
         let attrString = NSMutableAttributedString(string: "LOG IN")
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 12)!, range: NSMakeRange(0, attrString.length))
         
-        loginButton.setAttributedTitle(attrString, forState: .Normal)
+        loginButton.setAttributedTitle(attrString, for: UIControlState())
         
         //self.view.addSubview(loginButton)
         
-        loginButton.addTarget(self, action: #selector(SignUpViewController.loginPressed), forControlEvents: .TouchUpInside)
+        loginButton.addTarget(self, action: #selector(SignUpViewController.loginPressed), for: .touchUpInside)
         
         return loginButton
     }()
@@ -145,18 +145,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     internal lazy var loginFB: UIButton = {
         let loginFB = CustomLoginButton()
-        loginFB.addTarget(self, action: #selector(SignUpViewController.FBLoginPressed(_:)), forControlEvents: .TouchUpInside)
+        loginFB.addTarget(self, action: #selector(SignUpViewController.FBLoginPressed(_:)), for: .touchUpInside)
         self.view.addSubview(loginFB)
         return loginFB
     }()
     
     internal lazy var letsGo: UIButton = {
-        let letsGo = UIButton(type: .RoundedRect)
+        let letsGo = UIButton(type: .roundedRect)
         letsGo.layer.cornerRadius = 0
 //        letsGo.backgroundColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
         letsGo.layer.borderWidth = 0
         //letsGo.layer.borderColor = UIColor.blueColor().CGColor
-        letsGo.tintColor = UIColor.blackColor()
+        letsGo.tintColor = UIColor.black
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5
@@ -165,22 +165,22 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 14)!, range: NSMakeRange(0, attrString.length))
-        letsGo.setAttributedTitle(attrString, forState: .Normal)
+        letsGo.setAttributedTitle(attrString, for: UIControlState())
         
         letsGo.titleLabel?.font = UIFont(name: "Lato–Regular", size: 20)
         
         self.view.addSubview(letsGo)
         
-        letsGo.addTarget(self, action: #selector(SignUpViewController.letsGoPressed), forControlEvents: .TouchUpInside)
+        letsGo.addTarget(self, action: #selector(SignUpViewController.letsGoPressed), for: .touchUpInside)
         
         return letsGo
     }()
     
     override internal func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = false
         setNavBar()
         
         logoimageView.pinToTopEdgeOfSuperview(offset: self.view.frame.size.height * 0.2)
@@ -215,10 +215,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         letsGo.sizeToHeight(self.view.frame.size.height * 0.08)
         
         let button = UIButton()
-        button.setTitle("By signing up, you agree to our Terms of Service.", forState: .Normal)
+        button.setTitle("By signing up, you agree to our Terms of Service.", for: UIControlState())
         button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
-        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        button.addTarget(self, action: #selector(SignUpViewController.termsPressed(_:)), forControlEvents: .TouchUpInside)
+        button.setTitleColor(UIColor.black, for: UIControlState())
+        button.addTarget(self, action: #selector(SignUpViewController.termsPressed(_:)), for: .touchUpInside)
         self.view.addSubview(button)
         button.positionAboveItem(letsGo, offset: 10)
         button.centerHorizontallyInSuperview()
@@ -228,8 +228,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func setNavBar() {
@@ -237,7 +237,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 16)!,
-            NSForegroundColorAttributeName:UIColor.blackColor(),
+            NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
         
@@ -257,7 +257,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
-    func termsPressed(sender: UIButton!) {
+    func termsPressed(_ sender: UIButton!) {
 //        
 //        let rtfVC = TermsViewController(title: "Terms of Service", fileName: "Terms")
 //        let termsViewController = UINavigationController(rootViewController: rtfVC)
@@ -276,27 +276,27 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func dismissSettings() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         if keyboardUp {
             return
         }
         if let info = notification.userInfo {
-            let movementHeight = -(info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue().size.height
+            let movementHeight = -(info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.size.height
             UIView.beginAnimations("keyboardGoinUP", context: nil)
             UIView.setAnimationBeginsFromCurrentState(true)
             UIView.setAnimationDuration(0.3)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
-            self.view.frame = CGRectOffset(self.view.frame, 0, movementHeight + self.view.frame.size.height * 0.22)
+            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
+            self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movementHeight + self.view.frame.size.height * 0.22)
             keyboardUp = true
         } else {
             print("Error: No user info for keyboardWillShow")
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardWillHide(_ notification: Notification) {
         if !keyboardUp {
             return
         }
@@ -305,8 +305,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             UIView.beginAnimations("keyboardGoinDOWN", context: nil)
             UIView.setAnimationBeginsFromCurrentState(true)
             UIView.setAnimationDuration(0.3)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: info[UIKeyboardAnimationCurveUserInfoKey]!.integerValue)!)
-            self.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
             UIView.commitAnimations()
             
             keyboardUp = false
@@ -315,7 +315,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == emailTextField) {
             passwordTextField.becomeFirstResponder()
         }
@@ -372,9 +372,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 //        }
     }
     
-    func FBLoginPressed(sender: CustomLoginButton!) {
+    func FBLoginPressed(_ sender: CustomLoginButton!) {
         let login = FBSDKLoginManager()
-        login.logInWithReadPermissions(["public_profile", "email", "user_friends"], fromViewController: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
+        login.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
             if ((error) != nil) {
                 // handle error
             }
@@ -386,19 +386,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 self.getFBUserData()
                 self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
             }
-        }
+        } as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler
     }
     
     var dict : NSDictionary!
     
     func getFBUserData(){
-        if((FBSDKAccessToken.currentAccessToken()) != nil){
-            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).startWithCompletionHandler({ (connection, result, error) -> Void in
+        if((FBSDKAccessToken.current()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
                 if (error == nil){
                     self.dict = result as! NSDictionary
                     print(result)
                     print(self.dict)
-                    NSLog(self.dict.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as! String)
+                    NSLog(((self.dict.object(forKey: "picture") as AnyObject).object(forKey: "data") as AnyObject).object(forKey: "url") as! String)
                 }
             })
         }
@@ -406,31 +406,31 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Login Handlers
     
-    func handleLoginFailed(error: NSError, sender: CustomLoginButton!) {
+    func handleLoginFailed(_ error: NSError, sender: CustomLoginButton!) {
         print("Login failed with error \(error)")
         
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             sender.indicator.alpha = 0.0
         })
         
-        UIView.animateWithDuration(0.25, delay: 0.25, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
             sender.titleLabel?.alpha = 1.0
             }, completion: nil)
         
         
         // TODO: MAKE LOGIN LOADING INDICATOR GO AWAY.
-        loginFB.enabled = true
+        loginFB.isEnabled = true
         
         let alertController = UIAlertController(
             title: "Uh oh! Login failed.",
             message: "In Facebook > Settings > Apps, make sure that “Apps, Websites, and Plugins” is enabled.",
-            preferredStyle: UIAlertControllerStyle.Alert
+            preferredStyle: UIAlertControllerStyle.alert
         )
         
-        let continueAction = UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: nil)
+        let continueAction = UIAlertAction(title: "Continue", style: UIAlertActionStyle.default, handler: nil)
         alertController.addAction(continueAction)
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     /**
@@ -493,6 +493,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     internal func closePressed() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }

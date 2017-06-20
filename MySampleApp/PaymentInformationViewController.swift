@@ -19,12 +19,12 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
      The preferred method for initialization - a factory pattern method which generates and configures
      an enclosing UINavigationController.
      */
-    class func createWithNavigationController(backgroundImage: UIImage) -> UINavigationController {
+    class func createWithNavigationController(_ backgroundImage: UIImage) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: PaymentInformationViewController(backgroundImage: backgroundImage))
         
         navigationController.navigationBar.barTintColor = UIColor(white: 0.44, alpha: 1.0)
-        navigationController.navigationBar.translucent = false
-        navigationController.navigationBar.barStyle = .Black
+        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.barStyle = .black
         
         return navigationController
     }
@@ -34,7 +34,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
         
         backgroundImageView.image = backgroundImage
         
-        let doneButton = ProductBarButtonItem(title: "Cancel", actionTarget: self, actionSelector: #selector(cancelPressed), buttonColor: UIColor.whiteColor())
+        let doneButton = ProductBarButtonItem(title: "Cancel", actionTarget: self, actionSelector: #selector(cancelPressed), buttonColor: UIColor.white)
         navigationItem.leftBarButtonItem = doneButton
         
         view.setNeedsUpdateConstraints()
@@ -43,27 +43,27 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI Components
     
-    private lazy var backgroundImageView: UIImageView = {
+    fileprivate lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = UIApplication.sharedApplication().keyWindow!.frame
+        blurEffectView.frame = UIApplication.shared.keyWindow!.frame
         
-        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         imageView.addSubview(blurEffectView)
         
         self.view.addSubview(imageView)
         return imageView
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let label = UILabel()
         
-        label.textColor = UIColor.whiteColor()
-        label.textAlignment = .Center
-        label.lineBreakMode = .ByWordWrapping
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.text = "Add Shipping Address"
         label.font = UIFont(name: "Lato-Regular", size: 24)
@@ -77,96 +77,96 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
             self.init()
             
             translatesAutoresizingMaskIntoConstraints = false
-            textColor = .whiteColor()
+            textColor = .white
             
             let attributes = [
-                NSForegroundColorAttributeName: UIColor.grayColor(),
+                NSForegroundColorAttributeName: UIColor.gray,
                 NSFontAttributeName : UIFont(name: "Lato-Bold", size: 12)!
             ]
             
             font = UIFont(name: "Lato-Regular", size: 15)!
             
-            let attrString = NSMutableAttributedString(string: placeholder.uppercaseString, attributes:attributes)
+            let attrString = NSMutableAttributedString(string: placeholder.uppercased(), attributes:attributes)
             attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
             attributedPlaceholder = attrString
-            layer.borderColor = UIColor.blackColor().CGColor
-            textAlignment = .Left
-            returnKeyType = .Next
-            autocorrectionType = .No
+            layer.borderColor = UIColor.black.cgColor
+            textAlignment = .left
+            returnKeyType = .next
+            autocorrectionType = .no
         }
     }
     
-    private lazy var nameTextField: UITextField = {
+    fileprivate lazy var nameTextField: UITextField = {
         let textField = TextField(placeholder: "Full name")
         textField.delegate = self
-        textField.autocapitalizationType = .Words
+        textField.autocapitalizationType = .words
         self.view.addSubview(textField)
         return textField
     }()
     
-    private lazy var addressLine1TextField: UITextField = {
+    fileprivate lazy var addressLine1TextField: UITextField = {
         let textField = TextField(placeholder: "Address line 1 (street address)")
         textField.delegate = self
-        textField.autocapitalizationType = .Words
+        textField.autocapitalizationType = .words
         self.view.addSubview(textField)
         return textField
     }()
     
-    private lazy var addressLine2TextField: UITextField = {
+    fileprivate lazy var addressLine2TextField: UITextField = {
         let textField = TextField(placeholder: "Address line 2 (apt., suite, unit)")
         textField.delegate = self
-        textField.autocapitalizationType = .Words
+        textField.autocapitalizationType = .words
         self.view.addSubview(textField)
         return textField
     }()
     
-    private lazy var cityTextField: UITextField = {
+    fileprivate lazy var cityTextField: UITextField = {
         let textField = TextField(placeholder: "City")
         textField.delegate = self
-        textField.autocapitalizationType = .Words
+        textField.autocapitalizationType = .words
         self.view.addSubview(textField)
         return textField
     }()
     
-    private lazy var stateTextField: UITextField = {
+    fileprivate lazy var stateTextField: UITextField = {
         let textField = TextField(placeholder: "State")
         textField.delegate = self
-        textField.autocapitalizationType = .AllCharacters
+        textField.autocapitalizationType = .allCharacters
         self.view.addSubview(textField)
         return textField
     }()
     
-    private lazy var unitTextField: UITextField = {
+    fileprivate lazy var unitTextField: UITextField = {
         let textField = TextField(placeholder: "Unit")
         textField.delegate = self
         self.view.addSubview(textField)
         return textField
     }()
     
-    private lazy var zipTextField: UITextField = {
+    fileprivate lazy var zipTextField: UITextField = {
         let textField = TextField(placeholder: "ZIP")
         textField.delegate = self
-        textField.keyboardType = .NumberPad
+        textField.keyboardType = .numberPad
         self.view.addSubview(textField)
         return textField
     }()
     
-    private lazy var doneButton: UIButton = {
-        let doneButton = UIButton(type: .RoundedRect)
+    fileprivate lazy var doneButton: UIButton = {
+        let doneButton = UIButton(type: .roundedRect)
         doneButton.layer.cornerRadius = 0
         doneButton.layer.borderWidth = 1.0
-        doneButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.2).CGColor
-        doneButton.backgroundColor = UIColor.blackColor()
-        doneButton.tintColor = UIColor.whiteColor()
+        doneButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.2).cgColor
+        doneButton.backgroundColor = UIColor.black
+        doneButton.tintColor = UIColor.white
         doneButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 14.0)
-        doneButton.titleLabel!.textColor = UIColor.whiteColor()
+        doneButton.titleLabel!.textColor = UIColor.white
         
         let attributedString = NSMutableAttributedString(string: "DONE")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "DONE".characters.count))
-        doneButton.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        doneButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(doneButton)
-        doneButton.addTarget(self, action: #selector(donePressed), forControlEvents: .TouchUpInside)
+        doneButton.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
         return doneButton
     }()
     
@@ -213,7 +213,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
         for field in view.subviews.filter({$0 is UITextField}) {
             let border = CALayer()
             let width = CGFloat(1.0)
-            border.borderColor = UIColor(white: 1.0, alpha: 0.30).CGColor
+            border.borderColor = UIColor(white: 1.0, alpha: 0.30).cgColor
             border.frame = CGRect(x: 0, y: field.frame.size.height - width + 5, width: field.frame.size.width, height: width)
             
             border.borderWidth = width
@@ -225,7 +225,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Navigation
     
     internal func cancelPressed() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     internal func donePressed() {
@@ -233,7 +233,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
         let requiredFields = [nameTextField, addressLine1TextField, cityTextField, stateTextField, zipTextField]
         
         for field in requiredFields {
-            guard let text = field.text where text != "" else {
+            guard let text = field.text, text != "" else {
                 displayError("One of the required text fields was empty. Please enter name, address, city, state, and ZIP.")
                 return
             }
@@ -251,47 +251,47 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func displayError(message: String) {
-        let alert = UIAlertController(title: "Invalid address.", message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: nil))
-        self.presentViewController(alert, animated: false, completion: nil)
+    func displayError(_ message: String) {
+        let alert = UIAlertController(title: "Invalid address.", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: false, completion: nil)
     }
     
     // MARK: - Status Bar
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .Slide
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+        return .slide
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: - Text Field Delegate
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == zipTextField {
-            textField.returnKeyType = .Done
+            textField.returnKeyType = .done
         } else {
-            textField.returnKeyType = .Next
+            textField.returnKeyType = .next
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         let textFields = [nameTextField, addressLine1TextField, addressLine2TextField, cityTextField, stateTextField, unitTextField, zipTextField]
         
         if textField == textFields.last! {
             textField.resignFirstResponder()
         } else {
-            let nextTextField = textFields[textFields.indexOf(textField)! + 1]
+            let nextTextField = textFields[textFields.index(of: textField)! + 1]
             
             textField.resignFirstResponder()
             nextTextField.becomeFirstResponder()

@@ -20,7 +20,7 @@ class LoadingView: UIView {
         super.init(frame: frame)
         
         setViewConstraints()
-        backgroundColor = .whiteColor()
+        backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,7 +29,7 @@ class LoadingView: UIView {
     
     // MARK: - UI Components
     
-    private lazy var logo: UIImageView = {
+    fileprivate lazy var logo: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Loading-Logo"))
         self.addSubview(imageView)
         return imageView
@@ -48,22 +48,22 @@ class LoadingView: UIView {
     
     var hasHiddenOnce: Bool = false
     
-    func hideView(completion: (() -> ())? = nil) {
+    func hideView(_ completion: (() -> ())? = nil) {
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.logoSizeConstraint?.width.constant = 200
             self.logoSizeConstraint?.height.constant = 200
             
-            UIView.animateWithDuration(0.25, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 self.logo.layer.opacity = 0.0
                 self.layer.opacity = 0.0
                 self.layoutIfNeeded()
-            }) { (Bool) in
-                dispatch_async(dispatch_get_main_queue()) {
+            }, completion: { (Bool) in
+                DispatchQueue.main.async {
                     LoadingView.sharedInstance.removeFromSuperview()
                     completion?()
                 }
-            }
+            }) 
         }
     }
 }

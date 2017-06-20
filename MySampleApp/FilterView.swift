@@ -17,7 +17,7 @@ class FilterView: UIView {
     // MARK: - Layout
     
     init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         setViewConstraints()
     }
     
@@ -31,7 +31,7 @@ class FilterView: UIView {
     
     // MARK: - UI Components
     
-    private lazy var blackOverlay: UIView = {
+    fileprivate lazy var blackOverlay: UIView = {
         let view = UIView()
         
         view.backgroundColor = UIColor(white: 0, alpha: 0.6)
@@ -42,35 +42,35 @@ class FilterView: UIView {
         return view
     }()
     
-    private lazy var filterView: UIView = {
+    fileprivate lazy var filterView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .white
         
         self.addSubview(view)
         return view
     }()
     
-    private lazy var doneButton: UIButton = {
+    fileprivate lazy var doneButton: UIButton = {
         let button = UIButton()
         
         button.setAttributedTitle(NSAttributedString(string: "DONE", attributes: [
             NSForegroundColorAttributeName: Constants.Colors.DoneBlue,
             NSFontAttributeName: UIFont(name: "Lato-Regular", size: 13)!,
             NSKernAttributeName: 3.0
-            ]), forState: .Normal)
+            ]), for: UIControlState())
         
-        button.addTarget(self, action: #selector(dismiss), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         
         self.filterView.addSubview(button)
         return button
     }()
     
-    private lazy var categoryLabel: UILabel = {
+    fileprivate lazy var categoryLabel: UILabel = {
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "CATEGORIES", attributes: [
-            NSForegroundColorAttributeName: UIColor.blackColor(),
+            NSForegroundColorAttributeName: UIColor.black,
             NSFontAttributeName: UIFont(name: "Lato-Regular", size: 13)!,
             NSKernAttributeName: 3.0
             ])
@@ -106,9 +106,9 @@ class FilterView: UIView {
             pressed = Feed.Filters.sharedInstance.categories[categoryFilter]!
             initialPressedValue = pressed
             
-            super.init(frame: CGRectZero)
+            super.init(frame: CGRect.zero)
             
-            setTitle(title, forState: .Normal)
+            setTitle(title, for: UIControlState())
             initHelper()
         }
         
@@ -119,36 +119,36 @@ class FilterView: UIView {
             pressed = Feed.Filters.sharedInstance.price[priceFilter]!
             initialPressedValue = pressed
             
-            super.init(frame: CGRectZero)
+            super.init(frame: CGRect.zero)
             
-            setTitle(title, forState: .Normal)
+            setTitle(title, for: UIControlState())
             initHelper()
         }
         
-        private func initHelper() {
-            setTitleColor(grey, forState: .Normal)
+        fileprivate func initHelper() {
+            setTitleColor(grey, for: UIControlState())
             titleLabel!.font = UIFont(name: "Lato-Regular", size: 13)
             layer.borderWidth = 1.0
-            layer.borderColor = UIColor(white: 0.9, alpha: 1.0).CGColor
+            layer.borderColor = UIColor(white: 0.9, alpha: 1.0).cgColor
             layer.masksToBounds = true
             
-            addTarget(self, action: #selector(didPress), forControlEvents: .TouchUpInside)
+            addTarget(self, action: #selector(didPress), for: .touchUpInside)
         }
         
         // MARK: - UI Components
         
-        private lazy var gradientView: UIView = {
+        fileprivate lazy var gradientView: UIView = {
             let view = UIView()
             
             let gradient: CAGradientLayer = CAGradientLayer()
-            gradient.frame = CGRectMake(0, 0, 1000, 50)
+            gradient.frame = CGRect(x: 0, y: 0, width: 1000, height: 50)
             
             let topColor = UIColor(red: 0, green: 178/255.0, blue: 1.0, alpha: 1)
             let bottomColor = UIColor(red: 0, green: 122/255.0, blue: 1.0, alpha: 1)
             
-            gradient.colors = [topColor.CGColor, bottomColor.CGColor]
-            view.layer.insertSublayer(gradient, atIndex: 0)
-            self.setTitle(self.title, forState: .Normal)
+            gradient.colors = [topColor.cgColor, bottomColor.cgColor]
+            view.layer.insertSublayer(gradient, at: 0)
+            self.setTitle(self.title, for: UIControlState())
             view.layer.opacity = 0.0
             
             self.addSubview(view)
@@ -164,12 +164,12 @@ class FilterView: UIView {
             label.removeFromSuperview()
             gradientView.layer.opacity = 0.9
             self.addSubview(label)
-            setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            setTitleColor(UIColor.white, for: UIControlState())
         }
         
         func deactivateButton() {
-            setTitleColor(grey, forState: .Normal)
-            bringSubviewToFront(titleLabel!)
+            setTitleColor(grey, for: UIControlState())
+            bringSubview(toFront: titleLabel!)
             gradientView.layer.opacity = 0.0
         }
         
@@ -204,27 +204,27 @@ class FilterView: UIView {
         }
     }
     
-    private lazy var buttons: [FilterButton] = []
+    fileprivate lazy var buttons: [FilterButton] = []
     
-    private lazy var categoryButtons: UIView = {
+    fileprivate lazy var categoryButtons: UIView = {
         let view = UIView()
         
         view.layer.cornerRadius = 5
-        view.layer.borderColor = UIColor(white: 0.9, alpha: 1.0).CGColor
+        view.layer.borderColor = UIColor(white: 0.9, alpha: 1.0).cgColor
         view.layer.borderWidth = 1.0
         view.layer.masksToBounds = true
         
         var buttonWidths: [Double] = [68.0, 90.0, 61.0, 86.0, 72.0]
-        let sum = buttonWidths.reduce(0, combine: +)
-        let totalWidth = Double(UIApplication.sharedApplication().keyWindow!.frame.size.width - 40)
+        let sum = buttonWidths.reduce(0, +)
+        let totalWidth = Double(UIApplication.shared.keyWindow!.frame.size.width - 40)
         
-        for (index, value) in buttonWidths.enumerate() {
+        for (index, value) in buttonWidths.enumerated() {
             buttonWidths[index] = value / sum * totalWidth
         }
         
         var previousButton: UIButton? = nil
         
-        for (index, category) in Feed.Filter.Category.allValues.enumerate() {
+        for (index, category) in Feed.Filter.Category.allValues.enumerated() {
             let button = FilterButton(categoryFilter: category)
             self.buttons.append(button)
             
@@ -254,11 +254,11 @@ class FilterView: UIView {
         return view
     }()
     
-    private lazy var priceLabel: UILabel = {
+    fileprivate lazy var priceLabel: UILabel = {
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "PRICE", attributes: [
-            NSForegroundColorAttributeName: UIColor.blackColor(),
+            NSForegroundColorAttributeName: UIColor.black,
             NSFontAttributeName: UIFont(name: "Lato-Regular", size: 13)!,
             NSKernAttributeName: 3.0
             ])
@@ -267,25 +267,25 @@ class FilterView: UIView {
         return label
     }()
     
-    private lazy var priceButtons: UIView = {
+    fileprivate lazy var priceButtons: UIView = {
         let view = UIView()
         
         view.layer.cornerRadius = 5
-        view.layer.borderColor = UIColor(white: 0.9, alpha: 1.0).CGColor
+        view.layer.borderColor = UIColor(white: 0.9, alpha: 1.0).cgColor
         view.layer.borderWidth = 1.0
         view.layer.masksToBounds = true
         
         var buttonWidths: [Double] = [76.0, 71.0, 80.0, 92.0, 59.0]
-        let sum = buttonWidths.reduce(0, combine: +)
-        let totalWidth = Double(UIApplication.sharedApplication().keyWindow!.frame.size.width - 40)
+        let sum = buttonWidths.reduce(0, +)
+        let totalWidth = Double(UIApplication.shared.keyWindow!.frame.size.width - 40)
         
-        for (index, value) in buttonWidths.enumerate() {
+        for (index, value) in buttonWidths.enumerated() {
             buttonWidths[index] = value / sum * totalWidth
         }
         
         var previousButton: UIButton? = nil
         
-        for (index, price) in Feed.Filter.Price.allValues.enumerate() {
+        for (index, price) in Feed.Filter.Price.allValues.enumerated() {
             let button = FilterButton(priceFilter: price)
             self.buttons.append(button)
             
@@ -354,10 +354,10 @@ class FilterView: UIView {
         self.bottomConstraint?.constant = 0
         setNeedsLayout()
         
-        UIView.animateWithDuration(0.25) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.blackOverlay.layer.opacity = 1.0
             self.layoutIfNeeded()
-        }
+        }) 
     }
     
     /**
@@ -382,7 +382,7 @@ class FilterView: UIView {
             self.delegate?.didUpdateFilters()
         }
         
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             
             self.blackOverlay.layer.opacity = 0.0
             self.layoutIfNeeded()

@@ -23,10 +23,10 @@ class UserIdentityViewController: UIViewController {
     
     // MARK: - View lifecycle
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let identityManager = AWSIdentityManager.defaultIdentityManager()
+        let identityManager = AWSIdentityManager.default()
         
         if let identityUserName = identityManager.userName {
             userName.text = identityUserName
@@ -36,7 +36,7 @@ class UserIdentityViewController: UIViewController {
         
         userID.text = identityManager.identityId
         if let imageURL = identityManager.imageURL {
-            let imageData = NSData(contentsOfURL: imageURL)!
+            let imageData = try! Data(contentsOf: imageURL)
             if let profileImage = UIImage(data: imageData) {
                 userImageView.image = profileImage
             } else {

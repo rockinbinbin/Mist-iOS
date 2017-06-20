@@ -16,7 +16,7 @@ class BuyButton: UIButton {
         super.init(frame: frame)
         
         self.price = 0
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,11 +40,11 @@ class BuyButton: UIButton {
     
     // MARK: - Appearance
     
-    private func formatTitle(newPriceValue: Float) {
+    fileprivate func formatTitle(_ newPriceValue: Float) {
         var title: String
         
         // If a whole value price
-        if (newPriceValue % 1 == 0) {
+        if (newPriceValue.truncatingRemainder(dividingBy: 1) == 0) {
             title = "BUY for $\(Int(newPriceValue))"
         } else {
             title = String(format: "BUY for $%.2f", newPriceValue)
@@ -62,11 +62,11 @@ class BuyButton: UIButton {
         
         attrString.addAttributes([NSKernAttributeName: 1.5], range: NSMakeRange(0, title.characters.count))
 
-        attrString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGrayColor()], range: NSMakeRange(0, title.characters.count))
-        setAttributedTitle(attrString, forState: .Selected)
+        attrString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: NSMakeRange(0, title.characters.count))
+        setAttributedTitle(attrString, for: .selected)
         
         let normalAttrString = attrString
-        normalAttrString.addAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], range: NSMakeRange(0, title.characters.count))
-        setAttributedTitle(normalAttrString, forState: .Normal)
+        normalAttrString.addAttributes([NSForegroundColorAttributeName: UIColor.white], range: NSMakeRange(0, title.characters.count))
+        setAttributedTitle(normalAttrString, for: UIControlState())
     }
 }

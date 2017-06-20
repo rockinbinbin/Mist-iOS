@@ -14,7 +14,7 @@ enum USState: String {
     // MARK: - Init
     
     init?(abbreviation: String) {
-        let keys = (abbreviationList as NSDictionary).allKeysForObject(abbreviation.uppercaseString)
+        let keys = (abbreviationList as NSDictionary).allKeys(for: abbreviation.uppercased())
         let stateName = (keys as! [String]).first
         
         if stateName != nil {

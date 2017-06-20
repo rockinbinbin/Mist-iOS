@@ -26,42 +26,42 @@ protocol AnalyticsEvent {
 enum Event {
     
     enum Feed: AnalyticsEvent {
-        case ItemCellPressed
-        case AccountPressed
-        case SearchPressed
+        case itemCellPressed
+        case accountPressed
+        case searchPressed
         
         var identifier: String {
             get {
                 let reflection = String(reflecting: self)
-                return reflection.stringByReplacingOccurrencesOfString("Mist.Event.", withString: "")
+                return reflection.replacingOccurrences(of: "Mist.Event.", with: "")
             }
         }
     }
     
     enum Account: AnalyticsEvent {
-        case PaymentMethodPressed
-        case ShippingAddressPressed
-        case ContactUsPressed
+        case paymentMethodPressed
+        case shippingAddressPressed
+        case contactUsPressed
         
-        case LogOutPressed
-        case SignInPressed
-        case SignUpPressed
+        case logOutPressed
+        case signInPressed
+        case signUpPressed
         
         var identifier: String {
             get {
                 let reflection = String(reflecting: self)
-                return reflection.stringByReplacingOccurrencesOfString("Mist.Event.", withString: "")
+                return reflection.replacingOccurrences(of: "Mist.Event.", with: "")
             }
         }
     }
     
     enum Product: AnalyticsEvent {
-        case BuyPressed
+        case buyPressed
         
         var identifier: String {
             get {
                 let reflection = String(reflecting: self)
-                return reflection.stringByReplacingOccurrencesOfString("Mist.Event.", withString: "")
+                return reflection.replacingOccurrences(of: "Mist.Event.", with: "")
             }
         }
     }

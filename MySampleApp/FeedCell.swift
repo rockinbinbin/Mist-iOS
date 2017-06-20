@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DLImageLoader
 import FLAnimatedImage
 
 class FeedCell: UICollectionViewCell {
@@ -16,7 +15,7 @@ class FeedCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .blackColor()
+        backgroundColor = .black
         setViewConstraints()
     }
     
@@ -37,22 +36,22 @@ class FeedCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private lazy var imageView: UIImageView = {
+    fileprivate lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         self.addSubview(imageView)
         return imageView
     }()
     
-    public var gif: FLAnimatedImageView? = nil
+    open var gif: FLAnimatedImageView? = nil
     
-    private lazy var blackGradientOverlay: UIView = {
-        let _blackGradientOverlay: UIView = UIView(frame: CGRectMake(0.0, 0.0, 1000, 75.0))
+    fileprivate lazy var blackGradientOverlay: UIView = {
+        let _blackGradientOverlay: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
         let gradient: CAGradientLayer = CAGradientLayer()
         
         gradient.frame = _blackGradientOverlay.bounds
-        gradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         
-        _blackGradientOverlay.layer.insertSublayer(gradient, atIndex: 0)
+        _blackGradientOverlay.layer.insertSublayer(gradient, at: 0)
         _blackGradientOverlay.clipsToBounds = true
         
         self.addSubview(_blackGradientOverlay)
@@ -60,19 +59,19 @@ class FeedCell: UICollectionViewCell {
         return _blackGradientOverlay
     }()
     
-    private lazy var nameLabel: UILabel = {
+    fileprivate lazy var nameLabel: UILabel = {
         let _nameLabel = UILabel()
-        _nameLabel.textColor = UIColor.whiteColor()
+        _nameLabel.textColor = UIColor.white
         _nameLabel.numberOfLines = 0
-        _nameLabel.lineBreakMode = .ByWordWrapping
+        _nameLabel.lineBreakMode = .byWordWrapping
         self.addSubview(_nameLabel)
         return _nameLabel
     }()
     
-    private lazy var priceLabel: UILabel = {
+    fileprivate lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .whiteColor()
-        label.textAlignment = .Right
+        label.textColor = .white
+        label.textAlignment = .right
         self.addSubview(label)
         return label
     }()
@@ -94,22 +93,23 @@ class FeedCell: UICollectionViewCell {
         
         nameLabel.pinToBottomEdgeOfSuperview(offset: 5)
         nameLabel.pinToLeftEdgeOfSuperview(offset: 5)
-        nameLabel.sizeToWidth(UIApplication.sharedApplication().keyWindow!.frame.size.width / 2 - 30)
+        nameLabel.sizeToWidth(UIApplication.shared.keyWindow!.frame.size.width / 2 - 30)
         
         priceLabel.pinToBottomEdgeOfSuperview(offset: 5)
         priceLabel.pinToRightEdgeOfSuperview(offset: 5)
         priceLabel.sizeToWidth(40)
     }
     
-    func setImage(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {
-        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
-            completion?(completed: Bool(error == nil), image: image)
-
-            dispatch_async(dispatch_get_main_queue()) {
-                self.imageView.image = image
-//                self.imageView.image = UIImage.animatedImageWithAnimatedGIFURL(NSURL(string: url)!)
-            }
-        }
+    func setImage(_ url: String, completion: ((_ completed: Bool, _ image: UIImage?) -> ())?) {
+        // TODO: DLImageLoader
+//        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
+//            completion?(completed: Bool(error == nil), image: image)
+//
+//            dispatch_async(dispatch_get_main_queue()) {
+//                self.imageView.image = image
+////                self.imageView.image = UIImage.animatedImageWithAnimatedGIFURL(NSURL(string: url)!)
+//            }
+//        }
     }
     
 //    func setGif(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {
@@ -122,23 +122,23 @@ class FeedCell: UICollectionViewCell {
 //        }
 //    }
     
-    private func setTitleText(name: String) {
+    fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
-            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: name.uppercaseString, attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [String : AnyObject])
         
         nameLabel.attributedText = attributedTitle
         nameLabel.sizeToFit()
     }
     
-    private func setPrice(price: String) {
+    fileprivate func setPrice(_ price: String) {
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
-            NSForegroundColorAttributeName:UIColor.whiteColor(),
+            NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
         

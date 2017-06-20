@@ -15,13 +15,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .white
         view.setNeedsUpdateConstraints()
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem?.tintColor = .blackColor()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
         
-        navigationController?.navigationBar.tintColor = .blackColor()
+        navigationController?.navigationBar.tintColor = .black
         
         navigationItem.titleView = searchField
         
@@ -31,24 +31,24 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     // MARK: - UI Components
     
-    private lazy var searchField: UITextField = {
-        let field: UITextField = UITextField(frame: CGRectMake(-40, 0, self.navigationController!.navigationBar.frame.size.width, 21))
+    fileprivate lazy var searchField: UITextField = {
+        let field: UITextField = UITextField(frame: CGRect(x: -40, y: 0, width: self.navigationController!.navigationBar.frame.size.width, height: 21))
         field.font = UIFont(name: "Lato-Regular", size: 15)
         field.placeholder = "Search by product, brand, and more"
-        field.returnKeyType = .Search
+        field.returnKeyType = .search
         field.delegate = self
         return field
     }()
     
     // MARK: Placeholder
     
-    private lazy var placeholderView: UIView = {
+    fileprivate lazy var placeholderView: UIView = {
         let view = UIView(frame: self.view.bounds)
         
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.view.bounds
-        gradient.colors = [UIColor.whiteColor().CGColor, UIColor(white: 0.97, alpha: 1).CGColor]
-        view.layer.insertSublayer(gradient, atIndex: 0)
+        gradient.colors = [UIColor.white.cgColor, UIColor(white: 0.97, alpha: 1).cgColor]
+        view.layer.insertSublayer(gradient, at: 0)
         
         self.view.addSubview(view)
         return view
@@ -56,28 +56,28 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     // MARK: Suggested Searches
     
-    private lazy var suggestedLabel: UILabel = {
+    fileprivate lazy var suggestedLabel: UILabel = {
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "SUGGESTED", attributes: [
             NSFontAttributeName: UIFont(name: "Lato-Bold", size: 15)!,
             NSKernAttributeName: 2.0,
-            NSForegroundColorAttributeName: UIColor.blackColor()
+            NSForegroundColorAttributeName: UIColor.black
             ])
         
         self.placeholderView.addSubview(label)
         return label
     }()
     
-    private lazy var suggestionTitles = ["Men's", "Women's", "Kids", "Lifestyle", "Beauty"]
+    fileprivate lazy var suggestionTitles = ["Men's", "Women's", "Kids", "Lifestyle", "Beauty"]
     
-    private lazy var suggestionButtons: [UIButton] = {
+    fileprivate lazy var suggestionButtons: [UIButton] = {
         return self.suggestionTitles.map({
             let button = UIButton()
             button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
-            button.setTitle($0, forState: .Normal)
-            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            button.addTarget(self, action: #selector(SearchViewController.suggestionPressed), forControlEvents: .TouchUpInside)
+            button.setTitle($0, for: UIControlState())
+            button.setTitleColor(UIColor.black, for: UIControlState())
+            button.addTarget(self, action: #selector(SearchViewController.suggestionPressed), for: .touchUpInside)
             self.placeholderView.addSubview(button)
             return button
         })
@@ -85,29 +85,29 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     // MARK: Previous Searches
     
-    private lazy var previousSearchesLabel: UILabel = {
+    fileprivate lazy var previousSearchesLabel: UILabel = {
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "PREVIOUS SEARCHES", attributes: [
             NSFontAttributeName: UIFont(name: "Lato-Bold", size: 15)!,
             NSKernAttributeName: 2.0,
-            NSForegroundColorAttributeName: UIColor.blackColor()
+            NSForegroundColorAttributeName: UIColor.black
             ])
         
         self.placeholderView.addSubview(label)
         return label
     }()
     
-    private lazy var previousSearchesButtons: [UIButton] = {
+    fileprivate lazy var previousSearchesButtons: [UIButton] = {
         var buttons: [UIButton] = SearchManager.sharedInstance.previousSearches.map({
             let button = UIButton()
             button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
-            button.setTitle($0, forState: .Normal)
-            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            button.addTarget(self, action: #selector(SearchViewController.previousSearchPressed), forControlEvents: .TouchUpInside)
+            button.setTitle($0, for: UIControlState())
+            button.setTitleColor(UIColor.black, for: UIControlState())
+            button.addTarget(self, action: #selector(SearchViewController.previousSearchPressed), for: .touchUpInside)
             
             if $0 == "" {
-                button.enabled = false
+                button.isEnabled = false
             }
             
             self.placeholderView.addSubview(button)
@@ -117,9 +117,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         let hasNoPreviousSearches = SearchManager.sharedInstance.previousSearches.filter({$0 != ""}).count == 0
         
         if hasNoPreviousSearches {
-            buttons[0].setTitle("None yet!", forState: .Normal)
-            buttons[0].setTitleColor(UIColor(white: 0, alpha: 0.32), forState: .Normal)
-            buttons[0].enabled = false
+            buttons[0].setTitle("None yet!", for: UIControlState())
+            buttons[0].setTitleColor(UIColor(white: 0, alpha: 0.32), for: UIControlState())
+            buttons[0].isEnabled = false
         }
         
         return buttons
@@ -127,20 +127,20 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     // MARK: Search Results
     
-    private lazy var searchResultsView: SearchResultsView = {
+    fileprivate lazy var searchResultsView: SearchResultsView = {
         let searchResultsView = SearchResultsView()
-        searchResultsView.hidden = true
+        searchResultsView.isHidden = true
         self.view.addSubview(searchResultsView)
         return searchResultsView
     }()
     
-    func suggestionPressed(sender: UIButton) {
+    func suggestionPressed(_ sender: UIButton) {
         let query = sender.currentTitle!
         searchField.text = query
         search(query)
     }
     
-    func previousSearchPressed(sender: UIButton) {
+    func previousSearchPressed(_ sender: UIButton) {
         let query = sender.currentTitle!
         searchField.text = query
         search(query)
@@ -159,7 +159,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             if button == suggestionButtons.first {
                 button.positionBelowItem(suggestedLabel, offset: 20)
             } else {
-                button.positionBelowItem(suggestionButtons[suggestionTitles.indexOf(button.currentTitle!)! - 1], offset: 8)
+                button.positionBelowItem(suggestionButtons[suggestionTitles.index(of: button.currentTitle!)! - 1], offset: 8)
             }
             
             button.centerHorizontallyInSuperview()
@@ -172,7 +172,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             if button == previousSearchesButtons.first {
                 button.positionBelowItem(previousSearchesLabel, offset: 20)
             } else {
-                button.positionBelowItem(previousSearchesButtons[previousSearchesButtons.indexOf(button)! - 1], offset: 8)
+                button.positionBelowItem(previousSearchesButtons[previousSearchesButtons.index(of: button)! - 1], offset: 8)
             }
             
             button.centerHorizontallyInSuperview()
@@ -187,7 +187,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     func dismiss() {
         self.searchField.resignFirstResponder()
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func addTapGestureRecognizer() {
@@ -201,7 +201,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     // MARK: - Search
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string == "\n" {
             textField.resignFirstResponder()
             return false
@@ -209,8 +209,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
-        guard let query = textField.text where query != "" else {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let query = textField.text, query != "" else {
             return
         }
         
@@ -219,10 +219,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         search(query)
     }
     
-    private func search(query: String) {
+    fileprivate func search(_ query: String) {
         
         let searchCompletion = { (products: [Feed.Item], brands: [SearchResult.Brand]) -> Void in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.searchResultsView.updateSearchResults(products, brands: brands)
                 
                 /**
@@ -232,60 +232,60 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
                  is used in the future, the delay of 0.2 could make the animation be slower
                  than it could be.
                  */
-                self.animateView(self.searchResultsView, action: .Show, duration: 0.2, delay: 0.2)
+                self.animateView(self.searchResultsView, action: .show, duration: 0.2, delay: 0.2)
             }
         }
         
         SearchManager.sharedInstance.search(query, completion: searchCompletion)
         
-        animateView(placeholderView, action: .Hide, duration: 0.2)
+        animateView(placeholderView, action: .hide, duration: 0.2)
         
     }
     
-    private func refreshPreviousSearches() {
+    fileprivate func refreshPreviousSearches() {
         
         // Must have least one non-empty search string
         guard SearchManager.sharedInstance.previousSearches.filter({$0 != ""}).count != 0 else {
             return
         }
         
-        for (index, search) in SearchManager.sharedInstance.previousSearches.enumerate() {
+        for (index, search) in SearchManager.sharedInstance.previousSearches.enumerated() {
             let button = previousSearchesButtons[index]
             
             guard search != "" else {
                 continue
             }
             
-            button.setTitle(search, forState: .Normal)
-            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            button.enabled = true
+            button.setTitle(search, for: UIControlState())
+            button.setTitleColor(UIColor.black, for: UIControlState())
+            button.isEnabled = true
         }
     }
     
     // MARK: - Animation
     
     enum AnimationAction {
-        case Show
-        case Hide
+        case show
+        case hide
     }
     
-    func animateView(view: UIView, action: AnimationAction, duration: NSTimeInterval, delay: NSTimeInterval = 0) {
+    func animateView(_ view: UIView, action: AnimationAction, duration: TimeInterval, delay: TimeInterval = 0) {
         
-        let show = action == .Show
+        let show = action == .show
         
         view.layer.opacity = show ? 0 : 1
-        view.userInteractionEnabled = show ? false : true
-        view.hidden = show ? false : true
+        view.isUserInteractionEnabled = show ? false : true
+        view.isHidden = show ? false : true
         
         let animations = {
             view.layer.opacity = show ? 1 : 0
         }
         
         let completion = { (animated: Bool) -> Void in
-            view.userInteractionEnabled = show ? true : false
+            view.isUserInteractionEnabled = show ? true : false
         }
         
-        UIView.animateWithDuration(duration, delay: delay, options: .CurveEaseInOut, animations: animations, completion: completion)
+        UIView.animate(withDuration: duration, delay: delay, options: UIViewAnimationOptions(), animations: animations, completion: completion)
     }
 }
 

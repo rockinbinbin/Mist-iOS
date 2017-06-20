@@ -28,7 +28,7 @@ class SearchManager {
     
     // MARK: - Search
     
-    func search(text: String, completion: ((products: [Feed.Item], brands: [SearchResult.Brand]) -> ())? = nil) {
+    func search(_ text: String, completion: ((_ products: [Feed.Item], _ brands: [SearchResult.Brand]) -> ())? = nil) {
         var products: [Feed.Item] = []
         
         // TODO: Implement brand search
@@ -40,10 +40,10 @@ class SearchManager {
             }
         }
         
-        completion?(products: products, brands: brands)
+        completion?(products, brands)
     }
     
-    func uniqueElements<S : SequenceType, T : Hashable where S.Generator.Element == T>(source: S) -> [T] {
+    func uniqueElements<S : Sequence, T : Hashable>(_ source: S) -> [T] where S.Iterator.Element == T {
         var buffer = [T]()
         var added = Set<T>()
         for elem in source {
@@ -68,15 +68,15 @@ class SearchManager {
     /**
      Returns true iff all of the words in the query are in some field of the product.
      */
-    private func productPredicate(text: String, product: Feed.Item) -> Bool {
-        var words = uniqueElements(text.componentsSeparatedByString(" ").filter{$0 != ""}.map{$0.lowercaseString})
+    fileprivate func productPredicate(_ text: String, product: Feed.Item) -> Bool {
+        var words = uniqueElements(text.components(separatedBy: " ").filter{$0 != ""}.map{$0.lowercased()})
         
         let searchableFields = [product.name, product.description, product.brand, product.price]
         
         for field in searchableFields {
             for word in words {
-                if field.containsString(word) {
-                    words.removeAtIndex(words.indexOf(word)!)
+                if field.contains(word) {
+                    words.remove(at: words.index(of: word)!)
                     
                     if words.count == 0 {
                         return true
@@ -87,8 +87,8 @@ class SearchManager {
         
         for category in product.categories {
             for word in words {
-                if category.description.containsString(word) {
-                    words.removeAtIndex(words.indexOf(word)!)
+                if category.description.contains(word) {
+                    words.remove(at: words.index(of: word)!)
                     
                     if words.count == 0 {
                         return true
@@ -101,17 +101,17 @@ class SearchManager {
     }
     
     // TODO: Implement
-    private func brandPredicate(text: String) -> Bool {
+    fileprivate func brandPredicate(_ text: String) -> Bool {
         return false
     }
     
     // MARK: - Search History
     
-    var previousSearches = [String](count: 5, repeatedValue: "")
+    var previousSearches = [String](repeating: "", count: 5)
     
     // MARK: - Utility
     
-    func addRecentSearch(query: String) {
+    func addRecentSearch(_ query: String) {
         previousSearches.shiftRightInPlace(-1)
         previousSearches[0] = query
     }
@@ -120,14 +120,14 @@ class SearchManager {
 // MARK: - Array shifting
 
 extension Array {
-    func shiftRight(amount: Int = 1) -> [Element] {
+    func shiftRight(_ amount: Int = 1) -> [Element] {
         var amount = amount
         assert(-count...count ~= amount, "Shift amount out of bounds")
         if amount < 0 { amount += count }  // this needs to be >= 0
         return Array(self[amount ..< count] + self[0 ..< amount])
     }
     
-    mutating func shiftRightInPlace(amount: Int = 1) {
+    mutating func shiftRightInPlace(_ amount: Int = 1) {
         self = shiftRight(amount)
     }
 }

@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import DLImageLoader
 
 protocol SearchResultProductViewDelegate {
-    func didLoadProductImage(tag: Int, error: NSError?)
+    func didLoadProductImage(_ tag: Int, error: NSError?)
 }
 
 /**
@@ -21,7 +20,7 @@ class SearchResultProductView: UIView {
     // MARK: - Init
     
     convenience init(item: Feed.Item) {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
         self.item = item
     }
     
@@ -29,7 +28,7 @@ class SearchResultProductView: UIView {
         super.init(frame: frame)
         
         self.layer.cornerRadius = 5
-        self.layer.borderColor = UIColor(white: 0.92, alpha: 1.0).CGColor
+        self.layer.borderColor = UIColor(white: 0.92, alpha: 1.0).cgColor
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
     }
@@ -51,17 +50,18 @@ class SearchResultProductView: UIView {
      Loads the image and notifies the delegate.
      */
     func loadImage() {
-        DLImageLoader.sharedInstance.imageFromUrl(item!.imageURL) { (error, image) in
-            guard error == nil else {
-                self.delegate?.didLoadProductImage(self.tag, error: error)
-                return
-            }
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.imageView.image = image
-                self.delegate?.didLoadProductImage(self.tag, error: nil)
-            }
-        }
+        // TODO: DLImageLoader
+//        DLImageLoader.sharedInstance.imageFromUrl(item!.imageURL) { (error, image) in
+//            guard error == nil else {
+//                self.delegate?.didLoadProductImage(self.tag, error: error)
+//                return
+//            }
+//            
+//            dispatch_async(dispatch_get_main_queue()) {
+//                self.imageView.image = image
+//                self.delegate?.didLoadProductImage(self.tag, error: nil)
+//            }
+//        }
     }
     
     // MARK: - Model
@@ -70,51 +70,51 @@ class SearchResultProductView: UIView {
     
     // MARK: - UI Components
     
-    private lazy var imageView: UIImageView = {
+    fileprivate lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         self.addSubview(imageView)
         return imageView
     }()
     
-    private class Label: UILabel {
+    fileprivate class Label: UILabel {
         enum Style {
-            case Product
-            case Brand
-            case Price
+            case product
+            case brand
+            case price
         }
         
         convenience init(title: String, style: Style) {
             self.init()
             
             text = title
-            textColor = .whiteColor()
-            lineBreakMode = .ByTruncatingTail
+            textColor = .white
+            lineBreakMode = .byTruncatingTail
             
             switch style {
-            case .Product: font = UIFont(name: "Lato-Bold", size: 13)!
-            case .Brand: font = UIFont(name: "Lato-Regular", size: 12)!
-            case .Price: font = UIFont(name: "Lato-Regular", size: 14)!
+            case .product: font = UIFont(name: "Lato-Bold", size: 13)!
+            case .brand: font = UIFont(name: "Lato-Regular", size: 12)!
+            case .price: font = UIFont(name: "Lato-Regular", size: 14)!
             }
         }
     }
     
-    private lazy var productLabel: UILabel = {
-        let label = Label(title: self.item!.name, style: .Product)
+    fileprivate lazy var productLabel: UILabel = {
+        let label = Label(title: self.item!.name, style: .product)
         self.addSubview(label)
         return label
     }()
     
-    private lazy var brandLabel: UILabel = {
-        let label = Label(title: self.item!.brand, style: .Brand)
+    fileprivate lazy var brandLabel: UILabel = {
+        let label = Label(title: self.item!.brand, style: .brand)
         self.addSubview(label)
         return label
     }()
     
-    private lazy var priceLabel: UILabel = {
-        let label = Label(title: "$\(Int(Double(self.item!.price)!))", style: .Price)
-        label.textAlignment = .Right
+    fileprivate lazy var priceLabel: UILabel = {
+        let label = Label(title: "$\(Int(Double(self.item!.price)!))", style: .price)
+        label.textAlignment = .right
         self.addSubview(label)
         return label
     }()

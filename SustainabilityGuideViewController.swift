@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class SustainabilityGuideViewController: UIViewController {
     
@@ -14,9 +38,9 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal lazy var headerLabel: UILabel = {
         let headerLabel = UILabel()
-        headerLabel.textColor = UIColor.whiteColor()
-        headerLabel.textAlignment = .Left
-        headerLabel.lineBreakMode = .ByWordWrapping
+        headerLabel.textColor = UIColor.white
+        headerLabel.textAlignment = .left
+        headerLabel.lineBreakMode = .byWordWrapping
         headerLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "here's to ")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
@@ -29,9 +53,9 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal lazy var updatingHeaderLabel: UILabel = {
         let updatingHeaderLabel = UILabel()
-        updatingHeaderLabel.textColor = UIColor.whiteColor()
-        updatingHeaderLabel.textAlignment = .Left
-        updatingHeaderLabel.lineBreakMode = .ByWordWrapping
+        updatingHeaderLabel.textColor = UIColor.white
+        updatingHeaderLabel.textAlignment = .left
+        updatingHeaderLabel.lineBreakMode = .byWordWrapping
         updatingHeaderLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: " beautiful")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
@@ -44,9 +68,9 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal lazy var thankYouLabel: UILabel = {
         let thankYouLabel = UILabel()
-        thankYouLabel.textColor = UIColor.lightGrayColor()
-        thankYouLabel.textAlignment = .Left
-        thankYouLabel.lineBreakMode = .ByWordWrapping
+        thankYouLabel.textColor = UIColor.lightGray
+        thankYouLabel.textAlignment = .left
+        thankYouLabel.lineBreakMode = .byWordWrapping
         thankYouLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "Thank you.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
@@ -59,9 +83,9 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal lazy var appreciateLabel: UILabel = {
         let appreciateLabel = UILabel()
-        appreciateLabel.textColor = UIColor.lightGrayColor()
-        appreciateLabel.textAlignment = .Left
-        appreciateLabel.lineBreakMode = .ByWordWrapping
+        appreciateLabel.textColor = UIColor.lightGray
+        appreciateLabel.textAlignment = .left
+        appreciateLabel.lineBreakMode = .byWordWrapping
         appreciateLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "We appreciate you.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
@@ -74,9 +98,9 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal lazy var supportLabel: UILabel = {
         let supportLabel = UILabel()
-        supportLabel.textColor = UIColor.lightGrayColor()
-        supportLabel.textAlignment = .Left
-        supportLabel.lineBreakMode = .ByWordWrapping
+        supportLabel.textColor = UIColor.lightGray
+        supportLabel.textAlignment = .left
+        supportLabel.lineBreakMode = .byWordWrapping
         supportLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "We're here to support you & your lifestyle.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
@@ -89,9 +113,9 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal lazy var bodyLabel: UILabel = {
         let bodyLabel = UILabel()
-        bodyLabel.textColor = UIColor.whiteColor()
-        bodyLabel.textAlignment = .Left
-        bodyLabel.lineBreakMode = .ByWordWrapping
+        bodyLabel.textColor = UIColor.white
+        bodyLabel.textAlignment = .left
+        bodyLabel.lineBreakMode = .byWordWrapping
         bodyLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "MIST does the work of curating brands who value transparency, so you can clear your conscience, effortlessly.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
@@ -104,9 +128,9 @@ class SustainabilityGuideViewController: UIViewController {
     
     internal lazy var body2Label: UILabel = {
         let body2Label = UILabel()
-        body2Label.textColor = UIColor.whiteColor()
-        body2Label.textAlignment = .Left
-        body2Label.lineBreakMode = .ByWordWrapping
+        body2Label.textColor = UIColor.white
+        body2Label.textAlignment = .left
+        body2Label.lineBreakMode = .byWordWrapping
         body2Label.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "We curate sustainably-made, long-lasting pieces designed by creatives who put quality & our rivers first, so that you can feel good about what you wear.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
@@ -118,16 +142,16 @@ class SustainabilityGuideViewController: UIViewController {
     }()
     
     internal lazy var nextPageButton: UIButton = {
-        let nextPageButton = UIButton(type: .RoundedRect)
+        let nextPageButton = UIButton(type: .roundedRect)
         nextPageButton.layer.cornerRadius = 0
-        nextPageButton.tintColor = UIColor.whiteColor()
-        nextPageButton.layer.borderColor = UIColor.whiteColor().CGColor
+        nextPageButton.tintColor = UIColor.white
+        nextPageButton.layer.borderColor = UIColor.white.cgColor
         nextPageButton.layer.borderWidth = 1.0
         nextPageButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
-        nextPageButton.setTitle("   Skim our guide on transparency →   ", forState: .Normal)
+        nextPageButton.setTitle("   Skim our guide on transparency →   ", for: UIControlState())
         self.view.addSubview(nextPageButton)
         
-        nextPageButton.addTarget(self, action: #selector(SustainabilityGuideViewController.nextPagePressed), forControlEvents: .TouchUpInside)
+        nextPageButton.addTarget(self, action: #selector(SustainabilityGuideViewController.nextPagePressed), for: .touchUpInside)
         return nextPageButton
     }()
 
@@ -137,7 +161,7 @@ class SustainabilityGuideViewController: UIViewController {
         setNavBar()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         layoutViews()
     }
@@ -179,14 +203,14 @@ class SustainabilityGuideViewController: UIViewController {
     }
     
     func startUpdatingLabel() {
-        NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel(_:)), userInfo: 0, repeats: false)
+        Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel(_:)), userInfo: 0, repeats: false)
     }
     
-    func updateLabel(timer: NSTimer) {
+    func updateLabel(_ timer: Timer) {
         
         let array = ["the creatives", "the eco-conscious", "the questioners", "the curious", "you"]
         
-        let index = timer.userInfo?.integerValue
+        let index = (timer.userInfo? as AnyObject).intValue
         if (index >= array.count) {
             return;
         }
@@ -197,7 +221,7 @@ class SustainabilityGuideViewController: UIViewController {
         
         updatingHeaderLabel.attributedText = attrString
         
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -209,7 +233,7 @@ class SustainabilityGuideViewController: UIViewController {
         
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 16)!,
-            NSForegroundColorAttributeName:UIColor.blackColor(),
+            NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
         
@@ -225,7 +249,7 @@ class SustainabilityGuideViewController: UIViewController {
     }
     
     internal func closePressed() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func nextPagePressed() {

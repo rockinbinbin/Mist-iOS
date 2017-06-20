@@ -18,7 +18,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     // MARK: - UI Components
     
-    private lazy var scrollView: UIScrollView = {
+    fileprivate lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         self.addSubview(scrollView)
@@ -32,33 +32,33 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
             let attributes = [
                 NSFontAttributeName: UIFont(name: "Lato-Bold", size: 15)!,
                 NSKernAttributeName: 2.0,
-                NSForegroundColorAttributeName: UIColor.blackColor()
-            ]
+                NSForegroundColorAttributeName: UIColor.black
+            ] as [String : Any]
 
             attributedText = NSAttributedString(string: title, attributes: attributes)
         }
     }
     
-    private lazy var productsLabel: UILabel = {
+    fileprivate lazy var productsLabel: UILabel = {
         let label = Label(title: "PRODUCTS")
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private lazy var brandsLabel: UILabel = {
+    fileprivate lazy var brandsLabel: UILabel = {
         let label = Label(title: "BRANDS")
         self.scrollView.addSubview(label)
         return label
     }()
     
-    private lazy var productsScrollView: UIScrollView = {
+    fileprivate lazy var productsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.addSubview(scrollView)
         return scrollView
     }()
     
-    private lazy var noResultsTitle: UILabel = {
+    fileprivate lazy var noResultsTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Lato-Bold", size: 18)
         label.textColor = UIColor(white: 0.47, alpha: 1.0)
@@ -67,7 +67,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         return label
     }()
     
-    private lazy var noResultsDescriptionButton: UIButton = {
+    fileprivate lazy var noResultsDescriptionButton: UIButton = {
         let button = UIButton()
         
         let title = "Have a product suggestion? Email us."
@@ -86,25 +86,25 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         attributedTitle.addAttribute(NSForegroundColorAttributeName, value: grey, range: greyRange)
         attributedTitle.addAttribute(NSForegroundColorAttributeName, value: Constants.Colors.DoneBlue, range: blueRange)
         
-        button.setAttributedTitle(attributedTitle, forState: .Normal)
+        button.setAttributedTitle(attributedTitle, for: UIControlState())
         
-        button.addTarget(self, action: #selector(SearchResultsView.showEmailSuggestionTemplate), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(SearchResultsView.showEmailSuggestionTemplate), for: .touchUpInside)
         
         self.addSubview(button)
         
         return button
     }()
     
-    private var productViews: [SearchResultProductView] = []
-    private var brandViews: [SearchResultBrandView] = []
+    fileprivate var productViews: [SearchResultProductView] = []
+    fileprivate var brandViews: [SearchResultBrandView] = []
     
-    private var leftOffset: CGFloat = 29
+    fileprivate var leftOffset: CGFloat = 29
     
-    private func displayProduct(productView: SearchResultProductView) {
+    fileprivate func displayProduct(_ productView: SearchResultProductView) {
         let size = productView.preferredSize
         
         productView.layer.opacity = 0
-        productView.userInteractionEnabled = false
+        productView.isUserInteractionEnabled = false
         
         productsScrollView.addSubview(productView)
         
@@ -117,21 +117,21 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         productView.pinToLeftEdgeOfSuperview(offset: leftOffset)
         
         leftOffset += (padding + size.width)
-        productsScrollView.contentSize = CGSizeMake(leftOffset, 191)
+        productsScrollView.contentSize = CGSize(width: leftOffset, height: 191)
         
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             productView.layer.opacity = 1
             }, completion: { (Bool) -> Void in
-            productView.userInteractionEnabled = true
+            productView.isUserInteractionEnabled = true
         })
     }
     
-    private lazy var previousBrandView: UIView? = nil
+    fileprivate lazy var previousBrandView: UIView? = nil
     
-    private func displayBrand(brandView: SearchResultBrandView) {
+    fileprivate func displayBrand(_ brandView: SearchResultBrandView) {
 
         brandView.layer.opacity = 0
-        brandView.userInteractionEnabled = false
+        brandView.isUserInteractionEnabled = false
         
         scrollView.addSubview(brandView)
         
@@ -143,20 +143,20 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         
         previousBrandView = brandView
         
-        let screenWidth = UIApplication.sharedApplication().keyWindow!.frame.size.width
+        let screenWidth = UIApplication.shared.keyWindow!.frame.size.width
         
         brandView.pinToLeftEdgeOfSuperview()
         brandView.sizeToWidth(screenWidth)
         brandView.sizeToHeight(100)
         
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             brandView.layer.opacity = 1
             }, completion: { (Bool) -> Void in
-                brandView.userInteractionEnabled = true
+                brandView.isUserInteractionEnabled = true
         })
     }
     
-    private func clearSearchResults() {
+    fileprivate func clearSearchResults() {
         for product in productViews {
             product.removeFromSuperview()
         }
@@ -174,23 +174,23 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     // MARK: - Layout
     
-    private var hasProductResults: Bool = false {
+    fileprivate var hasProductResults: Bool = false {
         didSet {
-            productsLabel.hidden = !hasProductResults
+            productsLabel.isHidden = !hasProductResults
             
             if hasBrandResults {
-                brandLabelTopPinConstraint?.active = !hasProductResults
-                brandLabelUnderScrollViewConstraint?.active = hasProductResults
+                brandLabelTopPinConstraint?.isActive = !hasProductResults
+                brandLabelUnderScrollViewConstraint?.isActive = hasProductResults
             } else {
-                brandLabelUnderScrollViewConstraint?.active = hasProductResults
-                brandLabelTopPinConstraint?.active = !hasProductResults
+                brandLabelUnderScrollViewConstraint?.isActive = hasProductResults
+                brandLabelTopPinConstraint?.isActive = !hasProductResults
             }
         }
     }
     
-    private var hasBrandResults: Bool = false {
+    fileprivate var hasBrandResults: Bool = false {
         didSet {
-            brandsLabel.hidden = !hasBrandResults
+            brandsLabel.isHidden = !hasBrandResults
         }
     }
     
@@ -219,7 +219,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         productsLabel.pinToTopEdgeOfSuperview(offset: 31)
         productsLabel.pinToLeftEdgeOfSuperview(offset: 29)
         
-        let screenWidth = UIApplication.sharedApplication().keyWindow!.frame.size.width
+        let screenWidth = UIApplication.shared.keyWindow!.frame.size.width
         
         productsScrollView.sizeToHeight(191)
         productsScrollView.pinToLeftEdgeOfSuperview()
@@ -229,7 +229,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         brandsLabel.pinToLeftEdgeOfSuperview(offset: 29)
         brandLabelUnderScrollViewConstraint = brandsLabel.positionBelowItem(productsScrollView, offset: 30)
         brandLabelTopPinConstraint = brandsLabel.pinToTopEdgeOfSuperview(offset: 31)
-        brandLabelTopPinConstraint!.active = false
+        brandLabelTopPinConstraint!.isActive = false
         
         noResultsTitle.centerHorizontallyInSuperview()
         noResultsTitle.centerVerticallyInSuperview(offset: -30)
@@ -242,8 +242,8 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     // MARK: - Search Results
     
-    func updateSearchResults(products: [Feed.Item], brands: [SearchResult.Brand]) {
-        scrollView.setContentOffset(CGPointZero, animated: false)
+    func updateSearchResults(_ products: [Feed.Item], brands: [SearchResult.Brand]) {
+        scrollView.setContentOffset(CGPoint.zero, animated: false)
         clearSearchResults()
         
         hasProductResults = !products.isEmpty
@@ -251,11 +251,11 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         
         let noResults = products.isEmpty && brands.isEmpty
         
-        noResultsTitle.hidden = !noResults
-        noResultsDescriptionButton.hidden = !noResults
-        noResultsDescriptionButton.userInteractionEnabled = noResults
+        noResultsTitle.isHidden = !noResults
+        noResultsDescriptionButton.isHidden = !noResults
+        noResultsDescriptionButton.isUserInteractionEnabled = noResults
         
-        for (index, product) in products.enumerate() {
+        for (index, product) in products.enumerated() {
             let searchResultProductView = SearchResultProductView(item: product)
             productViews.append(searchResultProductView)
 
@@ -264,7 +264,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
             searchResultProductView.tag = index
         }
         
-        for (index, brand) in brands.enumerate() {
+        for (index, brand) in brands.enumerated() {
             let searchResultBrandView = SearchResultBrandView(brand: brand)
             brandViews.append(searchResultBrandView)
             
@@ -284,7 +284,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     // MARK: - Delegate Methods
     
-    func didLoadProductImage(tag: Int, error: NSError?) {
+    func didLoadProductImage(_ tag: Int, error: NSError?) {
         guard error == nil else {
             return
         }
@@ -293,7 +293,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         displayProduct(productView)
     }
     
-    func didLoadBrandImage(tag: Int, error: NSError?) {
+    func didLoadBrandImage(_ tag: Int, error: NSError?) {
         guard error == nil else {
             return
         }

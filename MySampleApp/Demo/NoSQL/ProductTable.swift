@@ -45,7 +45,7 @@ class ProductTable: NSObject, Table {
 
             ProductProductId(),
         ]
-        if (model.classForCoder.respondsToSelector("rangeKeyAttribute")) {
+        if (model.classForCoder.responds(to: #selector(AWSDynamoDBModeling.rangeKeyAttribute))) {
             sortKeyName = model.classForCoder.rangeKeyAttribute!()
             sortKeyType = "String"
         }
@@ -59,45 +59,45 @@ class ProductTable: NSObject, Table {
      * - returns: table attribute name
      */
 
-    func tableAttributeName(dataObjectAttributeName: String) -> String {
-        return Product.JSONKeyPathsByPropertyKey()[dataObjectAttributeName] as! String
+    func tableAttributeName(_ dataObjectAttributeName: String) -> String {
+        return Product.jsonKeyPathsByPropertyKey()[dataObjectAttributeName] as! String
     }
     
     func getItemDescription() -> String {
-        return "Find Item with userId = \(AWSIdentityManager.defaultIdentityManager().identityId!) and productId = \("demo-productId-500000")."
+        return "Find Item with userId = \(AWSIdentityManager.default().identityId!) and productId = \("demo-productId-500000")."
     }
     
-    func getItemWithCompletionHandler(completionHandler: (response: AWSDynamoDBObjectModel?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-        objectMapper.load(Product.self, hashKey: AWSIdentityManager.defaultIdentityManager().identityId!, rangeKey: "demo-productId-500000", completionHandler: {(response: AWSDynamoDBObjectModel?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+    func getItemWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBObjectModel?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
+        objectMapper.load(Product.self, hashKey: AWSIdentityManager.default().identityId!, rangeKey: "demo-productId-500000", completionHandler: {(response: AWSDynamoDBObjectModel?, error: NSError?) -> Void in
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBObjectModel?, Error?) -> Void)
     }
     
     func scanDescription() -> String {
         return "Show all items in the table."
     }
     
-    func scanWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func scanWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let scanExpression = AWSDynamoDBScanExpression()
         scanExpression.limit = 5
 
         objectMapper.scan(Product.self, expression: scanExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
     
     func scanWithFilterDescription() -> String {
         return "Find all items with companyId < \("demo-companyId-500000")."
     }
     
-    func scanWithFilterWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func scanWithFilterWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let scanExpression = AWSDynamoDBScanExpression()
         
         scanExpression.filterExpression = "#companyId < :companyId"
@@ -105,100 +105,100 @@ class ProductTable: NSObject, Table {
         scanExpression.expressionAttributeValues = [":companyId": "demo-companyId-500000" ,]
 
         objectMapper.scan(Product.self, expression: scanExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
     
-    func insertSampleDataWithCompletionHandler(completionHandler: (errors: [NSError]?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func insertSampleDataWithCompletionHandler(_ completionHandler: @escaping (_ errors: [NSError]?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         var errors: [NSError] = []
-        let group: dispatch_group_t = dispatch_group_create()
+        let group: DispatchGroup = DispatchGroup()
         let numberOfObjects = 20
         
 
         let itemForGet = Product()
         
-        itemForGet._userId = AWSIdentityManager.defaultIdentityManager().identityId!
-        itemForGet._productId = "demo-productId-500000"
-        itemForGet._companyId = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("companyId")
-        itemForGet._media = NoSQLSampleDataGenerator.randomSampleStringArray()
-        itemForGet._productDescription = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("productDescription")
-        itemForGet._productName = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("productName")
+        itemForGet?._userId = AWSIdentityManager.default().identityId!
+        itemForGet?._productId = "demo-productId-500000"
+        itemForGet?._companyId = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("companyId")
+        itemForGet?._media = NoSQLSampleDataGenerator.randomSampleStringArray()
+        itemForGet?._productDescription = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("productDescription")
+        itemForGet?._productName = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("productName")
         
         
-        dispatch_group_enter(group)
+        group.enter()
         
 
-        objectMapper.save(itemForGet, completionHandler: {(error: NSError?) -> Void in
+        objectMapper.save(itemForGet!, completionHandler: {(error: NSError?) -> Void in
             if error != nil {
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     errors.append(error!)
                 })
             }
-            dispatch_group_leave(group)
-        })
+            group.leave()
+        } as! (Error?) -> Void)
         
         for _ in 1..<numberOfObjects {
 
             let item: Product = Product()
-            item._userId = AWSIdentityManager.defaultIdentityManager().identityId!
+            item._userId = AWSIdentityManager.default().identityId!
             item._productId = NoSQLSampleDataGenerator.randomPartitionSampleStringWithAttributeName("productId")
             item._companyId = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("companyId")
             item._media = NoSQLSampleDataGenerator.randomSampleStringArray()
             item._productDescription = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("productDescription")
             item._productName = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("productName")
             
-            dispatch_group_enter(group)
+            group.enter()
             
             objectMapper.save(item, completionHandler: {(error: NSError?) -> Void in
                 if error != nil {
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         errors.append(error!)
                     })
                 }
-                dispatch_group_leave(group)
-            })
+                group.leave()
+            } as! (Error?) -> Void)
         }
         
-        dispatch_group_notify(group, dispatch_get_main_queue(), {
+        group.notify(queue: DispatchQueue.main, execute: {
             if errors.count > 0 {
-                completionHandler(errors: errors)
+                completionHandler(errors)
             }
             else {
-                completionHandler(errors: nil)
+                completionHandler(nil)
             }
         })
     }
     
-    func removeSampleDataWithCompletionHandler(completionHandler: (errors: [NSError]?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func removeSampleDataWithCompletionHandler(_ completionHandler: @escaping (_ errors: [NSError]?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "#userId = :userId"
         queryExpression.expressionAttributeNames = ["#userId": "userId"]
-        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.defaultIdentityManager().identityId!,]
+        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!,]
 
         objectMapper.query(Product.self, expression: queryExpression) { (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
             if let error = error {
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     completionHandler(errors: [error]);
                     })
             } else {
                 var errors: [NSError] = []
-                let group: dispatch_group_t = dispatch_group_create()
+                let group: DispatchGroup = DispatchGroup()
                 for item in response!.items {
-                    dispatch_group_enter(group)
+                    group.enter()
                     objectMapper.remove(item, completionHandler: {(error: NSError?) -> Void in
                         if error != nil {
-                            dispatch_async(dispatch_get_main_queue(), {
+                            DispatchQueue.main.async(execute: {
                                 errors.append(error!)
                             })
                         }
-                        dispatch_group_leave(group)
+                        group.leave()
                     })
                 }
-                dispatch_group_notify(group, dispatch_get_main_queue(), {
+                group.notify(queue: DispatchQueue.main, execute: {
                     if errors.count > 0 {
                         completionHandler(errors: errors)
                     }
@@ -210,8 +210,8 @@ class ProductTable: NSObject, Table {
         }
     }
     
-    func updateItem(item: AWSDynamoDBObjectModel, completionHandler: (error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func updateItem(_ item: AWSDynamoDBObjectModel, completionHandler: @escaping (_ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         
 
         let itemToUpdate: Product = item as! Product
@@ -222,20 +222,20 @@ class ProductTable: NSObject, Table {
         itemToUpdate._productName = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("productName")
         
         objectMapper.save(itemToUpdate, completionHandler: {(error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(error)
             })
-        })
+        } as! (Error?) -> Void)
     }
     
-    func removeItem(item: AWSDynamoDBObjectModel, completionHandler: (error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func removeItem(_ item: AWSDynamoDBObjectModel, completionHandler: @escaping (_ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         
         objectMapper.remove(item, completionHandler: {(error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(error)
             })
-        })
+        } as! (Error?) -> Void)
     }
 }
 
@@ -255,30 +255,30 @@ class ProductPrimaryIndex: NSObject, Index {
     }
     
     func queryWithPartitionKeyDescription() -> String {
-        return "Find all items with userId = \(AWSIdentityManager.defaultIdentityManager().identityId!)."
+        return "Find all items with userId = \(AWSIdentityManager.default().identityId!)."
     }
     
-    func queryWithPartitionKeyWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func queryWithPartitionKeyWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let queryExpression = AWSDynamoDBQueryExpression()
         
         queryExpression.keyConditionExpression = "#userId = :userId"
         queryExpression.expressionAttributeNames = ["#userId": "userId",]
-        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.defaultIdentityManager().identityId!,]
+        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!,]
 
         objectMapper.query(Product.self, expression: queryExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
     
     func queryWithPartitionKeyAndFilterDescription() -> String {
-        return "Find all items with userId = \(AWSIdentityManager.defaultIdentityManager().identityId!) and companyId > \("demo-companyId-500000")."
+        return "Find all items with userId = \(AWSIdentityManager.default().identityId!) and companyId > \("demo-companyId-500000")."
     }
     
-    func queryWithPartitionKeyAndFilterWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func queryWithPartitionKeyAndFilterWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let queryExpression = AWSDynamoDBQueryExpression()
         
         queryExpression.keyConditionExpression = "#userId = :userId"
@@ -288,24 +288,24 @@ class ProductPrimaryIndex: NSObject, Index {
             "#companyId": "companyId",
         ]
         queryExpression.expressionAttributeValues = [
-            ":userId": AWSIdentityManager.defaultIdentityManager().identityId!,
+            ":userId": AWSIdentityManager.default().identityId!,
             ":companyId": "demo-companyId-500000",
         ]
         
 
         objectMapper.query(Product.self, expression: queryExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
     
     func queryWithPartitionKeyAndSortKeyDescription() -> String {
-        return "Find all items with userId = \(AWSIdentityManager.defaultIdentityManager().identityId!) and productId < \("demo-productId-500000")."
+        return "Find all items with userId = \(AWSIdentityManager.default().identityId!) and productId < \("demo-productId-500000")."
     }
     
-    func queryWithPartitionKeyAndSortKeyWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func queryWithPartitionKeyAndSortKeyWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let queryExpression = AWSDynamoDBQueryExpression()
         
         queryExpression.keyConditionExpression = "#userId = :userId AND #productId < :productId"
@@ -314,24 +314,24 @@ class ProductPrimaryIndex: NSObject, Index {
             "#productId": "productId",
         ]
         queryExpression.expressionAttributeValues = [
-            ":userId": AWSIdentityManager.defaultIdentityManager().identityId!,
+            ":userId": AWSIdentityManager.default().identityId!,
             ":productId": "demo-productId-500000",
         ]
         
 
         objectMapper.query(Product.self, expression: queryExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
     
     func queryWithPartitionKeyAndSortKeyAndFilterDescription() -> String {
-        return "Find all items with userId = \(AWSIdentityManager.defaultIdentityManager().identityId!), productId < \("demo-productId-500000"), and companyId > \("demo-companyId-500000")."
+        return "Find all items with userId = \(AWSIdentityManager.default().identityId!), productId < \("demo-productId-500000"), and companyId > \("demo-companyId-500000")."
     }
     
-    func queryWithPartitionKeyAndSortKeyAndFilterWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func queryWithPartitionKeyAndSortKeyAndFilterWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let queryExpression = AWSDynamoDBQueryExpression()
         
         queryExpression.keyConditionExpression = "#userId = :userId AND #productId < :productId"
@@ -342,17 +342,17 @@ class ProductPrimaryIndex: NSObject, Index {
             "#companyId": "companyId",
         ]
         queryExpression.expressionAttributeValues = [
-            ":userId": AWSIdentityManager.defaultIdentityManager().identityId!,
+            ":userId": AWSIdentityManager.default().identityId!,
             ":productId": "demo-productId-500000",
             ":companyId": "demo-companyId-500000",
         ]
         
 
         objectMapper.query(Product.self, expression: queryExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
 }
 
@@ -374,8 +374,8 @@ class ProductProductId: NSObject, Index {
         return "Find all items with productId = \("demo-productId-3")."
     }
     
-    func queryWithPartitionKeyWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func queryWithPartitionKeyWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let queryExpression = AWSDynamoDBQueryExpression()
         
 
@@ -385,18 +385,18 @@ class ProductProductId: NSObject, Index {
         queryExpression.expressionAttributeValues = [":productId": "demo-productId-3",]
 
         objectMapper.query(Product.self, expression: queryExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
     
     func queryWithPartitionKeyAndFilterDescription() -> String {
         return "Find all items with productId = \("demo-productId-3") and companyId > \("demo-companyId-500000")."
     }
     
-    func queryWithPartitionKeyAndFilterWithCompletionHandler(completionHandler: (response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void) {
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+    func queryWithPartitionKeyAndFilterWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         let queryExpression = AWSDynamoDBQueryExpression()
         
 
@@ -414,10 +414,10 @@ class ProductProductId: NSObject, Index {
         
 
         objectMapper.query(Product.self, expression: queryExpression, completionHandler: {(response: AWSDynamoDBPaginatedOutput?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
-                completionHandler(response: response, error: error)
+            DispatchQueue.main.async(execute: {
+                completionHandler(response, error)
             })
-        })
+        } as! (AWSDynamoDBPaginatedOutput?, Error?) -> Void)
     }
     
 }

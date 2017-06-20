@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import DLImageLoader
 
 protocol SearchResultBrandViewDelegate {
-    func didLoadBrandImage(tag: Int, error: NSError?)
+    func didLoadBrandImage(_ tag: Int, error: NSError?)
 }
 
 class SearchResultBrandView: UIView {
@@ -26,7 +25,7 @@ class SearchResultBrandView: UIView {
     // MARK: - Init
     
     convenience init(brand: SearchResult.Brand) {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
         self.brand = brand
         self.brandLabel.text = brand.name
         self.descriptionLabel.text = brand.description
@@ -46,44 +45,44 @@ class SearchResultBrandView: UIView {
     
     // MARK: - UI Components
     
-    private lazy var imageView: UIImageView = {
+    fileprivate lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFill
-        imageView.layer.borderColor = UIColor(white: 0.92, alpha: 1.0).CGColor
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderColor = UIColor(white: 0.92, alpha: 1.0).cgColor
         imageView.layer.borderWidth = 1.0
         imageView.layer.masksToBounds = true
         self.addSubview(imageView)
         return imageView
     }()
     
-    private lazy var brandLabel: UILabel = {
+    fileprivate lazy var brandLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.lineBreakMode = .ByWordWrapping
+        label.lineBreakMode = .byWordWrapping
         label.font = UIFont(name: "Lato-Bold", size: 17)
-        label.textColor = .blackColor()
+        label.textColor = .black
         self.addSubview(label)
         return label
     }()
     
-    private lazy var descriptionLabel: UILabel = {
+    fileprivate lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 4
-        label.lineBreakMode = .ByTruncatingTail
+        label.lineBreakMode = .byTruncatingTail
         label.font = UIFont(name: "Lato-Regular", size: 12)
         label.textColor = UIColor(white: 0.47, alpha: 1.0)
         self.addSubview(label)
         return label
     }()
     
-    private lazy var bottomBorder: UIView = {
+    fileprivate lazy var bottomBorder: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0.90, alpha: 1.0)
         self.addSubview(view)
         return view
     }()
     
-    private lazy var arrowImageView: UIImageView = {
+    fileprivate lazy var arrowImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Search-Forward"))
         self.addSubview(imageView)
         return imageView
@@ -93,17 +92,18 @@ class SearchResultBrandView: UIView {
      Loads the image and notifies the delegate.
      */
     func loadImage() {
-        DLImageLoader.sharedInstance.imageFromUrl(brand!.imageURL) { (error, image) in
-            guard error == nil else {
-                self.delegate?.didLoadBrandImage(self.tag, error: error)
-                return
-            }
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.imageView.image = image
-                self.delegate?.didLoadBrandImage(self.tag, error: nil)
-            }
-        }
+        // TODO: DLImageLoader
+//        DLImageLoader.sharedInstance.imageFromUrl(brand!.imageURL) { (error, image) in
+//            guard error == nil else {
+//                self.delegate?.didLoadBrandImage(self.tag, error: error)
+//                return
+//            }
+//            
+//            dispatch_async(dispatch_get_main_queue()) {
+//                self.imageView.image = image
+//                self.delegate?.didLoadBrandImage(self.tag, error: nil)
+//            }
+//        }
     }
     
     override func updateConstraints() {
@@ -123,7 +123,7 @@ class SearchResultBrandView: UIView {
         
         descriptionLabel.positionToTheRightOfItem(imageView, offset: 17)
         descriptionLabel.positionBelowItem(brandLabel, offset: 4)
-        descriptionLabel.sizeToWidth(UIApplication.sharedApplication().keyWindow!.frame.width - 140)
+        descriptionLabel.sizeToWidth(UIApplication.shared.keyWindow!.frame.width - 140)
         
         bottomBorder.sizeToHeight(1)
         bottomBorder.pinToLeftEdgeOfSuperview(offset: 30)

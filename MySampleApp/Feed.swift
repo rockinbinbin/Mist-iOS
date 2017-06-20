@@ -20,14 +20,14 @@ class Feed {
     
     // MARK: - Model
     
-    private lazy var _items: [Item] = []
+    fileprivate lazy var _items: [Item] = []
     
     var items: [Item] {
         get {
             var items: [Item] = []
             originalIndices = []
             
-            for (index, item) in _items.enumerate() {
+            for (index, item) in _items.enumerated() {
                 if item.validWithFilters && item.show {
                     originalIndices.append(index)
                     items.append(item)
@@ -44,15 +44,15 @@ class Feed {
         }
     }
     
-    private var originalIndices: [Int] = []
+    fileprivate var originalIndices: [Int] = []
     
-    func sizeAtIndex(index: Int) -> CGSize {
+    func sizeAtIndex(_ index: Int) -> CGSize {
         //print("\(index): \(originalIndices[index]), size: \(_items[originalIndices[index]].name)")
         
-        return _items[originalIndices[index]].size ?? CGSizeMake(500, 10)
+        return _items[originalIndices[index]].size ?? CGSize(width: 500, height: 10)
     }
     
-    func setSize(size: CGSize, atIndex index: Int) {
+    func setSize(_ size: CGSize, atIndex index: Int) {
         _items[index].size = size
     }
     
@@ -64,8 +64,8 @@ class Feed {
      
      - parameter completion: Completion handler.
      */
-    func loadFeed(completion: ((NSError?) -> ())?) {
-        AWSCloudLogic.defaultCloudLogic().invokeFunction("GenerateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
+    func loadFeed(_ completion: ((NSError?) -> ())?) {
+        AWSCloudLogic.default().invokeFunction("GenerateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
             
             defer {
                 completion?(error)
@@ -151,7 +151,7 @@ class Feed {
                 return nil
             }
             
-            if let show = dictionary["Show"] as? String where (show.lowercaseString == "false") || (show.lowercaseString == "no") {
+            if let show = dictionary["Show"] as? String, (show.lowercased() == "false") || (show.lowercased() == "no") {
                 self.show = false
             } else {
                 self.show = true

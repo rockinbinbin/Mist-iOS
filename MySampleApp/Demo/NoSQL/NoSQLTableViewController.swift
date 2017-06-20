@@ -17,7 +17,7 @@ import AWSDynamoDB
 
 class NoSQLTableViewController: UITableViewController {
     
-    private var sectionTitles: [String] = []
+    fileprivate var sectionTitles: [String] = []
     var table: Table?
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -46,23 +46,23 @@ class NoSQLTableViewController: UITableViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.toolbarHidden = false
+        navigationController?.isToolbarHidden = false
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.toolbarHidden = true
+        navigationController?.isToolbarHidden = true
     }
     
     // MARK: - Table View data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Get item
         if (section == 0) {
             return 1
@@ -81,18 +81,18 @@ class NoSQLTableViewController: UITableViewController {
         return 1
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionTitles[section]
     }
     
-    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerFooterView = view as? UITableViewHeaderFooterView {            
             headerFooterView.textLabel?.text = sectionTitles[section]
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: NoSQLTableCell = tableView.dequeueReusableCellWithIdentifier("NoSQLTableCell", forIndexPath: indexPath) as! NoSQLTableCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: NoSQLTableCell = tableView.dequeueReusableCell(withIdentifier: "NoSQLTableCell", for: indexPath) as! NoSQLTableCell
         
         // Get Item
         if (indexPath.section == 0) {
@@ -146,9 +146,9 @@ class NoSQLTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let showQueryResultSeque = "NoSQLShowQueryResultSegue"
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! NoSQLTableCell
+        let cell = tableView.cellForRow(at: indexPath) as! NoSQLTableCell
         activityIndicator.startAnimating()
         
         // Get item
@@ -159,13 +159,13 @@ class NoSQLTableViewController: UITableViewController {
                     self.showAlertWithTitle("Error", message: "Failed to load an item. \(error.localizedDescription)")
                 }
                 else if let response = response {
-                    self.performSegueWithIdentifier(showQueryResultSeque, sender: [response])
+                    self.performSegue(withIdentifier: showQueryResultSeque, sender: [response])
                 }
                 else {
                     self.showAlertWithTitle("Not Found", message: "No items match your criteria. Insert more sample data and try again.")
                 }
                 
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
             })
             return
         }
@@ -174,7 +174,7 @@ class NoSQLTableViewController: UITableViewController {
             self.activityIndicator.stopAnimating()
             if let error = error {
                 var errorMessage = "Failed to retrieve items. \(error.localizedDescription)"
-                if (error.domain == AWSServiceErrorDomain && error.code == AWSServiceErrorType.AccessDeniedException.rawValue) {
+                if (error.domain == AWSServiceErrorDomain && error.code == AWSServiceErrorType.accessDeniedException.rawValue) {
                     errorMessage = "Access denied. You are not allowed to perform this operation."
                 }
                 self.showAlertWithTitle("Error", message: errorMessage)
@@ -183,10 +183,10 @@ class NoSQLTableViewController: UITableViewController {
                 self.showAlertWithTitle("Not Found", message: "No items match your criteria. Insert more sample data and try again.")
             }
             else {
-                self.performSegueWithIdentifier(showQueryResultSeque, sender: response)
+                self.performSegue(withIdentifier: showQueryResultSeque, sender: response)
             }
             
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         // Queries
@@ -213,31 +213,31 @@ class NoSQLTableViewController: UITableViewController {
         
         let scanWarningMessage = "This operation scans the entire table and should not generally be used in a production app."
         if indexPath.row == 0 {
-            let alartController: UIAlertController = UIAlertController(title: "WARNING: Scan is Expensive", message: scanWarningMessage, preferredStyle: .Alert)
-            let proceedAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: {(action: UIAlertAction) -> Void in
+            let alartController: UIAlertController = UIAlertController(title: "WARNING: Scan is Expensive", message: scanWarningMessage, preferredStyle: .alert)
+            let proceedAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction) -> Void in
                 self.table?.scanWithCompletionHandler?(completionHandler)
             })
             alartController.addAction(proceedAction)
-            self.presentViewController(alartController, animated: true, completion: nil)
+            self.present(alartController, animated: true, completion: nil)
         }
         else if indexPath.row == 1 {
-            let alartController: UIAlertController = UIAlertController(title: "WARNING: Scan is Expensive", message: scanWarningMessage, preferredStyle: .Alert)
-            let proceedAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: {(action: UIAlertAction) -> Void in
+            let alartController: UIAlertController = UIAlertController(title: "WARNING: Scan is Expensive", message: scanWarningMessage, preferredStyle: .alert)
+            let proceedAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction) -> Void in
                 self.table?.scanWithFilterWithCompletionHandler?(completionHandler)
             })
             alartController.addAction(proceedAction)
-            self.presentViewController(alartController, animated: true, completion: nil)
+            self.present(alartController, animated: true, completion: nil)
         }
 
     }
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let indexPath = tableView.indexPathForSelectedRow
-        let cell = tableView.cellForRowAtIndexPath(indexPath!) as! NoSQLTableCell
+        let cell = tableView.cellForRow(at: indexPath!) as! NoSQLTableCell
         
-        if let queryResultViewController = segue.destinationViewController as? NoSQLQueryResultViewController {
+        if let queryResultViewController = segue.destination as? NoSQLQueryResultViewController {
             queryResultViewController.queryType = cell.queryTypeLabel.text!
             queryResultViewController.queryDescription = cell.queryDescriptionLabel.text!
             queryResultViewController.table = self.table
@@ -254,7 +254,7 @@ class NoSQLTableViewController: UITableViewController {
     
     // MARK: - User Action Methods
     
-    @IBAction func insertSampleData(sender: AnyObject) {
+    @IBAction func insertSampleData(_ sender: AnyObject) {
         activityIndicator.startAnimating()
         table?.insertSampleDataWithCompletionHandler?({(errors: [NSError]?) -> Void in
             self.activityIndicator.stopAnimating()
@@ -262,22 +262,22 @@ class NoSQLTableViewController: UITableViewController {
             if errors != nil {
                 message = "Failed to insert sample items to your table."
             }
-            let alartController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+            let alartController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
             alartController.addAction(dismissAction)
-            self.presentViewController(alartController, animated: true, completion: nil)
+            self.present(alartController, animated: true, completion: nil)
         })
     }
     
-    @IBAction func confirmSampleDataRemoval(sender: AnyObject) {
-        let alartController: UIAlertController = UIAlertController(title: "Confirm Deletion", message: "This will remove all sample data from your table. Do you want to continue?", preferredStyle: .Alert)
-        let proceedAction: UIAlertAction = UIAlertAction(title: "Yes", style: .Default, handler: {(action: UIAlertAction) -> Void in
+    @IBAction func confirmSampleDataRemoval(_ sender: AnyObject) {
+        let alartController: UIAlertController = UIAlertController(title: "Confirm Deletion", message: "This will remove all sample data from your table. Do you want to continue?", preferredStyle: .alert)
+        let proceedAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default, handler: {(action: UIAlertAction) -> Void in
             self.removeSampleData()
         })
-        let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .Cancel, handler: nil)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
         alartController.addAction(proceedAction)
         alartController.addAction(cancelAction)
-        self.presentViewController(alartController, animated: true, completion: { _ in })
+        self.present(alartController, animated: true, completion: { _ in })
     }
     
     func removeSampleData() {
@@ -288,20 +288,20 @@ class NoSQLTableViewController: UITableViewController {
             if errors != nil {
                 message = "Failed to remove sample items from your table."
             }
-            let alartController: UIAlertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-            let dismissAction: UIAlertAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+            let alartController: UIAlertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            let dismissAction: UIAlertAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
             alartController.addAction(dismissAction)
-            self.presentViewController(alartController, animated: true, completion: nil)
+            self.present(alartController, animated: true, completion: nil)
         })
     }
     
     // MARK: - Utility Methods
     
-    func showAlertWithTitle(title: String, message: String) {
-        let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    func showAlertWithTitle(_ title: String, message: String) {
+        let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

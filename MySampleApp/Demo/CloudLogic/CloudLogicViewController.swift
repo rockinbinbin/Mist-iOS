@@ -22,24 +22,24 @@ class CloudLogicViewController: UIViewController {
     @IBOutlet weak var resultTextView: UITextView!
     @IBOutlet weak var functionField: UITextField!
     
-    private var activityIndicator: UIActivityIndicatorView!
+    fileprivate var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0)
+        activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
-        activityIndicator.bringSubviewToFront(view)
+        activityIndicator.bringSubview(toFront: view)
         
         functionField.delegate = self
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let cornerRadius: CGFloat = 5
         let borderWidth: CGFloat = 1
@@ -47,12 +47,12 @@ class CloudLogicViewController: UIViewController {
         let requestTextViewLayer = requestTextView.layer
         requestTextViewLayer.cornerRadius = cornerRadius
         requestTextViewLayer.borderWidth = borderWidth
-        requestTextViewLayer.borderColor = UIColor.lightGrayColor().CGColor
+        requestTextViewLayer.borderColor = UIColor.lightGray.cgColor
         
         let resultTextViewLayer = resultTextView.layer
         resultTextViewLayer.cornerRadius = cornerRadius
         resultTextViewLayer.borderWidth = borderWidth
-        resultTextViewLayer.borderColor = UIColor.lightGrayColor().CGColor
+        resultTextViewLayer.borderColor = UIColor.lightGray.cgColor
         
         let resetButtonLayer = resetButton.layer
         resetButtonLayer.cornerRadius = cornerRadius
@@ -63,13 +63,13 @@ class CloudLogicViewController: UIViewController {
 
     // MARK: - IBActions
     
-    @IBAction func handleReset(sender: AnyObject) {
+    @IBAction func handleReset(_ sender: AnyObject) {
         requestTextView.resignFirstResponder()
         requestTextView.text = "{\n  \"key1\":\"value1\",\n  \"key2\":\"value2\",\n  \"key3\":\"value3\"\n}"
         resultTextView.text = ""
     }
     
-    @IBAction func handleInvoke(sender: AnyObject) {
+    @IBAction func handleInvoke(_ sender: AnyObject) {
         requestTextView.resignFirstResponder()
         let functionName = functionField.text!
         if functionName.characters.count == 0 {
@@ -78,10 +78,10 @@ class CloudLogicViewController: UIViewController {
         }
        // print("Function Name: \(functionName)")
         let jsonInput = requestTextView.text.makeJsonable()
-        let jsonData = jsonInput.dataUsingEncoding(NSUTF8StringEncoding)!
+        let jsonData = jsonInput.data(using: String.Encoding.utf8)!
         var parameters: [String: AnyObject]
         do {
-            let anyObj = try NSJSONSerialization.JSONObjectWithData(jsonData, options: []) as! [String: AnyObject]
+            let anyObj = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: AnyObject]
             parameters = anyObj
         } catch let error as NSError {
             resultTextView.text = "JSON request is not well-formed."
@@ -92,10 +92,10 @@ class CloudLogicViewController: UIViewController {
         
         activityIndicator.startAnimating()
 
-        AWSCloudLogic.defaultCloudLogic().invokeFunction(functionName,
+        AWSCloudLogic.default().invokeFunction(functionName,
             withParameters: parameters, completionBlock: {(result: AnyObject?, error: NSError?) -> Void in
                 if let result = result {
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         //print("CloudLogicViewController: Result: \(result)")
                         self.activityIndicator.stopAnimating()
                         //self.resultTextView.text = prettyPrintJson(result)
@@ -104,40 +104,40 @@ class CloudLogicViewController: UIViewController {
                 var errorMessage: String
                 if let error = error {
                     if let cloudUserInfo = error.userInfo as? [String: AnyObject],
-                        cloudMessage = cloudUserInfo["errorMessage"] as? String {
+                        let cloudMessage = cloudUserInfo["errorMessage"] as? String {
                         errorMessage = "Error: \(cloudMessage)"
                     } else {
                         errorMessage = "Error occurred in invoking the Lambda Function. No error message found."
                     }
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         print("Error occurred in invoking Lambda Function: \(error)")
                         self.activityIndicator.stopAnimating()
                         self.resultTextView.text = errorMessage
-                        let alertView = UIAlertController(title: NSLocalizedString("Error", comment: "Title bar for error alert."), message: error.localizedDescription, preferredStyle: .Alert)
-                        alertView.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: "Button on alert dialog."), style: .Default, handler: nil))
-                        self.presentViewController(alertView, animated: true, completion: nil)
+                        let alertView = UIAlertController(title: NSLocalizedString("Error", comment: "Title bar for error alert."), message: error.localizedDescription, preferredStyle: .alert)
+                        alertView.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: "Button on alert dialog."), style: .default, handler: nil))
+                        self.present(alertView, animated: true, completion: nil)
                     })
                 }
         })
     }
     
-    @IBAction func tapRecognized(sender: AnyObject) {
+    @IBAction func tapRecognized(_ sender: AnyObject) {
         requestTextView.resignFirstResponder()
         functionField.resignFirstResponder()
     }
 }
 
 extension CloudLogicViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 }
 
 extension String {
-    private func makeJsonable() -> String {
-        let resultComponents: NSArray = self.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
-        return resultComponents.componentsJoinedByString("")
+    fileprivate func makeJsonable() -> String {
+        let resultComponents: NSArray = self.components(separatedBy: CharacterSet.newlines)
+        return resultComponents.componentsJoined(by: "")
     }
 }
 

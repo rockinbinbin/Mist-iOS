@@ -15,7 +15,7 @@ import UIKit
 
 class UserSettingsViewController: UIViewController {
     
-    private var themes: [Theme]!
+    fileprivate var themes: [Theme]!
     
     // MARK: - View lifecycle
     
@@ -41,49 +41,49 @@ class UserSettingsViewController: UIViewController {
     
     // MARK: - IBActions
     
-    @IBAction func handlerSettings0(sender: AnyObject) {
+    @IBAction func handlerSettings0(_ sender: AnyObject) {
         updateAppearanceWithTheme(self.themes[0])
         saveAppearance(self.themes[0])
     }
     
-    @IBAction func handlerSettings1(sender: AnyObject) {
+    @IBAction func handlerSettings1(_ sender: AnyObject) {
         updateAppearanceWithTheme(self.themes[1])
         saveAppearance(self.themes[1])
     }
     
-    @IBAction func handlerSettings2(sender: AnyObject) {
+    @IBAction func handlerSettings2(_ sender: AnyObject) {
         updateAppearanceWithTheme(self.themes[2])
         saveAppearance(self.themes[2])
     }
     
-    @IBAction func handlerSettings3(sender: AnyObject) {
+    @IBAction func handlerSettings3(_ sender: AnyObject) {
         updateAppearanceWithTheme(self.themes[3])
         saveAppearance(self.themes[3])
     }
     
     // MARK: - Utility Methods
     
-    private func loadAppearance() {
+    fileprivate func loadAppearance() {
         let settings = ColorThemeSettings.sharedInstance
         settings.loadSettings { (themeSettings: ColorThemeSettings?, error: NSError?) -> Void in
             guard let themeSettings = themeSettings else {
                 print("Failed to load color from dataset: \(error)")
                 return
             }
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 let theme = themeSettings.theme
                 self.updateAppearanceWithTheme(theme)
             })
         }
     }
     
-    private func saveAppearance(theme: Theme) {
+    fileprivate func saveAppearance(_ theme: Theme) {
         let settings: ColorThemeSettings = ColorThemeSettings.sharedInstance
         settings.theme = theme
         settings.saveSettings(nil)
     }
     
-    private func updateAppearanceWithTheme(theme: Theme) {
+    fileprivate func updateAppearanceWithTheme(_ theme: Theme) {
         let titleTextColor =  theme.titleTextColor.UIColorFromARGB()
         navigationController!.navigationBar.barTintColor = theme.titleBarColor.UIColorFromARGB()
         navigationController!.navigationBar.tintColor = titleTextColor
@@ -92,16 +92,16 @@ class UserSettingsViewController: UIViewController {
         view.backgroundColor = theme.backgroundColor.UIColorFromARGB()
     }
     
-    private func showErrorDialog(error: NSError) {
+    fileprivate func showErrorDialog(_ error: NSError) {
         print("User Settings Error: \(error)")
         let alertController = UIAlertController(title: NSLocalizedString("Error",
             comment: "Title bar for alert dialog."),
                                                 message: "User Settings Error: \(error.localizedDescription)",
-                                                preferredStyle: .Alert)
+                                                preferredStyle: .alert)
         let alertAction = UIAlertAction(title: NSLocalizedString("OK",
             comment: "Button on alert dialog."),
-                                        style: .Default, handler: nil)
+                                        style: .default, handler: nil)
         alertController.addAction(alertAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }

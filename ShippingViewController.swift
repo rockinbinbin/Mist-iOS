@@ -13,37 +13,37 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var userAddresses : NSArray?
     
-    private lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.hidden = false
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.isHidden = false
+        tableView.backgroundColor = UIColor.white
         self.view.addSubview(tableView)
         return tableView
     }()
     
     internal lazy var newAddressButton: UIButton = {
-        let newAddressButton = UIButton(type: .RoundedRect)
+        let newAddressButton = UIButton(type: .roundedRect)
         newAddressButton.layer.cornerRadius = 0
-        newAddressButton.backgroundColor = UIColor.blackColor()
-        newAddressButton.tintColor = UIColor.whiteColor()
+        newAddressButton.backgroundColor = UIColor.black
+        newAddressButton.tintColor = UIColor.white
         newAddressButton.titleLabel!.font = UIFont(name: "Lato-Light", size: 14.0)
-        newAddressButton.titleLabel!.textColor = UIColor.whiteColor()
+        newAddressButton.titleLabel!.textColor = UIColor.white
   
         let attributedString = NSMutableAttributedString(string: "ENTER NEW ADDRESS")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "ENTER NEW ADDRESS".characters.count))
-        newAddressButton.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        newAddressButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(newAddressButton)
-        newAddressButton.addTarget(self, action: #selector(ShippingViewController.newAddressPressed), forControlEvents: .TouchUpInside)
+        newAddressButton.addTarget(self, action: #selector(ShippingViewController.newAddressPressed), for: .touchUpInside)
         return newAddressButton
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         tableView.pinToTopEdgeOfSuperview(offset: 50)
         tableView.pinToLeftEdgeOfSuperview()
@@ -60,14 +60,14 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         setNavBar()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
 //        ParseManager1.getInstance().loadAddressesDelegate = self
 //        ParseManager1.getInstance().loadAddresses()
     }
     
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         self.viewWillAppear(animated)
     }
     
@@ -75,7 +75,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         let titleLabel = UILabel()
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Regular", size: 16)!,
-            NSForegroundColorAttributeName:UIColor.blackColor(),
+            NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
         
@@ -86,9 +86,9 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.titleView = titleLabel
         
         let btnName = UIButton()
-        btnName.setImage(UIImage(named: "blackBackArrow"), forState: .Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.addTarget(self, action: #selector(ShippingViewController.backPressed), forControlEvents: .TouchUpInside)
+        btnName.setImage(UIImage(named: "blackBackArrow"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnName.addTarget(self, action: #selector(ShippingViewController.backPressed), for: .touchUpInside)
         
         //.... Set Right/Left Bar Button item
         let rightBarButton = UIBarButtonItem()
@@ -102,7 +102,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func backPressed() {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func newAddressPressed() {
@@ -111,7 +111,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
 
     // MARK: - Tableview Datasource
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = userAddresses?.count {
             return count
         }
@@ -120,21 +120,21 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellId = "shippingCell"
-        var cell: ShippingTableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellId) as? ShippingTableViewCell
+        var cell: ShippingTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellId) as? ShippingTableViewCell
         
         //cell?.layoutSubviews()
         
@@ -150,7 +150,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if cell == nil {
             cell = ShippingTableViewCell()
-            cell?.selectionStyle = .None
+            cell?.selectionStyle = .none
         }
         
 //        cell?.titleLabel.text = thisAddress.objectForKey("Name") as! String?
@@ -162,14 +162,14 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell!
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editVC = EditAddressViewController()
 //        editVC.currentAddress = userAddresses?[indexPath.row] as? PFObject
         self.navigationController?.pushViewController(editVC, animated: true)
     }
     
-    func didLoadAddresses(objects: [AnyObject]!) {
-        userAddresses = objects
+    func didLoadAddresses(_ objects: [AnyObject]!) {
+        userAddresses = objects as! NSArray
         tableView.reloadData()
     }
 

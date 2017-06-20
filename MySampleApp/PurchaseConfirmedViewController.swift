@@ -12,12 +12,12 @@ import UIKit
 
 extension UIImageView{
     
-    func makeBlurImage(targetImageView:UIImageView?) {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+    func makeBlurImage(_ targetImageView:UIImageView?) {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = targetImageView!.bounds
         
-        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight] // for supporting device rotation
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         targetImageView?.addSubview(blurEffectView)
     }
     
@@ -27,12 +27,12 @@ class PurchaseConfirmedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blackColor()
+        self.view.backgroundColor = UIColor.black
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.prefersStatusBarHidden() // not working. TODO: fix it
+        self.prefersStatusBarHidden // not working. TODO: fix it
         setViewConstraints()
     }
 
@@ -48,7 +48,7 @@ class PurchaseConfirmedViewController: UIViewController {
                 return
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
 //                self.setPriceText("$\(Int(Double(self.product!.price)!))")
 //                self.setTitleText(self.product!.name)
 //                self.setCompanyText(self.product!.brand)
@@ -63,55 +63,55 @@ class PurchaseConfirmedViewController: UIViewController {
     }
     
     var imageHeight: CGFloat = 200
-    private var imageHeightConstraint: NSLayoutConstraint? = nil
+    fileprivate var imageHeightConstraint: NSLayoutConstraint? = nil
     
-    private lazy var backgroundImageView: UIImageView = {
+    fileprivate lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         self.view.addSubview(imageView)
         return imageView
     }()
     
-    private lazy var mainImageView: UIImageView = {
+    fileprivate lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clearColor()
-        imageView.contentMode = .ScaleAspectFill
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
         imageView.layer.cornerRadius = 5
         return imageView
     }()
     
-    private lazy var checkView: UIImageView = {
+    fileprivate lazy var checkView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "purchaseCheck")
         return imageView
     }()
     
-    private lazy var shipImageView: UIImageView = {
+    fileprivate lazy var shipImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Product-Ship")
         return imageView
     }()
     
-    private lazy var cartImageView: UIImageView = {
+    fileprivate lazy var cartImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Product-Cart")
         return imageView
     }()
     
-    private lazy var shareImageView: UIImageView = {
+    fileprivate lazy var shareImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Product-Share-Small")
         return imageView
     }()
     
-    private lazy var shortDividerView: UIImageView = {
+    fileprivate lazy var shortDividerView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "line")
         return imageView
     }()
     
-    private lazy var longDividerView: UIImageView = {
+    fileprivate lazy var longDividerView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "longLine")
         return imageView
@@ -132,9 +132,9 @@ class PurchaseConfirmedViewController: UIViewController {
     
     internal lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Forever grateful."
         titleLabel.font = UIFont(name: "Lato-Regular", size: 24)
@@ -144,9 +144,9 @@ class PurchaseConfirmedViewController: UIViewController {
     
     internal lazy var subtitleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Look out for a package made with love ❤️"
         titleLabel.font = UIFont(name: "Lato-Regular", size: 14)
@@ -156,9 +156,9 @@ class PurchaseConfirmedViewController: UIViewController {
     
     internal lazy var shipLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Ships in 2 - 4 business days"
         titleLabel.font = UIFont(name: "Lato-Regular", size: 10)
@@ -168,9 +168,9 @@ class PurchaseConfirmedViewController: UIViewController {
     
     internal lazy var returnLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Return free for 14 days"
         titleLabel.font = UIFont(name: "Lato-Regular", size: 10)
@@ -180,9 +180,9 @@ class PurchaseConfirmedViewController: UIViewController {
     
     internal lazy var shareLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Show & Tell! 🙈"
         titleLabel.font = UIFont(name: "Lato-Regular", size: 14)
@@ -191,16 +191,16 @@ class PurchaseConfirmedViewController: UIViewController {
     }()
     
     internal lazy var shareButton: UIButton = {
-        let shareButton = UIButton(type: .Custom)
-        shareButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.shareProduct), forControlEvents: .TouchUpInside)
+        let shareButton = UIButton(type: .custom)
+        shareButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.shareProduct), for: .touchUpInside)
         return shareButton
     }()
     
     internal lazy var subShareLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "...for a chance to win Mist’s surprise box! ✨💫"
         titleLabel.font = UIFont(name: "Lato-Regular", size: 12)
@@ -209,18 +209,18 @@ class PurchaseConfirmedViewController: UIViewController {
     }()
     
     internal lazy var returnButton: UIButton = {
-        let returnButton = UIButton(type: .RoundedRect)
-        returnButton.tintColor = UIColor.whiteColor()
+        let returnButton = UIButton(type: .roundedRect)
+        returnButton.tintColor = UIColor.white
         returnButton.backgroundColor = Constants.Colors.PrettyBlue
         
         let attrString = NSMutableAttributedString(string: "RETURN TO FEED")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 14)!, range: NSMakeRange(0, attrString.length))
         
-        returnButton.setAttributedTitle(attrString, forState: .Normal)
+        returnButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(returnButton)
         
-        returnButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.returnToFeedPressed), forControlEvents: .TouchUpInside)
+        returnButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.returnToFeedPressed), for: .touchUpInside)
         return returnButton
     }()
 
@@ -228,7 +228,7 @@ class PurchaseConfirmedViewController: UIViewController {
         backgroundImageView.centerHorizontallyInSuperview()
         backgroundImageView.sizeToWidth(self.view.frame.size.width)
         backgroundImageView.sizeToHeight(self.view.frame.size.height)
-        backgroundImageView.contentMode = .ScaleAspectFill
+        backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.makeBlurImage(backgroundImageView)
         
         titleLabel.centerHorizontallyInSuperview()
@@ -288,7 +288,7 @@ class PurchaseConfirmedViewController: UIViewController {
         shareView.centerInSuperview()
         shareView.sizeToWidth(130)
         shareView.sizeToHeight(50)
-        shareView.userInteractionEnabled = false
+        shareView.isUserInteractionEnabled = false
         
         shareView.addSubview(shareImageView)
         shareImageView.pinToLeftEdgeOfSuperview()
@@ -302,13 +302,13 @@ class PurchaseConfirmedViewController: UIViewController {
         subShareLabel.positionBelowItem(shareView, offset: 5)
     }
     
-    internal func decorateImage(imageView: UIImageView?) {
+    internal func decorateImage(_ imageView: UIImageView?) {
         
         let decorateLabel: UILabel = {
             let decorateLabel = UILabel()
-            decorateLabel.textColor = UIColor.whiteColor()
-            decorateLabel.textAlignment = .Center
-            decorateLabel.lineBreakMode = .ByWordWrapping
+            decorateLabel.textColor = UIColor.white
+            decorateLabel.textAlignment = .center
+            decorateLabel.lineBreakMode = .byWordWrapping
             decorateLabel.numberOfLines = 0
             let attrString = NSMutableAttributedString(string: (self.product?.name)!)
             attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
@@ -341,7 +341,7 @@ class PurchaseConfirmedViewController: UIViewController {
     }
 
     func returnToFeedPressed() {
-        self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
     func shareProduct() {
@@ -353,7 +353,7 @@ class PurchaseConfirmedViewController: UIViewController {
         
         let activityViewController = UIActivityViewController(activityItems: [shareString as NSString, mainImage!], applicationActivities: nil)
         
-        self.presentViewController(activityViewController, animated: true, completion: nil)
+        self.present(activityViewController, animated: true, completion: nil)
         
     }
 

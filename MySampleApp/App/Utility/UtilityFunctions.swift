@@ -15,7 +15,7 @@
 
 import UIKit
 
-func prettyPrintJson(object: AnyObject?) -> String {
+func prettyPrintJson(_ object: AnyObject?) -> String {
     var prettyResult: String = ""
     if object == nil {
         return ""
@@ -52,18 +52,18 @@ func prettyPrintJson(object: AnyObject?) -> String {
  - parameter remoteURL: The URL of the remote image.
  - parameter completion: A block of
  */
-func downloadImageAsync(remoteURL: String, completion: (success: Bool, image: UIImage?) -> ()) {
-    guard let url = NSURL(string: remoteURL) else {
-        completion(success: false, image: nil)
+func downloadImageAsync(_ remoteURL: String, completion: (_ success: Bool, _ image: UIImage?) -> ()) {
+    guard let url = URL(string: remoteURL) else {
+        completion(false, nil)
         return
     }
     
-    let request = NSMutableURLRequest(URL: url)
+    let request = NSMutableURLRequest(url: url)
     
-    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {
-        (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+    NSURLConnection.sendAsynchronousRequest(request as URLRequest, queue: OperationQueue.main) {
+        (response: URLResponse?, data: Data?, error: NSError?) -> Void in
         
-    }
+    } as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void
 }
 
 extension UIImage {

@@ -27,27 +27,27 @@ class PaymentManager {
      - throws: If the payment request was not valid
      - returns: A valid PKPaymentRequest object, or nil if the device is not able to use Apple Pay.
      */
-    func generatePaymentRequest(product: Feed.Item) throws -> PKPaymentRequest? {
+    func generatePaymentRequest(_ product: Feed.Item) throws -> PKPaymentRequest? {
         guard appleMerchantId.characters.count != 0 else {
-            throw Error.MerchantIDNotSet
+            throw Error.merchantIDNotSet
         }
         
-        guard let paymentRequest = Stripe.paymentRequestWithMerchantIdentifier(appleMerchantId) else {
-            throw Error.CouldNotFormRequest
+        guard let paymentRequest = Stripe.paymentRequest(withMerchantIdentifier: appleMerchantId) else {
+            throw Error.couldNotFormRequest
         }
         
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = .DecimalStyle
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
         
-        guard let priceDecimalValue = numberFormatter.numberFromString(product.price)?.decimalValue else {
-            throw Error.InvalidPrice
+        guard let priceDecimalValue = numberFormatter.number(from: product.price)?.decimalValue else {
+            throw Error.invalidPrice
         }
         
         let price = NSDecimalNumber(decimal: priceDecimalValue)
         
         // TODO: Figure out actual shipping cost
-        let shipping = NSDecimalNumber(double: 5.0)
-        let total = price.decimalNumberByAdding(shipping)
+        let shipping = NSDecimalNumber(value: 5.0 as Double)
+        let total = price.adding(shipping)
         
         paymentRequest.paymentSummaryItems = [
             PKPaymentSummaryItem(label: product.name, amount: price),
@@ -55,7 +55,7 @@ class PaymentManager {
             PKPaymentSummaryItem(label: "Mist", amount: total)
         ]
         
-        paymentRequest.requiredShippingAddressFields = .All
+        paymentRequest.requiredShippingAddressFields = .all
         
         // If the current device support Apple Pay, it is a valid outcome
         guard Stripe.canSubmitPaymentRequest(paymentRequest) else {
@@ -67,9 +67,9 @@ class PaymentManager {
     
     // MARK: - Error Handling
     
-    enum Error: ErrorType {
-        case MerchantIDNotSet
-        case CouldNotFormRequest
-        case InvalidPrice
+    enum Error: Error {
+        case merchantIDNotSet
+        case couldNotFormRequest
+        case invalidPrice
     }
 }

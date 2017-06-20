@@ -25,11 +25,11 @@ class AWSMobileClient: NSObject {
     
     // Shared instance of this class
     static let sharedInstance = AWSMobileClient()
-    private var isInitialized: Bool
+    fileprivate var isInitialized: Bool
     
-    private override init() {
+    fileprivate override init() {
         isInitialized = false
-        AWSLogger.defaultLogger().logLevel = .Warn
+        AWSLogger.default().logLevel = .warn
         super.init()
     }
     
@@ -48,9 +48,9 @@ class AWSMobileClient: NSObject {
      * - parameter annotation: from application delegate.
      * - returns: true if call was handled by this component
      */
-    func withApplication(application: UIApplication, withURL url: NSURL, withSourceApplication sourceApplication: String?, withAnnotation annotation: AnyObject) -> Bool {
+    func withApplication(_ application: UIApplication, withURL url: URL, withSourceApplication sourceApplication: String?, withAnnotation annotation: AnyObject) -> Bool {
         print("withApplication:withURL")
-        AWSIdentityManager.defaultIdentityManager().interceptApplication(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        AWSIdentityManager.default().interceptApplication(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         
         if (!isInitialized) {
             isInitialized = true
@@ -65,13 +65,13 @@ class AWSMobileClient: NSObject {
      *
      * - parameter application: from application delegate.
      */
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         initializeMobileAnalytics()
     }
     
-    private func initializeMobileAnalytics() {
+    fileprivate func initializeMobileAnalytics() {
         if (mobileAnalytics == nil) {
-            mobileAnalytics = AWSMobileAnalytics.defaultMobileAnalytics()
+            mobileAnalytics = AWSMobileAnalytics.default()
         }
     }
     
@@ -81,13 +81,13 @@ class AWSMobileClient: NSObject {
     * - parameter application: instance from application delegate.
     * - parameter launchOptions: from application delegate.
     */
-    func didFinishLaunching(application: UIApplication, withOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        let didFinishLaunching: Bool = AWSIdentityManager.defaultIdentityManager().interceptApplication(application, didFinishLaunchingWithOptions: launchOptions)
+    func didFinishLaunching(_ application: UIApplication, withOptions launchOptions: [AnyHashable: Any]?) -> Bool {
+        let didFinishLaunching: Bool = AWSIdentityManager.default().interceptApplication(application, didFinishLaunchingWithOptions: launchOptions)
         
         if (!isInitialized) {
-            AWSIdentityManager.defaultIdentityManager().resumeSessionWithCompletionHandler({(result: AnyObject?, error: NSError?) -> Void in
+            AWSIdentityManager.default().resumeSession(completionHandler: {(result: AnyObject?, error: NSError?) -> Void in
                 // Do something
-            })
+            } as! (Any?, Error?) -> Void)
             isInitialized = true
         }
 
@@ -99,24 +99,24 @@ class AWSMobileClient: NSObject {
      
      - parameter completion: called after images are loaded.
      */
-    func loadImagesFromAWS(completion: ([AWSContent]?, NSError?) -> ()) {
-        let manager = AWSContentManager.defaultContentManager()
+    func loadImagesFromAWS(_ completion: @escaping ([AWSContent]?, NSError?) -> ()) {
+        let manager = AWSContentManager.default()
         
         let prefix: String? = "product-media/"
         let marker: String? = nil
         
-        manager.listAvailableContentsWithPrefix(prefix, marker: marker) {(contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
+        manager.listAvailableContents(withPrefix: prefix, marker: marker) {(contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
             guard error == nil else {
                 completion(contents, error)
                 return
             }
             
-            guard let results = contents where results.count > 0 else {
+            guard let results = contents, results.count > 0 else {
                 completion(contents, error)
                 return
             }
             
             completion(results, nil)
-        }
+        } as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void
     }
 }

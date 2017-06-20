@@ -17,7 +17,7 @@ class AddCreditCardViewController: UIViewController {
         
 //        navigationController?.navigationBar.backgroundColor = UIColor(white: 0.44, alpha: 1)
         UINavigationBar.appearance().backgroundColor = UIColor(white: 0.44, alpha: 1)
-        let doneButton = ProductBarButtonItem(title: "Cancel", actionTarget: self, actionSelector: #selector(cancelPressed), buttonColor: UIColor.whiteColor())
+        let doneButton = ProductBarButtonItem(title: "Cancel", actionTarget: self, actionSelector: #selector(cancelPressed), buttonColor: UIColor.white)
         navigationItem.leftBarButtonItem = doneButton
         
         view.setNeedsUpdateConstraints()
@@ -25,14 +25,14 @@ class AddCreditCardViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private lazy var backgroundImageView: UIImageView = {
+    fileprivate lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = UIApplication.sharedApplication().keyWindow!.frame
+        blurEffectView.frame = UIApplication.shared.keyWindow!.frame
         
-        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         imageView.addSubview(blurEffectView)
         
         self.view.addSubview(imageView)
@@ -50,16 +50,16 @@ class AddCreditCardViewController: UIViewController {
     // MARK: - Navigation
     
     func cancelPressed() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Status Bar
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .Slide
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+        return .slide
     }
 }
