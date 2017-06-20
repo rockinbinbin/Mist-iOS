@@ -1,6 +1,0 @@
-framework module DLImageLoader {
-  umbrella header "DLImageLoader-umbrella.h"
-
-  export *
-  module * { export * }
-}
