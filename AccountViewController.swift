@@ -178,7 +178,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let titleLabel = UILabel()
         
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont.LatoRegularMedium(),
+            NSFontAttributeName:UIFont.LatoBoldSmall(),
             NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
