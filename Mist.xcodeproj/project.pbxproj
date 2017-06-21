@@ -217,8 +217,6 @@
 		2832AE4D1D18CA45008AC36A /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				00B0A3351D51C36E00A0787C /* UIImage+animatedGIF.h */,
-				00B0A3361D51C36E00A0787C /* UIImage+animatedGIF.m */,
 				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
 				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
 				009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */,
@@ -255,6 +253,8 @@
 		28FFD0A61D129F3E00C89ABE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				00B0A3351D51C36E00A0787C /* UIImage+animatedGIF.h */,
+				00B0A3361D51C36E00A0787C /* UIImage+animatedGIF.m */,
 				1DD70E29187D829A00000000 /* Images.xcassets */,
 			);
 			name = Resources;

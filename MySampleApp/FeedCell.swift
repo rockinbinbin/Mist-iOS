@@ -26,10 +26,7 @@ class FeedCell: UICollectionViewCell {
     
     var product: Feed.Item? = nil {
         didSet {
-            guard let item = product else {
-                return
-            }
-            
+            guard let item = product else { return }
             setTitleText(item.name)
             setPrice(item.price)
         }
@@ -42,8 +39,6 @@ class FeedCell: UICollectionViewCell {
         self.addSubview(imageView)
         return imageView
     }()
-    
-    open var gif: FLAnimatedImageView? = nil
     
     fileprivate lazy var blackGradientOverlay: UIView = {
         let _blackGradientOverlay: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
@@ -80,14 +75,7 @@ class FeedCell: UICollectionViewCell {
     // MARK: - Layout
     
     func setViewConstraints() {
-//        if let gif = gif {
-//            gif.pinToEdgesOfSuperview()
-//        }
-//        else {
-            imageView.autoPinEdgesToSuperviewEdges()
-//        }
-
-
+        imageView.autoPinEdgesToSuperviewEdges()
         blackGradientOverlay.autoPinEdge(toSuperviewEdge: .bottom)
         blackGradientOverlay.autoPinEdge(toSuperviewEdge: .left)
         blackGradientOverlay.autoPinEdge(toSuperviewEdge: .right)
@@ -113,14 +101,15 @@ class FeedCell: UICollectionViewCell {
             } else {
                 image = UIImage(data: NSData(contentsOf: this_url)! as Data)
             }
+
             DispatchQueue.main.async {
                 self.imageView.alpha = 0
                 self.imageView.image = image
                 UIView.animate(withDuration: 0.5, animations: {
                     self.imageView.alpha = 1
                 })
+                completion?(true, image)
             }
-            completion?(true, image)
         }
     }
 
