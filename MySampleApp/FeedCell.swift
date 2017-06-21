@@ -103,66 +103,26 @@ class FeedCell: UICollectionViewCell {
     }
     
     func setImage(_ url: String, completion: ((_ completed: Bool, _ image: UIImage?) -> ())?) {
-        // TODO: DLImageLoader
-//        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
-//            completion?(completed: Bool(error == nil), image: image)
-//
-//            dispatch_async(dispatch_get_main_queue()) {
-//                self.imageView.image = image
-////                self.imageView.image = UIImage.animatedImageWithAnimatedGIFURL(NSURL(string: url)!)
-//            }
-//        }
-
         guard let this_url = URL(string: url) else { return }
         if this_url.absoluteString == "" { return }
         var image : UIImage?
 
         DispatchQueue.global(qos: .background).async {
-            image = UIImage(data: NSData(contentsOf: this_url)! as Data)
+            if this_url.pathExtension == "gif" {
+                image = UIImage.animatedImage(withAnimatedGIFURL: this_url)
+            } else {
+                image = UIImage(data: NSData(contentsOf: this_url)! as Data)
+            }
             DispatchQueue.main.async {
-                //guard row == self.tag else { return }
                 self.imageView.alpha = 0
-                self.imageView.image = UIImage.animatedImage(withAnimatedGIFURL: this_url)
                 self.imageView.image = image
-
                 UIView.animate(withDuration: 0.5, animations: {
                     self.imageView.alpha = 1
                 })
             }
             completion?(true, image)
         }
-
-
     }
-    
-//    func setGif(url: String, completion: ((_ completed: Bool, _ image: UIImage?) -> ())?) {
-////        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
-////            completion?(completed: Bool(error == nil), image: image)
-////            
-////            dispatch_async(dispatch_get_main_queue()) {
-////                self.imageView.image = image
-////            }
-////        }
-//
-//        guard let this_url = URL(string: url) else { return }
-//        if this_url.absoluteString == "" { return }
-//        let animatedImage : FLAnimatedImage?
-//
-//        DispatchQueue.global(qos: .background).async {
-//            gif.animatedImage = FLAnimatedImage(animatedGIFData: NSData(contentsOf: this_url)! as Data)
-//
-//            DispatchQueue.main.async {
-//                guard row == self.tag else { return }
-//                self.gifView.alpha = 0
-//                self.gifView.animatedImage = gif.animated_image
-//
-//                UIView.animate(withDuration: 0.5, animations: {
-//                    self.gifView.alpha = 1
-//                })
-//                self.delegate?.cacheGif(gif: gif, row: row)
-//            }
-//        }
-//    }
 
     fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [

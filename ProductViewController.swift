@@ -92,10 +92,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     var mainImage: UIImage? = nil {
         didSet {
-            guard let image = mainImage else {
-                return
-            }
-            
+            guard let image = mainImage else { return }
             mainImageView.image = image
             imageHeight = (image.size.height / image.size.width) * self.view.frame.size.width
             imageHeightConstraint?.constant = imageHeight

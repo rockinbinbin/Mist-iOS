@@ -157,10 +157,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
 //        cell.layer.shouldRasterize = true
 //        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         
-        guard indexPath.row < Feed.sharedInstance.items.count else {
-            return cell
-        }
-        
+        guard indexPath.row < Feed.sharedInstance.items.count else { return cell }
         let product = Feed.sharedInstance.items[indexPath.row]
         
         if let productID = cell.productID, productID == product.id {

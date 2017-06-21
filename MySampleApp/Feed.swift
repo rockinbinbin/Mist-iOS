@@ -92,9 +92,18 @@ class Feed {
                                    "Price" : 30.0,
                                    "ID" : "ID",
                                    "Description" : "This is a description",
+                                   "PrimaryImage" : "https://media.giphy.com/media/3o7btZPuz5HJ0UY3zq/giphy.gif",
+                                   "Show" : "true"]
+        let item2 : NSDictionary = ["Brand" : "Brand",
+                                   "ImageURLs" : ["https://everlane-2.imgix.net/i/a2d61e0b_8480.jpg?w=1200&h=1200&q=65&dpr=1", "https://everlane-2.imgix.net/i/a491f49e_f1df.jpg?w=1200&h=1200&q=65&dpr=1"],
+                                   "ItemName" : "Name",
+                                   "Price" : 30.0,
+                                   "ID" : "ID",
+                                   "Description" : "This is a description",
                                    "PrimaryImage" : "https://everlane-2.imgix.net/i/a2d61e0b_8480.jpg?w=1200&h=1200&q=65&dpr=1",
                                    "Show" : "true"]
         self._items.append(Item(dictionary: dict)!)
+        self._items.append(Item(dictionary: item2)!)
         completion?(nil)
     }
 
