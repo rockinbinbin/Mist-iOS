@@ -104,6 +104,26 @@ class SearchResultBrandView: UIView {
 //                self.delegate?.didLoadBrandImage(self.tag, error: nil)
 //            }
 //        }
+
+        guard let this_url = URL(string: brand!.imageURL) else { return }
+        if this_url.absoluteString == "" { return }
+        //let image : UIImage?
+
+        DispatchQueue.global(qos: .background).async {
+            //image = UIImage(data: NSData(contentsOf: this_url)! as Data)
+
+            DispatchQueue.main.async {
+                //guard row == self.tag else { return }
+                self.imageView.alpha = 0
+                self.imageView.image = UIImage.animatedImage(withAnimatedGIFURL: this_url)
+
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.imageView.alpha = 1
+                })
+            }
+            self.delegate?.didLoadBrandImage(self.tag, error: nil)
+        }
+
     }
     
     override func updateConstraints() {

@@ -55,8 +55,8 @@ class FilterView: UIView {
         let button = UIButton()
         
         button.setAttributedTitle(NSAttributedString(string: "DONE", attributes: [
-            NSForegroundColorAttributeName: Constants.Colors.DoneBlue,
-            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 13)!,
+            NSForegroundColorAttributeName: UIColor.DoneBlue(),
+            NSFontAttributeName: UIFont.LatoRegularSmall(),
             NSKernAttributeName: 3.0
             ]), for: UIControlState())
         

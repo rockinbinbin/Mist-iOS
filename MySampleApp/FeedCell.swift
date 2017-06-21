@@ -8,6 +8,7 @@
 
 import UIKit
 import FLAnimatedImage
+import PureLayout
 
 class FeedCell: UICollectionViewCell {
     
@@ -83,21 +84,22 @@ class FeedCell: UICollectionViewCell {
 //            gif.pinToEdgesOfSuperview()
 //        }
 //        else {
-            imageView.pinToEdgesOfSuperview()
+            imageView.autoPinEdgesToSuperviewEdges()
 //        }
-        
-        blackGradientOverlay.pinToBottomEdgeOfSuperview()
-        blackGradientOverlay.pinToLeftEdgeOfSuperview()
-        blackGradientOverlay.pinToRightEdgeOfSuperview()
-        blackGradientOverlay.sizeToHeight(75)
-        
-        nameLabel.pinToBottomEdgeOfSuperview(offset: 5)
-        nameLabel.pinToLeftEdgeOfSuperview(offset: 5)
-        nameLabel.sizeToWidth(UIApplication.shared.keyWindow!.frame.size.width / 2 - 30)
-        
-        priceLabel.pinToBottomEdgeOfSuperview(offset: 5)
-        priceLabel.pinToRightEdgeOfSuperview(offset: 5)
-        priceLabel.sizeToWidth(40)
+
+
+        blackGradientOverlay.autoPinEdge(toSuperviewEdge: .bottom)
+        blackGradientOverlay.autoPinEdge(toSuperviewEdge: .left)
+        blackGradientOverlay.autoPinEdge(toSuperviewEdge: .right)
+        blackGradientOverlay.autoSetDimension(.height, toSize: 75)
+
+        nameLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 5)
+        nameLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 5)
+        nameLabel.autoSetDimension(.width, toSize: UIApplication.shared.keyWindow!.frame.size.width / 2 - 30)
+
+        priceLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 5)
+        priceLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 5)
+        priceLabel.autoSetDimension(.width, toSize: 40)
     }
     
     func setImage(_ url: String, completion: ((_ completed: Bool, _ image: UIImage?) -> ())?) {
@@ -110,18 +112,57 @@ class FeedCell: UICollectionViewCell {
 ////                self.imageView.image = UIImage.animatedImageWithAnimatedGIFURL(NSURL(string: url)!)
 //            }
 //        }
+
+        guard let this_url = URL(string: url) else { return }
+        if this_url.absoluteString == "" { return }
+        //let image : UIImage?
+
+        DispatchQueue.global(qos: .background).async {
+            //image = UIImage(data: NSData(contentsOf: this_url)! as Data)
+
+            DispatchQueue.main.async {
+                //guard row == self.tag else { return }
+                self.imageView.alpha = 0
+                self.imageView.image = UIImage.animatedImage(withAnimatedGIFURL: this_url)
+
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.imageView.alpha = 1
+                })
+            }
+        }
+
+
     }
     
-//    func setGif(url: String, completion: ((completed: Bool, image: UIImage?) -> ())?) {
-//        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
-//            completion?(completed: Bool(error == nil), image: image)
-//            
-//            dispatch_async(dispatch_get_main_queue()) {
-//                self.imageView.image = image
+//    func setGif(url: String, completion: ((_ completed: Bool, _ image: UIImage?) -> ())?) {
+////        DLImageLoader.sharedInstance.imageFromUrl(url) { (error, image) in
+////            completion?(completed: Bool(error == nil), image: image)
+////            
+////            dispatch_async(dispatch_get_main_queue()) {
+////                self.imageView.image = image
+////            }
+////        }
+//
+//        guard let this_url = URL(string: url) else { return }
+//        if this_url.absoluteString == "" { return }
+//        let animatedImage : FLAnimatedImage?
+//
+//        DispatchQueue.global(qos: .background).async {
+//            gif.animatedImage = FLAnimatedImage(animatedGIFData: NSData(contentsOf: this_url)! as Data)
+//
+//            DispatchQueue.main.async {
+//                guard row == self.tag else { return }
+//                self.gifView.alpha = 0
+//                self.gifView.animatedImage = gif.animated_image
+//
+//                UIView.animate(withDuration: 0.5, animations: {
+//                    self.gifView.alpha = 1
+//                })
+//                self.delegate?.cacheGif(gif: gif, row: row)
 //            }
 //        }
 //    }
-    
+
     fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [
             NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,

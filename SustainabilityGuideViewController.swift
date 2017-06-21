@@ -157,7 +157,7 @@ class SustainabilityGuideViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = Constants.Colors.DarkBlue
+        self.view.backgroundColor = UIColor.DarkBlue()
         setNavBar()
     }
     
@@ -243,7 +243,7 @@ class SustainabilityGuideViewController: UIViewController {
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
         
-        let doneButton = ProductBarButtonItem(title: "Done", actionTarget: self, actionSelector: #selector(SustainabilityGuideViewController.closePressed), buttonColor: Constants.Colors.DoneBlue)
+        let doneButton = ProductBarButtonItem(title: "Done", actionTarget: self, actionSelector: #selector(SustainabilityGuideViewController.closePressed), buttonColor: UIColor.DoneBlue())
         
         self.navigationItem.leftBarButtonItem = doneButton
     }

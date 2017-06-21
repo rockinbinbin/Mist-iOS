@@ -211,7 +211,7 @@ class PurchaseConfirmedViewController: UIViewController {
     internal lazy var returnButton: UIButton = {
         let returnButton = UIButton(type: .roundedRect)
         returnButton.tintColor = UIColor.white
-        returnButton.backgroundColor = Constants.Colors.PrettyBlue
+        returnButton.backgroundColor = UIColor.PrettyBlue()
         
         let attrString = NSMutableAttributedString(string: "RETURN TO FEED")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
@@ -322,7 +322,7 @@ class PurchaseConfirmedViewController: UIViewController {
         
         let bottomView: UIView = {
             let bottomView = UIView()
-            bottomView.backgroundColor = Constants.Colors.DarkGray
+            bottomView.backgroundColor = UIColor.DarkGray()
             bottomView.layer.cornerRadius = 3
             return bottomView
         }()

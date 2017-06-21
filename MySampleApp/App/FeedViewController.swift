@@ -34,12 +34,11 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     fileprivate func configureAppearance() {
         mistLogoInTitle = true
-        setLeftButton("Filters", target: self, selector: #selector(presentFilters))
-        setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
+        //setLeftButton("Filters", target: self, selector: #selector(presentFilters))
+        //setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        //navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
-
         self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "RepeatingGradient")!)
     }
     

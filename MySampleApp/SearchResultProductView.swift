@@ -62,6 +62,24 @@ class SearchResultProductView: UIView {
 //                self.delegate?.didLoadProductImage(self.tag, error: nil)
 //            }
 //        }
+        guard let this_url = URL(string: item!.imageURL) else { return }
+        if this_url.absoluteString == "" { return }
+        var image : UIImage?
+
+        DispatchQueue.global(qos: .background).async {
+            image = UIImage(data: NSData(contentsOf: this_url)! as Data)
+
+            DispatchQueue.main.async {
+                //guard row == self.tag else { return }
+                self.imageView.alpha = 0
+                self.imageView.image = image
+
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.imageView.alpha = 1
+                })
+            }
+            self.delegate?.didLoadProductImage(self.tag, error: nil)
+        }
     }
     
     // MARK: - Model

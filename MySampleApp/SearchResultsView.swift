@@ -76,7 +76,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         let grey = UIColor(white: 0.64, alpha: 1.0)
         let greyRange = NSMakeRange(0, greySection.characters.count)
         
-        let blue = Constants.Colors.DoneBlue
+        let blue = UIColor.DoneBlue()
         let blueRange = NSMakeRange(greySection.characters.count, title.characters.count - greySection.characters.count)
         
         var attributedTitle = NSMutableAttributedString(string: title, attributes: [
@@ -84,7 +84,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
             ])
         
         attributedTitle.addAttribute(NSForegroundColorAttributeName, value: grey, range: greyRange)
-        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: Constants.Colors.DoneBlue, range: blueRange)
+        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.DoneBlue(), range: blueRange)
         
         button.setAttributedTitle(attributedTitle, for: UIControlState())
         

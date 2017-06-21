@@ -23,6 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
+
+        func printMyFonts() {
+            print("--------- Available Font names ----------")
+            for name in UIFont.familyNames {
+                print(name)
+                print(UIFont.fontNames(forFamilyName: name))
+            }
+        }
+
         window!.rootViewController = UINavigationController(rootViewController: FeedViewController())
         window!.makeKeyAndVisible()
         
@@ -33,10 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Stripe.setDefaultPublishableKey(Credentials.stripePublishableKey())
         
-        VendorClass.sharedInstance.loadVendorFromProductName("EST WST", completion: nil)
+        //VendorClass.sharedInstance.loadVendorFromProductName("EST WST", completion: nil)
         //let vendors = VendorList.sharedInstance.items
         //vendor = VendorList.sharedInstance.loadVendorFromID("54749135-e0da-4c94-af98-c41aedb5391a", completion: nil)
-        return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
+        //return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
+        return true
     }
     
     // TODO: Determine if FB intended return statement should be there instead of amazon

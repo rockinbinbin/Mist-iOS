@@ -95,10 +95,6 @@ open class VendorClass {
         condition?.attributeValueList = [attribute!]
         condition?.comparisonOperator = AWSDynamoDBComparisonOperator.EQ
 
-//        dynamoDBObjectMapper.scan(VendorObj, expression: scanExpression) { (result: AWSDynamoDBPaginatedOutput?, error: Error?) in
-//            <#code#>
-//        }
-
         dynamoDBObjectMapper.scan(VendorObj.self, expression: scanExpression) { (result: AWSDynamoDBPaginatedOutput?, error: Error?) in
             
             guard let result = result else {

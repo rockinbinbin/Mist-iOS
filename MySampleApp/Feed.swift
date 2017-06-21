@@ -65,29 +65,39 @@ class Feed {
      - parameter completion: Completion handler.
      */
     func loadFeed(_ completion: ((NSError?) -> ())?) {
-        AWSCloudLogic.default().invokeFunction("GenerateFeed", withParameters: nil) { (result: Any, error: Error) in
-            
-            defer {
-                completion?(error as NSError)
-            }
-            
-            guard error == nil else {
-                return
-            }
-            
-            guard let rawFeed = (result as? NSDictionary)?["items"] as? [NSDictionary] else {
-                print("ERROR: Feed loaded but was not of the correct form.")
-                return
-            }
-            
-            for productDictionary in rawFeed {
-                if let dict = Item(dictionary: productDictionary) {
-                    self._items.append(dict)
-                }
-            }
-        }
+//        AWSCloudLogic.default().invokeFunction("GenerateFeed", withParameters: nil) { (result: Any, error: Error) in
+//            defer {
+//                completion?(error as NSError)
+//            }
+//            
+//            guard error == nil else {
+//                return
+//            }
+//            
+//            guard let rawFeed = (result as? NSDictionary)?["items"] as? [NSDictionary] else {
+//                print("ERROR: Feed loaded but was not of the correct form.")
+//                return
+//            }
+//            
+//            for productDictionary in rawFeed {
+//                if let dict = Item(dictionary: productDictionary) {
+//                    self._items.append(dict)
+//                }
+//            }
+//        }
+
+        let dict : NSDictionary = ["Brand" : "Brand",
+                                   "ImageURLs" : ["https://everlane-2.imgix.net/i/a2d61e0b_8480.jpg?w=1200&h=1200&q=65&dpr=1", "https://everlane-2.imgix.net/i/a491f49e_f1df.jpg?w=1200&h=1200&q=65&dpr=1"],
+                                   "ItemName" : "Name",
+                                   "Price" : 30.0,
+                                   "ID" : "ID",
+                                   "Description" : "This is a description",
+                                   "PrimaryImage" : "https://everlane-2.imgix.net/i/a2d61e0b_8480.jpg?w=1200&h=1200&q=65&dpr=1",
+                                   "Show" : "true"]
+        self._items.append(Item(dictionary: dict)!)
+        completion?(nil)
     }
-    
+
     // MARK: - Classes
     
     /**
@@ -104,7 +114,7 @@ class Feed {
         var size: CGSize? = nil
         var imageURL: String
         var show: Bool
-        
+
         init?(dictionary: NSDictionary) {
             
             guard let brand = dictionary["Brand"] as? String else {

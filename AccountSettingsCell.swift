@@ -16,7 +16,7 @@ class AccountSettingsCell: UITableViewCell {
         titleLabel.textAlignment = .center
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 15)
+        titleLabel.font = UIFont.LatoRegularSmall()
         self.contentView.addSubview(titleLabel)
         return titleLabel
     }()
@@ -27,7 +27,7 @@ class AccountSettingsCell: UITableViewCell {
         detail.textAlignment = .center
         detail.lineBreakMode = .byWordWrapping
         detail.numberOfLines = 0
-        detail.font = UIFont(name: "Lato-Regular", size: 15)
+        detail.font = UIFont.LatoRegularSmall()
         self.contentView.addSubview(detail)
         return detail
     }()

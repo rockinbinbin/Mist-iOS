@@ -52,11 +52,12 @@ class MMViewController: UIViewController {
             
             let buttonString = title.uppercased()
             let attributedBarButtonBackStr = NSMutableAttributedString(string: buttonString as String)
-            
-            attributedBarButtonBackStr.addAttribute(NSFontAttributeName,
-                                                    value: UIFont(name: "Lato-Regular", size: 13.0)!,
-                                                    range: NSRange(location:0, length: title.characters.count))
-            
+
+            // TODO: Fix font
+//            attributedBarButtonBackStr.addAttribute(NSFontAttributeName,
+//                                                    value: UIFont(name: "Lato-Regular", size: 13.0),
+//                                                    range: NSRange(location:0, length: title.characters.count))
+
             attributedBarButtonBackStr.addAttribute(NSKernAttributeName,
                                                     value: 3.0,
                                                     range: NSRange(location:0, length: title.characters.count))

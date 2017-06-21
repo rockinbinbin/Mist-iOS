@@ -295,7 +295,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate lazy var buyButton: BuyButton = {
         let button = BuyButton()
-        button.backgroundColor = Constants.Colors.BuyBlue
+        button.backgroundColor = UIColor.BuyBlue()
         button.addTarget(self, action: #selector(purchaseItem), for: .touchUpInside)
         self.bottomBar.addSubview(button)
         return button
