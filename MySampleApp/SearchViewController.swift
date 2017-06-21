@@ -33,7 +33,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     fileprivate lazy var searchField: UITextField = {
         let field: UITextField = UITextField(frame: CGRect(x: -40, y: 0, width: self.navigationController!.navigationBar.frame.size.width, height: 21))
-        field.font = UIFont(name: "Lato-Regular", size: 15)
+        field.font = UIFont.LatoRegularMedium()
         field.placeholder = "Search by product, brand, and more"
         field.returnKeyType = .search
         field.delegate = self
@@ -60,7 +60,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "SUGGESTED", attributes: [
-            NSFontAttributeName: UIFont(name: "Lato-Bold", size: 15)!,
+            NSFontAttributeName: UIFont.LatoBoldMedium(),
             NSKernAttributeName: 2.0,
             NSForegroundColorAttributeName: UIColor.black
             ])
@@ -74,7 +74,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     fileprivate lazy var suggestionButtons: [UIButton] = {
         return self.suggestionTitles.map({
             let button = UIButton()
-            button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
+            button.titleLabel?.font = UIFont.LatoRegularMedium()
             button.setTitle($0, for: UIControlState())
             button.setTitleColor(UIColor.black, for: UIControlState())
             button.addTarget(self, action: #selector(SearchViewController.suggestionPressed), for: .touchUpInside)
@@ -89,7 +89,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "PREVIOUS SEARCHES", attributes: [
-            NSFontAttributeName: UIFont(name: "Lato-Bold", size: 15)!,
+            NSFontAttributeName: UIFont.LatoBoldMedium(),
             NSKernAttributeName: 2.0,
             NSForegroundColorAttributeName: UIColor.black
             ])
@@ -101,7 +101,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     fileprivate lazy var previousSearchesButtons: [UIButton] = {
         var buttons: [UIButton] = SearchManager.sharedInstance.previousSearches.map({
             let button = UIButton()
-            button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
+            button.titleLabel?.font = UIFont.LatoRegularMedium()
             button.setTitle($0, for: UIControlState())
             button.setTitleColor(UIColor.black, for: UIControlState())
             button.addTarget(self, action: #selector(SearchViewController.previousSearchPressed), for: .touchUpInside)

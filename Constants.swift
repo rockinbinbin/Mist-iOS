@@ -30,4 +30,16 @@ public extension UIFont {
     class func LatoRegularSmall() -> UIFont {
         return UIFont(name: "Lato-Regular", size: 13)!
     }
+    class func LatoRegularMedium() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 18)!
+    }
+    class func LatoBoldSmall() -> UIFont {
+        return UIFont(name: "Lato-Bold", size: 13)!
+    }
+    class func LatoBoldMedium() -> UIFont {
+        return UIFont(name: "Lato-Bold", size: 18)!
+    }
+    class func LatoLightItalicSmall() -> UIFont {
+        return UIFont(name: "Lato-LightItalic", size: 12)!
+    }
 }

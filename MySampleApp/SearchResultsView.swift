@@ -30,7 +30,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
             self.init()
             
             let attributes = [
-                NSFontAttributeName: UIFont(name: "Lato-Bold", size: 15)!,
+                NSFontAttributeName: UIFont.LatoBoldSmall(),
                 NSKernAttributeName: 2.0,
                 NSForegroundColorAttributeName: UIColor.black
             ] as [String : Any]
@@ -60,7 +60,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     fileprivate lazy var noResultsTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Lato-Bold", size: 18)
+        label.font = UIFont.LatoBoldMedium()
         label.textColor = UIColor(white: 0.47, alpha: 1.0)
         label.text = "No results!"
         self.addSubview(label)
@@ -80,7 +80,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         let blueRange = NSMakeRange(greySection.characters.count, title.characters.count - greySection.characters.count)
         
         var attributedTitle = NSMutableAttributedString(string: title, attributes: [
-            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 15)!
+            NSFontAttributeName: UIFont.LatoRegularMedium()
             ])
         
         attributedTitle.addAttribute(NSForegroundColorAttributeName, value: grey, range: greyRange)

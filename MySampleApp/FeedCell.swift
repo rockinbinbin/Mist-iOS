@@ -165,9 +165,9 @@ class FeedCell: UICollectionViewCell {
 
     fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
-            NSForegroundColorAttributeName:UIColor.white,
-            NSKernAttributeName:CGFloat(2.0)
+            NSFontAttributeName: UIFont.LatoBoldSmall(),
+            NSForegroundColorAttributeName: UIColor.white,
+            NSKernAttributeName: CGFloat(2.0)
         ]
         
         let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [String : AnyObject])
@@ -178,7 +178,7 @@ class FeedCell: UICollectionViewCell {
     
     fileprivate func setPrice(_ price: String) {
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
+            NSFontAttributeName: UIFont.LatoBoldSmall(),
             NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]

@@ -66,7 +66,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.text = "Add Shipping Address"
-        label.font = UIFont(name: "Lato-Regular", size: 24)
+        label.font = UIFont.LatoRegularMedium()
         
         self.view.addSubview(label)
         return label
@@ -81,10 +81,10 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
             
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.gray,
-                NSFontAttributeName : UIFont(name: "Lato-Bold", size: 12)!
+                NSFontAttributeName : UIFont.LatoBoldSmall()
             ]
             
-            font = UIFont(name: "Lato-Regular", size: 15)!
+            font = UIFont.LatoRegularSmall()
             
             let attrString = NSMutableAttributedString(string: placeholder.uppercased(), attributes:attributes)
             attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
@@ -158,7 +158,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
         doneButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.2).cgColor
         doneButton.backgroundColor = UIColor.black
         doneButton.tintColor = UIColor.white
-        doneButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 14.0)
+        doneButton.titleLabel!.font = UIFont.LatoRegularSmall()
         doneButton.titleLabel!.textColor = UIColor.white
         
         let attributedString = NSMutableAttributedString(string: "DONE")

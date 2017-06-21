@@ -31,7 +31,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         signUpLabel.attributedText = attrString
         
@@ -49,7 +49,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
-            NSFontAttributeName : UIFont(name: "Lato-Regular", size: 17)! // Note the !
+            NSFontAttributeName : UIFont.LatoRegularMedium()
         ]
         
         let attrString = NSMutableAttributedString(string: "EMAIL", attributes:attributes)
@@ -81,7 +81,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
-            NSFontAttributeName : UIFont(name: "Lato-Regular", size: 17)! // Note the !
+            NSFontAttributeName : UIFont.LatoRegularMedium()
         ]
         
         let attrString = NSMutableAttributedString(string: "PASSWORD", attributes:attributes)
@@ -111,7 +111,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
         
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 11)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         alreadyHaveAccountLabel.attributedText = attrString
         
@@ -131,7 +131,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let attrString = NSMutableAttributedString(string: "LOG IN")
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 12)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         loginButton.setAttributedTitle(attrString, for: UIControlState())
         
@@ -164,10 +164,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let attrString = NSMutableAttributedString(string: "SIGN UP")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 14)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         letsGo.setAttributedTitle(attrString, for: UIControlState())
         
-        letsGo.titleLabel?.font = UIFont(name: "Lato–Regular", size: 20)
+        letsGo.titleLabel?.font = UIFont.LatoRegularMedium()
         
         self.view.addSubview(letsGo)
         
@@ -216,7 +216,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let button = UIButton()
         button.setTitle("By signing up, you agree to our Terms of Service.", for: UIControlState())
-        button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+        button.titleLabel?.font = UIFont.LatoRegularSmall()
         button.setTitleColor(UIColor.black, for: UIControlState())
         button.addTarget(self, action: #selector(SignUpViewController.termsPressed(_:)), for: .touchUpInside)
         self.view.addSubview(button)
@@ -236,7 +236,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let titleLabel = UILabel()
         
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 16)!,
+            NSFontAttributeName:UIFont.LatoRegularMedium(),
             NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
@@ -247,7 +247,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
         
-        let doneButton = ProductBarButtonItem(title: "Back", actionTarget: self, actionSelector: #selector(SignUpViewController.closePressed), buttonColor: Constants.Colors.DoneBlue)
+        let doneButton = ProductBarButtonItem(title: "Back", actionTarget: self, actionSelector: #selector(SignUpViewController.closePressed), buttonColor: UIColor.DoneBlue())
         
         self.navigationItem.leftBarButtonItem = doneButton
     }

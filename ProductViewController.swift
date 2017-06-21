@@ -171,7 +171,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Regular", size: 18)!,
+            NSFontAttributeName:UIFont.LatoRegularMedium(),
             NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
@@ -188,9 +188,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         string.addAttribute(NSForegroundColorAttributeName, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Light", size: 13)!, range: NSMakeRange(0, "by ".characters.count))
+        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, "by ".characters.count))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange("by ".characters.count, name.characters.count))
+        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange("by ".characters.count, name.characters.count))
         
         byCompanyLabel.attributedText = string
         
@@ -199,7 +199,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let moreString = NSMutableAttributedString(string: "More by \(name)".uppercased())
         
         moreString.addAttributes([
-            NSFontAttributeName: UIFont(name: "Lato-Bold", size: 13)!,
+            NSFontAttributeName: UIFont.LatoBoldSmall(),
             NSKernAttributeName: 2.0,
             NSForegroundColorAttributeName: UIColor(white: 0.71, alpha: 1.0)
             ], range: NSMakeRange(0, moreString.length))
@@ -223,7 +223,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate func setPriceText(_ name: String) {
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Light", size: 18)!,
+            NSFontAttributeName:UIFont.LatoRegularMedium(),
             NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
@@ -240,7 +240,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Lato-Regular", size: 14)
+        label.font = UIFont.LatoRegularSmall()
         label.textColor = .white
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -352,7 +352,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     fileprivate lazy var shippingLabel: UILabel = {
         let label = UILabel()
         label.text = "Ships in 2 - 4 business days"
-        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.font = UIFont.LatoRegularSmall()
         label.textColor = .white
         self.scrollView.addSubview(label)
         return label
@@ -361,7 +361,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     fileprivate lazy var shippingSublabel: UILabel = {
         let label = UILabel()
         label.text = "Arrives July 1 - 2"
-        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.font = UIFont.LatoRegularSmall()
         label.textColor = UIColor(white: 1.0, alpha: 0.42)
         self.scrollView.addSubview(label)
         return label
@@ -383,7 +383,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     fileprivate lazy var returnLabel: UILabel = {
         let label = UILabel()
         label.text = "Return free for 14 days"
-        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.font = UIFont.LatoRegularSmall()
         label.textColor = .white
         self.scrollView.addSubview(label)
         return label
@@ -392,7 +392,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     fileprivate lazy var returnSubLabel: UILabel = {
         let label = UILabel()
         label.text = "Before July 11"
-        label.font = UIFont(name: "Lato-Regular", size: 13)
+        label.font = UIFont.LatoRegularSmall()
         label.textColor = UIColor(white: 1.0, alpha: 0.42)
         self.scrollView.addSubview(label)
         return label
@@ -414,7 +414,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         self.sizeLabel = UILabel()
         self.sizeLabel!.text = "Select a size"
         self.sizeLabel!.textColor = .white
-        self.sizeLabel!.font = UIFont(name: "Lato-Bold", size: 14)
+        self.sizeLabel!.font = UIFont.LatoBoldSmall()
         button.addSubview(self.sizeLabel!)
         self.sizeLabel!.centerVerticallyInSuperview()
         self.sizeLabel!.positionToTheRightOfItem(icon, offset: 20)
@@ -462,7 +462,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let label = UILabel()
         
         label.text = "Western Sweater Co. is dedicated to producing sustainable sweaters. They produce world-class sweaters at a fraction of the price."
-        label.font = UIFont(name: "Lato-Regular", size: 14)
+        label.font = UIFont.LatoRegularSmall()
         label.textColor = .white
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -522,7 +522,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         fileprivate lazy var titleLabel: UILabel = {
             let label = UILabel()
             label.textColor = .white
-            label.font = UIFont(name: "Lato-Bold", size: 12)
+            label.font = UIFont.LatoBoldSmall()
             
             self.bottomBar.addSubview(label)
             return label
@@ -531,7 +531,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         fileprivate lazy var priceLabel: UILabel = {
             let label = UILabel()
             label.textColor = .white
-            label.font = UIFont(name: "Lato-Regular", size: 12)
+            label.font = UIFont.LatoRegularSmall()
             
             self.bottomBar.addSubview(label)
             return label
@@ -587,7 +587,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         self.viewBrandLabel = UILabel()
         self.viewBrandLabel!.text = "Browse more"
         self.viewBrandLabel!.textColor = .white
-        self.viewBrandLabel!.font = UIFont(name: "Lato-Bold", size: 14)
+        self.viewBrandLabel!.font = UIFont.LatoRegularSmall()
         button.addSubview(self.viewBrandLabel!)
         self.viewBrandLabel!.centerVerticallyInSuperview()
         self.viewBrandLabel!.positionToTheRightOfItem(icon, offset: 20)
@@ -991,7 +991,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         label.layer.opacity = 0
         
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 9)!,
+            NSFontAttributeName:UIFont.LatoBoldSmall(),
             NSForegroundColorAttributeName:UIColor(white: 1.0, alpha: 0.7),
             NSKernAttributeName:CGFloat(2.0)
         ]

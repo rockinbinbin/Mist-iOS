@@ -44,10 +44,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         purchaseHistoryLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "PURCHASE HISTORY")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         purchaseHistoryLabel.attributedText = attrString
-        purchaseHistoryLabel.font = UIFont(name: "Lato-Regular", size: 15)
+        purchaseHistoryLabel.font = UIFont.LatoRegularSmall()
         self.scrollView.addSubview(purchaseHistoryLabel)
         return purchaseHistoryLabel
     }()
@@ -89,7 +89,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let attrString = NSMutableAttributedString(string: "SIGN UP")
         attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         signUpButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(signUpButton)
@@ -102,15 +102,15 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let favoritesView = UIView()
         
         let favoritesLabel = UILabel()
-        favoritesLabel.font = UIFont(name: "Lato-Light", size: 22.0)
+        favoritesLabel.font = UIFont.LatoRegularMedium()
         favoritesLabel.textColor = UIColor.black
         let attributedString = NSMutableAttributedString(string: "FAVORITES")
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "FAVORITES".characters.count))
         favoritesLabel.attributedText = attributedString
         
         favoritesView.addSubview(favoritesLabel)
-        favoritesLabel.pinToTopEdgeOfSuperview(offset: 16)
-        favoritesLabel.pinToLeftEdgeOfSuperview(offset: 32)
+        favoritesLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 16)
+        favoritesLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 32)
         
         self.scrollView.addSubview(favoritesView)
         return favoritesView
@@ -141,7 +141,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let logOffButton = UIButton(type: .roundedRect)
         logOffButton.layer.cornerRadius = 0
         logOffButton.tintColor = UIColor.black
-        logOffButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 20)
+        logOffButton.titleLabel?.font = UIFont.LatoRegularMedium()
         logOffButton.setTitle("LOG OFF", for: UIControlState())
         self.scrollView.addSubview(logOffButton)
         
@@ -153,7 +153,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let learnMoreButton = UIButton(type: .roundedRect)
         learnMoreButton.layer.cornerRadius = 0
         learnMoreButton.tintColor = UIColor.black
-        learnMoreButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 20)
+        learnMoreButton.titleLabel?.font = UIFont.LatoRegularMedium()
         learnMoreButton.setTitle("LEARN MORE", for: UIControlState())
         self.scrollView.addSubview(learnMoreButton)
         
@@ -178,7 +178,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let titleLabel = UILabel()
         
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 16)!,
+            NSFontAttributeName:UIFont.LatoRegularMedium(),
             NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
@@ -189,7 +189,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
         
-        let doneButton = ProductBarButtonItem(title: "Done", actionTarget: self, actionSelector: #selector(AccountViewController.closePressed), buttonColor: Constants.Colors.DoneBlue)
+        let doneButton = ProductBarButtonItem(title: "Done", actionTarget: self, actionSelector: #selector(AccountViewController.closePressed), buttonColor: UIColor.DoneBlue())
         
         self.navigationItem.leftBarButtonItem = doneButton
     }
@@ -262,7 +262,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         contactImg.pinToTopEdgeOfSuperview(offset: 36)
         
         let accountLabel = UILabel()
-        accountLabel.font = UIFont(name: "Lato-Bold", size: 16.0)
+        accountLabel.font = UIFont.LatoRegularMedium()
         accountLabel.textColor = UIColor.white
 //        let emailStr = PFUser.currentUser()?.objectForKey("email") as! String
         let emailStr = "robinmehta94@gmail.com"
@@ -313,10 +313,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             decorateLabel.numberOfLines = 0
             let attrString = NSMutableAttributedString(string: "Alpaca Sweater")
             attrString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString.length))
-            attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 10)!, range: NSMakeRange(0, attrString.length))
-            
+            attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
             decorateLabel.attributedText = attrString
-            decorateLabel.font = UIFont(name: "Lato-Regular", size: 15)
             self.scrollView.addSubview(decorateLabel)
             return decorateLabel
         }()
@@ -425,13 +423,13 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let attrString = NSMutableAttributedString(string: "PAYMENT METHOD")
             attrString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString.length))
-            attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
             
             cell!.titleLabel.attributedText = attrString
             
             let attrString2 = NSMutableAttributedString(string: "APPLE PAY")
             attrString2.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString2.length))
-            attrString2.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange(0, attrString2.length))
+            attrString2.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString2.length))
             
             cell!.detail.attributedText = attrString2
         }
@@ -440,7 +438,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell?.imgView.image = UIImage(named: "box")
             let attrString = NSMutableAttributedString(string: "SHIPPING ADDRESS")
             attrString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString.length))
-            attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
             
             cell!.titleLabel.attributedText = attrString
             
@@ -456,7 +454,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let attrString2 = NSMutableAttributedString(string: "321 Stonytown Road")
             attrString2.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString2.length))
-            attrString2.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange(0, attrString2.length))
+            attrString2.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString2.length))
             
             cell!.detail.attributedText = attrString2
         }
@@ -465,7 +463,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell?.imgView.image = UIImage(named: "chat")
             let attrString = NSMutableAttributedString(string: "CONTACT US")
             attrString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, attrString.length))
-            attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
             
             cell!.titleLabel.attributedText = attrString
         }

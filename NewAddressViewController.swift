@@ -37,7 +37,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Add Shipping Address"
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 24)
+        titleLabel.font = UIFont.LatoRegularMedium()
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -50,7 +50,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.gray,
-            NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
+            NSFontAttributeName : UIFont.LatoRegularSmall()
         ]
         
         let attrString = NSMutableAttributedString(string: "Address Name", attributes:attributes)
@@ -74,7 +74,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.gray,
-            NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
+            NSFontAttributeName : UIFont.LatoRegularSmall()
         ]
         
         let attrString = NSMutableAttributedString(string: "Street Address", attributes:attributes)
@@ -97,7 +97,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.gray,
-            NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
+            NSFontAttributeName :UIFont.LatoRegularSmall()
         ]
         
         let attrString = NSMutableAttributedString(string: "City", attributes:attributes)
@@ -121,7 +121,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.gray,
-            NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
+            NSFontAttributeName : UIFont.LatoRegularSmall()
         ]
         
         let attrString = NSMutableAttributedString(string: "Apt/Unit", attributes:attributes)
@@ -145,7 +145,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.gray,
-            NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
+            NSFontAttributeName : UIFont.LatoRegularSmall()
         ]
         
         let attrString = NSMutableAttributedString(string: "State", attributes:attributes)
@@ -171,7 +171,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.gray,
-            NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
+            NSFontAttributeName : UIFont.LatoRegularSmall()
         ]
         
         let attrString = NSMutableAttributedString(string: "Zip", attributes:attributes)
@@ -196,7 +196,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         
         let attributes = [
             NSForegroundColorAttributeName: UIColor.gray,
-            NSFontAttributeName : UIFont(name: "Lato-Light", size: 14)!
+            NSFontAttributeName :UIFont.LatoRegularSmall()
         ]
         
         let attrString = NSMutableAttributedString(string: "Phone Number (optional)", attributes:attributes)
@@ -227,7 +227,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
         doneButton.layer.cornerRadius = 0
         doneButton.backgroundColor = UIColor.black
         doneButton.tintColor = UIColor.white
-        doneButton.titleLabel!.font = UIFont(name: "Lato-Light", size: 14.0)
+        doneButton.titleLabel!.font = UIFont.LatoRegularSmall()
         doneButton.titleLabel!.textColor = UIColor.white
         
         let attributedString = NSMutableAttributedString(string: "DONE")
@@ -418,7 +418,7 @@ class NewAddressViewController: UIViewController, UITextFieldDelegate {
     func setNavBar() {
         let titleLabel = UILabel()
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Regular", size: 16)!,
+            NSFontAttributeName:UIFont.LatoRegularMedium(),
             NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]

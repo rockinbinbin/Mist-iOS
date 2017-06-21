@@ -28,7 +28,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         newAddressButton.layer.cornerRadius = 0
         newAddressButton.backgroundColor = UIColor.black
         newAddressButton.tintColor = UIColor.white
-        newAddressButton.titleLabel!.font = UIFont(name: "Lato-Light", size: 14.0)
+        newAddressButton.titleLabel!.font = UIFont.LatoRegularSmall()
         newAddressButton.titleLabel!.textColor = UIColor.white
   
         let attributedString = NSMutableAttributedString(string: "ENTER NEW ADDRESS")
@@ -74,7 +74,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
     func setNavBar() {
         let titleLabel = UILabel()
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Regular", size: 16)!,
+            NSFontAttributeName:UIFont.LatoRegularMedium(),
             NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]

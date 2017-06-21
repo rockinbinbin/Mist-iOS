@@ -19,7 +19,7 @@ open class ProductBarButtonItem: UIBarButtonItem {
         let attributedBarButtonBackStr = NSMutableAttributedString(string: buttonString as String)
         
         attributedBarButtonBackStr.addAttribute(NSFontAttributeName,
-                                                value: UIFont(name: "Lato-Regular", size: 13.0)!,
+                                                value: UIFont.LatoRegularSmall(),
                                                 range: NSRange(location:0, length: title.characters.count))
         
         attributedBarButtonBackStr.addAttribute(NSKernAttributeName,

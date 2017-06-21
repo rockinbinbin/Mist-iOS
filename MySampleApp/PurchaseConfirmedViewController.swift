@@ -137,7 +137,7 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Forever grateful."
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 24)
+        titleLabel.font = UIFont.LatoRegularMedium()
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -149,7 +149,7 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Look out for a package made with love ❤️"
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 14)
+        titleLabel.font = UIFont.LatoRegularSmall()
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -161,7 +161,7 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Ships in 2 - 4 business days"
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 10)
+        titleLabel.font = UIFont.LatoRegularSmall()
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -173,7 +173,7 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Return free for 14 days"
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 10)
+        titleLabel.font = UIFont.LatoRegularSmall()
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -185,7 +185,7 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "Show & Tell! 🙈"
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 14)
+        titleLabel.font = UIFont.LatoRegularSmall()
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -203,7 +203,7 @@ class PurchaseConfirmedViewController: UIViewController {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.text = "...for a chance to win Mist’s surprise box! ✨💫"
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 12)
+        titleLabel.font = UIFont.LatoRegularSmall()
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -215,7 +215,7 @@ class PurchaseConfirmedViewController: UIViewController {
         
         let attrString = NSMutableAttributedString(string: "RETURN TO FEED")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 14)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         returnButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(returnButton)
@@ -312,10 +312,10 @@ class PurchaseConfirmedViewController: UIViewController {
             decorateLabel.numberOfLines = 0
             let attrString = NSMutableAttributedString(string: (self.product?.name)!)
             attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
-            attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 10)!, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
             
             decorateLabel.attributedText = attrString
-            decorateLabel.font = UIFont(name: "Lato-Regular", size: 10)
+            decorateLabel.font = UIFont.LatoRegularSmall()
             self.view.addSubview(decorateLabel)
             return decorateLabel
         }()

@@ -59,7 +59,7 @@ class SearchResultBrandView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.font = UIFont(name: "Lato-Bold", size: 17)
+        label.font = UIFont.LatoBoldMedium()
         label.textColor = .black
         self.addSubview(label)
         return label
@@ -69,7 +69,7 @@ class SearchResultBrandView: UIView {
         let label = UILabel()
         label.numberOfLines = 4
         label.lineBreakMode = .byTruncatingTail
-        label.font = UIFont(name: "Lato-Regular", size: 12)
+        label.font = UIFont.LatoRegularSmall()
         label.textColor = UIColor(white: 0.47, alpha: 1.0)
         self.addSubview(label)
         return label

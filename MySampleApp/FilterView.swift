@@ -71,7 +71,7 @@ class FilterView: UIView {
         
         label.attributedText = NSAttributedString(string: "CATEGORIES", attributes: [
             NSForegroundColorAttributeName: UIColor.black,
-            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 13)!,
+            NSFontAttributeName: UIFont.LatoRegularSmall(),
             NSKernAttributeName: 3.0
             ])
         
@@ -127,7 +127,7 @@ class FilterView: UIView {
         
         fileprivate func initHelper() {
             setTitleColor(grey, for: UIControlState())
-            titleLabel!.font = UIFont(name: "Lato-Regular", size: 13)
+            titleLabel!.font = UIFont.LatoRegularSmall()
             layer.borderWidth = 1.0
             layer.borderColor = UIColor(white: 0.9, alpha: 1.0).cgColor
             layer.masksToBounds = true
@@ -259,7 +259,7 @@ class FilterView: UIView {
         
         label.attributedText = NSAttributedString(string: "PRICE", attributes: [
             NSForegroundColorAttributeName: UIColor.black,
-            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 13)!,
+            NSFontAttributeName: UIFont.LatoRegularSmall(),
             NSKernAttributeName: 3.0
             ])
         

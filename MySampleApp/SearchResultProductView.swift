@@ -111,9 +111,9 @@ class SearchResultProductView: UIView {
             lineBreakMode = .byTruncatingTail
             
             switch style {
-            case .product: font = UIFont(name: "Lato-Bold", size: 13)!
-            case .brand: font = UIFont(name: "Lato-Regular", size: 12)!
-            case .price: font = UIFont(name: "Lato-Regular", size: 14)!
+            case .product: font = UIFont.LatoBoldSmall()
+            case .brand: font = UIFont.LatoRegularSmall()
+            case .price: font = UIFont.LatoRegularSmall()
             }
         }
     }

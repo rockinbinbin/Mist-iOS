@@ -44,7 +44,7 @@ class SustainabilityGuideViewController: UIViewController {
         headerLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "here's to ")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         headerLabel.attributedText = attrString
         self.view.addSubview(headerLabel)
@@ -59,7 +59,7 @@ class SustainabilityGuideViewController: UIViewController {
         updatingHeaderLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: " beautiful")
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         updatingHeaderLabel.attributedText = attrString
         self.view.addSubview(updatingHeaderLabel)
@@ -74,7 +74,7 @@ class SustainabilityGuideViewController: UIViewController {
         thankYouLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "Thank you.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 16)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         thankYouLabel.attributedText = attrString
         self.view.addSubview(thankYouLabel)
@@ -89,7 +89,7 @@ class SustainabilityGuideViewController: UIViewController {
         appreciateLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "We appreciate you.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 16)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         appreciateLabel.attributedText = attrString
         self.view.addSubview(appreciateLabel)
@@ -104,7 +104,7 @@ class SustainabilityGuideViewController: UIViewController {
         supportLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "We're here to support you & your lifestyle.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 16)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         supportLabel.attributedText = attrString
         self.view.addSubview(supportLabel)
@@ -119,7 +119,7 @@ class SustainabilityGuideViewController: UIViewController {
         bodyLabel.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "MIST does the work of curating brands who value transparency, so you can clear your conscience, effortlessly.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 14)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         bodyLabel.attributedText = attrString
         self.view.addSubview(bodyLabel)
@@ -134,7 +134,7 @@ class SustainabilityGuideViewController: UIViewController {
         body2Label.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "We curate sustainably-made, long-lasting pieces designed by creatives who put quality & our rivers first, so that you can feel good about what you wear.")
         attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 14)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         body2Label.attributedText = attrString
         self.view.addSubview(body2Label)
@@ -147,7 +147,7 @@ class SustainabilityGuideViewController: UIViewController {
         nextPageButton.tintColor = UIColor.white
         nextPageButton.layer.borderColor = UIColor.white.cgColor
         nextPageButton.layer.borderWidth = 1.0
-        nextPageButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 15)
+        nextPageButton.titleLabel?.font = UIFont.LatoRegularSmall()
         nextPageButton.setTitle("   Skim our guide on transparency →   ", for: UIControlState())
         self.view.addSubview(nextPageButton)
         
@@ -217,7 +217,7 @@ class SustainabilityGuideViewController: UIViewController {
         
         let attrString = NSMutableAttributedString(string: array[index])
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         updatingHeaderLabel.attributedText = attrString
         
@@ -232,7 +232,7 @@ class SustainabilityGuideViewController: UIViewController {
         let titleLabel = UILabel()
         
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont(name: "Lato-Bold", size: 16)!,
+            NSFontAttributeName:UIFont.LatoBoldMedium(),
             NSForegroundColorAttributeName:UIColor.black,
             NSKernAttributeName:CGFloat(3.69)
         ]
