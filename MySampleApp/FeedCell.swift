@@ -115,10 +115,10 @@ class FeedCell: UICollectionViewCell {
 
         guard let this_url = URL(string: url) else { return }
         if this_url.absoluteString == "" { return }
-        //let image : UIImage?
+        var image : UIImage?
 
         DispatchQueue.global(qos: .background).async {
-            //image = UIImage(data: NSData(contentsOf: this_url)! as Data)
+            image = UIImage(data: NSData(contentsOf: this_url)! as Data)
 
             DispatchQueue.main.async {
                 //guard row == self.tag else { return }
@@ -129,6 +129,7 @@ class FeedCell: UICollectionViewCell {
                     self.imageView.alpha = 1
                 })
             }
+            completion?(true, image)
         }
 
 

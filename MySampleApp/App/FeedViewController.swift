@@ -28,16 +28,12 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
     fileprivate func configureAppearance() {
         mistLogoInTitle = true
-        //setLeftButton("Filters", target: self, selector: #selector(presentFilters))
-        //setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
+        setLeftButton("Filters", target: self, selector: #selector(presentFilters))
+        setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
         
-        //navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
         self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "RepeatingGradient")!)
     }
@@ -84,7 +80,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     // MARK: - Layout
     
     func setViewConstraints() {
-        collectionView.pinToEdgesOfSuperview()
+        collectionView.autoPinEdgesToSuperviewEdges()
     }
     
     // MARK: - Model
@@ -171,12 +167,8 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
             return cell
         }
         
-        if let productDescription = cell.productDescription, productDescription == product.description {
-            return cell
-        }
-        
+        if let productDescription = cell.productDescription, productDescription == product.description { return cell }
         cell.product = product
-        
         imageLoading[indexPath.row] = true
         
         cell.setImage(product.imageURL) { (completed, image) in
