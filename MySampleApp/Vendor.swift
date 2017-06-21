@@ -62,7 +62,7 @@ open class VendorClass {
         
         let vendor = VendorObj()
         
-        dynamoDBObjectMapper.load(VendorObj.self, hashKey: id, rangeKey: nil).continue { (task: AWSTask) -> AnyObject? in
+        dynamoDBObjectMapper.load(VendorObj.self, hashKey: id, rangeKey: nil).continue({ (task: AWSTask) -> AnyObject? in
             
             guard let result = task.result else {
                 print(task.exception)
@@ -70,17 +70,17 @@ open class VendorClass {
                 return nil
             }
             
-            vendor.brand = result.value(forKey: "Brand") as! String
-            vendor.id = result.value(forKey: "ID") as! String
-            vendor.products = result.value(forKey: "products") as! NSMutableSet
-            vendor.shortDescription = result.value(forKey: "ShortDescrioption") as! String
+            vendor?.brand = result.value(forKey: "Brand") as! String
+            vendor?.id = result.value(forKey: "ID") as! String
+            vendor?.products = result.value(forKey: "products") as! NSMutableSet
+            vendor?.shortDescription = result.value(forKey: "ShortDescrioption") as! String
             
             guard let delegate = self.loadVendorDelegate else {
                 return VendorObj()
             }
-            delegate.passVendor(vendor)
+            delegate.passVendor(vendor!)
             return vendor
-        }
+        })
     }
     
     func loadVendorFromProductName(_ name: String, completion: ((NSError?) -> ())?) {
@@ -94,24 +94,28 @@ open class VendorClass {
         attribute?.n = name
         condition?.attributeValueList = [attribute!]
         condition?.comparisonOperator = AWSDynamoDBComparisonOperator.EQ
-        
-        dynamoDBObjectMapper.scan(VendorObj.self, expression: scanExpression) { (result: AWSDynamoDBPaginatedOutput?, error: NSError?) in
+
+//        dynamoDBObjectMapper.scan(VendorObj, expression: scanExpression) { (result: AWSDynamoDBPaginatedOutput?, error: Error?) in
+//            <#code#>
+//        }
+
+        dynamoDBObjectMapper.scan(VendorObj.self, expression: scanExpression) { (result: AWSDynamoDBPaginatedOutput?, error: Error?) in
             
             guard let result = result else {
                 print (error)
                 return
             }
             print (result)
-            vendor.brand = result.value(forKey: "Brand") as! String
-            vendor.id = result.value(forKey: "ID") as! String
-            vendor.products = result.value(forKey: "products") as! NSMutableSet
-            vendor.shortDescription = result.value(forKey: "ShortDescrioption") as! String
+            vendor?.brand = result.value(forKey: "Brand") as! String
+            vendor?.id = result.value(forKey: "ID") as! String
+            vendor?.products = result.value(forKey: "products") as! NSMutableSet
+            vendor?.shortDescription = result.value(forKey: "ShortDescrioption") as! String
             
             // Class must have this method implemented
             guard let delegate = self.loadVendorDelegate else {
                 return
             }
-            delegate.passVendor(vendor)
+            delegate.passVendor(vendor!)
         }
     }
     

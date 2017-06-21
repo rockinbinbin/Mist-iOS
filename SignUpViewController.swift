@@ -373,21 +373,22 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func FBLoginPressed(_ sender: CustomLoginButton!) {
-        let login = FBSDKLoginManager()
-        login.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
-            if ((error) != nil) {
-                // handle error
-            }
-            else if (result.isCancelled) {
-                // handle user-cancelled login
-            }
-            else {
-                // handle logged in
-                self.getFBUserData()
-                self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
-            }
-        } as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler as! FBSDKLoginManagerRequestTokenHandler
-    }
+        // TODO: FIX
+        print("fbloginpressed")
+//        let login = FBSDKLoginManager()
+//        login.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
+//            if ((error) != nil) {
+//                // handle error
+//            }
+//            else if (result.isCancelled) {
+//                // handle user-cancelled login
+//            }
+//            else {
+//                // handle logged in
+//                self.getFBUserData()
+//                self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
+//            }
+        }
     
     var dict : NSDictionary!
     

@@ -65,10 +65,10 @@ class Feed {
      - parameter completion: Completion handler.
      */
     func loadFeed(_ completion: ((NSError?) -> ())?) {
-        AWSCloudLogic.default().invokeFunction("GenerateFeed", withParameters: nil) { (result: AnyObject?, error: NSError?) in
+        AWSCloudLogic.default().invokeFunction("GenerateFeed", withParameters: nil) { (result: Any, error: Error) in
             
             defer {
-                completion?(error)
+                completion?(error as NSError)
             }
             
             guard error == nil else {

@@ -99,24 +99,25 @@ class AWSMobileClient: NSObject {
      
      - parameter completion: called after images are loaded.
      */
-    func loadImagesFromAWS(_ completion: @escaping ([AWSContent]?, NSError?) -> ()) {
-        let manager = AWSContentManager.default()
-        
-        let prefix: String? = "product-media/"
-        let marker: String? = nil
-        
-        manager.listAvailableContents(withPrefix: prefix, marker: marker) {(contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
-            guard error == nil else {
-                completion(contents, error)
-                return
-            }
-            
-            guard let results = contents, results.count > 0 else {
-                completion(contents, error)
-                return
-            }
-            
-            completion(results, nil)
-        } as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void as! ([AWSContent]?, String?, Error?) -> Void
-    }
+    // TODO: FIX THIS
+//    func loadImagesFromAWS(_ completion: @escaping ([AWSContent]?, NSError?) -> ()) {
+//        let manager = AWSContentManager.default()
+//        
+//        let prefix: String? = "product-media/"
+//        let marker: String? = nil
+//        
+//        manager.listAvailableContents(withPrefix: prefix, marker: marker) {(contents: [AWSContent]?, nextMarker: String?, error: NSError?) -> Void in
+//            guard error == nil else {
+//                completion(contents, error)
+//                return
+//            }
+//            
+//            guard let results = contents, results.count > 0 else {
+//                completion(contents, error)
+//                return
+//            }
+//            
+//            completion(results, nil)
+//        as! ([AWSContent]?, String?, Error?) -> Void }
+//    }
 }

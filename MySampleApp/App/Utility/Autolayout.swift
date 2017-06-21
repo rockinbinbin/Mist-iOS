@@ -857,10 +857,10 @@ extension UIView {
     
     fileprivate func constrainAttribute(_ attribute: NSLayoutAttribute, toAttribute itemAttribute: NSLayoutAttribute, ofItem item: AnyObject, relatedBy: NSLayoutRelation = .equal, multiplier: CGFloat = 1, offset: CGFloat = 0, priority: UILayoutPriority? = nil) -> NSLayoutConstraint? {
         let commonSuperview: UIView? = {
-            if !item.isKind(of: UIView) {
+            if !item.isKind(of: UIView.self as AnyClass) {
                 return self.superview
             }
-            
+
             return {
                 var startView: UIView! = self
                 var commonSuperview: UIView?

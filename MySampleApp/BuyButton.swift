@@ -54,10 +54,10 @@ class BuyButton: UIButton {
         
         // Customize title string
         var offset = 0
-        attrString.addAttributes([NSFontAttributeName: UIFont(name: "Lato-Bold", size: 14)!], range: NSMakeRange(0, "BUY".length))
-        offset += "BUY".length
-        attrString.addAttributes([NSFontAttributeName: UIFont(name: "Lato-LightItalic", size: 12)!], range: NSMakeRange(offset, " for ".length))
-        offset += " for ".length
+        attrString.addAttributes([NSFontAttributeName: UIFont(name: "Lato-Bold", size: 14)!], range: NSMakeRange(0, "BUY".characters.count))
+        offset += "BUY".characters.count
+        attrString.addAttributes([NSFontAttributeName: UIFont(name: "Lato-LightItalic", size: 12)!], range: NSMakeRange(offset, " for ".characters.count))
+        offset += " for ".characters.count
         attrString.addAttributes([NSFontAttributeName: UIFont(name: "Lato-Bold", size: 14)!], range: NSMakeRange(offset, title.characters.count - offset))
         
         attrString.addAttributes([NSKernAttributeName: 1.5], range: NSMakeRange(0, title.characters.count))

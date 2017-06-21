@@ -169,7 +169,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func didLoadAddresses(_ objects: [AnyObject]!) {
-        userAddresses = objects as! NSArray
+        userAddresses = objects as? NSArray
         tableView.reloadData()
     }
 

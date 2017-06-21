@@ -71,7 +71,7 @@ class MailingAddress: NSObject {
         query?.keyConditions = ["username": condition!]
         query?.limit = 1
 
-        AWSDynamoDB.default().query(query!).continue { (task: AWSTask) -> AnyObject? in
+        AWSDynamoDB.default().query(query!).continue({ (task: AWSTask) -> AnyObject? in
             guard let taskResult = task.result, (taskResult as! AWSDynamoDBQueryOutput).count! != 0 else {
                 completion?(false)
                 return nil
@@ -90,7 +90,7 @@ class MailingAddress: NSObject {
             
             completion?(true)
             return nil
-        }
+        })
     }
     
     static var userAddress: MailingAddress? = nil

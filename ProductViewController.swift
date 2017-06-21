@@ -188,9 +188,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         string.addAttribute(NSForegroundColorAttributeName, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Light", size: 13)!, range: NSMakeRange(0, "by ".length))
+        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Light", size: 13)!, range: NSMakeRange(0, "by ".characters.count))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange("by ".length, name.characters.count))
+        string.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 13)!, range: NSMakeRange("by ".characters.count, name.characters.count))
         
         byCompanyLabel.attributedText = string
         
@@ -861,7 +861,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             "email": "test@gmail.com"
         ]
         
-        AWSCloudLogic.default().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in
+        AWSCloudLogic.default().invokeFunction(functionName, withParameters: parameters) { (result: Any?, error: Error?) in
             DispatchQueue.main.async {
                 guard error == nil else {
                     completion(error)
@@ -908,7 +908,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let functionName = "purchaseItem"
         let parameters = getPurchaseParameters(token.tokenId)!
         
-        AWSCloudLogic.default().invokeFunction(functionName, withParameters: parameters) { (result: AnyObject?, error: NSError?) in
+        AWSCloudLogic.default().invokeFunction(functionName, withParameters: parameters) { (result: Any?, error: Error?) in
             DispatchQueue.main.async {
                 guard error == nil else {
                     completion(.failure)

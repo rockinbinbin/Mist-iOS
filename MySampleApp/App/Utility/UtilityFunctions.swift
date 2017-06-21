@@ -52,19 +52,19 @@ func prettyPrintJson(_ object: AnyObject?) -> String {
  - parameter remoteURL: The URL of the remote image.
  - parameter completion: A block of
  */
-func downloadImageAsync(_ remoteURL: String, completion: (_ success: Bool, _ image: UIImage?) -> ()) {
-    guard let url = URL(string: remoteURL) else {
-        completion(false, nil)
-        return
-    }
-    
-    let request = NSMutableURLRequest(url: url)
-    
-    NSURLConnection.sendAsynchronousRequest(request as URLRequest, queue: OperationQueue.main) {
-        (response: URLResponse?, data: Data?, error: NSError?) -> Void in
-        
-    } as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void as! (URLResponse?, Data?, Error?) -> Void
-}
+//func downloadImageAsync(_ remoteURL: String, completion: (_ success: Bool, _ image: UIImage?) -> ()) {
+//    guard let url = URL(string: remoteURL) else {
+//        completion(false, nil)
+//        return
+//    }
+//    
+//    let request = NSMutableURLRequest(url: url)
+//    
+//    NSURLConnection.sendAsynchronousRequest(request as URLRequest, queue: OperationQueue.main) {
+//        (response: URLResponse?, data: Data?, error: NSError?) -> Void in
+//        
+//    }
+//}
 
 extension UIImage {
 //    convenience init(downloadURL: String) {

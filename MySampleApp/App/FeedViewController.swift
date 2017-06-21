@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileHubHelper
+import CHTCollectionViewWaterfallLayout
 
 class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, FeedProductTransitionDelegate, FilterDelegate {
     
@@ -45,7 +46,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     fileprivate func loadFeed() {
         Feed.sharedInstance.loadFeed { (error: NSError?) in
             guard error == nil else {
-                print("Error loading feed: \(error)")
+                print("Error loading feed: \(String(describing: error))")
                 return
             }
             
@@ -181,11 +182,11 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         cell.setImage(product.imageURL) { (completed, image) in
             if completed {
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.imageLoading[indexPath.row] = false
                     Feed.sharedInstance.setSize((image?.size)!, atIndex: indexPath.row)
 
-                    if (self.imageLoading.indexOf(true) == nil && !LoadingView.sharedInstance.hasHiddenOnce) {
+                    if (self.imageLoading.index(of: true) == nil && !LoadingView.sharedInstance.hasHiddenOnce) {
                         LoadingView.sharedInstance.hasHiddenOnce = true
                         self.collectionView.reloadData()
                         LoadingView.sharedInstance.hideView()
@@ -215,7 +216,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         // Record in mobile analytics
         AnalyticsManager.sharedInstance.recordEvent(Event.Feed.itemCellPressed)
         
-        transitionToProduct(fromIndex: indexPath) {completion in
+        transitionToProduct(fromIndex: indexPath) { completion in
             self.present(productViewController, animated: false, completion: completion)
         }
     }
@@ -246,7 +247,7 @@ protocol FeedProductTransitionDelegate {
 
 extension FeedViewController {
     
-    func transitionToProduct(fromIndex indexPath: IndexPath, presentViewHandler: @escaping (_ didFinishPresentingView: () -> ()) -> ()) {
+    func transitionToProduct(fromIndex indexPath: IndexPath, presentViewHandler: @escaping (_ didFinishPresentingView: @escaping () -> ()) -> ()) {
         let window = UIApplication.shared.keyWindow
         
         let newImageView = _transition_newImageView(indexPath)

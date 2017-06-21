@@ -210,18 +210,18 @@ class SustainabilityGuideViewController: UIViewController {
         
         let array = ["the creatives", "the eco-conscious", "the questioners", "the curious", "you"]
         
-        let index = (timer.userInfo? as AnyObject).intValue
+        let index = Int((timer.userInfo as AnyObject) as! NSNumber)
         if (index >= array.count) {
             return;
         }
         
-        let attrString = NSMutableAttributedString(string: array[index!])
+        let attrString = NSMutableAttributedString(string: array[index])
         attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 20)!, range: NSMakeRange(0, attrString.length))
         
         updatingHeaderLabel.attributedText = attrString
         
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index!+1, repeats: false)
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SustainabilityGuideViewController.updateLabel), userInfo: index+1, repeats: false)
     }
 
     override func didReceiveMemoryWarning() {
