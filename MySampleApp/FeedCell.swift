@@ -17,7 +17,6 @@ class FeedCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
-        setViewConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +30,7 @@ class FeedCell: UICollectionViewCell {
             setPrice(item.price)
         }
     }
-    
+
     // MARK: - UI Components
     
     fileprivate lazy var imageView: UIImageView = {
@@ -39,7 +38,16 @@ class FeedCell: UICollectionViewCell {
         self.addSubview(imageView)
         return imageView
     }()
-    
+
+    private lazy var gifView: FLAnimatedImageView = {
+        let gifView = FLAnimatedImageView()
+        gifView.backgroundColor = UIColor.darkGray
+        self.addSubview(gifView)
+        return gifView
+    }()
+
+    var gif: FLAnimatedImage? = nil
+
     fileprivate lazy var blackGradientOverlay: UIView = {
         let _blackGradientOverlay: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
         let gradient: CAGradientLayer = CAGradientLayer()
@@ -74,8 +82,13 @@ class FeedCell: UICollectionViewCell {
     
     // MARK: - Layout
     
-    func setViewConstraints() {
-        imageView.autoPinEdgesToSuperviewEdges()
+    func setViewConstraints(gif: FLAnimatedImage?, image: UIImage?) {
+        if gif != nil {
+            gifView.autoPinEdgesToSuperviewEdges()
+        } else {
+            imageView.autoPinEdgesToSuperviewEdges()
+        }
+
         blackGradientOverlay.autoPinEdge(toSuperviewEdge: .bottom)
         blackGradientOverlay.autoPinEdge(toSuperviewEdge: .left)
         blackGradientOverlay.autoPinEdge(toSuperviewEdge: .right)
@@ -90,25 +103,37 @@ class FeedCell: UICollectionViewCell {
         priceLabel.autoSetDimension(.width, toSize: 40)
     }
     
-    func setImage(_ url: String, completion: ((_ completed: Bool, _ image: UIImage?) -> ())?) {
+    func setImage(_ url: String, completion: ((_ completed: Bool, _ image: UIImage?, _ gif: FLAnimatedImage?) -> ())?) {
         guard let this_url = URL(string: url) else { return }
         if this_url.absoluteString == "" { return }
         var image : UIImage?
+        var gif: FLAnimatedImage?
 
         DispatchQueue.global(qos: .background).async {
             if this_url.pathExtension == "gif" {
-                image = UIImage.animatedImage(withAnimatedGIFURL: this_url)
+                gif = FLAnimatedImage(animatedGIFData: NSData(contentsOf: this_url)! as Data)
+                self.gif = gif
             } else {
                 image = UIImage(data: NSData(contentsOf: this_url)! as Data)
             }
 
             DispatchQueue.main.async {
                 self.imageView.alpha = 0
-                self.imageView.image = image
+                self.gifView.alpha = 0
+
+                if this_url.pathExtension == "gif" {
+                    self.setViewConstraints(gif: gif, image: nil)
+                    self.gifView.animatedImage = gif
+                } else {
+                    self.setViewConstraints(gif: nil, image: image)
+                    self.imageView.image = image
+                }
+
                 UIView.animate(withDuration: 0.5, animations: {
                     self.imageView.alpha = 1
+                    self.gifView.alpha = 1
                 })
-                completion?(true, image)
+                completion?(true, image, gif)
             }
         }
     }

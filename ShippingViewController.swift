@@ -42,7 +42,6 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
         
         tableView.pinToTopEdgeOfSuperview(offset: 50)
@@ -54,9 +53,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         newAddressButton.sizeToHeight(50)
         newAddressButton.sizeToWidth(300)
         newAddressButton.centerHorizontallyInSuperview()
-        
         self.navigationController?.delegate = self
-        
         setNavBar()
     }
     
@@ -172,5 +169,4 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         userAddresses = objects as? NSArray
         tableView.reloadData()
     }
-
 }

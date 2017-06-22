@@ -10,6 +10,7 @@ import UIKit
 import Stripe
 import AWSMobileHubHelper
 import MessageUI
+import FLAnimatedImage
 
 class ProductViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UIScrollViewDelegate, STPAddCardViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
@@ -98,6 +99,15 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             imageHeightConstraint?.constant = imageHeight
         }
     }
+
+    var mainGif: FLAnimatedImage? = nil {
+        didSet {
+            guard let gif = mainGif else { return }
+            gifView.animatedImage = gif
+            imageHeight = (gif.size.height / gif.size.width) * self.view.frame.size.width
+            imageHeightConstraint?.constant = imageHeight
+        }
+    }
     
     var delegate: FeedProductTransitionDelegate? = nil
     
@@ -120,37 +130,34 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         self.scrollView.addSubview(imageView)
         return imageView
     }()
+
+    private lazy var gifView: FLAnimatedImageView = {
+        let gifView = FLAnimatedImageView()
+        gifView.backgroundColor = UIColor.darkGray
+        self.scrollView.addSubview(gifView)
+        return gifView
+    }()
     
     fileprivate lazy var gradientView: UIView = {
         let _blackGradientOverlay: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
         let gradient: CAGradientLayer = CAGradientLayer()
-        
         gradient.frame = _blackGradientOverlay.bounds
         gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
-        
         _blackGradientOverlay.layer.insertSublayer(gradient, at: 0)
         _blackGradientOverlay.clipsToBounds = true
-        
         self.scrollView.addSubview(_blackGradientOverlay)
-        
         return _blackGradientOverlay
     }()
     
     fileprivate lazy var topGradientView: UIView = {
-        let _blackGradientOverlay: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
+        let topGradientView: UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1000, height: 75.0))
         let gradient: CAGradientLayer = CAGradientLayer()
-        
-        gradient.frame = _blackGradientOverlay.bounds
+        gradient.frame = topGradientView.bounds
         gradient.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
-        
-        _blackGradientOverlay.layer.insertSublayer(gradient, at: 0)
-        _blackGradientOverlay.clipsToBounds = true
-        
-        self.mainImageView.addSubview(_blackGradientOverlay)
-        
-        _blackGradientOverlay.layer.opacity = 0
-        
-        return _blackGradientOverlay
+        topGradientView.layer.insertSublayer(gradient, at: 0)
+        topGradientView.clipsToBounds = true
+        topGradientView.layer.opacity = 0
+        return topGradientView
     }()
     
     fileprivate lazy var productTitleLabel: UILabel = {
@@ -182,19 +189,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate func setCompanyText(_ name: String) {
         let string = NSMutableAttributedString(string: "by \(name)")
-        
         string.addAttribute(NSForegroundColorAttributeName, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
-        
         string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, "by ".characters.count))
-        
         string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange("by ".characters.count, name.characters.count))
-        
         byCompanyLabel.attributedText = string
         
-        // "More by" label
-        
         let moreString = NSMutableAttributedString(string: "More by \(name)".uppercased())
-        
         moreString.addAttributes([
             NSFontAttributeName: UIFont.LatoBoldSmall(),
             NSKernAttributeName: 2.0,
@@ -481,15 +481,15 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         convenience init(product: Feed.Item, image: UIImage) {
             self.init(frame: CGRect.zero)
-            
+
             imageView.image = image
+            imageView.autoPinEdgesToSuperviewEdges()
+            imageView.autoPinEdge(toSuperviewEdge: .top)
+            imageView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 35)
+
             titleLabel.text = product.name
             priceLabel.text = "$\(Int(Double(product.price)!))"
-            
-            imageView.pinToSideEdgesOfSuperview()
-            imageView.pinToTopEdgeOfSuperview()
-            imageView.pinToBottomEdgeOfSuperview(offset: 35)
-            
+
             bottomBar.pinToSideEdgesOfSuperview()
             bottomBar.sizeToHeight(35)
             bottomBar.pinToBottomEdgeOfSuperview()
@@ -540,9 +540,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate func addProductToScrollView(_ productData: Feed.Item?, productImage: UIImage?) {
         
-        guard let product = productData, let image = productImage else {
-            return
-        }
+        guard let product = productData, let image = productImage else { return }
         
         let view = ProductCard(product: product, image: image)
         
@@ -621,8 +619,13 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         scrollView.pinToTopEdgeOfSuperview()
         scrollView.sizeToWidth(self.view.frame.width)
         scrollView.sizeToHeight(self.view.frame.height)
-        
-        mainImageView.centerHorizontallyInSuperview()
+
+
+        mainImageView.autoAlignAxis(toSuperviewAxis: .horizontal)
+        mainImageView.addSubview(topGradientView)
+
+        gifView.autoAlignAxis(toSuperviewAxis: .horizontal)
+        gifView.addSubview(topGradientView)
         
         imageTopConstraint = mainImageView.pinToTopEdgeOfSuperview()
         imageHeightConstraint = mainImageView.sizeToHeight(imageHeight)
@@ -772,6 +775,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     }
     
     func presentCreditCardEntryForm() {
+        // TODO: Fix this for GIF support.
         let ccViewController = AddCreditCardViewController(backgroundImage: mainImageView.image!)
         let ccNavigationController = UINavigationController(rootViewController: ccViewController)
         
@@ -1045,7 +1049,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         topGradientView.layer.opacity = Float(percentDone > 1 ? 1 : percentDone) / 2
         
         imageHeightConstraint?.constant = newImageHeight
-        imageWidthConstraint?.constant = newImageHeight * (mainImage!.size.width / mainImage!.size.height)
+        if mainGif != nil {
+            imageWidthConstraint?.constant = newImageHeight * (mainGif!.size.width / mainGif!.size.height)
+        } else {
+            imageWidthConstraint?.constant = newImageHeight * (mainImage!.size.width / mainImage!.size.height)
+        }
         
         if scrollView.contentOffset.y <= scrollReleaseThreshold && releaseLabelIsHidden {
             releaseLabelIsHidden = false
@@ -1059,7 +1067,13 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     }
     
     internal func closeView() {
-        let imageFrame = mainImageView.frame
+        let ext = NSURL(string: (product?.imageURL)!)?.pathExtension
+        var imageFrame = CGRect()
+        if ext == "gif" {
+            imageFrame = mainImageView.frame
+        } else {
+            imageFrame = gifView.frame
+        }
         
         self.delegate?.transitionToCell(fromImageFrame: imageFrame) {
             self.dismiss(animated: false, completion: nil)

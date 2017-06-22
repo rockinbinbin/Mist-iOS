@@ -9,6 +9,7 @@
 import UIKit
 import AWSMobileHubHelper
 import CHTCollectionViewWaterfallLayout
+import FLAnimatedImage
 
 class FeedViewController: MMViewController, UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, FeedProductTransitionDelegate, FilterDelegate {
     
@@ -168,11 +169,12 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         cell.product = product
         imageLoading[indexPath.row] = true
         
-        cell.setImage(product.imageURL) { (completed, image) in
+        cell.setImage(product.imageURL) { (completed, image, gif) in
             if completed {
                 DispatchQueue.main.async {
                     self.imageLoading[indexPath.row] = false
-                    Feed.sharedInstance.setSize((image?.size)!, atIndex: indexPath.row)
+
+                    gif != nil ? Feed.sharedInstance.setSize((gif?.size)!, atIndex: indexPath.row) : Feed.sharedInstance.setSize((image?.size)!, atIndex: indexPath.row)
 
                     if (self.imageLoading.index(of: true) == nil && !LoadingView.sharedInstance.hasHiddenOnce) {
                         LoadingView.sharedInstance.hasHiddenOnce = true
@@ -198,7 +200,11 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         let product = Feed.sharedInstance.items[indexPath.row]
         productViewController.product = product
         productViewController.imageURLs = product.imageURLs
-        productViewController.mainImage = cell.image
+        if let gif = cell.gif {
+            productViewController.mainGif = cell.gif
+        } else {
+            productViewController.mainImage = cell.image
+        }
         productViewController.delegate = self
 
         // Record in mobile analytics
@@ -237,8 +243,18 @@ extension FeedViewController {
     
     func transitionToProduct(fromIndex indexPath: IndexPath, presentViewHandler: @escaping (_ didFinishPresentingView: @escaping () -> ()) -> ()) {
         let window = UIApplication.shared.keyWindow
-        
-        let newImageView = _transition_newImageView(indexPath)
+        let cell = collectionView.cellForItem(at: indexPath) as! FeedCell
+        var newImageView = UIImageView()
+        var gifImageView = FLAnimatedImageView()
+
+        if cell.gif != nil {
+            newImageView = _transition_newGifView(indexPath)
+            gifImageView = _transition_newGifView(indexPath)
+            gifImageView.animatedImage = cell.gif
+        } else {
+            newImageView = _transition_newImageView(indexPath)
+        }
+
         let blackView = _transition_blackView()
         window?.addSubview(blackView)
         window?.addSubview(newImageView)
@@ -250,7 +266,13 @@ extension FeedViewController {
         blackGradient.frame = CGRect(x: 0, y: newImageView.frame.size.height - 75, width: newImageView.frame.size.width, height: 75)
         newImageView.addSubview(blackGradient)
 
-        let imageHeight = (newImageView.image!.size.height / newImageView.image!.size.width) * self.view.frame.width
+        var imageHeight : CGFloat = 0.0
+        if cell.gif != nil {
+            imageHeight = (gifImageView.animatedImage!.size.height / gifImageView.animatedImage!.size.width) * self.view.frame.width
+        } else {
+            imageHeight = (newImageView.image!.size.height / newImageView.image!.size.width) * self.view.frame.width
+        }
+
         let finalFrame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: imageHeight)
         let finalGradientFrame = CGRect(x: 0, y: finalFrame.size.height - 75, width: finalFrame.size.width, height: 75)
         
@@ -266,6 +288,7 @@ extension FeedViewController {
             }) { (Bool) in
                 presentViewHandler() {
                     newImageView.removeFromSuperview()
+                    gifImageView.removeFromSuperview()
                     blackView.removeFromSuperview()
                 }
         }
@@ -280,9 +303,19 @@ extension FeedViewController {
             activeIndexPath = nil
             activeCellFrame = nil
         }
+        let cell = collectionView.cellForItem(at: indexPath) as! FeedCell
         
         let window = UIApplication.shared.keyWindow
-        let newImageView = _transition_newImageView(indexPath)
+        var newImageView = UIImageView()
+        var gifImageView = FLAnimatedImageView()
+
+        if cell.gif != nil {
+            newImageView = _transition_newGifView(indexPath)
+            gifImageView = _transition_newGifView(indexPath)
+            gifImageView.animatedImage = cell.gif
+        } else {
+            newImageView = _transition_newImageView(indexPath)
+        }
         newImageView.frame = CGRect(x: imageFrame.minX, y: 0, width: imageFrame.width, height: imageFrame.height)
         let blackView = _transition_blackView()
         blackView.layer.opacity = 1.0
@@ -304,11 +337,13 @@ extension FeedViewController {
         
         UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
             newImageView.frame = finalFrame
+            gifImageView.frame = finalFrame
             blackView.layer.opacity = 0.0
             blackGradient.frame = finalGradientFrame
             self.setNeedsStatusBarAppearanceUpdate()
         }) { (Bool) in
             newImageView.removeFromSuperview()
+            gifImageView.removeFromSuperview()
             blackView.removeFromSuperview()
         }
     }
@@ -323,12 +358,15 @@ extension FeedViewController {
     }
     
     fileprivate func _transition_newImageView(_ indexPath: IndexPath) -> UIImageView {
-        
         let cell = collectionView.cellForItem(at: indexPath) as! FeedCell
-        let image = cell.image
-        
-        let newImageView = UIImageView(image: image)
+        let newImageView = UIImageView(image: cell.image)
+        return newImageView
+    }
 
+    fileprivate func _transition_newGifView(_ indexPath: IndexPath) -> FLAnimatedImageView {
+        let cell = collectionView.cellForItem(at: indexPath) as! FeedCell
+        let newImageView = FLAnimatedImageView()
+        newImageView.animatedImage = cell.gif
         return newImageView
     }
     
