@@ -57,10 +57,6 @@ class Feed {
     var baseURL = "http://127.0.0.1:5000/api/"
 
     func loadFeed(_ completion: ((NSError?) -> ())?) {
-        //        let json = ["username":"john"]
-        //        let params = json.stringFromHttpParameters()
-        //        do {
-        //            let url = NSURL(string: baseURL + "users?" + params)!
         do {
             let url = NSURL(string: baseURL + "get_posts")!
             let request = NSMutableURLRequest(url: url as URL)
@@ -93,33 +89,61 @@ class Feed {
         }
     }
 
-    func postUser() -> Void {
-        let json = ["user":"sportslover"]
+    func getArtistFromID(artist_id: String, completion: ((NSError?, Artist?) -> ())?) {
+        let json = ["artist_id":artist_id]
+        let params = json.stringFromHttpParameters()
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-            let url = NSURL(string: baseURL + "get_messages")!
+            let url = NSURL(string: baseURL + "get_artist?" + params)!
             let request = NSMutableURLRequest(url: url as URL)
-            request.httpMethod = "POST"
+            request.httpMethod = "GET"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
             let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
                 if error != nil{
                     print("Error -> \(String(describing: error))")
+                    completion?(error as NSError?, nil)
                     return
                 }
                 do {
                     let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
                     print("Result -> \(String(describing: result))")
-
+                    let artist = Artist(dictionary: result! as NSDictionary)
+                    completion?(nil, artist)
                 } catch {
                     print("Error -> \(error)")
+                    completion?(error as NSError, nil)
                 }
             }
             task.resume()
-        } catch {
-            print(error)
         }
     }
+
+//    func postUser() -> Void {
+//        let json = ["user":"sportslover"]
+//        do {
+//            let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+//            let url = NSURL(string: baseURL + "get_messages")!
+//            let request = NSMutableURLRequest(url: url as URL)
+//            request.httpMethod = "POST"
+//            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+//            request.httpBody = jsonData
+//            let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+//                if error != nil{
+//                    print("Error -> \(String(describing: error))")
+//                    return
+//                }
+//                do {
+//                    let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
+//                    print("Result -> \(String(describing: result))")
+//
+//                } catch {
+//                    print("Error -> \(error)")
+//                }
+//            }
+//            task.resume()
+//        } catch {
+//            print(error)
+//        }
+//    }
 
 
     struct Post {
