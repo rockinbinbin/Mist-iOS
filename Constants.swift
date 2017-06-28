@@ -28,24 +28,19 @@ public extension UIColor {
 
 public extension UIFont {
     class func LatoRegularSmall() -> UIFont {
-        //return UIFont(name: "Lato-Regular", size: 13)!
-        return UIFont.systemFont(ofSize: 13)
+        return UIFont(name: "Lato-Regular", size: 13)!
     }
     class func LatoRegularMedium() -> UIFont {
-        //return UIFont(name: "Lato-Regular", size: 18)!
-        return UIFont.systemFont(ofSize: 18)
+        return UIFont(name: "Lato-Regular", size: 18)!
     }
     class func LatoBoldSmall() -> UIFont {
-        //return UIFont(name: "Lato-Bold", size: 13)!
-        return UIFont.boldSystemFont(ofSize: 13)
+        return UIFont(name: "Lato-Bold", size: 13)!
     }
     class func LatoBoldMedium() -> UIFont {
-        //return UIFont(name: "Lato-Bold", size: 18)!
-        return UIFont.boldSystemFont(ofSize: 18)
+        return UIFont(name: "Lato-Bold", size: 18)!
     }
     class func LatoLightItalicSmall() -> UIFont {
-        //return UIFont(name: "Lato-LightItalic", size: 12)!
-        return UIFont.systemFont(ofSize: 13)
+        return UIFont(name: "Lato-Light", size: 12)!
     }
 }
 
