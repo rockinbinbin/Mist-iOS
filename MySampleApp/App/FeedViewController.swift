@@ -137,12 +137,10 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     }
     
     func presentAccountViewController() {
-        AnalyticsManager.sharedInstance.recordEvent(Event.Feed.accountPressed)
         present(UINavigationController(rootViewController: AccountViewController()), animated: true, completion: nil)
     }
     
     func presentSearchViewController() {
-        AnalyticsManager.sharedInstance.recordEvent(Event.Feed.searchPressed)
         self.navigationController!.pushViewController(SearchViewController(), animated: true)
     }
     
@@ -203,8 +201,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         productViewController.delegate = self
 
         // Record in mobile analytics
-        AnalyticsManager.sharedInstance.recordEvent(Event.Feed.itemCellPressed)
-        
+
         transitionToProduct(fromIndex: indexPath) { completion in
             self.present(productViewController, animated: false, completion: completion)
         }

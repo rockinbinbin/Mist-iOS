@@ -781,8 +781,6 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     func purchaseItem() {
         
-        AnalyticsManager.sharedInstance.recordEvent(Event.Product.buyPressed)
-        
         guard product != nil else {
             print("Error <ProductViewController>: product was nil")
             return

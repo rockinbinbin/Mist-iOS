@@ -50,8 +50,6 @@
 		283017D31D10D2FA002CCE25 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017D21D10D2FA002CCE25 /* Autolayout.swift */; };
 		283017DB1D10E610002CCE25 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DA1D10E610002CCE25 /* FeedCell.swift */; };
 		283017DF1D12318E002CCE25 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283017DE1D12318E002CCE25 /* ProductViewController.swift */; };
-		2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */; };
-		2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */; };
 		2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832AE531D1A157A008AC36A /* BuyButton.swift */; };
 		28400F561D3E00AB00B82E5A /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28400F551D3E00AB00B82E5A /* SearchResultsView.swift */; };
 		28400F581D3E02B700B82E5A /* SearchResultProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28400F571D3E02B700B82E5A /* SearchResultProductView.swift */; };
@@ -66,7 +64,6 @@
 		28FFD0D41D14EDBD00C89ABE /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0D31D14EDBD00C89ABE /* Credentials.swift */; };
 		28FFD0D61D14EEC700C89ABE /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */; };
 		39FE9B2760B4EE6A2DB69430 /* Pods_Mist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BEADC889E46C6FBF2818FA5 /* Pods_Mist.framework */; };
-		E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */; };
 		E7A30F04069CD88800000000 /* AWSCognito.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7A30F04069CD88800000001 /* AWSCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29DA8AD0C600000000 /* AWSCognito.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E7A30F040CE1BAD300000000 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E29F2CCE2A700000000 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -153,7 +150,6 @@
 		1DD70E29187D829A00000000 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MySampleApp/App/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		1DD70E2928E6FC9C00000000 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1DD70E293956451E00000000 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AWSMobileClient.swift; path = MySampleApp/AmazonAws/AWSMobileClient.swift; sourceTree = SOURCE_ROOT; };
 		1DD70E29559AF03800000000 /* AWSDynamoDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSDynamoDB.framework; path = MySampleApp/Sdk/Aws/AWSDynamoDB.framework; sourceTree = "<group>"; };
 		1DD70E295BA6B27900000000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = MySampleApp/App/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
 		1DD70E296366ACB200000000 /* AWSMobileAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSMobileAnalytics.framework; path = MySampleApp/Sdk/Aws/AWSMobileAnalytics.framework; sourceTree = "<group>"; };
@@ -187,8 +183,6 @@
 		283017D21D10D2FA002CCE25 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Autolayout.swift; path = mysampleapp/app/utility/Autolayout.swift; sourceTree = SOURCE_ROOT; };
 		283017DA1D10E610002CCE25 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = MySampleApp/FeedCell.swift; sourceTree = SOURCE_ROOT; };
 		283017DE1D12318E002CCE25 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = SOURCE_ROOT; };
-		2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
-		2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
 		2832AE531D1A157A008AC36A /* BuyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyButton.swift; sourceTree = "<group>"; };
 		28400F551D3E00AB00B82E5A /* SearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsView.swift; path = MySampleApp/SearchResultsView.swift; sourceTree = SOURCE_ROOT; };
 		28400F571D3E02B700B82E5A /* SearchResultProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultProductView.swift; path = MySampleApp/SearchResultProductView.swift; sourceTree = SOURCE_ROOT; };
@@ -332,11 +326,8 @@
 				0096BF101D14E43600EAC2A9 /* Constants.swift */,
 				28FFD0CF1D14CED500C89ABE /* Feed.swift */,
 				005823251D5BDD2D00504CC6 /* Vendor.swift */,
-				1DD70E2939ECBA8C00000000 /* AWSMobileClient.swift */,
 				28FFD0D31D14EDBD00C89ABE /* Credentials.swift */,
 				28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */,
-				2832AE4F1D18CCCD008AC36A /* AnalyticsManager.swift */,
-				2832AE511D18DD03008AC36A /* AnalyticsEvent.swift */,
 				281DFDF51D303BD300B2D36F /* FeedFilters.swift */,
 				288DA87C1D3C69CA00C722FE /* SearchManager.swift */,
 				28C356721D59402E00C63EA6 /* MailingAddress.swift */,
@@ -718,15 +709,12 @@
 				0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */,
 				0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */,
 				280BEDA01D53CBF800112436 /* PaymentInformationViewController.swift in Sources */,
-				2832AE521D18DD03008AC36A /* AnalyticsEvent.swift in Sources */,
 				E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */,
 				280BED991D52B54100112436 /* PurchaseManager.swift in Sources */,
 				0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */,
 				2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */,
 				0070FB891D1B4CD800758B2C /* SustainabilityGuideViewController.swift in Sources */,
-				2832AE501D18CCCD008AC36A /* AnalyticsManager.swift in Sources */,
 				287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */,
-				E7A30F0404F82DF100000000 /* AWSMobileClient.swift in Sources */,
 				00B0A3371D51C36E00A0787C /* UIImage+animatedGIF.m in Sources */,
 				28C356731D59402E00C63EA6 /* MailingAddress.swift in Sources */,
 				280BED9B1D53AABA00112436 /* AddCreditCardViewController.swift in Sources */,
