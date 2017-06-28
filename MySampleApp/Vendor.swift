@@ -65,8 +65,8 @@ open class VendorClass {
         dynamoDBObjectMapper.load(VendorObj.self, hashKey: id, rangeKey: nil).continue({ (task: AWSTask) -> AnyObject? in
             
             guard let result = task.result else {
-                print(task.exception)
-                print(task.error)
+                print(task.exception as Any)
+                print(task.error as Any)
                 return nil
             }
             

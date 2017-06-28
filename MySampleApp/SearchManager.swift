@@ -71,32 +71,19 @@ class SearchManager {
     fileprivate func productPredicate(_ text: String, product: Feed.Post) -> Bool {
         var words = uniqueElements(text.components(separatedBy: " ").filter{$0 != ""}.map{$0.lowercased()})
         
-//        let searchableFields = [product.name, product.description, product.brand, product.price]
-//        
-//        for field in searchableFields {
-//            for word in words {
-//                if field.contains(word) {
-//                    words.remove(at: words.index(of: word)!)
-//                    
-//                    if words.count == 0 {
-//                        return true
-//                    }
-//                }
-//            }
-//        }
-
-//        for category in product.categories {
-//            for word in words {
-//                if category.description.contains(word) {
-//                    words.remove(at: words.index(of: word)!)
-//                    
-//                    if words.count == 0 {
-//                        return true
-//                    }
-//                }
-//            }
-//        }
-
+        let searchableFields = [product.name, product.description, String(product.price)]
+        
+        for field in searchableFields {
+            for word in words {
+                if field.contains(word) {
+                    words.remove(at: words.index(of: word)!)
+                    
+                    if words.count == 0 {
+                        return true
+                    }
+                }
+            }
+        }
         return false
     }
     

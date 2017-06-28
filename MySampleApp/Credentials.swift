@@ -11,7 +11,6 @@ import Foundation
 let _stripePublishableKey = "pk_test_yQLOuYjBE0aXvcbG2wHOoYDP"
 
 @objc class Credentials: NSObject {
-    
     // MARK: - Stripe
     class func stripePublishableKey() -> String { return _stripePublishableKey }
 }

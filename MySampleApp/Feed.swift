@@ -47,8 +47,6 @@ class Feed {
     fileprivate var originalIndices: [Int] = []
     
     func sizeAtIndex(_ index: Int) -> CGSize {
-        //print("\(index): \(originalIndices[index]), size: \(_items[originalIndices[index]].name)")
-        
         return _posts[originalIndices[index]].size ?? CGSize(width: 500, height: 10)
     }
     
@@ -58,37 +56,11 @@ class Feed {
 
     var baseURL = "http://127.0.0.1:5000/api/"
 
-    // MARK: - Loading
-    
-    /**
-     Loads the feed, and calls the completion block after.
-     If this call is successful, Feed.sharedInstance.items will contain the feed.
-     
-     - parameter completion: Completion handler.
-     */
     func loadFeed(_ completion: ((NSError?) -> ())?) {
-        // TODO: // make a GET request for JSON, and then init a dict.
-
-//        let dict : NSDictionary = ["Brand" : "Brand",
-//                                   "ImageURLs" : ["https://everlane-2.imgix.net/i/a2d61e0b_8480.jpg?w=1200&h=1200&q=65&dpr=1", "https://everlane-2.imgix.net/i/a491f49e_f1df.jpg?w=1200&h=1200&q=65&dpr=1"],
-//                                   "ItemName" : "Name",
-//                                   "Price" : 30.0,
-//                                   "ID" : "ID",
-//                                   "Description" : "This is a description",
-//                                   "PrimaryImage" : "https://media.giphy.com/media/3o7btZPuz5HJ0UY3zq/giphy.gif",
-//                                   "Show" : "true"]
-//        let item2 : NSDictionary = ["Brand" : "Brand",
-//                                   "ImageURLs" : ["https://everlane-2.imgix.net/i/a2d61e0b_8480.jpg?w=1200&h=1200&q=65&dpr=1", "https://everlane-2.imgix.net/i/a491f49e_f1df.jpg?w=1200&h=1200&q=65&dpr=1"],
-//                                   "ItemName" : "Name",
-//                                   "Price" : 30.0,
-//                                   "ID" : "ID",
-//                                   "Description" : "This is a description",
-//                                   "PrimaryImage" : "https://everlane-2.imgix.net/i/a2d61e0b_8480.jpg?w=1200&h=1200&q=65&dpr=1",
-//                                   "Show" : "true"]
-//        self._posts.append(Item(dictionary: dict)!)
-//        self._posts.append(Item(dictionary: item2)!)
-
-
+        //        let json = ["username":"john"]
+        //        let params = json.stringFromHttpParameters()
+        //        do {
+        //            let url = NSURL(string: baseURL + "users?" + params)!
         do {
             let url = NSURL(string: baseURL + "get_posts")!
             let request = NSMutableURLRequest(url: url as URL)
@@ -121,9 +93,6 @@ class Feed {
         }
     }
 
-    // GET ALL POSTS 
-    //
-
     func postUser() -> Void {
         let json = ["user":"sportslover"]
         do {
@@ -152,41 +121,7 @@ class Feed {
         }
     }
 
-//    func getUser() {
-//        let json = ["username":"john"]
-//        let params = json.stringFromHttpParameters()
-//        do {
-//            let url = NSURL(string: baseURL + "users?" + params)!
-//            let request = NSMutableURLRequest(url: url as URL)
-//            request.httpMethod = "GET"
-//            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-//
-//            let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
-//                if error != nil{
-//                    print("Error -> \(String(describing: error))")
-//                    return
-//                }
-//                do {
-//                    let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
-//                    print("Result -> \(String(describing: result))")
-//
-//                } catch {
-//                    print("Error -> \(error)")
-//                }
-//            }
-//
-//            task.resume()
-//        } catch {
-//            print(error)
-//        }
-//    }
 
-
-    // MARK: - Classes
-    
-    /**
-     The basic unit of data for a feed. Should map one-to-one with data returned from Lambda:GenerateFeed.
-     */
     struct Post {
         let id: Int
         let url: String

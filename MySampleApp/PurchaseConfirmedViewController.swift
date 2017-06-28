@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PureLayout
 
 // grab product data from productviewcontroller
 
@@ -225,65 +226,69 @@ class PurchaseConfirmedViewController: UIViewController {
     }()
 
     func setViewConstraints() {
-        backgroundImageView.centerHorizontallyInSuperview()
-        backgroundImageView.sizeToWidth(self.view.frame.size.width)
-        backgroundImageView.sizeToHeight(self.view.frame.size.height)
+        backgroundImageView.autoAlignAxis(toSuperviewAxis: .horizontal)
+        backgroundImageView.autoSetDimensions(to: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.makeBlurImage(backgroundImageView)
-        
-        titleLabel.centerHorizontallyInSuperview()
-        titleLabel.pinToTopEdgeOfSuperview(offset: 50)
-        
-        subtitleLabel.centerHorizontallyInSuperview()
-        subtitleLabel.positionBelowItem(titleLabel, offset: 10)
-        
-        returnButton.centerHorizontallyInSuperview()
-        returnButton.pinToBottomEdgeOfSuperview()
-        returnButton.sizeToHeight(62)
-        returnButton.sizeToWidth(self.view.frame.size.width)
-        
+
+        titleLabel.autoAlignAxis(toSuperviewAxis: .horizontal)
+        titleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 50)
+
+        subtitleLabel.autoAlignAxis(toSuperviewAxis: .horizontal)
+        subtitleLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 10)
+
+        returnButton.autoAlignAxis(toSuperviewAxis: .horizontal)
+        returnButton.autoPinEdge(toSuperviewEdge: .bottom)
+        returnButton.autoSetDimensions(to: CGSize(width: self.view.frame.size.width, height: 62))
+
         self.view.addSubview(mainImageView)
-        mainImageView.centerHorizontallyInSuperview()
-        mainImageView.positionBelowItem(subtitleLabel, offset: 35)
-        mainImageView.sizeToWidth(self.view.frame.size.width - 100)
-        mainImageView.sizeToHeight(self.view.frame.size.width - 150)
+
+        mainImageView.autoAlignAxis(toSuperviewAxis: .horizontal)
+        mainImageView.autoPinEdge(.top, to: .bottom, of: subtitleLabel, withOffset: 35)
+        mainImageView.autoSetDimensions(to: CGSize(width: self.view.frame.size.width - 100, height: self.view.frame.size.width - 150))
         self.decorateImage(mainImageView)
         
         self.view.addSubview(checkView)
-        checkView.positionToTheRightOfItem(mainImageView, offset: -38)
-        checkView.positionAboveItem(mainImageView, offset: -38)
+
+        checkView.autoPinEdge(.left, to: .right, of: mainImageView, withOffset: -38) // TODO: should be 38?
+        checkView.autoPinEdge(.bottom, to: .top, of: mainImageView, withOffset: -38)
         
         self.view.addSubview(shipImageView)
-        shipImageView.positionBelowItem(mainImageView, offset: 20)
-        shipImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
-        
-        shipLabel.centerVerticallyToItem(shipImageView)
-        shipLabel.positionToTheRightOfItem(shipImageView, offset: 20)
+
+        shipImageView.autoPinEdge(.top, to: .bottom, of: mainImageView, withOffset: 20)
+        shipImageView.autoPinEdge(.left, to: .left, of: mainImageView)
+
+        shipLabel.autoAlignAxis(toSuperviewAxis: .vertical)
+        shipLabel.autoPinEdge(.left, to: .right, of: shipImageView, withOffset: 20)
         
         self.view.addSubview(shortDividerView)
-        shortDividerView.positionBelowItem(shipImageView)
-        shortDividerView.pinLeftEdgeToLeftEdgeOfItem(shipLabel)
-        
+
+        shortDividerView.autoPinEdge(.top, to: .bottom, of: shipImageView)
+        shortDividerView.autoPinEdge(.left, to: .left, of: shipLabel)
+
         self.view.addSubview(cartImageView)
-        cartImageView.positionBelowItem(shipImageView, offset: 15)
-        cartImageView.pinLeftEdgeToLeftEdgeOfItem(mainImageView)
-        
-        returnLabel.centerVerticallyToItem(cartImageView)
-        returnLabel.positionToTheRightOfItem(cartImageView, offset: 20)
-        
+
+        cartImageView.autoPinEdge(.top, to: .bottom, of: shipImageView, withOffset: 15)
+        cartImageView.autoPinEdge(.left, to: .left, of: mainImageView)
+
+        returnLabel.autoAlignAxis(.vertical, toSameAxisOf: cartImageView)
+        returnLabel.autoPinEdge(.left, to: .right, of: cartImageView, withOffset: 20)
+
         self.view.addSubview(longDividerView)
-        longDividerView.positionBelowItem(cartImageView, offset: 10)
-        longDividerView.pinLeftEdgeToLeftEdgeOfItem(cartImageView)
+
+        longDividerView.autoPinEdge(.top, to: .bottom, of: cartImageView, withOffset: 10)
+        longDividerView.autoPinEdge(.left, to: .left, of: cartImageView)
         
         self.view.addSubview(shareButton)
         
         let shareView = UIView()
-        
-        shareButton.sizeToWidth(130)
-        shareButton.sizeToHeight(50)
+
+        shareButton.autoSetDimensions(to: CGSize(width: 130, height: 50))
         shareButton.addSubview(shareView)
+
+        shareButton.autoAlignAxis(toSuperviewAxis: .horizontal)
         
-        shareButton.centerHorizontallyInSuperview()
+
         shareButton.positionAboveItem(returnButton, offset: 40)
         shareView.centerInSuperview()
         shareView.sizeToWidth(130)
