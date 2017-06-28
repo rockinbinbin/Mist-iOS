@@ -1,20 +1,20 @@
 PODS:
-  - Bolts (1.7.0):
-    - Bolts/AppLinks (= 1.7.0)
-    - Bolts/Tasks (= 1.7.0)
-  - Bolts/AppLinks (1.7.0):
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
-  - Bolts/Tasks (1.7.0)
+  - Bolts/Tasks (1.8.4)
   - CHTCollectionViewWaterfallLayout/Swift (0.9.6)
-  - FBSDKCoreKit (4.13.1):
+  - FBSDKCoreKit (4.23.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.13.1):
+  - FBSDKLoginKit (4.23.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.13.1):
+  - FBSDKShareKit (4.23.0):
     - FBSDKCoreKit
   - FLAnimatedImage (1.0.12)
   - PureLayout (3.0.2)
-  - Stripe (8.0.0)
+  - Stripe (10.2.0)
 
 DEPENDENCIES:
   - CHTCollectionViewWaterfallLayout/Swift (from `git@github.com:chiahsien/CHTCollectionViewWaterfallLayout.git`, branch `develop`)
@@ -36,14 +36,14 @@ CHECKOUT OPTIONS:
     :git: git@github.com:chiahsien/CHTCollectionViewWaterfallLayout.git
 
 SPEC CHECKSUMS:
-  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   CHTCollectionViewWaterfallLayout: ab8f957fef7e881c53f736045f68a5cfb1e364ab
-  FBSDKCoreKit: 2807fe0da2ddb49a1469da6d6ff597f99912980f
-  FBSDKLoginKit: 6d350cb6a22d6956e9d078885de6ee8a0ebc51b4
-  FBSDKShareKit: c9438df7573b33780ac8c3451201c5ebb260ffca
+  FBSDKCoreKit: d7829f5a69901cd7296105328e4c3c3fc7da6518
+  FBSDKLoginKit: 6b92bd65f319d669d2b0730e49db495ef1660566
+  FBSDKShareKit: 65751c3b9937ab9d594e6c37611ecc115ceeb448
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
-  Stripe: 1e20396b4dad7b9a08312bf914c233154fb8fcfd
+  Stripe: 5c5a49d750952b1801e4c1f5c4264a08e427c67d
 
 PODFILE CHECKSUM: 0808c94a70c2b0cb16871c92a06d0680fd0b273f
 

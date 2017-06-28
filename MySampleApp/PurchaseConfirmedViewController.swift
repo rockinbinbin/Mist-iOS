@@ -42,7 +42,7 @@ class PurchaseConfirmedViewController: UIViewController {
     
     // MARK: - Model
     
-    var product: Feed.Item? = nil {
+    var product: Feed.Post? = nil {
         didSet {
             guard product != nil else {
                 return
@@ -346,8 +346,9 @@ class PurchaseConfirmedViewController: UIViewController {
     
     func shareProduct() {
         let name = (product?.name)!
-        let companyName = (product?.brand)!
-        
+        // TODO: update with artist name 
+        let companyName = "artist name"
+
         // TODO: fix "xxx" to app store's link!
         let shareString = "\(name) by \(companyName) – curated by @MistMarked. Link: xxx"
         

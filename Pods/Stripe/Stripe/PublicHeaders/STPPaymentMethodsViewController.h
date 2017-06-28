@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "STPPaymentMethod.h"
-#import "STPTheme.h"
+
 #import "STPBackendAPIAdapter.h"
+#import "STPCoreViewController.h"
 #import "STPPaymentConfiguration.h"
+#import "STPPaymentMethod.h"
 #import "STPUserInformation.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class STPPaymentContext, STPPaymentMethodsViewController;
 
 /**
- *  This view controller presents a list of payment method options to the user, which they can select between. They can also add and remove credit cards from the list. It must be displayed inside a `UINavigationController`, so you can either create a `UINavigationController` with an `STPPaymentMethodsViewController` as the `rootViewController` and then present the `UINavigationController`, or push a new `STPPaymentMethodsViewController` onto an existing `UINavigationController`'s stack. You can also have `STPPaymentContext` do this for you automatically, by calling `presentPaymentMethodsViewController` or `pushPaymentMethodsViewController` on it.
+ *  This view controller presents a list of payment method options to the user, which they can select between. They can also add credit cards to the list. It must be displayed inside a `UINavigationController`, so you can either create a `UINavigationController` with an `STPPaymentMethodsViewController` as the `rootViewController` and then present the `UINavigationController`, or push a new `STPPaymentMethodsViewController` onto an existing `UINavigationController`'s stack. You can also have `STPPaymentContext` do this for you automatically, by calling `presentPaymentMethodsViewController` or `pushPaymentMethodsViewController` on it.
  */
-@interface STPPaymentMethodsViewController : UIViewController
+@interface STPPaymentMethodsViewController : STPCoreViewController
 
 @property(nonatomic, weak, readonly)id<STPPaymentMethodsViewControllerDelegate>delegate;
 
@@ -51,7 +52,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
 *  If you've already collected some information from your user, you can set it here and it'll be automatically filled out when possible/appropriate in any UI that the payment context creates.
 */
-@property(nonatomic)STPUserInformation *prefilledInformation;
+@property(nonatomic, strong, nullable)STPUserInformation *prefilledInformation;
+
+/**
+ *  If you're pushing `STPPaymentMethodsViewController` onto an existing `UINavigationController`'s stack, you should use this method to dismiss it, since it may have pushed an additional add card view controller onto the navigation controller's stack.
+ *
+ *  @param completion The callback to run after the view controller is dismissed. You may specify nil for this parameter.
+ */
+- (void)dismissWithCompletion:(nullable STPVoidBlock)completion;
 
 @end
 
@@ -61,6 +69,31 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol STPPaymentMethodsViewControllerDelegate <NSObject>
 
 /**
+ *  This is called when the view controller encounters an error fetching the user's payment methods from its API adapter. You should dismiss the view controller when this is called.
+ *
+ *  @param paymentMethodsViewController the view controller in question
+ *  @param error                        the error that occurred
+ */
+- (void)paymentMethodsViewController:(STPPaymentMethodsViewController *)paymentMethodsViewController
+              didFailToLoadWithError:(NSError *)error;
+
+/**
+ *  This is called when the user selects or adds a payment method, so it will often be called immediately after calling `paymentMethodsViewController:didSelectPaymentMethod:`. You should dismiss the view controller when this is called.
+ *
+ *  @param paymentMethodsViewController the view controller that has finished
+ */
+- (void)paymentMethodsViewControllerDidFinish:(STPPaymentMethodsViewController *)paymentMethodsViewController;
+
+/**
+ *  This is called when the user taps "cancel".
+ *  You should dismiss the view controller when this is called.
+ *
+ *  @param paymentMethodsViewController the view controller that has finished
+ */
+- (void)paymentMethodsViewControllerDidCancel:(STPPaymentMethodsViewController *)paymentMethodsViewController;
+
+@optional
+/**
  *  This is called when the user either makes a selection, or adds a new card. This will be triggered after the view controller loads with the user's current selection (if they have one) and then subsequently when they change their choice. You should use this callback to update any necessary UI in your app that displays the user's currently selected payment method. You should *not* dismiss the view controller at this point, instead do this in `paymentMethodsViewControllerDidFinish:`. `STPPaymentMethodsViewController` will also call the necessary methods on your API adapter, so you don't need to call them directly during this method.
  *
  *  @param paymentMethodsViewController the view controller in question
@@ -68,23 +101,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)paymentMethodsViewController:(STPPaymentMethodsViewController *)paymentMethodsViewController
               didSelectPaymentMethod:(id<STPPaymentMethod>)paymentMethod;
-
-
-/**
- *  This is called when the view controller encounters an error fetching the user's payment methods from its API adapter. You should dismiss the view controller when this is called.
- *
- *  @param paymentMethodsViewController the view controller in question
- *  @param paymentMethod                the selected payment method
- */
-- (void)paymentMethodsViewController:(STPPaymentMethodsViewController *)paymentMethodsViewController
-              didFailToLoadWithError:(NSError *)error;
-
-/**
- *  This is called when the user taps "cancel". It's also called after the user directly selects or adds a payment method, so it will often be called immediately after calling `paymentMethodsViewController:didSelectPaymentMethod:`. You should dismiss the view controller when this is called.
- *
- *  @param paymentMethodsViewController the view controller that has finished
- */
-- (void)paymentMethodsViewControllerDidFinish:(STPPaymentMethodsViewController *)paymentMethodsViewController;
 
 @end
 

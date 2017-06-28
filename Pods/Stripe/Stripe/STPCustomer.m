@@ -7,27 +7,41 @@
 //
 
 #import "STPCustomer.h"
-#import "StripeError.h"
+
 #import "STPCard.h"
+#import "STPSource.h"
+#import "StripeError.h"
 
 @interface STPCustomer()
 
 @property(nonatomic, copy)NSString *stripeID;
-@property(nonatomic) id<STPSource> defaultSource;
-@property(nonatomic) NSArray<id<STPSource>> *sources;
+@property(nonatomic) id<STPSourceProtocol> defaultSource;
+@property(nonatomic) NSArray<id<STPSourceProtocol>> *sources;
+@property (nonatomic, readwrite, nonnull, copy) NSDictionary *allResponseFields;
 
 @end
 
 @implementation STPCustomer
 
 + (instancetype)customerWithStripeID:(NSString *)stripeID
-                       defaultSource:(id<STPSource>)defaultSource
-                             sources:(NSArray<id<STPSource>> *)sources {
+                       defaultSource:(id<STPSourceProtocol>)defaultSource
+                             sources:(NSArray<id<STPSourceProtocol>> *)sources {
     STPCustomer *customer = [self new];
     customer.stripeID = stripeID;
     customer.defaultSource = defaultSource;
     customer.sources = sources;
     return customer;
+}
+
+#pragma mark STPAPIResponseDecodable
+
++ (NSArray *)requiredFields {
+    return @[@"id"];
+}
+
++ (instancetype)decodedObjectFromAPIResponse:(NSDictionary *)response {
+    STPCustomerDeserializer *deserializer = [[STPCustomerDeserializer alloc] initWithJSONResponse:response];
+    return deserializer.customer;
 }
 
 @end
@@ -47,8 +61,13 @@
     if (error) {
         return [self initWithError:error];
     }
+
+    if (data == nil) {
+        return [self initWithError:[NSError stp_genericFailedToParseResponseError]];
+    }
+
     NSError *jsonError;
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)kNilOptions error:&jsonError];
     if (!json) {
         return [self initWithError:jsonError];
     }
@@ -81,12 +100,23 @@
             for (id contents in json[@"sources"][@"data"]) {
                 if ([contents isKindOfClass:[NSDictionary class]]) {
                     // eventually support other source types
-                    STPCard *card = [STPCard decodedObjectFromAPIResponse:contents];
-                    // ignore apple pay cards from the response
-                    if (card && !card.isApplePayCard) {
-                        [sources addObject:card];
-                        if (defaultSourceId && [card.stripeID isEqualToString:defaultSourceId]) {
-                            customer.defaultSource = card;
+                    if ([contents[@"object"] isEqualToString:@"card"]) {
+                        STPCard *card = [STPCard decodedObjectFromAPIResponse:contents];
+                        // ignore apple pay cards from the response
+                        if (card && !card.isApplePayCard) {
+                            [sources addObject:card];
+                            if (defaultSourceId && [card.stripeID isEqualToString:defaultSourceId]) {
+                                customer.defaultSource = card;
+                            }
+                        }
+                    }
+                    else if ([contents[@"object"] isEqualToString:@"source"]) {
+                        STPSource *source = [STPSource decodedObjectFromAPIResponse:contents];
+                        if (source) {
+                            [sources addObject:source];
+                            if (defaultSourceId && [source.stripeID isEqualToString:defaultSourceId]) {
+                                customer.defaultSource = source;
+                            }
                         }
                     }
                 }

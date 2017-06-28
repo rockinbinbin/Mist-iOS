@@ -19,7 +19,7 @@ class SearchResultProductView: UIView {
     
     // MARK: - Init
     
-    convenience init(item: Feed.Item) {
+    convenience init(item: Feed.Post) {
         self.init(frame: CGRect.zero)
         self.item = item
     }
@@ -62,7 +62,7 @@ class SearchResultProductView: UIView {
 //                self.delegate?.didLoadProductImage(self.tag, error: nil)
 //            }
 //        }
-        guard let this_url = URL(string: item!.imageURL) else { return }
+        guard let this_url = URL(string: item!.url) else { return }
         if this_url.absoluteString == "" { return }
         var image : UIImage?
 
@@ -84,7 +84,7 @@ class SearchResultProductView: UIView {
     
     // MARK: - Model
     
-    var item: Feed.Item? = nil
+    var item: Feed.Post? = nil
     
     // MARK: - UI Components
     
@@ -124,14 +124,16 @@ class SearchResultProductView: UIView {
         return label
     }()
     
-    fileprivate lazy var brandLabel: UILabel = {
-        let label = Label(title: self.item!.brand, style: .brand)
-        self.addSubview(label)
-        return label
-    }()
-    
+//    fileprivate lazy var brandLabel: UILabel = {
+//        let label = Label(title: self.item!.brand, style: .brand)
+//        self.addSubview(label)
+//        return label
+//    }()
+
     fileprivate lazy var priceLabel: UILabel = {
-        let label = Label(title: "$\(Int(Double(self.item!.price)!))", style: .price)
+        var realPrice = Double(self.item!.price)
+        realPrice /= 100.0
+        let label = Label(title: "$\((realPrice))", style: .price)
         label.textAlignment = .right
         self.addSubview(label)
         return label
@@ -170,9 +172,11 @@ class SearchResultProductView: UIView {
     
     override func updateConstraints() {
         let bottomBarHeight: CGFloat = 50
-        
-        imageView.pinToTopEdgeOfSuperview()
-        imageView.pinToSideEdgesOfSuperview()
+
+        imageView.autoPinEdge(toSuperviewEdge: .top)
+        imageView.autoPinEdge(toSuperviewEdge: .left)
+        imageView.autoPinEdge(toSuperviewEdge: .right)
+
         imageView.pinToBottomEdgeOfSuperview(offset: bottomBarHeight)
         
         priceLabel.pinToBottomEdgeOfSuperview(offset: 8)
@@ -183,10 +187,10 @@ class SearchResultProductView: UIView {
         productLabel.pinToLeftEdgeOfSuperview(offset: 8)
         productLabel.sizeToWidth(preferredSize.width - 13)
         
-        brandLabel.positionBelowItem(productLabel, offset: 2)
-        brandLabel.pinToLeftEdgeOfSuperview(offset: 8)
-        brandLabel.positionToTheLeftOfItem(priceLabel, offset: 2)
-        
+//        brandLabel.positionBelowItem(productLabel, offset: 2)
+//        brandLabel.pinToLeftEdgeOfSuperview(offset: 8)
+//        brandLabel.positionToTheLeftOfItem(priceLabel, offset: 2)
+
         super.updateConstraints()
     }
 }

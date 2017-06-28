@@ -48,3 +48,31 @@ public extension UIFont {
         return UIFont.systemFont(ofSize: 13)
     }
 }
+
+extension String {
+    // Source: http://www.ietf.org/rfc/rfc3986.txt
+    func addingPercentEncodingForURLQueryValue() -> String? {
+        let allowedCharacters = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~")
+        return self.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
+    }
+
+    // Source: https://stackoverflow.com/questions/24200888/any-way-to-replace-characters-on-swift-string
+    func createSearchString() -> String? {
+        let replaced = String(self.characters.map {
+            $0 == " " ? "+" : $0
+        })
+        return replaced
+    }
+}
+
+extension Dictionary {
+    // Source: http://www.ietf.org/rfc/rfc3986.txt
+    func stringFromHttpParameters() -> String {
+        let parameterArray = self.map { (key, value) -> String in
+            let percentEscapedKey = (key as! String).addingPercentEncodingForURLQueryValue()!
+            let percentEscapedValue = (value as! String).addingPercentEncodingForURLQueryValue()!
+            return "\(percentEscapedKey)=\(percentEscapedValue)"
+        }
+        return parameterArray.joined(separator: "&")
+    }
+}

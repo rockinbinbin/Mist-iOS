@@ -47,7 +47,7 @@ class BuyButton: UIButton {
         if (newPriceValue.truncatingRemainder(dividingBy: 1) == 0) {
             title = "BUY for $\(Int(newPriceValue))"
         } else {
-            title = String(format: "BUY for $%.2f", newPriceValue)
+            title = String(format: "BUY for $%.2f", 5.0)
         }
         
         let attrString = NSMutableAttributedString(string: title)

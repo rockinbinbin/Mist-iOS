@@ -46,19 +46,20 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     // MARK: - Model
     
-    var product: Feed.Item? = nil {
+    var product: Feed.Post? = nil {
         didSet {
             guard product != nil else {
                 return
             }
             
             DispatchQueue.main.async {
-                self.setPriceText("$\(Int(Double(self.product!.price)!))")
+                self.setPriceText("$\(Int(Double(self.product!.price)))")
                 self.setTitleText(self.product!.name)
-                self.setCompanyText(self.product!.brand)
+                // Instead, query for Artist by artist ID
+                //self.setCompanyText(self.product!.brand)
                 self.setDescriptionLabel(self.product!.description)
-                self.buyButton.price = Float(Double(self.product!.price)!)
-                self.viewBrandLabel?.text = "Browse more from \(self.product!.brand)"
+                self.buyButton.price = Float(Double(self.product!.price))
+                //self.viewBrandLabel?.text = "Browse more from \(self.product!.brand)"
             }
             
             self.view.setNeedsLayout()
@@ -479,12 +480,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     class ProductCard: UIView {
         
-        convenience init(product: Feed.Item, image: UIImage) {
+        convenience init(product: Feed.Post, image: UIImage) {
             self.init(frame: CGRect.zero)
             
             imageView.image = image
             titleLabel.text = product.name
-            priceLabel.text = "$\(Int(Double(product.price)!))"
+            priceLabel.text = "$\(Int(Double(product.price)))"
             
             imageView.pinToSideEdgesOfSuperview()
             imageView.pinToTopEdgeOfSuperview()
@@ -538,7 +539,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     fileprivate lazy var moreProductsHeight: CGFloat = 190
     fileprivate lazy var moreProducts: [ProductCard] = []
     
-    fileprivate func addProductToScrollView(_ productData: Feed.Item?, productImage: UIImage?) {
+    fileprivate func addProductToScrollView(_ productData: Feed.Post?, productImage: UIImage?) {
         
         guard let product = productData, let image = productImage else {
             return
@@ -616,7 +617,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     func setViewConstraints() {
         
         // Top image view
-        
+
         scrollView.pinToLeftEdgeOfSuperview()
         scrollView.pinToTopEdgeOfSuperview()
         scrollView.sizeToWidth(self.view.frame.width)
@@ -852,7 +853,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         let functionName = "purchaseItem"
         let parameters = [
-            "price": "\(Int(Double((product?.price)!)! * 100))",
+            "price": "\(Int(Double((product?.price)!) * 100))",
             "token": token.tokenId,
 //            "email": addCardViewController.emailString
             "email": "test@gmail.com"
@@ -864,7 +865,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
                     completion(error)
                     // error with purchase.. should just stop and not bring dismiss card view controller or bring up purchase confirmed
                     self.showAlert()
-                    addCardViewController.setLoading(false)
+                    addCardViewController.setEditing(false, animated: false)
                     return
                 }
                 self.dismiss(animated: true, completion: nil)
@@ -958,17 +959,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         guard let item = product else {
             return nil
         }
-        
-        guard let priceInDollars = Double(item.price) else {
-            return nil
-        }
-        
         guard email != nil else {
             return nil
         }
         
         return [
-            "price": "\(Int(priceInDollars * 100))",
+            "price": "\(Int(item.price / 100))",
             "token": tokenId,
             "email": email!
         ]
@@ -1090,7 +1086,8 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         mailComposerVC.setToRecipients(["robinmehta94@gmail.com"]) // TODO: change this to Mist's team email.
         mailComposerVC.setSubject("Payment Failure")
-        mailComposerVC.setMessageBody("Please help me complete my purchase!\n\nI am trying to purchase \((product?.name)!) by \((product?.brand)!).", isHTML: false)
+        // TODO: update brand with artist name
+        mailComposerVC.setMessageBody("Please help me complete my purchase!\n\nI am trying to purchase \((product?.name)!) by \("artist name").", isHTML: false)
         
         return mailComposerVC
     }

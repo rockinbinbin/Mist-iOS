@@ -242,7 +242,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     // MARK: - Search Results
     
-    func updateSearchResults(_ products: [Feed.Item], brands: [SearchResult.Brand]) {
+    func updateSearchResults(_ products: [Feed.Post], brands: [SearchResult.Brand]) {
         scrollView.setContentOffset(CGPoint.zero, animated: false)
         clearSearchResults()
         

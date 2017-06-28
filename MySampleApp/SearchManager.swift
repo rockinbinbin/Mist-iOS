@@ -28,8 +28,8 @@ class SearchManager {
     
     // MARK: - Search
     
-    func search(_ text: String, completion: ((_ products: [Feed.Item], _ brands: [SearchResult.Brand]) -> ())? = nil) {
-        var products: [Feed.Item] = []
+    func search(_ text: String, completion: ((_ products: [Feed.Post], _ brands: [SearchResult.Brand]) -> ())? = nil) {
+        var products: [Feed.Post] = []
         
         // TODO: Implement brand search
         let brands: [SearchResult.Brand] = []
@@ -68,35 +68,35 @@ class SearchManager {
     /**
      Returns true iff all of the words in the query are in some field of the product.
      */
-    fileprivate func productPredicate(_ text: String, product: Feed.Item) -> Bool {
+    fileprivate func productPredicate(_ text: String, product: Feed.Post) -> Bool {
         var words = uniqueElements(text.components(separatedBy: " ").filter{$0 != ""}.map{$0.lowercased()})
         
-        let searchableFields = [product.name, product.description, product.brand, product.price]
-        
-        for field in searchableFields {
-            for word in words {
-                if field.contains(word) {
-                    words.remove(at: words.index(of: word)!)
-                    
-                    if words.count == 0 {
-                        return true
-                    }
-                }
-            }
-        }
-        
-        for category in product.categories {
-            for word in words {
-                if category.description.contains(word) {
-                    words.remove(at: words.index(of: word)!)
-                    
-                    if words.count == 0 {
-                        return true
-                    }
-                }
-            }
-        }
-        
+//        let searchableFields = [product.name, product.description, product.brand, product.price]
+//        
+//        for field in searchableFields {
+//            for word in words {
+//                if field.contains(word) {
+//                    words.remove(at: words.index(of: word)!)
+//                    
+//                    if words.count == 0 {
+//                        return true
+//                    }
+//                }
+//            }
+//        }
+
+//        for category in product.categories {
+//            for word in words {
+//                if category.description.contains(word) {
+//                    words.remove(at: words.index(of: word)!)
+//                    
+//                    if words.count == 0 {
+//                        return true
+//                    }
+//                }
+//            }
+//        }
+
         return false
     }
     

@@ -74,7 +74,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let attrString = NSMutableAttributedString(string: "SIGN IN")
         attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         signInButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(signInButton)

@@ -24,7 +24,7 @@ class FeedCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    var product: Feed.Item? = nil {
+    var product: Feed.Post? = nil {
         didSet {
             guard let item = product else { return }
             setTitleText(item.name)
@@ -126,14 +126,16 @@ class FeedCell: UICollectionViewCell {
         nameLabel.sizeToFit()
     }
     
-    fileprivate func setPrice(_ price: String) {
+    fileprivate func setPrice(_ price: Int) {
         let attributes: NSDictionary = [
             NSFontAttributeName: UIFont.LatoBoldSmall(),
             NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
+
+        let realPrice = Double(price) / 100.0
         
-        let attributedTitle = NSAttributedString(string: "$\(Int(Double(price)!))", attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: "$\(String(describing: realPrice))", attributes: attributes as? [String : AnyObject])
         priceLabel.attributedText = attributedTitle
         priceLabel.sizeToFit()
     }
@@ -146,7 +148,7 @@ class FeedCell: UICollectionViewCell {
         }
     }
     
-    var productID: String? {
+    var productID: Int? {
         get {
             return product?.id
         }

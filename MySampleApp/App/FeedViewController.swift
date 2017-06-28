@@ -30,12 +30,13 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     
     fileprivate func configureAppearance() {
         mistLogoInTitle = true
-        setLeftButton("Filters", target: self, selector: #selector(presentFilters))
+        //setLeftButton("Filters", target: self, selector: #selector(presentFilters))
+        setLeftButton("Account", target: self, selector: #selector(presentAccountViewController))
         setRightButton("Search", target: self, selector: #selector(presentSearchViewController))
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
-        self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "RepeatingGradient")!)
+        self.collectionView.backgroundColor = UIColor.black
     }
     
     fileprivate func loadFeed() {
@@ -45,7 +46,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
                 return
             }
             
-            for _ in Feed.sharedInstance.items {
+            for _ in Feed.sharedInstance.posts {
                 self.imageLoading.append(false)
             }
             
@@ -148,7 +149,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
     // MARK: - Collection View Delegate Methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Feed.sharedInstance.items.count
+        return Feed.sharedInstance.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -157,8 +158,8 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
 
-        guard indexPath.row < Feed.sharedInstance.items.count else { return cell }
-        let product = Feed.sharedInstance.items[indexPath.row]
+        guard indexPath.row < Feed.sharedInstance.posts.count else { return cell }
+        let product = Feed.sharedInstance.posts[indexPath.row]
         
         if let productID = cell.productID, productID == product.id {
             return cell
@@ -168,7 +169,7 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         cell.product = product
         imageLoading[indexPath.row] = true
         
-        cell.setImage(product.imageURL) { (completed, image) in
+        cell.setImage(product.url) { (completed, image) in
             if completed {
                 DispatchQueue.main.async {
                     self.imageLoading[indexPath.row] = false
@@ -195,9 +196,9 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         let cell = collectionView.cellForItem(at: indexPath) as! FeedCell
         
-        let product = Feed.sharedInstance.items[indexPath.row]
+        let product = Feed.sharedInstance.posts[indexPath.row]
         productViewController.product = product
-        productViewController.imageURLs = product.imageURLs
+        //productViewController.imageURLs = product.imageURLs
         productViewController.mainImage = cell.image
         productViewController.delegate = self
 

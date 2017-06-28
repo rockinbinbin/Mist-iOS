@@ -45,12 +45,12 @@ class AnalyticsManager {
         })
     }
     
-    func recordPurchase(_ product: Feed.Item, transactionId: String, quantity: Int = 1) {
+    func recordPurchase(_ product: Feed.Post, transactionId: String, quantity: Int = 1) {
         let eventClient = AWSMobileClient.sharedInstance.mobileAnalytics.eventClient
         let eventBuilder = AWSMobileAnalyticsAppleMonetizationEventBuilder(eventClient: eventClient)
         
-        eventBuilder?.withProductId(product.id)
-        eventBuilder?.withItemPrice(Double(product.price)!, andPriceLocale: Locale(identifier: "en_US"))
+        eventBuilder?.withProductId(String(product.id))
+        eventBuilder?.withItemPrice(Double(product.price), andPriceLocale: Locale(identifier: "en_US"))
         eventBuilder?.withQuantity(quantity)
         eventBuilder?.withTransactionId(transactionId)
         

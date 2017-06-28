@@ -221,7 +221,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     fileprivate func search(_ query: String) {
         
-        let searchCompletion = { (products: [Feed.Item], brands: [SearchResult.Brand]) -> Void in
+        let searchCompletion = { (products: [Feed.Post], brands: [SearchResult.Brand]) -> Void in
             DispatchQueue.main.async {
                 self.searchResultsView.updateSearchResults(products, brands: brands)
                 
