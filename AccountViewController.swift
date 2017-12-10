@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 import FLAnimatedImage
 import FBSDKLoginKit
+import PureLayout
 
 class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
 
@@ -196,27 +197,17 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if (FBSDKAccessToken.current() != nil) {
-            // logged in
-            self.layoutViews()
-        }
-        else {
-            // show login view
-            self.layoutNotLoggedInView()
-        }
+//        (FBSDKAccessToken.current() != nil) ? self.layoutViews() : self.layoutNotLoggedInView()
+        self.layoutViews()
     }
     
     func layoutNotLoggedInView() {
-        
-        newView.pinToEdgesOfSuperview()
-        newView.sizeToHeight(self.view.frame.size.height)
-        newView.sizeToWidth(self.view.frame.size.width)
-        
-        signInButton.centerHorizontallyInSuperview()
-        signInButton.centerVerticallyInSuperview(offset: -20)
-        signUpButton.centerHorizontallyInSuperview()
-        signUpButton.centerVerticallyInSuperview(offset: 20)
+        newView.autoPinEdgesToSuperviewEdges()
+        newView.autoSetDimensions(to: self.view.frame.size)
+        signInButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        signInButton.autoAlignAxis(.horizontal, toSameAxisOf: self.view, withOffset: -20)
+        signUpButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        signUpButton.autoAlignAxis(.horizontal, toSameAxisOf: self.view, withOffset: 20)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -234,12 +225,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let headerViewHeight: CGFloat = 195
         let gradientLayer = CAGradientLayer()
-        
-        headerView.pinToTopEdgeOfSuperview()
-        headerView.pinToSideEdgesOfSuperview()
-        headerView.sizeToHeight(headerViewHeight)
-        headerView.sizeToWidth(self.view.frame.width)
-        
+
+        headerView.autoPinEdge(toSuperviewEdge: .top)
+        headerView.autoPinEdge(toSuperviewEdge: .left)
+        headerView.autoPinEdge(toSuperviewEdge: .right)
+        headerView.autoSetDimensions(to: CGSize(width: self.view.frame.width, height: headerViewHeight))
         headerView.backgroundColor = UIColor.green
         let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).cgColor as CGColor
         let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).cgColor as CGColor
@@ -257,10 +247,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let contactImg = UIImageView()
         contactImg.image = UIImage(named: "contactImage")
         headerView.addSubview(contactImg)
-        contactImg.centerHorizontallyInSuperview()
-        contactImg.sizeToWidthAndHeight(76)
-        contactImg.pinToTopEdgeOfSuperview(offset: 36)
-        
+
+        contactImg.autoAlignAxis(toSuperviewAxis: .vertical)
+        contactImg.autoSetDimensions(to: CGSize(width: 76, height: 76))
+        contactImg.autoPinEdge(.top, to: .top, of: headerView, withOffset: 36)
+
         let accountLabel = UILabel()
         accountLabel.font = UIFont.LatoRegularMedium()
         accountLabel.textColor = UIColor.white
