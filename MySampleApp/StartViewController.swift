@@ -33,8 +33,8 @@ class StartViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.styleNavBar()
-        self.navigationItem.styleTitleView(str: "M👀D")
+//        self.navigationController?.navigationBar.styleNavBar()
+//        self.navigationItem.styleTitleView(str: "M👀D")
     }
 
     override func viewDidAppear(_ animated: Bool) {

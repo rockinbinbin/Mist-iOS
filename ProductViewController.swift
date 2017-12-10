@@ -76,7 +76,6 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             }
             
             for string in array {
-                
                 DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
                     let url = URL(string: string)
                     let data = try? Data(contentsOf: url!)
@@ -295,7 +294,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let button = BuyButton()
         button.backgroundColor = UIColor.BuyBlue()
         button.addTarget(self, action: #selector(purchaseItem), for: .touchUpInside)
-        self.bottomBar.addSubview(button)
+//        self.bottomBar.addSubview(button)
         return button
     }()
     

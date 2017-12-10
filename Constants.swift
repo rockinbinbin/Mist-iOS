@@ -86,29 +86,30 @@ extension UICollectionView {
     }
 }
 
-extension UINavigationBar {
-    func styleNavBar() {
-        self.barTintColor = UIColor.white
-        self.isTranslucent = false
-        self.clipsToBounds = false
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = 0.0
-    }
-}
+//extension UINavigationBar {
+//    func styleNavBar() {
+//        self.barTintColor = UIColor.white
+//        self.isTranslucent = false
+//        self.clipsToBounds = false
+//        self.layer.shadowColor = UIColor.gray.cgColor
+//        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+//        self.layer.shadowOpacity = 1.0
+//        self.layer.shadowRadius = 0.0
+//    }
+//}
+//
+//extension UINavigationItem {
+//    func styleTitleView(str: String) {
+//        let titleLabel = UILabel()
+//        let attributes: NSDictionary = [
+//            NSFontAttributeName: UIFont.LatoBoldMedium(),
+//            NSForegroundColorAttributeName: UIColor.PrettyBlue(),
+//            NSKernAttributeName: CGFloat(5)
+//        ]
+//        let attributedTitle = NSAttributedString(string: str, attributes: attributes as? [String : AnyObject])
+//        titleLabel.attributedText = attributedTitle
+//        titleLabel.sizeToFit()
+//        self.titleView = titleLabel
+//    }
+//}
 
-extension UINavigationItem {
-    func styleTitleView(str: String) {
-        let titleLabel = UILabel()
-        let attributes: NSDictionary = [
-            NSFontAttributeName: UIFont.LatoBoldMedium(),
-            NSForegroundColorAttributeName: UIColor.PrettyBlue(),
-            NSKernAttributeName: CGFloat(5)
-        ]
-        let attributedTitle = NSAttributedString(string: str, attributes: attributes as? [String : AnyObject])
-        titleLabel.attributedText = attributedTitle
-        titleLabel.sizeToFit()
-        self.titleView = titleLabel
-    }
-}

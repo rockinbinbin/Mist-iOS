@@ -158,7 +158,10 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         if let productDescription = cell.productDescription, productDescription == product.description { return cell }
         cell.product = product
-        imageLoading[indexPath.row] = true
+
+        if indexPath.row < imageLoading.count {
+            imageLoading[indexPath.row] = true
+        }
         
         cell.setImage(product.url) { (completed, image) in
             if completed {
@@ -241,7 +244,10 @@ extension FeedViewController {
         blackGradient.frame = CGRect(x: 0, y: newImageView.frame.size.height - 75, width: newImageView.frame.size.width, height: 75)
         newImageView.addSubview(blackGradient)
 
-        let imageHeight = (newImageView.image!.size.height / newImageView.image!.size.width) * self.view.frame.width
+        let height = (newImageView.image != nil) ? newImageView.image!.size.height : CGFloat(50)
+        let width = (newImageView.image != nil) ? newImageView.image!.size.width : CGFloat(50)
+
+        let imageHeight = (height / width) * self.view.frame.width
         let finalFrame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: imageHeight)
         let finalGradientFrame = CGRect(x: 0, y: finalFrame.size.height - 75, width: finalFrame.size.width, height: 75)
         
