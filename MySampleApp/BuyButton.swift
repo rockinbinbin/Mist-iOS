@@ -31,7 +31,6 @@ class BuyButton: UIButton {
         get {
             return _price
         }
-        
         set {
             _price = price
             formatTitle(newValue)
@@ -40,12 +39,12 @@ class BuyButton: UIButton {
     
     // MARK: - Appearance
     
-    fileprivate func formatTitle(_ newPriceValue: Float) {
+    fileprivate func formatTitle(_ price: Float) {
         var title: String
-        
+
         // If a whole value price
-        if (newPriceValue.truncatingRemainder(dividingBy: 1) == 0) {
-            title = "BUY for $\(Int(newPriceValue))"
+        if (price.truncatingRemainder(dividingBy: 1) == 0) {
+            title = "BUY for $\(Int(Double(price)/100.0))"
         } else {
             title = String(format: "BUY for $%.2f", 5.0)
         }

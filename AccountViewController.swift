@@ -14,7 +14,7 @@ import FBSDKLoginKit
 class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
 
     var userAddresses = NSArray()
-    let tempImages = NSArray(objects: UIImage(named: "alpaca_2")!, UIImage(named: "alpaca_3")!, UIImage(named: "alpacaSweater")!)
+    let tempImages = NSArray(objects: UIImage(named: "test")!, UIImage(named: "test")!, UIImage(named: "test")!)
     
     
     // MARK: - UI Components

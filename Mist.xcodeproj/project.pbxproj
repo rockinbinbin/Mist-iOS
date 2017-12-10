@@ -26,8 +26,12 @@
 		000216931F0357DA003D3104 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00B162121EFC8FBA00652B10 /* Lato-Thin.ttf */; };
 		000216941F0357DA003D3104 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00B162131EFC8FBA00652B10 /* Lato-ThinItalic.ttf */; };
 		000216951F0357DA003D3104 /* LibreBaskerville-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 00B162141EFC8FBA00652B10 /* LibreBaskerville-Italic.otf */; };
+		000216971F04776B003D3104 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000216961F04776A003D3104 /* User.swift */; };
+		0020F6541FDD0145001EBB15 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F6531FDD0145001EBB15 /* TabBarViewController.swift */; };
+		0020F6561FDD026D001EBB15 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F6551FDD026C001EBB15 /* StartViewController.swift */; };
 		005823261D5BDD2E00504CC6 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005823251D5BDD2D00504CC6 /* Vendor.swift */; };
 		0070FB891D1B4CD800758B2C /* SustainabilityGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */; };
+		0074E8B61FDBE2AA0041AA21 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0074E8B51FDBE2AA0041AA21 /* test.jpg */; };
 		009011151D4807BB00933BE2 /* PurchaseConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */; };
 		0096BF191D14E43600EAC2A9 /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */; };
 		0096BF1A1D14E43600EAC2A9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */; };
@@ -109,8 +113,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		000216961F04776A003D3104 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = MySampleApp/User.swift; sourceTree = SOURCE_ROOT; };
+		0020F6531FDD0145001EBB15 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = SOURCE_ROOT; };
+		0020F6551FDD026C001EBB15 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = MySampleApp/StartViewController.swift; sourceTree = SOURCE_ROOT; };
 		005823251D5BDD2D00504CC6 /* Vendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vendor.swift; path = MySampleApp/Vendor.swift; sourceTree = SOURCE_ROOT; };
 		0070FB881D1B4CD800758B2C /* SustainabilityGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SustainabilityGuideViewController.swift; sourceTree = SOURCE_ROOT; };
+		0074E8B51FDBE2AA0041AA21 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseConfirmedViewController.swift; path = MySampleApp/PurchaseConfirmedViewController.swift; sourceTree = SOURCE_ROOT; };
 		0096BF0E1D14E43600EAC2A9 /* AccountSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = SOURCE_ROOT; };
 		0096BF0F1D14E43600EAC2A9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -275,10 +283,10 @@
 		2832AE4D1D18CA45008AC36A /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
 				283017DE1D12318E002CCE25 /* ProductViewController.swift */,
 				28FFD0CC1D1498DA00C89ABE /* MMViewController.swift */,
 				009011141D4807BB00933BE2 /* PurchaseConfirmedViewController.swift */,
-				28EED9141D0F5F480036EC9A /* FeedViewController.swift */,
 				00B0A3341D51C36D00A0787C /* Mist-Bridging-Header.h */,
 			);
 			name = Feed;
@@ -325,6 +333,7 @@
 			children = (
 				0096BF101D14E43600EAC2A9 /* Constants.swift */,
 				28FFD0CF1D14CED500C89ABE /* Feed.swift */,
+				000216961F04776A003D3104 /* User.swift */,
 				005823251D5BDD2D00504CC6 /* Vendor.swift */,
 				28FFD0D31D14EDBD00C89ABE /* Credentials.swift */,
 				28FFD0D51D14EEC700C89ABE /* PaymentManager.swift */,
@@ -354,6 +363,8 @@
 		28FFD0D21D14D9E200C89ABE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0020F6531FDD0145001EBB15 /* TabBarViewController.swift */,
+				0020F6551FDD026C001EBB15 /* StartViewController.swift */,
 				280BED9E1D53CBD400112436 /* Product */,
 				2832AE4E1D18CA52008AC36A /* Account */,
 				2832AE4D1D18CA45008AC36A /* Feed */,
@@ -413,6 +424,7 @@
 		B401C979D70889B600000000 /* mainGroup */ = {
 			isa = PBXGroup;
 			children = (
+				0074E8B51FDBE2AA0041AA21 /* test.jpg */,
 				B401C979D899DA5A00000000 /* Mist */,
 				B401C979C835E7A900000000 /* Frameworks */,
 				B401C979C84EBA3C00000000 /* Products */,
@@ -553,6 +565,7 @@
 				000216951F0357DA003D3104 /* LibreBaskerville-Italic.otf in Resources */,
 				E7A30F044F52D66900000000 /* Launch Screen.storyboard in Resources */,
 				E7A30F04EF95539200000000 /* Images.xcassets in Resources */,
+				0074E8B61FDBE2AA0041AA21 /* test.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,9 +593,26 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Mist/Pods-Mist-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHTCollectionViewWaterfallLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -625,13 +655,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mist-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8CA6F2361A0B42046957AA0 /* [CP] Copy Pods Resources */ = {
@@ -710,8 +743,11 @@
 				0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */,
 				280BEDA01D53CBF800112436 /* PaymentInformationViewController.swift in Sources */,
 				E7A30F04A0522DB600000000 /* UtilityFunctions.swift in Sources */,
+				000216971F04776B003D3104 /* User.swift in Sources */,
+				0020F6561FDD026D001EBB15 /* StartViewController.swift in Sources */,
 				280BED991D52B54100112436 /* PurchaseManager.swift in Sources */,
 				0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */,
+				0020F6541FDD0145001EBB15 /* TabBarViewController.swift in Sources */,
 				2832AE541D1A157A008AC36A /* BuyButton.swift in Sources */,
 				0070FB891D1B4CD800758B2C /* SustainabilityGuideViewController.swift in Sources */,
 				287947B11D3D6BC800701D41 /* SearchViewController.swift in Sources */,

@@ -87,7 +87,7 @@ class FeedCell: UICollectionViewCell {
 
         priceLabel.autoPinEdge(toSuperviewEdge: .bottom, withInset: 5)
         priceLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 5)
-        priceLabel.autoSetDimension(.width, toSize: 40)
+        priceLabel.autoSetDimension(.width, toSize: 80)
     }
     
     func setImage(_ url: String, completion: ((_ completed: Bool, _ image: UIImage?) -> ())?) {
@@ -99,7 +99,12 @@ class FeedCell: UICollectionViewCell {
             if this_url.pathExtension == "gif" {
                 image = UIImage.animatedImage(withAnimatedGIFURL: this_url)
             } else {
-                image = UIImage(data: NSData(contentsOf: this_url)! as Data)
+                if let data = NSData(contentsOf: this_url) as Data? {
+                    image = UIImage(data: data)
+                }
+                else {
+                    image = UIImage(named: "test.jpg")
+                }
             }
 
             DispatchQueue.main.async {
@@ -132,10 +137,7 @@ class FeedCell: UICollectionViewCell {
             NSForegroundColorAttributeName:UIColor.white,
             NSKernAttributeName:CGFloat(2.0)
         ]
-
-        let realPrice = Double(price) / 100.0
-        
-        let attributedTitle = NSAttributedString(string: "$\(String(describing: realPrice))", attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: "$\(String(describing: Double(price) / 100.0))", attributes: attributes as? [String : AnyObject])
         priceLabel.attributedText = attributedTitle
         priceLabel.sizeToFit()
     }

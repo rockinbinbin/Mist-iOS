@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PureLayout
 
 class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBrandViewDelegate {
     
@@ -101,29 +102,30 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     fileprivate var leftOffset: CGFloat = 29
     
     fileprivate func displayProduct(_ productView: SearchResultProductView) {
-        let size = productView.preferredSize
-        
-        productView.layer.opacity = 0
-        productView.isUserInteractionEnabled = false
-        
-        productsScrollView.addSubview(productView)
-        
-        productView.sizeToHeight(size.height)
-        productView.sizeToWidth(size.width)
-        productView.pinToTopEdgeOfSuperview()
-        
-        let padding: CGFloat = 20
-        
-        productView.pinToLeftEdgeOfSuperview(offset: leftOffset)
-        
-        leftOffset += (padding + size.width)
-        productsScrollView.contentSize = CGSize(width: leftOffset, height: 191)
-        
-        UIView.animate(withDuration: 0.2, animations: {
-            productView.layer.opacity = 1
+
+        DispatchQueue.main.async {
+
+            let size = productView.preferredSize
+            productView.layer.opacity = 0
+            productView.isUserInteractionEnabled = false
+            self.productsScrollView.addSubview(productView)
+
+            productView.autoSetDimensions(to: CGSize(width: size.width, height: size.height))
+            productView.autoPinEdge(toSuperviewEdge: .top)
+
+            let padding: CGFloat = 20
+
+            productView.autoPinEdge(toSuperviewEdge: .left, withInset: self.leftOffset)
+
+            self.leftOffset += (padding + size.width)
+            self.productsScrollView.contentSize = CGSize(width: self.leftOffset, height: 191)
+
+            UIView.animate(withDuration: 0.2, animations: {
+                productView.layer.opacity = 1
             }, completion: { (Bool) -> Void in
-            productView.isUserInteractionEnabled = true
-        })
+                productView.isUserInteractionEnabled = true
+            })
+        }
     }
     
     fileprivate lazy var previousBrandView: UIView? = nil
@@ -136,18 +138,17 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         scrollView.addSubview(brandView)
         
         if previousBrandView == nil {
-            brandView.positionBelowItem(brandsLabel, offset: 25)
+            brandView.autoPinEdge(.top, to: .bottom, of: brandsLabel, withOffset: 25)
         } else {
-            brandView.positionBelowItem(previousBrandView!, offset: 17)
+            brandView.autoPinEdge(.top, to: .bottom, of: previousBrandView!, withOffset: 17)
         }
         
         previousBrandView = brandView
         
         let screenWidth = UIApplication.shared.keyWindow!.frame.size.width
-        
-        brandView.pinToLeftEdgeOfSuperview()
-        brandView.sizeToWidth(screenWidth)
-        brandView.sizeToHeight(100)
+
+        brandView.autoPinEdge(toSuperviewEdge: .left)
+        brandView.autoSetDimensions(to: CGSize(width: screenWidth, height: 100))
         
         UIView.animate(withDuration: 0.2, animations: {
             brandView.layer.opacity = 1
@@ -214,29 +215,31 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     var brandLabelUnderScrollViewConstraint: NSLayoutConstraint? = nil
     
     override func updateConstraints() {
-        scrollView.pinToEdgesOfSuperview()
-        
-        productsLabel.pinToTopEdgeOfSuperview(offset: 31)
-        productsLabel.pinToLeftEdgeOfSuperview(offset: 29)
+
+        scrollView.autoPinEdgesToSuperviewEdges()
+
+        productsLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 31)
+        productsLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 29)
         
         let screenWidth = UIApplication.shared.keyWindow!.frame.size.width
-        
-        productsScrollView.sizeToHeight(191)
-        productsScrollView.pinToLeftEdgeOfSuperview()
-        productsScrollView.sizeToWidth(screenWidth)
-        productsScrollView.positionBelowItem(productsLabel, offset: 30)
-        
-        brandsLabel.pinToLeftEdgeOfSuperview(offset: 29)
+
+
+        productsScrollView.autoSetDimensions(to: CGSize(width: screenWidth, height: 191))
+        productsScrollView.autoPinEdge(toSuperviewEdge: .left)
+        productsScrollView.autoPinEdge(.top, to: .bottom, of: productsLabel, withOffset: 30)
+
+        brandsLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 29)
+
         brandLabelUnderScrollViewConstraint = brandsLabel.positionBelowItem(productsScrollView, offset: 30)
         brandLabelTopPinConstraint = brandsLabel.pinToTopEdgeOfSuperview(offset: 31)
         brandLabelTopPinConstraint!.isActive = false
-        
-        noResultsTitle.centerHorizontallyInSuperview()
+
+        noResultsTitle.autoAlignAxis(toSuperviewAxis: .horizontal)
+
         noResultsTitle.centerVerticallyInSuperview(offset: -30)
-        
-        noResultsDescriptionButton.centerHorizontallyInSuperview()
-        noResultsDescriptionButton.positionBelowItem(noResultsTitle, offset: 5)
-        
+
+        noResultsDescriptionButton.autoAlignAxis(toSuperviewAxis: .horizontal)
+        noResultsDescriptionButton.autoPinEdge(.top, to: .bottom, of: noResultsTitle, withOffset: 5)
         super.updateConstraints()
     }
     

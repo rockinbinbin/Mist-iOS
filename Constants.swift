@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct Constants {
+    static let baseURL = "http://127.0.0.1:5000/api/"
+}
+
 public extension UIColor {
     class func DoneBlue() -> UIColor {
         return UIColor(red: 75/255.0, green: 125/255.0, blue: 219/255.0, alpha: 1.0)
@@ -69,5 +73,42 @@ extension Dictionary {
             return "\(percentEscapedKey)=\(percentEscapedValue)"
         }
         return parameterArray.joined(separator: "&")
+    }
+}
+
+extension UICollectionView {
+    func configureCollectionView() {
+        self.backgroundColor = UIColor(patternImage: UIImage(named: "GradientSunrise")!)
+        self.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+        self.alwaysBounceVertical = true
+        self.showsVerticalScrollIndicator = false
+        self.register(FeedCell.self, forCellWithReuseIdentifier: "cell")
+    }
+}
+
+extension UINavigationBar {
+    func styleNavBar() {
+        self.barTintColor = UIColor.white
+        self.isTranslucent = false
+        self.clipsToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
+    }
+}
+
+extension UINavigationItem {
+    func styleTitleView(str: String) {
+        let titleLabel = UILabel()
+        let attributes: NSDictionary = [
+            NSFontAttributeName: UIFont.LatoBoldMedium(),
+            NSForegroundColorAttributeName: UIColor.PrettyBlue(),
+            NSKernAttributeName: CGFloat(5)
+        ]
+        let attributedTitle = NSAttributedString(string: str, attributes: attributes as? [String : AnyObject])
+        titleLabel.attributedText = attributedTitle
+        titleLabel.sizeToFit()
+        self.titleView = titleLabel
     }
 }

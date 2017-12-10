@@ -332,63 +332,60 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func letsGoPressed() {
-//        let password = self.passwordTextField.text
-//        let email = emailTextField.text
-//        let finalEmail = email!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-//        
-//        if (email?.characters.count) < 5 {
-//            let alert = UIAlertView(title: "Oops!", message: "Please enter a valid email address", delegate: self, cancelButtonTitle: "OK")
-//            alert.show()
-//            return
-//        }
-//        if (password?.characters.count) < 5 {
-//            let alert = UIAlertView(title: "Oops!", message: "Password must be greater than 5 characters", delegate: self, cancelButtonTitle: "OK")
-//            alert.show()
-//            return
-//        }
-//        else {
-//            let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-//            spinner.startAnimating()
-//            
-//            let newUser = PFUser()
-//            
-//            newUser.username = finalEmail
-//            newUser.password = password
-//            newUser.email = finalEmail
-//            
-//            newUser.signUpInBackgroundWithBlock({ (succeed, error) -> Void in
-//                spinner.stopAnimating()
-//                if ((error) != nil) {
-//                    let alert = UIAlertView(title: "Sorry about that!", message: "We're having trouble signing you up. Try again or use Facebook to login!", delegate: self, cancelButtonTitle: "OK")
-//                    alert.show()
-//                    
-//                }
-//                else {
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
-//                    })
-//                }
-//            })
-//        }
+        let password = self.passwordTextField.text
+        let email = emailTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+        // TODO: do some better validation here.
+        if (email?.characters.count)! < 5 {
+            let alert = UIAlertView(title: "Oops!", message: "Please enter a valid email address", delegate: self, cancelButtonTitle: "OK")
+            alert.show()
+            return
+        }
+        if (password?.characters.count)! < 5 {
+            let alert = UIAlertView(title: "Oops!", message: "Password must be greater than 5 characters", delegate: self, cancelButtonTitle: "OK")
+            alert.show()
+            return
+        }
+        else {
+            let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 150, height: 150)) as UIActivityIndicatorView
+            spinner.startAnimating()
+
+
+            UserModel.sharedInstance.createUser(username: email!, password: password!, completion: { (error: NSError?, user: User?) in
+                spinner.stopAnimating()
+                if error != nil {
+                    print("sign in error")
+                    let alert = UIAlertView(title: "Sorry about that!", message: "We're having trouble signing you up. Try again or use Facebook to login!", delegate: self, cancelButtonTitle: "OK")
+                    alert.show()
+                    return
+                } else {
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
+                    }
+                }
+            })
+        }
     }
     
     func FBLoginPressed(_ sender: CustomLoginButton!) {
         // TODO: FIX
         print("fbloginpressed")
-//        let login = FBSDKLoginManager()
-//        login.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
-//            if ((error) != nil) {
-//                // handle error
-//            }
-//            else if (result.isCancelled) {
-//                // handle user-cancelled login
-//            }
-//            else {
-//                // handle logged in
-//                self.getFBUserData()
-//                self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
-//            }
+        let login = FBSDKLoginManager()
+
+        login.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self) { (result: FBSDKLoginManagerLoginResult?, error: Error?) in
+            if ((error) != nil) {
+                // handle error
+            }
+            else if (result?.isCancelled)! {
+                // handle user-cancelled login
+            }
+            else {
+                // handle logged in
+                self.getFBUserData()
+                self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
+            }
         }
+    }
     
     var dict : NSDictionary!
     
@@ -400,6 +397,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     print(result)
                     print(self.dict)
                     NSLog(((self.dict.object(forKey: "picture") as AnyObject).object(forKey: "data") as AnyObject).object(forKey: "url") as! String)
+                    // TODO: SAVE TO DB.
                 }
             })
         }

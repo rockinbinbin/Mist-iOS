@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-
         func printMyFonts() {
             print("--------- Available Font names ----------")
             for name in UIFont.familyNames {
@@ -31,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(UIFont.fontNames(forFamilyName: name))
             }
         }
-
-        window!.rootViewController = UINavigationController(rootViewController: FeedViewController())
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window!.rootViewController = UINavigationController(rootViewController: TabBarViewController())
         window!.makeKeyAndVisible()
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

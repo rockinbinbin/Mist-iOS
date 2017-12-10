@@ -7,19 +7,12 @@
 //
 
 import Foundation
-import AWSMobileHubHelper
+//import AWSMobileHubHelper
 
-/**
- The manager for loading and storing the feed.
- */
+
 class Feed {
-    
-    // MARK: - Singleton
-    
-    static let sharedInstance = Feed()
-    
-    // MARK: - Model
-    
+
+    static let sharedInstance = Feed()    
     fileprivate lazy var _posts: [Post] = []
     
     var posts: [Post] {
@@ -45,7 +38,7 @@ class Feed {
     }
     
     fileprivate var originalIndices: [Int] = []
-    
+
     func sizeAtIndex(_ index: Int) -> CGSize {
         return _posts[originalIndices[index]].size ?? CGSize(width: 500, height: 10)
     }
@@ -54,26 +47,27 @@ class Feed {
         _posts[index].size = size
     }
 
-    var baseURL = "http://127.0.0.1:5000/api/"
-
     func loadFeed(_ completion: ((NSError?) -> ())?) {
         do {
-            let url = NSURL(string: baseURL + "get_posts")!
+            let url = NSURL(string: Constants.baseURL + "get_posts")!
             let request = NSMutableURLRequest(url: url as URL)
             request.httpMethod = "GET"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
                 if error != nil{
                     print("Error -> \(String(describing: error))")
-                    completion?(error as NSError?)
+                    let tempDict = NSDictionary(dictionary: ["id" : 0, "url" : "url", "timestamp" : "timestamp", "artist_id" : 0, "name" : "name", "price" : 0, "description" : "description"])
+                    let tempPost = Post(dictionary: tempDict)
+//                    let result_posts : NSArray = [tempPost]
+                    self._posts.append(tempPost!)
+//                    completion?(error as NSError?)
+                    completion?(nil)
                     return
                 }
                 do {
                     let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
-                    print("Result -> \(String(describing: result))")
-
+                    //print("Result -> \(String(describing: result))")
                     let result_posts : NSArray = result?["posts"] as! NSArray
-
                     for postDict in result_posts {
                         if let dict = Post(dictionary: postDict as! NSDictionary) {
                             self._posts.append(dict)
@@ -93,7 +87,7 @@ class Feed {
         let json = ["artist_id":artist_id]
         let params = json.stringFromHttpParameters()
         do {
-            let url = NSURL(string: baseURL + "get_artist?" + params)!
+            let url = NSURL(string: Constants.baseURL + "get_artist?" + params)!
             let request = NSMutableURLRequest(url: url as URL)
             request.httpMethod = "GET"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -116,34 +110,6 @@ class Feed {
             task.resume()
         }
     }
-
-//    func postUser() -> Void {
-//        let json = ["user":"sportslover"]
-//        do {
-//            let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-//            let url = NSURL(string: baseURL + "get_messages")!
-//            let request = NSMutableURLRequest(url: url as URL)
-//            request.httpMethod = "POST"
-//            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-//            request.httpBody = jsonData
-//            let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
-//                if error != nil{
-//                    print("Error -> \(String(describing: error))")
-//                    return
-//                }
-//                do {
-//                    let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
-//                    print("Result -> \(String(describing: result))")
-//
-//                } catch {
-//                    print("Error -> \(error)")
-//                }
-//            }
-//            task.resume()
-//        } catch {
-//            print(error)
-//        }
-//    }
 
 
     struct Post {

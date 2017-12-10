@@ -31,7 +31,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     // MARK: - Animation
     
     func animateInComponents() {
-        let components: [UIView] = [productTitleLabel, byCompanyLabel, titleLine, productPriceLabel, descriptionLabel, imageViewScrollView, buyButton, shippingLine, packageIcon, shippingSublabel, shippingLabel, returnIcon, returnLabel, returnSubLabel]
+        let components: [UIView] = [productTitleLabel, byCompanyLabel, titleLine, productPriceLabel, descriptionLabel, imageViewScrollView, shippingLine, packageIcon, shippingSublabel, shippingLabel, returnIcon, returnLabel, returnSubLabel]
         
         for component in components {
             component.layer.opacity = 0
@@ -53,7 +53,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
             }
             
             DispatchQueue.main.async {
-                self.setPriceText("$\(Int(Double(self.product!.price)))")
+                self.setPriceText("$\(Int(Double(self.product!.price)/100.0))")
                 self.setTitleText(self.product!.name)
                 // Instead, query for Artist by artist ID
                 //self.setCompanyText(self.product!.brand)
@@ -730,22 +730,22 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         // Bottom Bar
         
-        buyButton.pinToTopAndBottomEdgesOfSuperview()
-        buyButton.pinToRightEdgeOfSuperview()
-        buyButton.sizeToWidth(150)
+//        buyButton.pinToTopAndBottomEdgesOfSuperview()
+//        buyButton.pinToRightEdgeOfSuperview()
+//        buyButton.sizeToWidth(150)
         
-        bottomBar.pinToBottomEdgeOfSuperview()
-        bottomBar.pinToSideEdgesOfSuperview()
-        bottomBar.sizeToHeight(60)
-        
-        shareButton.pinToLeftEdgeOfSuperview(offset: 30)
-        shareButton.sizeToHeight(25)
-        shareButton.sizeToWidth(18)
-        shareButton.centerVerticallyInSuperview(offset: -1)
-        
-        likeButton.positionToTheRightOfItem(shareButton, offset: 30)
-        likeButton.sizeToWidthAndHeight(22)
-        likeButton.centerVerticallyInSuperview()
+//        bottomBar.pinToBottomEdgeOfSuperview()
+//        bottomBar.pinToSideEdgesOfSuperview()
+//        bottomBar.sizeToHeight(60)
+//
+//        shareButton.pinToLeftEdgeOfSuperview(offset: 30)
+//        shareButton.sizeToHeight(25)
+//        shareButton.sizeToWidth(18)
+//        shareButton.centerVerticallyInSuperview(offset: -1)
+//
+//        likeButton.positionToTheRightOfItem(shareButton, offset: 30)
+//        likeButton.sizeToWidthAndHeight(22)
+//        likeButton.centerVerticallyInSuperview()
     }
     
     // MARK: - Payment

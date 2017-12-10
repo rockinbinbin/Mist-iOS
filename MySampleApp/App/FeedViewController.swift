@@ -36,7 +36,6 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
-        self.collectionView.backgroundColor = UIColor.black
     }
     
     fileprivate func loadFeed() {
@@ -65,15 +64,9 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         layout.headerHeight = 3.0
         
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
-        collectionView.alwaysBounceVertical = true
-        collectionView.backgroundColor = .white
-        
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        collectionView.register(FeedCell.self, forCellWithReuseIdentifier: "cell")
-        
+        collectionView.configureCollectionView()
         self.view.addSubview(collectionView)
         return collectionView
     }()
