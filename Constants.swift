@@ -108,18 +108,50 @@ extension NSMutableAttributedString {
     }
 }
 
-//extension UINavigationBar {
-//    func styleNavBar() {
-//        self.barTintColor = UIColor.white
-//        self.isTranslucent = false
-//        self.clipsToBounds = false
-//        self.layer.shadowColor = UIColor.gray.cgColor
-//        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-//        self.layer.shadowOpacity = 1.0
-//        self.layer.shadowRadius = 0.0
-//    }
-//}
-//
+extension UIButton {
+    func styleButton(_ str: String) {
+        self.layer.cornerRadius = 0
+        self.tintColor = UIColor.black
+        self.titleLabel?.font = UIFont.LatoRegularMedium()
+        self.setTitle(str, for: UIControlState())
+    }
+}
+
+extension UITableView {
+    func styleTableView() {
+        self.isScrollEnabled = false
+        self.isHidden = false
+        self.backgroundColor = UIColor.white
+    }
+}
+
+extension CAGradientLayer {
+    func createPlumGradient() {
+        let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).cgColor as CGColor
+        let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).cgColor as CGColor
+        let color3 = UIColor(red:0.95, green:0.57, blue:0.46, alpha:1.0).cgColor as CGColor
+        let color4 = UIColor(red:1.0, green:0.66, blue:0.47, alpha:1.0).cgColor as CGColor
+        let color5 = UIColor(red:1.0, green:0.81, blue:0.53, alpha:1.0).cgColor as CGColor
+        self.colors = [color1, color2, color3, color4, color5]
+        self.locations = [0.0, 0.5, 0.65, 0.75, 1.0]
+        self.type = kCAGradientLayerAxial
+        self.startPoint = CGPoint(x: 0, y: 0)
+        self.endPoint = CGPoint(x: 1.0, y: 1)
+    }
+}
+
+extension UINavigationBar {
+    func styleNavBar() {
+        self.barTintColor = UIColor.white
+        self.isTranslucent = false
+        self.clipsToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
+    }
+}
+
 //extension UINavigationItem {
 //    func styleTitleView(str: String) {
 //        let titleLabel = UILabel()

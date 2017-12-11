@@ -17,7 +17,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     var userAddresses = NSArray()
     let tempImages = NSArray(objects: UIImage(named: "test.jpg")!, UIImage(named: "test.jpg")!, UIImage(named: "test.jpg")!)
     
-    
     // MARK: - UI Components
     
     fileprivate lazy var scrollView: UIScrollView = {
@@ -30,9 +29,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isScrollEnabled = false
-        tableView.isHidden = false
-        tableView.backgroundColor = UIColor.white
+        tableView.styleTableView()
         self.scrollView.addSubview(tableView)
         return tableView
     }()
@@ -63,14 +60,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     internal lazy var signInButton: UIButton = {
         let signInButton = UIButton(type: .roundedRect)
         signInButton.tintColor = UIColor.white
-        
         let attrString = NSMutableAttributedString(string: "SIGN IN")
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 4, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
-        
+        attrString.styleText("SIGN IN")
         signInButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(signInButton)
-        
         signInButton.addTarget(self, action: #selector(AccountViewController.signInPressed), for: .touchUpInside)
         return signInButton
     }()
@@ -78,14 +71,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     internal lazy var signUpButton: UIButton = {
         let signUpButton = UIButton(type: .roundedRect)
         signUpButton.tintColor = UIColor.white
-        
         let attrString = NSMutableAttributedString(string: "SIGN UP")
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 4, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
-        
+        attrString.styleText("SIGN UP")
         signUpButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(signUpButton)
-        
         signUpButton.addTarget(self, action: #selector(AccountViewController.signUpPressed), for: .touchUpInside)
         return signUpButton
     }()
@@ -111,50 +100,29 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     fileprivate lazy var newView: UIView = {
         let newview = UIView()
         let gradientLayer = CAGradientLayer()
-        
-        let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).cgColor as CGColor
-        let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).cgColor as CGColor
-        let color3 = UIColor(red:0.95, green:0.57, blue:0.46, alpha:1.0).cgColor as CGColor
-        let color4 = UIColor(red:1.0, green:0.66, blue:0.47, alpha:1.0).cgColor as CGColor
-        let color5 = UIColor(red:1.0, green:0.81, blue:0.53, alpha:1.0).cgColor as CGColor
-        gradientLayer.colors = [color1, color2, color3, color4, color5]
-        gradientLayer.locations = [0.0, 0.5, 0.65, 0.75, 1.0]
-        gradientLayer.type = kCAGradientLayerAxial
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1)
+        gradientLayer.createPlumGradient()
         gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         newview.layer.addSublayer(gradientLayer)
-        
         self.view.addSubview(newview)
         return newview
     }()
     
     internal lazy var logOffButton: UIButton = {
         let logOffButton = UIButton(type: .roundedRect)
-        logOffButton.layer.cornerRadius = 0
-        logOffButton.tintColor = UIColor.black
-        logOffButton.titleLabel?.font = UIFont.LatoRegularMedium()
-        logOffButton.setTitle("LOG OFF", for: UIControlState())
+        logOffButton.styleButton("LOG OFF")
         self.scrollView.addSubview(logOffButton)
-        
         logOffButton.addTarget(self, action: #selector(AccountViewController.logOffPressed), for: .touchUpInside)
         return logOffButton
     }()
     
     internal lazy var learnMoreButton: UIButton = {
         let learnMoreButton = UIButton(type: .roundedRect)
-        learnMoreButton.layer.cornerRadius = 0
-        learnMoreButton.tintColor = UIColor.black
-        learnMoreButton.titleLabel?.font = UIFont.LatoRegularMedium()
-        learnMoreButton.setTitle("LEARN MORE", for: UIControlState())
+        learnMoreButton.styleButton("LEARN MORE")
         self.scrollView.addSubview(learnMoreButton)
-        
         learnMoreButton.addTarget(self, action: #selector(AccountViewController.learnMorePressed), for: .touchUpInside)
         return learnMoreButton
     }()
-    
-    // end of lazy vars
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -168,28 +136,18 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func setNavBar() {
         let titleLabel = UILabel()
-        
-        let attributes: NSDictionary = [
-            NSAttributedStringKey.font:UIFont.LatoRegularMedium(),
-            NSAttributedStringKey.foregroundColor:UIColor.black,
-            NSAttributedStringKey.kern:CGFloat(3.69)
-        ]
-        
-        let attributedTitle = NSAttributedString(string: "ACCOUNT", attributes: attributes as? [NSAttributedStringKey : Any])
-        
+        let attributedTitle = NSMutableAttributedString(string: "ACCOUNT")
+        attributedTitle.styleText("ACCOUNT")
         titleLabel.attributedText = attributedTitle
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
-        
         let doneButton = ProductBarButtonItem(title: "Done", actionTarget: self, actionSelector: #selector(AccountViewController.closePressed), buttonColor: UIColor.DoneBlue())
-        
         self.navigationItem.leftBarButtonItem = doneButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        (FBSDKAccessToken.current() != nil) ? self.layoutViews() : self.layoutNotLoggedInView()
-        self.layoutViews()
+        (FBSDKAccessToken.current() != nil) ? self.layoutViews() : self.layoutNotLoggedInView()
     }
     
     func layoutNotLoggedInView() {
@@ -215,23 +173,12 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     func layoutViews() {
         
         let headerViewHeight: CGFloat = 195
-        let gradientLayer = CAGradientLayer()
-
         headerView.autoPinEdge(toSuperviewEdge: .top)
         headerView.autoPinEdge(toSuperviewEdge: .left)
         headerView.autoPinEdge(toSuperviewEdge: .right)
         headerView.autoSetDimensions(to: CGSize(width: self.view.frame.width, height: headerViewHeight))
-        headerView.backgroundColor = UIColor.green
-        let color1 = UIColor(red:0.13, green:0.08, blue:0.41, alpha:1.0).cgColor as CGColor
-        let color2 = UIColor(red:0.85, green:0.44, blue:0.47, alpha:1.0).cgColor as CGColor
-        let color3 = UIColor(red:0.95, green:0.57, blue:0.46, alpha:1.0).cgColor as CGColor
-        let color4 = UIColor(red:1.0, green:0.66, blue:0.47, alpha:1.0).cgColor as CGColor
-        let color5 = UIColor(red:1.0, green:0.81, blue:0.53, alpha:1.0).cgColor as CGColor
-        gradientLayer.colors = [color1, color2, color3, color4, color5]
-        gradientLayer.locations = [0.0, 0.5, 0.65, 0.75, 1.0]
-        gradientLayer.type = kCAGradientLayerAxial
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1)
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.createPlumGradient()
         headerView.layer.addSublayer(gradientLayer)
         gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: headerViewHeight)
         
