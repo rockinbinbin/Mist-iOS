@@ -45,6 +45,7 @@
 		0096BF221D14E43600EAC2A9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF171D14E43600EAC2A9 /* SignInViewController.swift */; };
 		0096BF231D14E43600EAC2A9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096BF181D14E43600EAC2A9 /* SignUpViewController.swift */; };
 		00B0A3371D51C36E00A0787C /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B0A3361D51C36E00A0787C /* UIImage+animatedGIF.m */; };
+		00EFF4481FDE8421001A831E /* main.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00EFF4471FDE8421001A831E /* main.jpg */; };
 		280A979F1D40965B0016F0C9 /* SearchResultBrandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280A979E1D40965B0016F0C9 /* SearchResultBrandView.swift */; };
 		280BED991D52B54100112436 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280BED981D52B54100112436 /* PurchaseManager.swift */; };
 		280BED9B1D53AABA00112436 /* AddCreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280BED9A1D53AABA00112436 /* AddCreditCardViewController.swift */; };
@@ -153,6 +154,7 @@
 		00B162121EFC8FBA00652B10 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		00B162131EFC8FBA00652B10 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		00B162141EFC8FBA00652B10 /* LibreBaskerville-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBaskerville-Italic.otf"; sourceTree = "<group>"; };
+		00EFF4471FDE8421001A831E /* main.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = main.jpg; sourceTree = "<group>"; };
 		1DD70E290339E4CF00000000 /* Mist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Mist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD70E2907AEB9FA00000000 /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = MySampleApp/Sdk/Aws/AWSCore.framework; sourceTree = "<group>"; };
 		1DD70E29187D829A00000000 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MySampleApp/App/Images.xcassets; sourceTree = SOURCE_ROOT; };
@@ -424,6 +426,7 @@
 		B401C979D70889B600000000 /* mainGroup */ = {
 			isa = PBXGroup;
 			children = (
+				00EFF4471FDE8421001A831E /* main.jpg */,
 				0074E8B51FDBE2AA0041AA21 /* test.jpg */,
 				B401C979D899DA5A00000000 /* Mist */,
 				B401C979C835E7A900000000 /* Frameworks */,
@@ -555,6 +558,7 @@
 				0002168B1F0357DA003D3104 /* Lato-Italic.ttf in Resources */,
 				0002168C1F0357DA003D3104 /* Lato-Light.ttf in Resources */,
 				0002168D1F0357DA003D3104 /* Lato-LightItalic.ttf in Resources */,
+				00EFF4481FDE8421001A831E /* main.jpg in Resources */,
 				0002168E1F0357DA003D3104 /* Lato-Medium.ttf in Resources */,
 				0002168F1F0357DA003D3104 /* Lato-MediumItalic.ttf in Resources */,
 				000216901F0357DA003D3104 /* Lato-Regular.ttf in Resources */,

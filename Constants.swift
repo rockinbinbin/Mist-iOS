@@ -109,7 +109,13 @@ extension UILabel {
         self.font = UIFont.LatoRegularSmall()
     }
 
+    func styleSmallBlackLabel(_ str: String) {
+        self.styleSmallWhiteLabel(str)
+        self.textColor = UIColor.black
+    }
+
     func styleMediumWhiteLabel(_ str: String) {
+        self.styleSmallWhiteLabel(str)
         self.font = UIFont.LatoRegularMedium()
     }
 }

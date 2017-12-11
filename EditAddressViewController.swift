@@ -263,21 +263,11 @@ class EditAddressViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         // fetch all addresses
-        
-        
         setTextFields()
     }
     
     func setTextFields() {
-//        nameTextField.text = currentAddress?.valueForKey("Name") as? String
-//        streetTextField.text = currentAddress?.valueForKey("Street") as? String
-//        cityTextField.text = currentAddress?.valueForKey("City") as? String
-//        stateTextField.text = currentAddress?.valueForKey("State") as? String
-//        zipTextField.text = currentAddress?.valueForKey("Zip") as? String
-//        phoneTextField.text = currentAddress?.valueForKey("Phone") as? String
-        
         nameTextField.text = "Mission Control"
         streetTextField.text = "Mission St"
         cityTextField.text = "San Francisco"

@@ -26,28 +26,16 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         return scrollView
     }()
     
-    class Label: UILabel {
-        convenience init(title: String) {
-            self.init()
-            
-            let attributes = [
-                NSAttributedStringKey.font.rawValue: UIFont.LatoBoldSmall(),
-                NSAttributedStringKey.kern: 2.0,
-                NSAttributedStringKey.foregroundColor: UIColor.black
-            ] as! [NSAttributedStringKey : Any]
-
-            attributedText = NSAttributedString(string: title, attributes: attributes)
-        }
-    }
-    
     fileprivate lazy var productsLabel: UILabel = {
-        let label = Label(title: "PRODUCTS")
+        let label = UILabel()
+        label.styleSmallBlackLabel("PRODUCTS")
         self.scrollView.addSubview(label)
         return label
     }()
     
     fileprivate lazy var brandsLabel: UILabel = {
-        let label = Label(title: "BRANDS")
+        let label = UILabel()
+        label.styleSmallBlackLabel("BRANDS")
         self.scrollView.addSubview(label)
         return label
     }()
