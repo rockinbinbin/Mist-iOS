@@ -86,6 +86,28 @@ extension UICollectionView {
     }
 }
 
+extension UILabel {
+    func styleGrayLabel(_ str: String) {
+        self.textColor = UIColor.gray
+        self.textAlignment = .center
+        self.lineBreakMode = .byWordWrapping
+        self.numberOfLines = 0
+        let attrString = NSMutableAttributedString(string: str)
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 2, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
+
+        self.attributedText = attrString
+        self.font = UIFont.LatoRegularSmall()
+    }
+}
+
+extension NSMutableAttributedString {
+    func styleText(_ str: String) {
+        self.addAttribute(NSAttributedStringKey.kern, value: 1, range: NSMakeRange(0, str.count))
+        self.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, str.count))
+    }
+}
+
 //extension UINavigationBar {
 //    func styleNavBar() {
 //        self.barTintColor = UIColor.white

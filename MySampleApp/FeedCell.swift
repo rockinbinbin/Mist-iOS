@@ -120,12 +120,12 @@ class FeedCell: UICollectionViewCell {
 
     fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [
-            NSFontAttributeName: UIFont.LatoBoldSmall(),
-            NSForegroundColorAttributeName: UIColor.white,
-            NSKernAttributeName: CGFloat(2.0)
+            NSAttributedStringKey.font: UIFont.LatoBoldSmall(),
+            NSAttributedStringKey.foregroundColor: UIColor.white,
+            NSAttributedStringKey.kern: CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [NSAttributedStringKey : Any])
         
         nameLabel.attributedText = attributedTitle
         nameLabel.sizeToFit()
@@ -133,11 +133,11 @@ class FeedCell: UICollectionViewCell {
     
     fileprivate func setPrice(_ price: Int) {
         let attributes: NSDictionary = [
-            NSFontAttributeName: UIFont.LatoBoldSmall(),
-            NSForegroundColorAttributeName:UIColor.white,
-            NSKernAttributeName:CGFloat(2.0)
+            NSAttributedStringKey.font: UIFont.LatoBoldSmall(),
+            NSAttributedStringKey.foregroundColor:UIColor.white,
+            NSAttributedStringKey.kern:CGFloat(2.0)
         ]
-        let attributedTitle = NSAttributedString(string: "$\(String(describing: Double(price) / 100.0))", attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: "$\(String(describing: Double(price) / 100.0))", attributes: attributes as? [NSAttributedStringKey : Any])
         priceLabel.attributedText = attributedTitle
         priceLabel.sizeToFit()
     }

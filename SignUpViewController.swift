@@ -27,11 +27,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         paragraphStyle.lineSpacing = 5
         
         let attrString = NSMutableAttributedString(string: "SIGN UP")
-        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         
-        attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
         
-        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
         
         signUpLabel.attributedText = attrString
         
@@ -48,13 +48,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         emailTextField.textColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
-            NSFontAttributeName : UIFont.LatoRegularMedium()
+            NSAttributedStringKey.foregroundColor: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
+            NSAttributedStringKey.font : UIFont.LatoRegularMedium()
         ]
         
         let attrString = NSMutableAttributedString(string: "EMAIL", attributes:attributes)
         
-        attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
         
         emailTextField.attributedPlaceholder = attrString
         
@@ -80,13 +80,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.isSecureTextEntry = true
         
         let attributes = [
-            NSForegroundColorAttributeName: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
-            NSFontAttributeName : UIFont.LatoRegularMedium()
+            NSAttributedStringKey.foregroundColor: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
+            NSAttributedStringKey.font : UIFont.LatoRegularMedium()
         ]
         
         let attrString = NSMutableAttributedString(string: "PASSWORD", attributes:attributes)
         
-        attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
         
         passwordTextField.attributedPlaceholder = attrString
         
@@ -109,9 +109,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let attrString = NSMutableAttributedString(string: "ALREADY HAVE AN ACCOUNT?")
         
-        attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
         
-        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         alreadyHaveAccountLabel.attributedText = attrString
         
@@ -130,8 +130,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         loginButton.tintColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
         
         let attrString = NSMutableAttributedString(string: "LOG IN")
-        attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         loginButton.setAttributedTitle(attrString, for: UIControlState())
         
@@ -162,9 +162,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         paragraphStyle.lineSpacing = 5
         
         let attrString = NSMutableAttributedString(string: "SIGN UP")
-        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         letsGo.setAttributedTitle(attrString, for: UIControlState())
         
         letsGo.titleLabel?.font = UIFont.LatoRegularMedium()
@@ -236,12 +236,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let titleLabel = UILabel()
         
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont.LatoRegularMedium(),
-            NSForegroundColorAttributeName:UIColor.black,
-            NSKernAttributeName:CGFloat(3.69)
+            NSAttributedStringKey.font:UIFont.LatoRegularMedium(),
+            NSAttributedStringKey.foregroundColor:UIColor.black,
+            NSAttributedStringKey.kern:CGFloat(3.69)
         ]
         
-        let attributedTitle = NSAttributedString(string: "SIGN UP", attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: "SIGN UP", attributes: attributes as? [NSAttributedStringKey : Any])
         
         titleLabel.attributedText = attributedTitle
         titleLabel.sizeToFit()
@@ -253,11 +253,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Dismisses the keyboard.
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
-    func termsPressed(_ sender: UIButton!) {
+    @objc func termsPressed(_ sender: UIButton!) {
 //        
 //        let rtfVC = TermsViewController(title: "Terms of Service", fileName: "Terms")
 //        let termsViewController = UINavigationController(rootViewController: rtfVC)
@@ -279,7 +279,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         if keyboardUp {
             return
         }
@@ -296,7 +296,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         if !keyboardUp {
             return
         }
@@ -331,7 +331,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func letsGoPressed() {
+    @objc func letsGoPressed() {
         let password = self.passwordTextField.text
         let email = emailTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
@@ -367,7 +367,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func FBLoginPressed(_ sender: CustomLoginButton!) {
+    @objc func FBLoginPressed(_ sender: CustomLoginButton!) {
         // TODO: FIX
         print("fbloginpressed")
         let login = FBSDKLoginManager()
@@ -487,11 +487,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 //        }
 //    }
     
-    func loginPressed() {
+    @objc func loginPressed() {
         self.navigationController?.pushViewController(SignInViewController(), animated: true)
     }
     
-    internal func closePressed() {
+    @objc internal func closePressed() {
         self.navigationController?.popToRootViewController(animated: true)
     }
 }

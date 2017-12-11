@@ -32,7 +32,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         newAddressButton.titleLabel!.textColor = UIColor.white
   
         let attributedString = NSMutableAttributedString(string: "ENTER NEW ADDRESS")
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "ENTER NEW ADDRESS".count))
+        attributedString.addAttribute(NSAttributedStringKey.kern, value: CGFloat(4), range: NSRange(location: 0, length: "ENTER NEW ADDRESS".count))
         newAddressButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(newAddressButton)
@@ -74,12 +74,12 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
     func setNavBar() {
         let titleLabel = UILabel()
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont.LatoRegularMedium(),
-            NSForegroundColorAttributeName:UIColor.black,
-            NSKernAttributeName:CGFloat(3.69)
+            NSAttributedStringKey.font:UIFont.LatoRegularMedium(),
+            NSAttributedStringKey.foregroundColor:UIColor.black,
+            NSAttributedStringKey.kern:CGFloat(3.69)
         ]
         
-        let attributedTitle = NSAttributedString(string: "SHIPPING", attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: "SHIPPING", attributes: attributes as? [NSAttributedStringKey : Any])
         
         titleLabel.attributedText = attributedTitle
         titleLabel.sizeToFit()
@@ -101,11 +101,11 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-    func backPressed() {
+    @objc func backPressed() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func newAddressPressed() {
+    @objc func newAddressPressed() {
         self.navigationController?.pushViewController(NewAddressViewController(), animated: true)
     }
 

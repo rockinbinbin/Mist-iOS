@@ -53,15 +53,15 @@ class MMViewController: UIViewController {
             let buttonString = title.uppercased()
             let attributedBarButtonBackStr = NSMutableAttributedString(string: buttonString as String)
 
-            attributedBarButtonBackStr.addAttribute(NSFontAttributeName,
+            attributedBarButtonBackStr.addAttribute(NSAttributedStringKey.font,
                                                     value: UIFont.LatoBoldSmall(),
                                                     range: NSRange(location:0, length: title.count))
 
-            attributedBarButtonBackStr.addAttribute(NSKernAttributeName,
+            attributedBarButtonBackStr.addAttribute(NSAttributedStringKey.kern,
                                                     value: 3.0,
                                                     range: NSRange(location:0, length: title.count))
             
-            attributedBarButtonBackStr.addAttribute(NSForegroundColorAttributeName,
+            attributedBarButtonBackStr.addAttribute(NSAttributedStringKey.foregroundColor,
                                                     value: buttonColor!,
                                                     range: NSRange(location:0, length: title.count))
             

@@ -55,9 +55,9 @@ class FilterView: UIView {
         let button = UIButton()
         
         button.setAttributedTitle(NSAttributedString(string: "DONE", attributes: [
-            NSForegroundColorAttributeName: UIColor.DoneBlue(),
-            NSFontAttributeName: UIFont.LatoRegularSmall(),
-            NSKernAttributeName: 3.0
+            NSAttributedStringKey.foregroundColor: UIColor.DoneBlue(),
+            NSAttributedStringKey.font: UIFont.LatoRegularSmall(),
+            NSAttributedStringKey.kern: 3.0
             ]), for: UIControlState())
         
         button.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
@@ -70,9 +70,9 @@ class FilterView: UIView {
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "CATEGORIES", attributes: [
-            NSForegroundColorAttributeName: UIColor.black,
-            NSFontAttributeName: UIFont.LatoRegularSmall(),
-            NSKernAttributeName: 3.0
+            NSAttributedStringKey.foregroundColor: UIColor.black,
+            NSAttributedStringKey.font: UIFont.LatoRegularSmall(),
+            NSAttributedStringKey.kern: 3.0
             ])
         
         self.filterView.addSubview(label)
@@ -187,7 +187,7 @@ class FilterView: UIView {
             }
         }
         
-        func didPress() {
+        @objc func didPress() {
             pressed = !pressed
             
             if let filter = priceFilter {
@@ -258,9 +258,9 @@ class FilterView: UIView {
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "PRICE", attributes: [
-            NSForegroundColorAttributeName: UIColor.black,
-            NSFontAttributeName: UIFont.LatoRegularSmall(),
-            NSKernAttributeName: 3.0
+            NSAttributedStringKey.foregroundColor: UIColor.black,
+            NSAttributedStringKey.font: UIFont.LatoRegularSmall(),
+            NSAttributedStringKey.kern: 3.0
             ])
         
         self.filterView.addSubview(label)
@@ -372,7 +372,7 @@ class FilterView: UIView {
     
     // MARK: - Navigation
     
-    func dismiss() {
+    @objc func dismiss() {
         
         layoutIfNeeded()
         self.bottomConstraint?.constant = height

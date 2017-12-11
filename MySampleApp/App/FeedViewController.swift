@@ -129,11 +129,11 @@ class FeedViewController: MMViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    func presentAccountViewController() {
+    @objc func presentAccountViewController() {
         present(UINavigationController(rootViewController: AccountViewController()), animated: true, completion: nil)
     }
     
-    func presentSearchViewController() {
+    @objc func presentSearchViewController() {
         self.navigationController!.pushViewController(SearchViewController(), animated: true)
     }
     

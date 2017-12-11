@@ -215,8 +215,8 @@ class PurchaseConfirmedViewController: UIViewController {
         returnButton.backgroundColor = UIColor.PrettyBlue()
         
         let attrString = NSMutableAttributedString(string: "RETURN TO FEED")
-        attrString.addAttribute(NSKernAttributeName, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 2, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
         
         returnButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(returnButton)
@@ -316,8 +316,8 @@ class PurchaseConfirmedViewController: UIViewController {
             decorateLabel.lineBreakMode = .byWordWrapping
             decorateLabel.numberOfLines = 0
             let attrString = NSMutableAttributedString(string: (self.product?.name)!)
-            attrString.addAttribute(NSKernAttributeName, value: 0, range: NSMakeRange(0, attrString.length))
-            attrString.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.kern, value: 0, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
             
             decorateLabel.attributedText = attrString
             decorateLabel.font = UIFont.LatoRegularSmall()
@@ -345,11 +345,11 @@ class PurchaseConfirmedViewController: UIViewController {
         }
     }
 
-    func returnToFeedPressed() {
+    @objc func returnToFeedPressed() {
         self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
-    func shareProduct() {
+    @objc func shareProduct() {
         let name = (product?.name)!
         // TODO: update with artist name 
         let companyName = "artist name"

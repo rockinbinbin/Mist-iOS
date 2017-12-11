@@ -49,7 +49,7 @@ class AddCreditCardViewController: UIViewController {
     
     // MARK: - Navigation
     
-    func cancelPressed() {
+    @objc func cancelPressed() {
         dismiss(animated: true, completion: nil)
     }
     

@@ -60,9 +60,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "SUGGESTED", attributes: [
-            NSFontAttributeName: UIFont.LatoBoldMedium(),
-            NSKernAttributeName: 2.0,
-            NSForegroundColorAttributeName: UIColor.black
+            NSAttributedStringKey.font: UIFont.LatoBoldMedium(),
+            NSAttributedStringKey.kern: 2.0,
+            NSAttributedStringKey.foregroundColor: UIColor.black
             ])
         
         self.placeholderView.addSubview(label)
@@ -89,9 +89,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         let label = UILabel()
         
         label.attributedText = NSAttributedString(string: "PREVIOUS SEARCHES", attributes: [
-            NSFontAttributeName: UIFont.LatoBoldMedium(),
-            NSKernAttributeName: 2.0,
-            NSForegroundColorAttributeName: UIColor.black
+            NSAttributedStringKey.font: UIFont.LatoBoldMedium(),
+            NSAttributedStringKey.kern: 2.0,
+            NSAttributedStringKey.foregroundColor: UIColor.black
             ])
         
         self.placeholderView.addSubview(label)
@@ -134,13 +134,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         return searchResultsView
     }()
     
-    func suggestionPressed(_ sender: UIButton) {
+    @objc func suggestionPressed(_ sender: UIButton) {
         let query = sender.currentTitle!
         searchField.text = query
         search(query)
     }
     
-    func previousSearchPressed(_ sender: UIButton) {
+    @objc func previousSearchPressed(_ sender: UIButton) {
         let query = sender.currentTitle!
         searchField.text = query
         search(query)
@@ -195,7 +195,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         view.addGestureRecognizer(tap)
     }
     
-    func shouldResignFirstResponder() {
+    @objc func shouldResignFirstResponder() {
         searchField.resignFirstResponder()
     }
     

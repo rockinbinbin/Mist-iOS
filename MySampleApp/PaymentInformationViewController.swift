@@ -80,14 +80,14 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
             textColor = .white
             
             let attributes = [
-                NSForegroundColorAttributeName: UIColor.gray,
-                NSFontAttributeName : UIFont.LatoBoldSmall()
+                NSAttributedStringKey.foregroundColor: UIColor.gray,
+                NSAttributedStringKey.font : UIFont.LatoBoldSmall()
             ]
             
             font = UIFont.LatoRegularSmall()
             
             let attrString = NSMutableAttributedString(string: placeholder.uppercased(), attributes:attributes)
-            attrString.addAttribute(NSKernAttributeName, value: 1.5, range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
             attributedPlaceholder = attrString
             layer.borderColor = UIColor.black.cgColor
             textAlignment = .left
@@ -162,7 +162,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
         doneButton.titleLabel!.textColor = UIColor.white
         
         let attributedString = NSMutableAttributedString(string: "DONE")
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "DONE".count))
+        attributedString.addAttribute(NSAttributedStringKey.kern, value: CGFloat(4), range: NSRange(location: 0, length: "DONE".count))
         doneButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(doneButton)
@@ -224,11 +224,11 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Navigation
     
-    internal func cancelPressed() {
+    @objc internal func cancelPressed() {
         dismiss(animated: true, completion: nil)
     }
     
-    internal func donePressed() {
+    @objc internal func donePressed() {
         
         let requiredFields = [nameTextField, addressLine1TextField, cityTextField, stateTextField, zipTextField]
         

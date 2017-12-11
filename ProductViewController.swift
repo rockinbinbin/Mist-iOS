@@ -168,12 +168,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate func setTitleText(_ name: String) {
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont.LatoRegularMedium(),
-            NSForegroundColorAttributeName:UIColor.white,
-            NSKernAttributeName:CGFloat(2.0)
+            NSAttributedStringKey.font:UIFont.LatoRegularMedium(),
+            NSAttributedStringKey.foregroundColor:UIColor.white,
+            NSAttributedStringKey.kern:CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [NSAttributedStringKey : Any])
         
         productTitleLabel.attributedText = attributedTitle
         productTitleLabel.numberOfLines = 0
@@ -183,11 +183,11 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     fileprivate func setCompanyText(_ name: String) {
         let string = NSMutableAttributedString(string: "by \(name)")
         
-        string.addAttribute(NSForegroundColorAttributeName, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
+        string.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, "by ".count))
+        string.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, "by ".count))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange("by ".count, name.count))
+        string.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange("by ".count, name.count))
         
         byCompanyLabel.attributedText = string
         
@@ -196,9 +196,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         let moreString = NSMutableAttributedString(string: "More by \(name)".uppercased())
         
         moreString.addAttributes([
-            NSFontAttributeName: UIFont.LatoBoldSmall(),
-            NSKernAttributeName: 2.0,
-            NSForegroundColorAttributeName: UIColor(white: 0.71, alpha: 1.0)
+            NSAttributedStringKey.font: UIFont.LatoBoldSmall(),
+            NSAttributedStringKey.kern: 2.0,
+            NSAttributedStringKey.foregroundColor: UIColor(white: 0.71, alpha: 1.0)
             ], range: NSMakeRange(0, moreString.length))
         
         moreLabel.attributedText = moreString
@@ -220,12 +220,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
     
     fileprivate func setPriceText(_ name: String) {
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont.LatoRegularMedium(),
-            NSForegroundColorAttributeName:UIColor.white,
-            NSKernAttributeName:CGFloat(2.0)
+            NSAttributedStringKey.font:UIFont.LatoRegularMedium(),
+            NSAttributedStringKey.foregroundColor:UIColor.white,
+            NSAttributedStringKey.kern:CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: name.uppercased(), attributes: attributes as? [NSAttributedStringKey : Any])
         
         productPriceLabel.attributedText = attributedTitle
         productPriceLabel.sizeToFit()
@@ -327,7 +327,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return button
     }()
     
-    func heartPressed() {
+    @objc func heartPressed() {
         var newImageTitle: String
         
         if liked {
@@ -429,7 +429,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return button
     }()
     
-    internal func sizeButtonPressed() {
+    @objc internal func sizeButtonPressed() {
         let alert = UIAlertController(title: "Choose size", message: "Please select a size", preferredStyle: .actionSheet)
         
         let completion = { (size: String) in
@@ -602,7 +602,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         return button
     }()
     
-    internal func viewBrand() {
+    @objc internal func viewBrand() {
         print("View brand!")
     }
     
@@ -778,7 +778,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         present(ccNavigationController, animated: true, completion: nil)
     }
     
-    func purchaseItem() {
+    @objc func purchaseItem() {
         
         guard product != nil else {
             print("Error <ProductViewController>: product was nil")
@@ -981,12 +981,12 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         label.layer.opacity = 0
         
         let attributes: NSDictionary = [
-            NSFontAttributeName:UIFont.LatoBoldSmall(),
-            NSForegroundColorAttributeName:UIColor(white: 1.0, alpha: 0.7),
-            NSKernAttributeName:CGFloat(2.0)
+            NSAttributedStringKey.font:UIFont.LatoBoldSmall(),
+            NSAttributedStringKey.foregroundColor:UIColor(white: 1.0, alpha: 0.7),
+            NSAttributedStringKey.kern:CGFloat(2.0)
         ]
         
-        let attributedTitle = NSAttributedString(string: "Release to return to feed".uppercased(), attributes: attributes as? [String : AnyObject])
+        let attributedTitle = NSAttributedString(string: "Release to return to feed".uppercased(), attributes: attributes as? [NSAttributedStringKey : Any])
         
         label.attributedText = attributedTitle
         label.sizeToFit()
@@ -1051,7 +1051,7 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         }
     }
     
-    internal func closeView() {
+    @objc internal func closeView() {
         let imageFrame = mainImageView.frame
         
         self.delegate?.transitionToCell(fromImageFrame: imageFrame) {

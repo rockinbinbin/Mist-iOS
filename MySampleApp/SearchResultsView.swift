@@ -31,10 +31,10 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
             self.init()
             
             let attributes = [
-                NSFontAttributeName: UIFont.LatoBoldSmall(),
-                NSKernAttributeName: 2.0,
-                NSForegroundColorAttributeName: UIColor.black
-            ] as [String : Any]
+                NSAttributedStringKey.font.rawValue: UIFont.LatoBoldSmall(),
+                NSAttributedStringKey.kern: 2.0,
+                NSAttributedStringKey.foregroundColor: UIColor.black
+            ] as! [NSAttributedStringKey : Any]
 
             attributedText = NSAttributedString(string: title, attributes: attributes)
         }
@@ -81,11 +81,11 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         let blueRange = NSMakeRange(greySection.count, title.count - greySection.count)
         
         var attributedTitle = NSMutableAttributedString(string: title, attributes: [
-            NSFontAttributeName: UIFont.LatoRegularMedium()
+            NSAttributedStringKey.font: UIFont.LatoRegularMedium()
             ])
         
-        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: grey, range: greyRange)
-        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.DoneBlue(), range: blueRange)
+        attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor, value: grey, range: greyRange)
+        attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.DoneBlue(), range: blueRange)
         
         button.setAttributedTitle(attributedTitle, for: UIControlState())
         
@@ -281,7 +281,7 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
     
     // MARK: - Contact
     
-    func showEmailSuggestionTemplate() {
+    @objc func showEmailSuggestionTemplate() {
         print("Show email suggestion template")
     }
     

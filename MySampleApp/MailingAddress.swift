@@ -72,12 +72,12 @@ class MailingAddress: NSObject {
         query?.limit = 1
 
         AWSDynamoDB.default().query(query!).continue({ (task: AWSTask) -> AnyObject? in
-            guard let taskResult = task.result, (taskResult as! AWSDynamoDBQueryOutput).count! != 0 else {
+            guard let taskResult = task.result, (taskResult ).count! != 0 else {
                 completion?(false)
                 return nil
             }
             
-            let result = ((taskResult as! AWSDynamoDBQueryOutput).items![0])
+            let result = ((taskResult ).items![0])
             
             let name: String = result["name"]!.s!
             let street: String = result["street"]!.s!

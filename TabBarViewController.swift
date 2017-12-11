@@ -21,11 +21,11 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         self.navigationController?.isNavigationBarHidden = true
 
         let tabOne = UINavigationController(rootViewController: FeedViewController())
-        let tabOneBarItem = UITabBarItem(title: "Browse", image: UIImage(named: "defaultImage.png"), selectedImage: UIImage(named: ""))
+        let tabOneBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "defaultImage.png"), selectedImage: UIImage(named: ""))
         tabOne.tabBarItem = tabOneBarItem
 
         let tabTwo = UINavigationController(rootViewController: StartViewController())
-        let tabTwoBarItem = UITabBarItem(title: "Check In", image: UIImage(named: "defaultImage.png"), selectedImage: UIImage(named: ""))
+        let tabTwoBarItem = UITabBarItem(title: "Trips", image: UIImage(named: "defaultImage.png"), selectedImage: UIImage(named: ""))
 
         tabOne.tabBarItem = tabOneBarItem
         tabTwo.tabBarItem = tabTwoBarItem

@@ -53,19 +53,19 @@ class BuyButton: UIButton {
         
         // Customize title string
         var offset = 0
-        attrString.addAttributes([NSFontAttributeName: UIFont.LatoBoldSmall()], range: NSMakeRange(0, "BUY".count))
+        attrString.addAttributes([NSAttributedStringKey.font: UIFont.LatoBoldSmall()], range: NSMakeRange(0, "BUY".count))
         offset += "BUY".count
-        attrString.addAttributes([NSFontAttributeName: UIFont.LatoLightItalicSmall()], range: NSMakeRange(offset, " for ".count))
+        attrString.addAttributes([NSAttributedStringKey.font: UIFont.LatoLightItalicSmall()], range: NSMakeRange(offset, " for ".count))
         offset += " for ".count
-        attrString.addAttributes([NSFontAttributeName: UIFont.LatoBoldSmall()], range: NSMakeRange(offset, title.count - offset))
+        attrString.addAttributes([NSAttributedStringKey.font: UIFont.LatoBoldSmall()], range: NSMakeRange(offset, title.count - offset))
         
-        attrString.addAttributes([NSKernAttributeName: 1.5], range: NSMakeRange(0, title.count))
+        attrString.addAttributes([NSAttributedStringKey.kern: 1.5], range: NSMakeRange(0, title.count))
 
-        attrString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: NSMakeRange(0, title.count))
+        attrString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.lightGray], range: NSMakeRange(0, title.count))
         setAttributedTitle(attrString, for: .selected)
         
         let normalAttrString = attrString
-        normalAttrString.addAttributes([NSForegroundColorAttributeName: UIColor.white], range: NSMakeRange(0, title.count))
+        normalAttrString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], range: NSMakeRange(0, title.count))
         setAttributedTitle(normalAttrString, for: UIControlState())
     }
 }
