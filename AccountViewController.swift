@@ -193,7 +193,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let accountLabel = UILabel()
         accountLabel.font = UIFont.LatoRegularMedium()
         accountLabel.textColor = UIColor.white
-//        let emailStr = PFUser.currentUser()?.objectForKey("email") as! String
         let emailStr = "robinmehta94@gmail.com"
         let attributedString = NSMutableAttributedString(string: emailStr)
         attributedString.addAttribute(NSAttributedStringKey.kern, value: CGFloat(0), range: NSRange(location: 0, length: emailStr.count))
@@ -241,7 +240,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             decorateLabel.textAlignment = .center
             decorateLabel.lineBreakMode = .byWordWrapping
             decorateLabel.numberOfLines = 0
-            let attrString = NSMutableAttributedString(string: "Alpaca Sweater")
+            let attrString = NSMutableAttributedString(string: "Daypack1")
             attrString.addAttribute(NSAttributedStringKey.kern, value: 1, range: NSMakeRange(0, attrString.length))
             attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
             decorateLabel.attributedText = attrString
@@ -277,17 +276,14 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     internal func setImages(_ images: NSArray) {
         var productImageView : UIImageView
         var productGifView : FLAnimatedImageView
-        
         let numImages = CGFloat(images.count)
         
         // + 20 is for padding on left side
         purchasesScrollView.contentSize = CGSize(width: 210 * numImages + 20, height: 200)
         
         var count = 0
-        
         for image in images {
             if let img = image as? UIImage {
-                // image
                 productImageView = UIImageView(image: img)
                 let floatCount = CGFloat(count)
                 // + 20 is for padding on left side
@@ -429,13 +425,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc func logOffPressed() {
         if (FBSDKAccessToken.current() != nil) {
             FBSDKAccessToken.setCurrent(nil)
-            
             self.layoutNotLoggedInView()
         }
     }
     
     @objc func learnMorePressed() {
-        // push new info guide vc 
         self.navigationController?.pushViewController(SustainabilityGuideViewController(), animated: true)
         
     }
@@ -466,7 +460,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         sendMailErrorAlert.show()
     }
     
-    // MARK: MFMailComposeViewControllerDelegate Method
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }

@@ -11,19 +11,6 @@ import PureLayout
 
 // grab product data from productviewcontroller
 
-extension UIImageView{
-    
-    func makeBlurImage(_ targetImageView:UIImageView?) {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = targetImageView!.bounds
-        
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
-        targetImageView?.addSubview(blurEffectView)
-    }
-    
-}
-
 class PurchaseConfirmedViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -33,7 +20,6 @@ class PurchaseConfirmedViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.prefersStatusBarHidden // not working. TODO: fix it
         setViewConstraints()
     }
 
@@ -120,10 +106,7 @@ class PurchaseConfirmedViewController: UIViewController {
     
     var mainImage: UIImage? = nil {
         didSet {
-            guard let image = mainImage else {
-                return
-            }
-            
+            guard let image = mainImage else {return}
             mainImageView.image = image
             backgroundImageView.image = image
             imageHeight = (image.size.height / image.size.width) * self.view.frame.size.width
@@ -133,60 +116,35 @@ class PurchaseConfirmedViewController: UIViewController {
     
     internal lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.numberOfLines = 0
-        titleLabel.text = "Forever grateful."
-        titleLabel.font = UIFont.LatoRegularMedium()
+        titleLabel.styleMediumWhiteLabel("Forever grateful.")
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
     
     internal lazy var subtitleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.numberOfLines = 0
-        titleLabel.text = "Look out for a package made with love ❤️"
-        titleLabel.font = UIFont.LatoRegularSmall()
+        titleLabel.styleSmallWhiteLabel("Look out for a package made with love ❤️")
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
     
     internal lazy var shipLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.numberOfLines = 0
-        titleLabel.text = "Ships in 2 - 4 business days"
-        titleLabel.font = UIFont.LatoRegularSmall()
+        titleLabel.styleSmallWhiteLabel("Ships in 2 - 4 business days")
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
     
     internal lazy var returnLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.numberOfLines = 0
-        titleLabel.text = "Return free for 14 days"
-        titleLabel.font = UIFont.LatoRegularSmall()
+        titleLabel.styleSmallWhiteLabel("Return free for 14 days")
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
     
     internal lazy var shareLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.numberOfLines = 0
-        titleLabel.text = "Show & Tell! 🙈"
-        titleLabel.font = UIFont.LatoRegularSmall()
+        titleLabel.styleSmallWhiteLabel("Show & Tell! 🙈")
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -199,12 +157,7 @@ class PurchaseConfirmedViewController: UIViewController {
     
     internal lazy var subShareLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.numberOfLines = 0
-        titleLabel.text = "...for a chance to win Mist’s surprise box! ✨💫"
-        titleLabel.font = UIFont.LatoRegularSmall()
+        titleLabel.styleSmallWhiteLabel("...for a chance to win Mist’s surprise box! ✨💫")
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -213,14 +166,10 @@ class PurchaseConfirmedViewController: UIViewController {
         let returnButton = UIButton(type: .roundedRect)
         returnButton.tintColor = UIColor.white
         returnButton.backgroundColor = UIColor.PrettyBlue()
-        
         let attrString = NSMutableAttributedString(string: "RETURN TO FEED")
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 2, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
-        
+        attrString.styleText("RETURN TO FEED")
         returnButton.setAttributedTitle(attrString, for: UIControlState())
         self.view.addSubview(returnButton)
-        
         returnButton.addTarget(self, action: #selector(PurchaseConfirmedViewController.returnToFeedPressed), for: .touchUpInside)
         return returnButton
     }()
@@ -290,20 +239,20 @@ class PurchaseConfirmedViewController: UIViewController {
         
 
         shareButton.positionAboveItem(returnButton, offset: 40)
-        shareView.centerInSuperview()
-        shareView.sizeToWidth(130)
-        shareView.sizeToHeight(50)
+        shareView.autoAlignAxis(toSuperviewAxis: .horizontal)
+        shareView.autoAlignAxis(toSuperviewAxis: .vertical)
+        shareView.autoSetDimensions(to: CGSize(width: 130, height: 50))
         shareView.isUserInteractionEnabled = false
         
         shareView.addSubview(shareImageView)
-        shareImageView.pinToLeftEdgeOfSuperview()
-        shareImageView.centerVerticallyInSuperview()
+        shareImageView.autoPinEdge(toSuperviewEdge: .left)
+        shareImageView.autoAlignAxis(toSuperviewAxis: .horizontal)
         shareView.addSubview(shareLabel)
         shareLabel.positionToTheRightOfItem(shareImageView, offset: 10)
-        shareLabel.centerVerticallyInSuperview()
+        shareLabel.autoAlignAxis(toSuperviewAxis: .horizontal)
         shareView.sizeToFit()
-        
-        subShareLabel.centerHorizontallyInSuperview()
+
+        subShareLabel.autoAlignAxis(toSuperviewAxis: .vertical)
         subShareLabel.positionBelowItem(shareView, offset: 5)
     }
     
@@ -334,14 +283,13 @@ class PurchaseConfirmedViewController: UIViewController {
         
         if (imageView?.image != nil) {
             imageView?.addSubview(bottomView)
-            bottomView.pinToBottomEdgeOfSuperview()
-            bottomView.pinToLeftEdgeOfSuperview()
-            bottomView.pinToRightEdgeOfSuperview()
-            bottomView.sizeToHeight(30)
-            
+            bottomView.autoPinEdge(toSuperviewEdge: .bottom)
+            bottomView.autoPinEdge(toSuperviewEdge: .left)
+            bottomView.autoPinEdge(toSuperviewEdge: .right)
+            bottomView.autoSetDimension(.height, toSize: 30)
             bottomView.addSubview(decorateLabel)
-            decorateLabel.pinToLeftEdgeOfSuperview(offset: 10)
-            decorateLabel.centerVerticallyInSuperview()
+            decorateLabel.autoPinEdge(.left, to: .left, of: bottomView, withOffset: 10)
+            decorateLabel.autoAlignAxis(toSuperviewAxis: .horizontal)
         }
     }
 

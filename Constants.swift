@@ -99,6 +99,19 @@ extension UILabel {
         self.attributedText = attrString
         self.font = UIFont.LatoRegularSmall()
     }
+
+    func styleSmallWhiteLabel(_ str: String) {
+        self.textColor = UIColor.white
+        self.textAlignment = .center
+        self.lineBreakMode = .byWordWrapping
+        self.numberOfLines = 0
+        self.text = str
+        self.font = UIFont.LatoRegularSmall()
+    }
+
+    func styleMediumWhiteLabel(_ str: String) {
+        self.font = UIFont.LatoRegularMedium()
+    }
 }
 
 extension NSMutableAttributedString {
@@ -149,6 +162,16 @@ extension UINavigationBar {
         self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 0.0
+    }
+}
+
+extension UIImageView{
+    func makeBlurImage(_ targetImageView:UIImageView?) {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = targetImageView!.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        targetImageView?.addSubview(blurEffectView)
     }
 }
 
