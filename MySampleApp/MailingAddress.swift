@@ -176,7 +176,7 @@ func validZipCode(_ zipCode: String) -> Bool {
     
     do {
         let regex = try NSRegularExpression(pattern: zipRegex, options: [.caseInsensitive])
-        let result = regex.firstMatch(in: zipCode, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, zipCode.characters.count))
+        let result = regex.firstMatch(in: zipCode, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, zipCode.count))
         
         if (result != nil) {
             return true

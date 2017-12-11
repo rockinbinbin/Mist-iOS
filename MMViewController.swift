@@ -55,15 +55,15 @@ class MMViewController: UIViewController {
 
             attributedBarButtonBackStr.addAttribute(NSFontAttributeName,
                                                     value: UIFont.LatoBoldSmall(),
-                                                    range: NSRange(location:0, length: title.characters.count))
+                                                    range: NSRange(location:0, length: title.count))
 
             attributedBarButtonBackStr.addAttribute(NSKernAttributeName,
                                                     value: 3.0,
-                                                    range: NSRange(location:0, length: title.characters.count))
+                                                    range: NSRange(location:0, length: title.count))
             
             attributedBarButtonBackStr.addAttribute(NSForegroundColorAttributeName,
                                                     value: buttonColor!,
-                                                    range: NSRange(location:0, length: title.characters.count))
+                                                    range: NSRange(location:0, length: title.count))
             
             let button = UIButton()
             button.setAttributedTitle(attributedBarButtonBackStr, for: UIControlState())

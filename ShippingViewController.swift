@@ -32,7 +32,7 @@ class ShippingViewController: UIViewController, UITableViewDataSource, UITableVi
         newAddressButton.titleLabel!.textColor = UIColor.white
   
         let attributedString = NSMutableAttributedString(string: "ENTER NEW ADDRESS")
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "ENTER NEW ADDRESS".characters.count))
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "ENTER NEW ADDRESS".count))
         newAddressButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(newAddressButton)

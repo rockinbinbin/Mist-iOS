@@ -185,9 +185,9 @@ class ProductViewController: UIViewController, PKPaymentAuthorizationViewControl
         
         string.addAttribute(NSForegroundColorAttributeName, value: UIColor(white: 210/255.0, alpha: 1), range: NSMakeRange(0, string.length))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, "by ".characters.count))
+        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, "by ".count))
         
-        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange("by ".characters.count, name.characters.count))
+        string.addAttribute(NSFontAttributeName, value: UIFont.LatoRegularSmall(), range: NSMakeRange("by ".count, name.count))
         
         byCompanyLabel.attributedText = string
         

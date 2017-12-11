@@ -162,7 +162,7 @@ class PaymentInformationViewController: UIViewController, UITextFieldDelegate {
         doneButton.titleLabel!.textColor = UIColor.white
         
         let attributedString = NSMutableAttributedString(string: "DONE")
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "DONE".characters.count))
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "DONE".count))
         doneButton.setAttributedTitle(attributedString, for: UIControlState())
         
         self.view.addSubview(doneButton)

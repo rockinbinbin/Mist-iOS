@@ -75,10 +75,10 @@ class SearchResultsView: UIView, SearchResultProductViewDelegate, SearchResultBr
         let greySection = "Have a product suggestion? "
         
         let grey = UIColor(white: 0.64, alpha: 1.0)
-        let greyRange = NSMakeRange(0, greySection.characters.count)
+        let greyRange = NSMakeRange(0, greySection.count)
         
         let blue = UIColor.DoneBlue()
-        let blueRange = NSMakeRange(greySection.characters.count, title.characters.count - greySection.characters.count)
+        let blueRange = NSMakeRange(greySection.count, title.count - greySection.count)
         
         var attributedTitle = NSMutableAttributedString(string: title, attributes: [
             NSFontAttributeName: UIFont.LatoRegularMedium()

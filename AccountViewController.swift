@@ -106,7 +106,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         favoritesLabel.font = UIFont.LatoRegularMedium()
         favoritesLabel.textColor = UIColor.black
         let attributedString = NSMutableAttributedString(string: "FAVORITES")
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "FAVORITES".characters.count))
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(4), range: NSRange(location: 0, length: "FAVORITES".count))
         favoritesLabel.attributedText = attributedString
         
         favoritesView.addSubview(favoritesLabel)
@@ -258,40 +258,41 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 //        let emailStr = PFUser.currentUser()?.objectForKey("email") as! String
         let emailStr = "robinmehta94@gmail.com"
         let attributedString = NSMutableAttributedString(string: emailStr)
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(0), range: NSRange(location: 0, length: emailStr.characters.count))
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(0), range: NSRange(location: 0, length: emailStr.count))
         accountLabel.attributedText = attributedString
         
         headerView.addSubview(accountLabel)
         accountLabel.positionBelowItem(contactImg, offset: 18)
-        accountLabel.centerHorizontallyInSuperview()
-        
+        accountLabel.autoAlignAxis(toSuperviewAxis: .vertical)
+
         let waves = UIImageView(image: UIImage(named: "Account-Waves"))
         headerView.addSubview(waves)
-        waves.pinToBottomEdgeOfSuperview()
-        waves.pinToSideEdgesOfSuperview()
-        waves.sizeToHeight(33)
-        
+
+        waves.autoPinEdge(toSuperviewEdge: .bottom)
+        waves.autoPinEdge(toSuperviewEdge: .left)
+        waves.autoPinEdge(toSuperviewEdge: .right)
+        waves.autoSetDimension(.height, toSize: 33)
+
         tableView.positionBelowItem(headerView, offset: 20)
-        tableView.pinToLeftEdgeOfSuperview()
-        tableView.pinToRightEdgeOfSuperview()
-        tableView.sizeToHeight(150)
-        
+        tableView.autoPinEdge(toSuperviewEdge: .left)
+        tableView.autoPinEdge(toSuperviewEdge: .right)
+        tableView.autoSetDimension(.height, toSize: 150)
+
+        purchaseHistoryLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
         purchaseHistoryLabel.positionBelowItem(tableView, offset: 20)
-        purchaseHistoryLabel.pinToLeftEdgeOfSuperview(offset: 20)
-        
+
+        purchasesScrollView.autoPinEdge(toSuperviewEdge: .left)
+        purchasesScrollView.autoPinEdge(toSuperviewEdge: .right)
+        purchasesScrollView.autoSetDimensions(to: CGSize(width: self.view.frame.size.width, height: 200))
         purchasesScrollView.positionBelowItem(purchaseHistoryLabel, offset: 10)
-        purchasesScrollView.pinToLeftEdgeOfSuperview()
-        purchasesScrollView.pinToRightEdgeOfSuperview()
-        purchasesScrollView.sizeToWidth(self.view.frame.size.width)
-        purchasesScrollView.sizeToHeight(200)
         
         setImages(tempImages)
         
         logOffButton.positionBelowItem(purchasesScrollView, offset: 100)
-        logOffButton.centerHorizontallyInSuperview()
-        
+        logOffButton.autoAlignAxis(toSuperviewAxis: .vertical)
+
         learnMoreButton.positionBelowItem(logOffButton, offset: 100)
-        learnMoreButton.centerHorizontallyInSuperview()
+        learnMoreButton.autoAlignAxis(toSuperviewAxis: .vertical)
     }
     
     internal func decorateImage(_ imageView: UIImageView?, gifView: FLAnimatedImageView?) {
@@ -319,14 +320,16 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if (imageView?.image != nil) {
             imageView?.addSubview(bottomView)
-            bottomView.pinToBottomEdgeOfSuperview()
-            bottomView.pinToLeftEdgeOfSuperview()
-            bottomView.pinToRightEdgeOfSuperview()
-            bottomView.sizeToHeight(30)
+
+            bottomView.autoPinEdge(toSuperviewEdge: .bottom)
+            bottomView.autoPinEdge(toSuperviewEdge: .left)
+            bottomView.autoPinEdge(toSuperviewEdge: .right)
+            bottomView.autoSetDimension(.height, toSize: 30)
             
             bottomView.addSubview(decorateLabel)
-            decorateLabel.pinToLeftEdgeOfSuperview(offset: 10)
-            decorateLabel.centerVerticallyInSuperview()
+
+            decorateLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
+            decorateLabel.autoAlignAxis(toSuperviewAxis: .horizontal)
             
             imageView?.layer.borderWidth = 0.5
             imageView?.layer.borderColor = UIColor.lightGray.cgColor

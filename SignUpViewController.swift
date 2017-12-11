@@ -336,12 +336,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let email = emailTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
         // TODO: do some better validation here.
-        if (email?.characters.count)! < 5 {
+        if (email?.count)! < 5 {
             let alert = UIAlertView(title: "Oops!", message: "Please enter a valid email address", delegate: self, cancelButtonTitle: "OK")
             alert.show()
             return
         }
-        if (password?.characters.count)! < 5 {
+        if (password?.count)! < 5 {
             let alert = UIAlertView(title: "Oops!", message: "Password must be greater than 5 characters", delegate: self, cancelButtonTitle: "OK")
             alert.show()
             return
