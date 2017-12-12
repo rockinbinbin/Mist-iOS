@@ -120,6 +120,47 @@ extension UILabel {
     }
 }
 
+extension UITextField {
+    func styleEmailField(_ placeholder: String) {
+        let attributes = [
+            NSAttributedStringKey.foregroundColor: UIColor.DarkGray(),
+            NSAttributedStringKey.font : UIFont.LatoRegularMedium()
+        ]
+        let attrString = NSMutableAttributedString(string: placeholder, attributes:attributes)
+        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
+        self.attributedPlaceholder = attrString
+
+
+        self.translatesAutoresizingMaskIntoConstraints = false;
+        self.textColor = UIColor.DarkGray()
+        self.layer.cornerRadius = 8
+        self.backgroundColor = UIColor.white
+        self.alpha = 0.8
+        self.textAlignment = .left;
+        self.returnKeyType = .next
+        self.keyboardType = UIKeyboardType.emailAddress
+        self.autocorrectionType = .no
+    }
+
+    func stylePasswordField(_ placeholder: String) {
+        self.styleEmailField(placeholder)
+        self.isSecureTextEntry = true
+        self.returnKeyType = .done
+    }
+
+    func setLeftPaddingPoints(_ amount:CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
+
+    func setRightPaddingPoints(_ amount:CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.rightView = paddingView
+        self.rightViewMode = .always
+    }
+}
+
 extension NSMutableAttributedString {
     func styleText(_ str: String) {
         self.addAttribute(NSAttributedStringKey.kern, value: 1, range: NSMakeRange(0, str.count))

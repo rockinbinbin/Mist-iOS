@@ -16,11 +16,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     fileprivate lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
-        titleLabel.text = "MIST"
+        titleLabel.text = "DressPass"
         titleLabel.textAlignment = .center
-        // TODO: Fix this
         titleLabel.font = UIFont.LatoBoldMedium()
-        
         self.view.addSubview(titleLabel)
         return titleLabel
     }()
@@ -31,126 +29,57 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         return logoimageView
     }()
     
-    var keyboardUp = false
-    
     fileprivate lazy var signUpLabel: UILabel = {
         let signUpLabel = UILabel()
-        signUpLabel.textColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 5
-        
+        signUpLabel.textColor = UIColor.white
         let attrString = NSMutableAttributedString(string: "LOG IN")
-        attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
-        
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularMedium(), range: NSMakeRange(0, attrString.length))
-        
+        attrString.styleText("LOG IN")
         signUpLabel.attributedText = attrString
-        
         signUpLabel.textAlignment = .center
-        
         self.view.addSubview(signUpLabel)
         return signUpLabel
     }()
     
     internal lazy var emailTextField: UITextField = {
         let emailTextField = UITextField()
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false;
         emailTextField.delegate = self
-        emailTextField.textColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
-        
-        let attributes = [
-            NSAttributedStringKey.foregroundColor: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
-            NSAttributedStringKey.font : UIFont.LatoRegularMedium()
-        ]
-        
-        let attrString = NSMutableAttributedString(string: "EMAIL", attributes:attributes)
-        
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
-        
-        emailTextField.attributedPlaceholder = attrString
-        
-        emailTextField.layer.cornerRadius = 0
-        emailTextField.backgroundColor = UIColor.white
-        emailTextField.layer.borderWidth = 1
-        emailTextField.layer.borderColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0).cgColor
-        emailTextField.textAlignment = .center;
-        emailTextField.returnKeyType = .next
-        emailTextField.keyboardType = UIKeyboardType.emailAddress
-        emailTextField.autocorrectionType = .no
-        
+        emailTextField.styleEmailField("Email")
+
+        emailTextField.setLeftPaddingPoints(10)
+        emailTextField.setRightPaddingPoints(10)
         self.view.addSubview(emailTextField)
-        
         return emailTextField
     }()
     
     internal lazy var passwordTextField: UITextField = {
         let passwordTextField = UITextField()
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
         passwordTextField.delegate = self
-        passwordTextField.textColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
-        passwordTextField.isSecureTextEntry = true
-        
-        let attributes = [
-            NSAttributedStringKey.foregroundColor: UIColor(red: 0.424, green: 0.8, blue: 0.89, alpha: 1.0),
-            NSAttributedStringKey.font : UIFont.LatoRegularMedium()
-        ]
-        
-        let attrString = NSMutableAttributedString(string: "PASSWORD", attributes:attributes)
-        
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
-        
-        passwordTextField.attributedPlaceholder = attrString
-        
-        passwordTextField.layer.cornerRadius = 0
-        passwordTextField.backgroundColor = UIColor.white
-        passwordTextField.layer.borderWidth = 1
-        passwordTextField.layer.borderColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0).cgColor
-        passwordTextField.textAlignment = .center;
-        passwordTextField.returnKeyType = .done
-        passwordTextField.autocorrectionType = .no
-        
+        passwordTextField.stylePasswordField("Password")
+
+        passwordTextField.setLeftPaddingPoints(10)
+        passwordTextField.setRightPaddingPoints(10)
         self.view.addSubview(passwordTextField)
-        
         return passwordTextField
     }()
     
     fileprivate lazy var alreadyHaveAccountLabel: UILabel = {
         let alreadyHaveAccountLabel = UILabel()
-        alreadyHaveAccountLabel.textColor = UIColor.black
-        
+        alreadyHaveAccountLabel.textColor = UIColor.white
         let attrString = NSMutableAttributedString(string: "DON'T HAVE AN ACCOUNT?")
-        
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
-        
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
-        
+        attrString.styleText("DON'T HAVE AN ACCOUNT?")
         alreadyHaveAccountLabel.attributedText = attrString
-        
         alreadyHaveAccountLabel.textAlignment = .center
-        
         //self.view.addSubview(alreadyHaveAccountLabel)
         return alreadyHaveAccountLabel
     }()
     
     internal lazy var loginButton: UIButton = {
         let loginButton = UIButton(type: .roundedRect)
-        loginButton.layer.cornerRadius = 0
-        loginButton.backgroundColor = UIColor.white
-        loginButton.layer.borderWidth = 0
-        loginButton.layer.borderColor = UIColor.white.cgColor
-        loginButton.tintColor = UIColor(red: 0.047, green: 0.569, blue: 0.773, alpha: 1.0)
-        
+        loginButton.tintColor = UIColor.white
         let attrString = NSMutableAttributedString(string: "SIGN UP")
-        attrString.addAttribute(NSAttributedStringKey.kern, value: 1.5, range: NSMakeRange(0, attrString.length))
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, attrString.length))
-        
+        attrString.styleText("SIGN UP")
         loginButton.setAttributedTitle(attrString, for: UIControlState())
-        
         //self.view.addSubview(loginButton)
-        
         loginButton.addTarget(self, action: #selector(SignUpViewController.loginPressed), for: .touchUpInside)
         
         return loginButton
@@ -159,7 +88,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     internal lazy var loginFB: UIButton = {
         //        let loginFB = UIButton(type: .Custom)
-        let loginFB = CustomLoginButton()
+
+//        let loginFB = CustomLoginButton()
         //        let img = UIImage(named: "loginFB")
         //        loginFB.setImage(img, forState: .Normal)
         
@@ -199,7 +129,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     override internal func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        
+        self.setBackgroundGradient()
         self.navigationController?.isNavigationBarHidden = false
         setNavBar()
 
@@ -230,14 +160,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         letsGo.autoPinEdge(toSuperviewEdge: .bottom)
         letsGo.autoAlignAxis(toSuperviewAxis: .vertical)
         letsGo.autoSetDimensions(to: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height * 0.15))
-        
-        // Dismisses the keyboard if the user taps outside of the keyboard region.
-        let tap = UITapGestureRecognizer(target: self, action: #selector(SignInViewController.dismissKeyboard))
-        self.view.addGestureRecognizer(tap)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(SignInViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SignInViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
+    }
+
+    func setBackgroundGradient() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.createPlumGradient()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.layer.addSublayer(gradientLayer)
     }
     
     func setNavBar() {
@@ -258,47 +187,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         let doneButton = ProductBarButtonItem(title: "Back", actionTarget: self, actionSelector: #selector(SignInViewController.closePressed), buttonColor: UIColor.DoneBlue())
         
         self.navigationItem.leftBarButtonItem = doneButton
-    }
-    
-    // Dismisses the keyboard.
-    @objc func dismissKeyboard() {
-        self.view.endEditing(true)
-    }
-    
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if keyboardUp {
-            return
-        }
-        if let info = notification.userInfo {
-            let movementHeight = -(info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.size.height
-            UIView.beginAnimations("keyboardGoinUP", context: nil)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            UIView.setAnimationDuration(0.3)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
-            self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movementHeight + self.view.frame.size.height * 0.22)
-            keyboardUp = true
-        } else {
-            print("Error: No user info for keyboardWillShow")
-        }
-    }
-    
-    @objc func keyboardWillHide(_ notification: Notification) {
-        if !keyboardUp {
-            return
-        }
-        
-        if let info = notification.userInfo {
-            UIView.beginAnimations("keyboardGoinDOWN", context: nil)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            UIView.setAnimationDuration(0.3)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: (info[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).intValue)!)
-            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-            UIView.commitAnimations()
-            
-            keyboardUp = false
-        } else {
-            print("Error: No user info for keyboardWillShow")
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
