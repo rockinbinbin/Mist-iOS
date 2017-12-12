@@ -10,10 +10,12 @@
 
 #import "STPCategoryLoader.h"
 
-#import "NSArray+Stripe_BoundSafe.h"
+#import "NSArray+Stripe.h"
 #import "NSBundle+Stripe_AppName.h"
+#import "NSCharacterSet+Stripe.h"
 #import "NSDecimalNumber+Stripe_Currency.h"
 #import "NSDictionary+Stripe.h"
+#import "NSError+Stripe.h"
 #import "NSMutableURLRequest+Stripe.h"
 #import "NSString+Stripe.h"
 #import "NSURLComponents+Stripe.h"
@@ -21,6 +23,8 @@
 #import "PKPaymentAuthorizationViewController+Stripe_Blocks.h"
 #import "STPAPIClient+ApplePay.h"
 #import "STPAspects.h"
+#import "STPCustomer+SourceTuple.h"
+#import "StripeError.h"
 #import "UIBarButtonItem+Stripe.h"
 #import "UIImage+Stripe.h"
 #import "UINavigationBar+Stripe_Theme.h"
@@ -37,16 +41,19 @@
 
 + (void)loadCategories {
     linkAspectsCategory();
-    linkNSArrayBoundSafeCategory();
+    linkNSArrayCategory();
     linkNSBundleAppNameCategory();
     linkNSDecimalNumberCurrencyCategory();
     linkNSDictionaryCategory();
+    linkNSErrorCategory();
+    linkNSErrorPrivateCategory();
     linkNSMutableURLRequestCategory();
     linkNSStringCategory();
     linkNSURLComponentsCategory();
     linkPKPaymentAuthorizationViewControllerBlocksCategory();
     linkPKPaymentCategory();
     linkSTPAPIClientApplePayCategory();
+    linkSTPCustomerSourceTupleCategory();
     linkUIBarButtonItemCategory();
     linkUIImageCategory();
     linkUINavigationBarThemeCategory();
@@ -58,6 +65,7 @@
     linkUIViewControllerParentViewControllerCategory();
     linkUIViewControllerPromisesCategory();
     linkUIViewFirstResponderCategory();
+    linkNSCharacterSetCategory();
 }
 
 @end

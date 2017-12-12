@@ -97,6 +97,13 @@
                                                            [client setApiUsage:[client.apiUsage setByAddingObject:NSStringFromClass([STPShippingAddressViewController class])]];
                                                        } error:nil];
 
+        [STPCustomerContext stp_aspect_hookSelector:@selector(initWithKeyProvider:)
+                                        withOptions:STPAspectPositionAfter
+                                         usingBlock:^{
+                                             STPAnalyticsClient *client = [self sharedClient];
+                                             [client setApiUsage:[client.apiUsage setByAddingObject:NSStringFromClass([STPCustomerContext class])]];
+                                         } error:nil];
+
     });
 }
 
@@ -106,10 +113,6 @@
 #else
     return NSClassFromString(@"XCTest") == nil;
 #endif
-}
-
-+ (NSNumber *)timestampWithDate:(NSDate *)date {
-    return @((NSInteger)([date timeIntervalSince1970]*1000));
 }
 
 + (NSString *)tokenTypeFromParameters:(NSDictionary *)parameters {
@@ -149,15 +152,6 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(description)) ascending:YES];
     NSArray *additionalInfo = [self.additionalInfoSet sortedArrayUsingDescriptors:@[sortDescriptor]];
     return additionalInfo ?: @[];
-}
-
-- (void)logRememberMeConversion:(STPAddCardRememberMeUsage)selected {
-    NSMutableDictionary *payload = [self.class commonPayload];
-    [payload addEntriesFromDictionary:@{
-                                        @"event": @"stripeios.remember_me",
-                                        @"selected": @(selected),
-                                        }];
-    [self logPayload:payload];
 }
 
 - (NSArray *)productUsage {
@@ -214,36 +208,6 @@
                                         }];
     [payload addEntriesFromDictionary:[self productUsageDictionary]];
     [payload addEntriesFromDictionary:configurationDictionary];
-    [self logPayload:payload];
-}
-
-- (void)logRUMWithToken:(STPToken *)token
-          configuration:(STPPaymentConfiguration *)configuration
-               response:(NSHTTPURLResponse *)response
-                  start:(NSDate *)startTime
-                    end:(NSDate *)endTime {
-    NSString *tokenTypeString = @"unknown";
-    if (token.bankAccount) {
-        tokenTypeString = @"bank_account";
-    } else if (token.card) {
-        if (token.card.isApplePayCard) {
-            tokenTypeString = @"apple_pay";
-        } else {
-            tokenTypeString = @"card";
-        }
-    }
-    NSNumber *start = [[self class] timestampWithDate:startTime];
-    NSNumber *end = [[self class] timestampWithDate:endTime];
-    NSMutableDictionary *payload = [self.class commonPayload];
-    [payload addEntriesFromDictionary:@{
-                                        @"event": @"rum.stripeios",
-                                        @"tokenType": tokenTypeString,
-                                        @"url": response.URL.absoluteString ?: @"unknown",
-                                        @"status": @(response.statusCode),
-                                        @"publishable_key": configuration.publishableKey ?: @"unknown",
-                                        @"start": start,
-                                        @"end": end,
-                                        }];
     [self logPayload:payload];
 }
 
@@ -311,7 +275,6 @@
     }
     dictionary[@"company_name"] = configuration.companyName ?: @"unknown";
     dictionary[@"apple_merchant_identifier"] = configuration.appleMerchantIdentifier ?: @"unknown";
-    dictionary[@"sms_autofill_disabled"] = @(configuration.smsAutofillDisabled);
     return [dictionary copy];
 }
 
