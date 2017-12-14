@@ -28,6 +28,9 @@ public extension UIColor {
     class func DarkGray() -> UIColor {
         return UIColor(red:0.18, green:0.18, blue:0.18, alpha:1.0)
     }
+    class func DarkPurple() -> UIColor {
+        return UIColor(red:0.22, green:0.13, blue:0.42, alpha:1.0)
+    }
 }
 
 public extension UIFont {
@@ -212,13 +215,27 @@ extension UINavigationBar {
     }
 }
 
-extension UIImageView{
+extension UIImageView {
     func makeBlurImage(_ targetImageView:UIImageView?) {
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = targetImageView!.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         targetImageView?.addSubview(blurEffectView)
+    }
+
+    func rotateImages( index: Int, imageArray: [UIImage]) {
+        var index = index
+        if (index >= imageArray.count) {
+            index = 0
+        }
+        UIView.transition(with: self,
+                          duration:5,
+                          options: UIViewAnimationOptions.transitionCrossDissolve,
+                          animations: { self.image = imageArray[index] },
+                          completion: { (success) in
+                            self.rotateImages(index: index, imageArray: imageArray) })
+        index += 1
     }
 }
 
