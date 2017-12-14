@@ -59,22 +59,14 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     internal lazy var signInButton: UIButton = {
         let signInButton = UIButton(type: .roundedRect)
-        signInButton.tintColor = UIColor.white
-        let attrString = NSMutableAttributedString(string: "SIGN IN")
-        attrString.styleText("SIGN IN")
-        signInButton.setAttributedTitle(attrString, for: UIControlState())
-        self.view.addSubview(signInButton)
+        signInButton.styleButton(self.view, str: "SIGN IN", color: UIColor.DarkPurple(), font: UIFont.LatoBoldMedium())
         signInButton.addTarget(self, action: #selector(AccountViewController.signInPressed), for: .touchUpInside)
         return signInButton
     }()
     
     internal lazy var signUpButton: UIButton = {
         let signUpButton = UIButton(type: .roundedRect)
-        signUpButton.tintColor = UIColor.white
-        let attrString = NSMutableAttributedString(string: "SIGN UP")
-        attrString.styleText("SIGN UP")
-        signUpButton.setAttributedTitle(attrString, for: UIControlState())
-        self.view.addSubview(signUpButton)
+        signUpButton.styleButton(self.view, str: "SIGN UP", color: UIColor.DarkPurple(), font: UIFont.LatoBoldMedium())
         signUpButton.addTarget(self, action: #selector(AccountViewController.signUpPressed), for: .touchUpInside)
         return signUpButton
     }()
@@ -109,16 +101,14 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     internal lazy var logOffButton: UIButton = {
         let logOffButton = UIButton(type: .roundedRect)
-        logOffButton.styleButton("LOG OFF")
-        self.scrollView.addSubview(logOffButton)
+        logOffButton.styleButton(self.scrollView, str: "LOG OFF", color: UIColor.DarkPurple(), font: UIFont.LatoBoldMedium())
         logOffButton.addTarget(self, action: #selector(AccountViewController.logOffPressed), for: .touchUpInside)
         return logOffButton
     }()
     
     internal lazy var learnMoreButton: UIButton = {
         let learnMoreButton = UIButton(type: .roundedRect)
-        learnMoreButton.styleButton("LEARN MORE")
-        self.scrollView.addSubview(learnMoreButton)
+        learnMoreButton.styleButton(self.scrollView, str: "LEARN MORE", color: UIColor.DarkPurple(), font: UIFont.LatoBoldMedium())
         learnMoreButton.addTarget(self, action: #selector(AccountViewController.learnMorePressed), for: .touchUpInside)
         return learnMoreButton
     }()
@@ -158,17 +148,9 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         newView.autoPinEdgesToSuperviewEdges()
         newView.autoSetDimensions(to: self.view.frame.size)
 
-        carouselImageView.contentMode = .scaleAspectFill
-        newView.addSubview(carouselImageView)
-        carouselImageView.autoPinEdgesToSuperviewEdges()
-        carouselImageView.autoSetDimensions(to: self.view.frame.size)
+        carouselImageView.makeBackground(ofView: newView)
         carouselImageView.rotateImages(index: 0, imageArray: imageArray)
-
-        let blackLayer = CALayer()
-        blackLayer.backgroundColor = UIColor.white.cgColor
-        blackLayer.opacity = 0.5
-        carouselImageView.layer.addSublayer(blackLayer)
-        blackLayer.frame = carouselImageView.frame
+        carouselImageView.makeTopLayer(color: UIColor.white, opacity: 0.5)
 
         signInButton.autoAlignAxis(toSuperviewAxis: .vertical)
         signInButton.autoAlignAxis(.horizontal, toSameAxisOf: self.view, withOffset: -20)

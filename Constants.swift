@@ -165,18 +165,28 @@ extension UITextField {
 }
 
 extension NSMutableAttributedString {
-    func styleText(_ str: String) {
+    func styleText(_ str: String, font: UIFont = UIFont.LatoRegularSmall()) {
         self.addAttribute(NSAttributedStringKey.kern, value: 1, range: NSMakeRange(0, str.count))
-        self.addAttribute(NSAttributedStringKey.font, value: UIFont.LatoRegularSmall(), range: NSMakeRange(0, str.count))
+        self.addAttribute(NSAttributedStringKey.font, value: font, range: NSMakeRange(0, str.count))
     }
 }
 
 extension UIButton {
-    func styleButton(_ str: String) {
-        self.layer.cornerRadius = 0
-        self.tintColor = UIColor.black
-        self.titleLabel?.font = UIFont.LatoRegularMedium()
-        self.setTitle(str, for: UIControlState())
+    func styleButton(_ view: UIView, str: String, color: UIColor, font: UIFont, tintColor: UIColor = UIColor.white) {
+        // Variable styles
+        self.backgroundColor = color
+        self.tintColor = tintColor
+        self.titleLabel?.font = font
+        let attrString = NSMutableAttributedString(string: str)
+        // Fixed styles
+        self.layer.cornerRadius = 8
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 2
+        attrString.styleText(str, font: font)
+        self.setAttributedTitle(attrString, for: UIControlState())
+
+        view.addSubview(self)
+        self.autoSetDimensions(to: CGSize(width: view.frame.size.width - 50, height: 50))
     }
 }
 
@@ -224,7 +234,7 @@ extension UIImageView {
         targetImageView?.addSubview(blurEffectView)
     }
 
-    func rotateImages( index: Int, imageArray: [UIImage]) {
+    func rotateImages(index: Int, imageArray: [UIImage]) {
         var index = index
         if (index >= imageArray.count) {
             index = 0
@@ -236,6 +246,21 @@ extension UIImageView {
                           completion: { (success) in
                             self.rotateImages(index: index, imageArray: imageArray) })
         index += 1
+    }
+
+    func makeBackground(ofView: UIView) {
+        self.contentMode = .scaleAspectFill
+        ofView.addSubview(self)
+        self.autoPinEdgesToSuperviewEdges()
+        self.autoSetDimensions(to: ofView.frame.size)
+    }
+
+    func makeTopLayer(color: UIColor, opacity: Float) {
+        let layer = CALayer()
+        layer.backgroundColor = color.cgColor
+        layer.opacity = 0.5
+        self.layer.addSublayer(layer)
+        layer.frame = self.frame
     }
 }
 
