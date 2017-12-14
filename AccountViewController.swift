@@ -149,10 +149,43 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(animated)
         (FBSDKAccessToken.current() != nil) ? self.layoutViews() : self.layoutNotLoggedInView()
     }
+
+    let carouselImageView = UIImageView(image: UIImage(named: "1.jpg"))
+    var index = 0
+    let imageArray = [UIImage(named: "main.jpg"), UIImage(named: "2.jpg"), UIImage(named: "3.jpg"), UIImage(named: "4.jpg"), UIImage(named: "5.jpg"), UIImage(named: "6.jpg"), UIImage(named: "7.jpg"), UIImage(named: "8.jpg"), UIImage(named: "9.jpg")]
+    
+    func loadImage(){
+        if (index >= imageArray.count) {
+            index = 0
+        }
+        UIView.transition(with: self.carouselImageView,
+                                  duration:5,
+                                  options: UIViewAnimationOptions.transitionCrossDissolve,
+                                  animations: { self.carouselImageView.image = self.imageArray[self.index] },
+                                  completion: { (success) in
+                                    self.loadImage() })
+        index += 1
+    }
     
     func layoutNotLoggedInView() {
         newView.autoPinEdgesToSuperviewEdges()
         newView.autoSetDimensions(to: self.view.frame.size)
+
+        carouselImageView.contentMode = .scaleAspectFill
+        newView.addSubview(carouselImageView)
+        carouselImageView.autoPinEdgesToSuperviewEdges()
+        carouselImageView.autoSetDimensions(to: self.view.frame.size)
+
+        loadImage()
+
+//        var timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: Selector(("loadImage")), userInfo: nil, repeats: true)
+
+        let blackLayer = CALayer()
+        blackLayer.backgroundColor = UIColor.white.cgColor
+        blackLayer.opacity = 0.5
+        carouselImageView.layer.addSublayer(blackLayer)
+        blackLayer.frame = carouselImageView.frame
+
         signInButton.autoAlignAxis(toSuperviewAxis: .vertical)
         signInButton.autoAlignAxis(.horizontal, toSameAxisOf: self.view, withOffset: -20)
         signUpButton.autoAlignAxis(toSuperviewAxis: .vertical)
