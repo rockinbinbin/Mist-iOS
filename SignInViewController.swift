@@ -87,16 +87,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     
     internal lazy var loginFB: UIButton = {
-        //        let loginFB = UIButton(type: .Custom)
-
+        let loginFB = UIButton(type: .custom)
 //        let loginFB = CustomLoginButton()
         //        let img = UIImage(named: "loginFB")
         //        loginFB.setImage(img, forState: .Normal)
         
-        loginFB.addTarget(self, action: #selector(SignInViewController.FBLoginPressed(_:)), for: .touchUpInside)
+//        loginFB.addTarget(self, action: #selector(SignInViewController.FBLoginPressed(_:)), for: .touchUpInside)
         self.view.addSubview(loginFB)
-        
-        
         return loginFB
     }()
     
